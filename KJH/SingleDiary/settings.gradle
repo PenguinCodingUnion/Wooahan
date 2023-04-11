@@ -10,6 +10,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://jitpack.id' }
+        jcenter()
     }
 }
 rootProject.name = "SingleDiary"
