@@ -9,8 +9,8 @@ export const Main = (props) => {
 }
 
 Main.propTypes = {
-  second: PropTypes.third
-}
+  // second: PropTypes.third
+};
 
 const mapStateToProps = (state) => ({})
 

@@ -9,8 +9,8 @@ export const GameBubble = (props) => {
 }
 
 GameBubble.propTypes = {
-  second: PropTypes.third
-}
+  // second: PropTypes.third
+};
 
 const mapStateToProps = (state) => ({})
 

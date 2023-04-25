@@ -9,8 +9,8 @@ export const GameTrain = (props) => {
 }
 
 GameTrain.propTypes = {
-  second: PropTypes.third
-}
+  // second: PropTypes.third
+};
 
 const mapStateToProps = (state) => ({})
 
