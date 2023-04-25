@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "../App";
-import GameJump from "../pages/GameJump";
-import Main from "../pages/Main";
+import App from "App";
+import GameJump from "pages/GameJump";
+import Main from "pages/Main";
 
 const route = createBrowserRouter([
   {
