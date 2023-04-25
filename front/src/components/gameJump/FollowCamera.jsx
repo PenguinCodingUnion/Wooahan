@@ -4,7 +4,12 @@ import { useEffect, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { PerspectiveCamera } from "@react-three/drei";
 
-const FollowCamera = ({ target, distance = 120, height = 35 }) => {
+const FollowCamera = ({
+  target,
+  distance = 120,
+  height = 35,
+  viewFace = 20,
+}) => {
   const cameraRef = useRef();
   const { invalidate } = useThree();
 
@@ -18,6 +23,7 @@ const FollowCamera = ({ target, distance = 120, height = 35 }) => {
     const newPosition = target.current.position.clone();
     newPosition.y += height;
     newPosition.z += distance;
+    newPosition.x += viewFace;
 
     cameraRef.current.position.lerp(newPosition, 0.1);
     cameraRef.current.lookAt(target.current.position);
@@ -31,6 +37,7 @@ FollowCamera.propTypes = {
   target: PropTypes.object.isRequired,
   distance: PropTypes.number,
   height: PropTypes.number,
+  viewFace: PropTypes.number,
 };
 
 const mapStateToProps = (state) => ({});

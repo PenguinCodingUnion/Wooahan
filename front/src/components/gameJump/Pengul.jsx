@@ -1,12 +1,12 @@
 import React, { forwardRef, useEffect, useRef, useState } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
-import PengulE from "assets/models/PENGUL.gltf";
+import PengulE from "assets/models/PENGUL_v2.gltf";
 import { useFrame } from "@react-three/fiber";
 
 const ANIMATIONS = ["t-pose", "idle", "jumping", "walk"];
 
 export const PengulModel = forwardRef((props, ref) => {
-  // const group = useRef();
+  const isJumping = useRef(false);
   const { nodes, materials, animations } = useGLTF(PengulE);
   const { actions, names } = useAnimations(animations, ref);
 
@@ -16,10 +16,12 @@ export const PengulModel = forwardRef((props, ref) => {
   useEffect(() => {
     window.addEventListener(`keydown`, (e) => {
       e.preventDefault();
-      if (e.code === `Space`) {
+      if (isJumping.current === false && e.code === `Space`) {
+        isJumping.current = true;
         setActiveAnimation(2);
         setTimeout(() => {
           setActiveAnimation(3);
+          isJumping.current = false;
         }, 1600);
       }
     });

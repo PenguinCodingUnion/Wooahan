@@ -10,7 +10,7 @@ export const GameJump = (props) => {
   const character = useRef();
 
   return (
-    <div className="mx-auto">
+    <div className="mx-auto h-screen">
       <Canvas>
         <FallowCamera target={character} />
         <PengulModel ref={character} />
