@@ -1,10 +1,17 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
+import Header from '../components/main/Header'
+import Carousel from '../components/main/Carousel'
 
 export const Main = (props) => {
   return (
-    <div>Main</div>
+    <div>
+      <Header />
+      <h2>hi</h2>
+
+      <Carousel />
+    </div>
   )
 }
 
