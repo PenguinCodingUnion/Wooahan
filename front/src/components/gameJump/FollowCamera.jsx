@@ -2,13 +2,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { useEffect, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { PerspectiveCamera } from "@react-three/drei";
+import { OrthographicCamera } from "@react-three/drei";
 
 const FollowCamera = ({
   target,
   distance = 120,
-  height = 35,
-  viewFace = 20,
+  height = 55,
+  viewFace = 0,
 }) => {
   const cameraRef = useRef();
   const { invalidate } = useThree();
@@ -30,7 +30,7 @@ const FollowCamera = ({
     cameraRef.current.updateProjectionMatrix();
   });
 
-  return <PerspectiveCamera ref={cameraRef} fov={80} makeDefault={true} />;
+  return <OrthographicCamera ref={cameraRef} fov={60} makeDefault={true} />;
 };
 
 FollowCamera.propTypes = {
