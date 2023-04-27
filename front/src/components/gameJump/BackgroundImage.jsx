@@ -3,23 +3,24 @@ import PropTypes from "prop-types";
 import { useThree } from "@react-three/fiber";
 import { useEffect } from "react";
 import { TextureLoader, sRGBEncoding } from "three";
+import { Environment } from "@react-three/drei";
 
 const BackgroundImage = ({ imagePath }) => {
-  const { scene } = useThree();
+  // useEffect(() => {
+  const loader = new TextureLoader();
 
-  useEffect(() => {
-    const loader = new TextureLoader();
-    loader.load(imagePath, (texture) => {
-      texture.encoding = sRGBEncoding;
-      scene.background = texture;
-    });
+  const texture = loader.load(imagePath, (texture) => {
+    texture.encoding = sRGBEncoding;
+    // scene.background = texture;
+    return texture;
+  });
 
-    return () => {
-      scene.background = null;
-    };
-  }, [imagePath, scene]);
+  // return () => {
+  //   scene.background = null;
+  // };
+  // }, [imagePath, scene]);
 
-  return null;
+  return <Environment background={true} map={texture} />;
 };
 
 BackgroundImage.propTypes = {
