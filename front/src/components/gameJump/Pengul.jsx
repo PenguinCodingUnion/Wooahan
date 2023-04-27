@@ -92,6 +92,7 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
 
       //in Air
       if (!isGrounded.current) {
+        newVelocity[0] = BASE_MOVEMENT_SPEED * 2;
         newVelocity[1] += GRAVITY * delta;
       } else {
         //calc xVelocity

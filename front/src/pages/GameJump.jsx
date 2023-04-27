@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React, { useRef } from "react";
 import { connect } from "react-redux";
 import { PengulModel } from "components/gameJump/Pengul";
-import { Box, OrbitControls } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import FallowCamera from "components/gameJump/FollowCamera";
 import { IceModel } from "components/gameJump/IcePannel";
 import BackgroundImage from "components/gameJump/BackgroundImage";
@@ -16,24 +16,23 @@ const BOTTOM_POSITION = -70;
 export const GameJump = ({ gameStatus, ...props }) => {
   const character = useRef();
 
+  console.log(gameStatus);
+
   return (
     <div className="mx-auto h-screen w-screen">
       <Canvas>
-        {/* <OrbitControls /> */}
-        {/* <ambientLight args={["white", 1.5]} castShadow /> */}
-        {/* <BackgroundImage imagePath={bgImage} /> */}
-        {/* <FallowCamera target={character} /> */}
-        {/* <WaterFloor bottom={BOTTOM_POSITION} /> */}
+        <OrbitControls />
+        <ambientLight args={["white", 1.5]} castShadow />
+        <BackgroundImage imagePath={bgImage} />
+        <FallowCamera target={character} />
+        <WaterFloor bottom={BOTTOM_POSITION} />
 
-        {/* <PengulModel ref={character} bottom={BOTTOM_POSITION} /> */}
-        {/* <IceModel icePosition={-300} bottom={BOTTOM_POSITION} /> */}
+        <PengulModel ref={character} bottom={BOTTOM_POSITION} />
+        <IceModel icePosition={-300} bottom={BOTTOM_POSITION} />
         {/* <IceModel icePosition={-100} bottom={BOTTOM_POSITION} /> */}
-        {/* <IceModel icePosition={100} bottom={BOTTOM_POSITION} /> */}
-        {/* <IceModel icePosition={300} bottom={BOTTOM_POSITION} /> */}
-
-        <Box />
+        <IceModel icePosition={0} bottom={BOTTOM_POSITION} />
+        <IceModel icePosition={300} bottom={BOTTOM_POSITION} />
       </Canvas>
-      <div>ㅎㅇ</div>
     </div>
   );
 };
