@@ -10,6 +10,7 @@ import ant from "assets/images/sample/ant.jpg";
 import butterfly from "assets/images/sample/butterfly.jpg";
 import chicken from "assets/images/sample/chicken.jpg";
 import dog from "assets/images/sample/dog.jpg";
+import BubbleIntro from "components/gameBubble/BubbleIntro";
 
 export const GameBubble = (props) => {
   const sampleQuiz = [
@@ -58,6 +59,7 @@ export const GameBubble = (props) => {
     },
   ];
 
+  const [isIntro, setIsIntro] = useState(true);
   const [number, setNumber] = useState(0);
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [clickedNumber, setClickedNumber] = useState(0);
@@ -65,16 +67,23 @@ export const GameBubble = (props) => {
   const [isSecondCardOpen, setSecondCardOpen] = useState(true);
   const [isThirdCardOpen, setThirdCardOpen] = useState(true);
   const [isFourthCardOpen, setFourthCardOpen] = useState(true);
+  const [selected, setSelected] = useState([0, 1, 2, 3]);
 
-  const selected = [];
-  const visited = new Array(4).fill(false);
-  while (selected.length < 4) {
-    const ranNum = Math.floor(Math.random() * (4 - 0));
-    if (!visited[ranNum]) {
-      selected.push(ranNum);
-      visited[ranNum] = true;
+  const closeIntro = () => {
+    setIsIntro(false);
+  };
+
+  const randomPosition = () => {
+    const visited = new Array(4).fill(false);
+    setSelected([]);
+    while (selected.length < 4) {
+      const ranNum = Math.floor(Math.random() * (4 - 0));
+      if (!visited[ranNum]) {
+        selected.push(ranNum);
+        visited[ranNum] = true;
+      }
     }
-  }
+  };
 
   const changeQuiz = () => {
     setNumber((number + 1) % 5);
@@ -109,73 +118,78 @@ export const GameBubble = (props) => {
   };
 
   return (
-    <div
-      className="w-screen h-screen mx-auto"
-      style={{
-        background: `url(${bgImage})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      <QuizCard
-        name={sampleQuiz[number].name}
-        image={sampleQuiz[number].image}
-      />
-      {isFirstCardOpen && (
-        <WordBubble
-          number={number}
-          name={sampleQuiz[number].name}
-          positionX={pos[selected[0]].posX}
-          positionY={pos[selected[0]].posY}
-          size={pos[selected[0]].size}
-          clickAnswer={clickAnswer}
-        />
-      )}
+    <>
+      {isIntro && <BubbleIntro closeIntro={closeIntro} />}
+      {!isIntro && (
+        <div
+          className="w-screen h-screen mx-auto"
+          style={{
+            background: `url(${bgImage})`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+          }}
+        >
+          <QuizCard
+            name={sampleQuiz[number].name}
+            image={sampleQuiz[number].image}
+          />
+          {isFirstCardOpen && (
+            <WordBubble
+              number={number}
+              name={sampleQuiz[number].name}
+              positionX={pos[selected[0]].posX}
+              positionY={pos[selected[0]].posY}
+              size={pos[selected[0]].size}
+              clickAnswer={clickAnswer}
+            />
+          )}
 
-      {isSecondCardOpen && (
-        <WordBubble
-          number={(number + 1) % 5}
-          name={sampleQuiz[(number + 1) % 5].name}
-          positionX={pos[selected[1]].posX}
-          positionY={pos[selected[1]].posY}
-          size={pos[selected[1]].size}
-          clickAnswer={clickAnswer}
-        />
-      )}
+          {isSecondCardOpen && (
+            <WordBubble
+              number={(number + 1) % 5}
+              name={sampleQuiz[(number + 1) % 5].name}
+              positionX={pos[selected[1]].posX}
+              positionY={pos[selected[1]].posY}
+              size={pos[selected[1]].size}
+              clickAnswer={clickAnswer}
+            />
+          )}
 
-      {isThirdCardOpen && (
-        <WordBubble
-          number={(number + 2) % 5}
-          name={sampleQuiz[(number + 2) % 5].name}
-          positionX={pos[selected[2]].posX}
-          positionY={pos[selected[2]].posY}
-          size={pos[selected[2]].size}
-          clickAnswer={clickAnswer}
-        />
-      )}
+          {isThirdCardOpen && (
+            <WordBubble
+              number={(number + 2) % 5}
+              name={sampleQuiz[(number + 2) % 5].name}
+              positionX={pos[selected[2]].posX}
+              positionY={pos[selected[2]].posY}
+              size={pos[selected[2]].size}
+              clickAnswer={clickAnswer}
+            />
+          )}
 
-      {isFourthCardOpen && (
-        <WordBubble
-          number={(number + 3) % 5}
-          name={sampleQuiz[(number + 3) % 5].name}
-          positionX={pos[selected[3]].posX}
-          positionY={pos[selected[3]].posY}
-          size={pos[selected[3]].size}
-          clickAnswer={clickAnswer}
-        />
-      )}
+          {isFourthCardOpen && (
+            <WordBubble
+              number={(number + 3) % 5}
+              name={sampleQuiz[(number + 3) % 5].name}
+              positionX={pos[selected[3]].posX}
+              positionY={pos[selected[3]].posY}
+              size={pos[selected[3]].size}
+              clickAnswer={clickAnswer}
+            />
+          )}
 
-      {isCardOpen && (
-        <AnswerCard
-          answer={number}
-          number={clickedNumber}
-          name={sampleQuiz[clickedNumber].name}
-          image={sampleQuiz[clickedNumber].image}
-          changeQuiz={changeQuiz}
-          closeCard={closeCard}
-        />
+          {isCardOpen && (
+            <AnswerCard
+              answer={number}
+              number={clickedNumber}
+              name={sampleQuiz[clickedNumber].name}
+              image={sampleQuiz[clickedNumber].image}
+              changeQuiz={changeQuiz}
+              closeCard={closeCard}
+            />
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
