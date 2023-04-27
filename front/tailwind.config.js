@@ -4,6 +4,10 @@ module.exports = {
   theme: {
     colors: {
       'iceBlue': '#1fb6ff',
+      'red': '#e3342f',
+      'deepBlue': '#0800ff',
+      'yellow': '#eeff00',
+      'palePupple': '#ea6aed'
     },
     extend: {},
     fontFamily: {
