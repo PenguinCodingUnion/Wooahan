@@ -9,13 +9,14 @@ import PropTypes from "prop-types";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import PengulE from "assets/models/PENGUL_v2.gltf";
 import { useFrame } from "@react-three/fiber";
+import { GameStatus } from "util/Enums";
 
-const GRAVITY = -60;
+const GRAVITY = -60 * 2;
 const ANIMATIONS = ["t-pose", "idle", "jumping", "walk"];
 
-const JUMP_FORCE = 60;
+const JUMP_FORCE = 80;
 const GROUND_HEIGHT = -80;
-const BASE_MOVEMENT_SPEED = 20;
+const BASE_MOVEMENT_SPEED = 50;
 
 const EDGE = 300;
 
@@ -24,6 +25,9 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
   const isJumping = useRef(false);
   const jumpNow = useRef(false);
   const isGrounded = useRef(false);
+
+  const GAME_STATUS = useRef(GameStatus.GAME_NOT_LOADED);
+
   const [characterPosition, setCharacterPosition] = useState([
     -EDGE,
     GROUND_HEIGHT,
@@ -117,7 +121,7 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
         <group
           name="Armature"
           rotation={[Math.PI / 2, 0, -Math.PI / 2]}
-          scale={0.01}
+          scale={0.02}
           position={characterPosition}
         >
           <primitive object={nodes.Bip001} />

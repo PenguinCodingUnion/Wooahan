@@ -1,7 +1,4 @@
 import React from "react";
-import { Box } from "@react-three/drei";
-import { color } from "@react-three/fiber";
-import WaterTexture from "assets/models/jump/WATER.gltf";
 import PropTypes from "prop-types";
 import { Color } from "three";
 
