@@ -9,7 +9,7 @@ const useRaycast = (
 ) => {
   const raycaster = useMemo(() => new Raycaster(), []);
   const pos = useMemo(() => new Vector3(), []);
-  const dir = useMemo(() => (DIR ? DIR : new Vector3()), []);
+  const dir = useMemo(() => (DIR ? DIR : new Vector3()), [DIR]);
   const scene = useThree((state) => state.scene);
 
   return () => {

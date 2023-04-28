@@ -1,16 +1,11 @@
-import React, {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { forwardRef, useCallback, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import PengulE from "assets/models/PENGUL_v2.gltf";
 import { useFrame } from "@react-three/fiber";
 import useRaycast from "util/hooks/useRaycast.ts";
 import { Vector3 } from "three";
+import { useClonedModel } from "util/hooks/useClonedModel";
 
 const GRAVITY = -60 * 2;
 const ANIMATIONS = ["t-pose", "idle", "jumping", "walk"];
@@ -30,18 +25,15 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
   const jumpNow = useRef(false);
   const isGrounded = useRef(false);
 
-  const [characterPosition, setCharacterPosition] = useState([
-    -EDGE,
-    GROUND_HEIGHT,
-    0,
-  ]);
-  const [characterVelocity, setCharacterVelocity] = useState([0, 0, 0]);
+  const characterPosition = useRef([-EDGE, GROUND_HEIGHT, 0]);
+  const characterVelocity = useRef([0, 0, 0]);
 
   //애니메이션 정보
-  const [activeAnimation, setActiveAnimation] = useState(3);
+  const activeAnimation = useRef(0);
 
   //else
-  const { nodes, materials, animations } = useGLTF(PengulE);
+  // const { nodes, materials, animations } = useGLTF(PengulE);
+  const { nodes, materials, animations } = useClonedModel(PengulE);
   const { actions, names } = useAnimations(animations, ref);
 
   useEffect(() => {
@@ -57,19 +49,21 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
         }, 1600);
       }
     });
+
+    setActiveAnimation(3);
   }, []);
 
-  useEffect(() => {
-    names.forEach((aniamtion) => {
-      actions[aniamtion].stop();
-    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const setActiveAnimation = useCallback((idx) => {
+    actions[ANIMATIONS[idx]].play();
+    actions[ANIMATIONS[activeAnimation.current]].stop();
 
-    actions[ANIMATIONS[activeAnimation]].play();
-  }, [actions, names, activeAnimation]);
+    activeAnimation.current = idx;
+  });
 
   //update
   useFrame((_, delta) => {
-    if (characterPosition[1] < GROUND_HEIGHT) {
+    if (characterPosition.current[1] < GROUND_HEIGHT) {
       isGrounded.current = true;
       isJumping.current = false;
     }
@@ -78,22 +72,40 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
 
     // console.log(newVelocity, characterPosition);
 
-    setCharacterPosition(() => {
-      return [
-        characterPosition[0] < EDGE
-          ? characterPosition[0] + newVelocity[0] * delta
-          : -EDGE,
-        isGrounded.current
-          ? GROUND_HEIGHT
-          : characterPosition[1] + newVelocity[1] * delta,
-        characterPosition[2] + newVelocity[2] * delta,
-      ];
-    });
+    // console.log(pengulE.current);
+
+    const newPosition = [
+      characterPosition.current[0] < EDGE
+        ? characterPosition.current[0] + newVelocity[0] * delta
+        : -EDGE,
+      isGrounded.current
+        ? GROUND_HEIGHT
+        : characterPosition.current[1] + newVelocity[1] * delta,
+      characterPosition.current[2] + newVelocity[2] * delta,
+    ];
+
+    pengulE.current.position.set(
+      newPosition[0],
+      newPosition[1],
+      newPosition[2]
+    );
+    characterPosition.current = newPosition;
+    // setCharacterPosition(() => {
+    //   return [
+    //     characterPosition[0] < EDGE
+    //       ? characterPosition[0] + newVelocity[0] * delta
+    //       : -EDGE,
+    //     isGrounded.current
+    //       ? GROUND_HEIGHT
+    //       : characterPosition[1] + newVelocity[1] * delta,
+    //     characterPosition[2] + newVelocity[2] * delta,
+    //   ];
+    // });
   });
 
   const velocityCalc = useCallback(
     (delta) => {
-      const newVelocity = [...characterVelocity];
+      const newVelocity = [...characterVelocity.current];
 
       //in Air
       if (!isGrounded.current) {
@@ -111,15 +123,15 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
           newVelocity[1] += JUMP_FORCE;
         } else if (raycast().length < 3) {
           newVelocity[0] = 0;
-          setActiveAnimation(1);
+          if (activeAnimation.current !== 1) setActiveAnimation(1);
         }
       }
 
-      setCharacterVelocity(newVelocity);
+      characterVelocity.current = newVelocity;
 
       return newVelocity;
     },
-    [characterVelocity, raycast]
+    [raycast, setActiveAnimation]
   );
 
   return (
@@ -129,7 +141,6 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
           name="Armature"
           rotation={[Math.PI / 2, 0, -Math.PI / 2]}
           scale={0.02}
-          position={characterPosition}
           ref={pengulE}
         >
           <primitive object={nodes.Bip001} />
