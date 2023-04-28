@@ -21,17 +21,26 @@ export const GameJump = ({ gameStatus, ...props }) => {
   return (
     <div className="mx-auto h-screen w-screen">
       <Canvas>
-        <OrbitControls />
-        <ambientLight args={["white", 1.5]} castShadow />
-        <BackgroundImage imagePath={bgImage} />
-        <FallowCamera target={character} />
-        <WaterFloor bottom={BOTTOM_POSITION} />
+        <>
+          <OrbitControls />
+          <ambientLight args={["white", 1.5]} castShadow />
+          <BackgroundImage imagePath={bgImage} />
+          <FallowCamera target={character} />
+          <WaterFloor bottom={BOTTOM_POSITION} />
+        </>
 
         <PengulModel ref={character} bottom={BOTTOM_POSITION} />
-        <IceModel icePosition={-300} bottom={BOTTOM_POSITION} />
-        {/* <IceModel icePosition={-100} bottom={BOTTOM_POSITION} /> */}
-        <IceModel icePosition={0} bottom={BOTTOM_POSITION} />
-        <IceModel icePosition={300} bottom={BOTTOM_POSITION} />
+
+        <>
+          <IceModel icePosition={-400} bottom={BOTTOM_POSITION} />
+          <IceModel icePosition={-300} bottom={BOTTOM_POSITION} />
+          <IceModel icePosition={300} bottom={BOTTOM_POSITION} />
+          <IceModel icePosition={400} bottom={BOTTOM_POSITION} />
+        </>
+
+        <>
+          <IceModel icePosition={0} bottom={BOTTOM_POSITION} />
+        </>
       </Canvas>
     </div>
   );

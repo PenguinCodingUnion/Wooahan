@@ -9,6 +9,8 @@ import PropTypes from "prop-types";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import PengulE from "assets/models/PENGUL_v2.gltf";
 import { useFrame } from "@react-three/fiber";
+import useRaycast from "util/hooks/useRaycast.ts";
+import { Vector3 } from "three";
 
 const GRAVITY = -60 * 2;
 const ANIMATIONS = ["t-pose", "idle", "jumping", "walk"];
@@ -17,9 +19,12 @@ const JUMP_FORCE = 80;
 const GROUND_HEIGHT = -80;
 const BASE_MOVEMENT_SPEED = 50;
 
-const EDGE = 300;
+const EDGE = 360;
 
 export const PengulModel = forwardRef(({ bottom, props }, ref) => {
+  const pengulE = useRef();
+  const raycast = useRaycast(pengulE, 55, new Vector3(1, -1, 0));
+
   //캐릭터 상태관리
   const isJumping = useRef(false);
   const jumpNow = useRef(false);
@@ -92,7 +97,7 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
 
       //in Air
       if (!isGrounded.current) {
-        newVelocity[0] = BASE_MOVEMENT_SPEED * 2;
+        newVelocity[0] = BASE_MOVEMENT_SPEED * 2.8;
         newVelocity[1] += GRAVITY * delta;
       } else {
         //calc xVelocity
@@ -104,6 +109,9 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
           isGrounded.current = false;
 
           newVelocity[1] += JUMP_FORCE;
+        } else if (raycast().length < 3) {
+          newVelocity[0] = 0;
+          setActiveAnimation(1);
         }
       }
 
@@ -111,17 +119,18 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
 
       return newVelocity;
     },
-    [characterVelocity]
+    [characterVelocity, raycast]
   );
 
   return (
-    <group ref={ref} {...props} dispose={null} position={[0, 0, -50]}>
+    <group {...props} ref={ref} position={[0, 0, -50]} name="PengulE">
       <group name="Scene" position={[0, bottom, 0]}>
         <group
           name="Armature"
           rotation={[Math.PI / 2, 0, -Math.PI / 2]}
           scale={0.02}
           position={characterPosition}
+          ref={pengulE}
         >
           <primitive object={nodes.Bip001} />
           <skinnedMesh

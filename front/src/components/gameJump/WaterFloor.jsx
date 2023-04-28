@@ -4,7 +4,7 @@ import { Color } from "three";
 
 const WaterFloor = ({ bottom = 0, ...props }) => {
   return (
-    <mesh {...props} position={[0, bottom - 105, 30]}>
+    <mesh {...props} position={[0, bottom - 105, 30]} name={`WaterFloor`}>
       <boxGeometry args={[1000, 10, -400, 10, 10]} />
       <meshStandardMaterial
         color={(() => {
