@@ -2,7 +2,7 @@ import axios from "axios";
 
 const instance = axios.create({
   baseURL:
-    ProcessingInstruction.env.NODE_ENV === `developement`
+    process.env.NODE_ENV === `developement`
       ? `http://localhost:8888`
       : `https://몰라!`,
 

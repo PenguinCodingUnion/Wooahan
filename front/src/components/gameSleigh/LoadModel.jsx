@@ -6,7 +6,7 @@ import PENGUL from "assets/models/PENGUL_v2.gltf";
 import PENGUL_old from "assets/models/PENGUL.gltf";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { useClonedModel } from "util/hooks";
+import { useClonedModel } from "util/hooks/useClonedModel";
 
 export const LoadModel = (props) => {
   const group = useRef();
