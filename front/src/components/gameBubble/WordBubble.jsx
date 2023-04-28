@@ -6,26 +6,33 @@ import classNames from "classnames";
 
 export const WordBubble = (props) => {
   const classStr = classNames(
-    "absolute grid items-center text-3xl font-extrabold justify-items-center",
+    "absolute grid items-center text-3xl font-extrabold justify-items-center font-MaplestoryBold",
     props.positionX,
     props.positionY,
-    props.size
+    props.size,
+    props.animation
   );
 
   const clickAnswer = () => {
-    props.clickAnswer(props.number);
+    if (props.clickAnswer) {
+      props.clickAnswer(props.number);
+    }
   };
   return (
-    <div
-      className={classStr}
-      style={{
-        backgroundImage: `url(${bgBubble})`,
-        backgroundSize: "cover",
-      }}
-      onClick={clickAnswer}
-    >
-      {props.name}
-    </div>
+    <>
+      {props.display && (
+        <div
+          className={classStr}
+          style={{
+            backgroundImage: `url(${bgBubble})`,
+            backgroundSize: "cover",
+          }}
+          onClick={clickAnswer}
+        >
+          {props.name}
+        </div>
+      )}
+    </>
   );
 };
 

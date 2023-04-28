@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 export const AnswerCard = (props) => {
-  const changeQuiz = () => {
-    if (props.number === props.answer) {
-      props.changeQuiz();
+  useEffect(() => {
+    if (props.name === props.answer) {
+      console.log("정답");
+      setTimeout(() => {
+        props.closeCard();
+        props.changeQuiz();
+      }, 1500);
     } else {
-      props.closeCard();
+      setTimeout(() => props.closeCard(), 1500);
     }
-  };
+  }, [props]);
+
   return (
     <div className="w-screen h-screen">
       <div className="absolute grid -mt-48 -ml-40 overflow-hidden bg-white border-4 border-black justify-items-center h-96 rounded-3xl top-1/2 left-1/2 w-80">
@@ -19,9 +24,10 @@ export const AnswerCard = (props) => {
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
           }}
-          onClick={changeQuiz}
         ></div>
-        <div className="h-8 text-5xl font-bold leading-8">{props.name}</div>
+        <div className="h-8 text-5xl font-bold leading-8 font-netmarbleB">
+          {props.name}
+        </div>
       </div>
     </div>
   );

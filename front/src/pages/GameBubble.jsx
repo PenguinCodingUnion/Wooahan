@@ -11,35 +11,66 @@ import butterfly from "assets/images/sample/butterfly.jpg";
 import chicken from "assets/images/sample/chicken.jpg";
 import dog from "assets/images/sample/dog.jpg";
 import BubbleIntro from "components/gameBubble/BubbleIntro";
+import GameEnding from "components/common/GameEnding";
 
 export const GameBubble = (props) => {
   const sampleQuiz = [
     {
       name: "비행기",
       image: airplane,
+      cards: [
+        { name: "개미", image: ant },
+        { name: "나비", image: butterfly },
+        { name: "비행기", image: airplane },
+        { name: "닭", image: chicken },
+      ],
     },
     {
       name: "개미",
       image: ant,
+      cards: [
+        { name: "강아지", image: dog },
+        { name: "개미", image: ant },
+        { name: "나비", image: butterfly },
+        { name: "닭", image: chicken },
+      ],
     },
     {
       name: "나비",
       image: butterfly,
+      cards: [
+        { name: "닭", image: chicken },
+        { name: "강아지", image: dog },
+        { name: "비행기", image: airplane },
+        { name: "나비", image: butterfly },
+      ],
     },
     {
       name: "닭",
       image: chicken,
+      cards: [
+        { name: "닭", image: chicken },
+        { name: "비행기", image: airplane },
+        { name: "나비", image: butterfly },
+        { name: "강아지", image: dog },
+      ],
     },
     {
       name: "강아지",
       image: dog,
+      cards: [
+        { name: "개미", image: ant },
+        { name: "강아지", image: dog },
+        { name: "나비", image: butterfly },
+        { name: "닭", image: chicken },
+      ],
     },
   ];
 
   const pos = [
     {
       posX: "top-12",
-      posY: "left-36",
+      posY: "left-24",
       size: "w-24 h-24",
     },
     {
@@ -53,61 +84,73 @@ export const GameBubble = (props) => {
       size: "w-28 h-28",
     },
     {
-      posX: "bottom-12",
+      posX: "bottom-4",
       posY: "right-24",
       size: "w-32 h-32",
     },
   ];
 
   const [isIntro, setIsIntro] = useState(true);
-  const [number, setNumber] = useState(0);
+  const [round, setRound] = useState(0);
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [clickedNumber, setClickedNumber] = useState(0);
-  const [isFirstCardOpen, setFirstCardOpen] = useState(true);
-  const [isSecondCardOpen, setSecondCardOpen] = useState(true);
-  const [isThirdCardOpen, setThirdCardOpen] = useState(true);
-  const [isFourthCardOpen, setFourthCardOpen] = useState(true);
-  const [selected, setSelected] = useState([0, 1, 2, 3]);
+  const [isBubbleOpen, setIsbubbleOpen] = useState([true, true, true, true]);
+  const [isGameEnd, setIsGameEnd] = useState(false);
 
   const closeIntro = () => {
     setIsIntro(false);
   };
 
-  const randomPosition = () => {
-    const visited = new Array(4).fill(false);
-    setSelected([]);
-    while (selected.length < 4) {
-      const ranNum = Math.floor(Math.random() * (4 - 0));
-      if (!visited[ranNum]) {
-        selected.push(ranNum);
-        visited[ranNum] = true;
-      }
-    }
-  };
-
   const changeQuiz = () => {
-    setNumber((number + 1) % 5);
+    if (round === 4) {
+      setIsGameEnd(true);
+      return;
+    }
+    setRound(round + 1);
     setIsCardOpen(false);
-    setFirstCardOpen(true);
-    setSecondCardOpen(true);
-    setThirdCardOpen(true);
-    setFourthCardOpen(true);
+    setIsbubbleOpen([true, true, true, true]);
   };
 
   const clickAnswer = (num) => {
     if (!isCardOpen) {
-      if (num === number) {
-        setFirstCardOpen(false);
+      // eslint-disable-next-line default-case
+      switch (num) {
+        case 0:
+          setIsbubbleOpen([
+            false,
+            isBubbleOpen[1],
+            isBubbleOpen[2],
+            isBubbleOpen[3],
+          ]);
+          break;
+        case 1:
+          setIsbubbleOpen([
+            isBubbleOpen[0],
+            false,
+            isBubbleOpen[2],
+            isBubbleOpen[3],
+          ]);
+          break;
+        case 2:
+          setIsbubbleOpen([
+            isBubbleOpen[0],
+            isBubbleOpen[1],
+            false,
+            isBubbleOpen[3],
+          ]);
+          break;
+        case 3:
+          setIsbubbleOpen([
+            isBubbleOpen[0],
+            isBubbleOpen[1],
+            isBubbleOpen[2],
+            false,
+          ]);
+          break;
       }
-      if (num === (number + 1) % 5) {
-        setSecondCardOpen(false);
+      if (sampleQuiz[round].cards[num].name === sampleQuiz[round].name) {
       }
-      if (num === (number + 2) % 5) {
-        setThirdCardOpen(false);
-      }
-      if (num === (number + 3) % 5) {
-        setFourthCardOpen(false);
-      }
+
       setClickedNumber(num);
       setIsCardOpen(true);
     }
@@ -119,10 +162,17 @@ export const GameBubble = (props) => {
 
   return (
     <>
-      {isIntro && <BubbleIntro closeIntro={closeIntro} />}
-      {!isIntro && (
+      {isIntro && (
+        <BubbleIntro
+          closeIntro={closeIntro}
+          name={sampleQuiz[0].name}
+          image={sampleQuiz[0].image}
+          pos={pos}
+        />
+      )}
+      {!isIntro && !isGameEnd && (
         <div
-          className="w-screen h-screen mx-auto"
+          className="fixed w-screen h-screen mx-auto"
           style={{
             background: `url(${bgImage})`,
             backgroundSize: "cover",
@@ -130,65 +180,34 @@ export const GameBubble = (props) => {
           }}
         >
           <QuizCard
-            name={sampleQuiz[number].name}
-            image={sampleQuiz[number].image}
+            name={sampleQuiz[round].name}
+            image={sampleQuiz[round].image}
           />
-          {isFirstCardOpen && (
+
+          {sampleQuiz[round].cards.map((card, index) => (
             <WordBubble
-              number={number}
-              name={sampleQuiz[number].name}
-              positionX={pos[selected[0]].posX}
-              positionY={pos[selected[0]].posY}
-              size={pos[selected[0]].size}
+              key={card.name}
+              number={index}
+              name={card.name}
+              positionX={pos[index].posX}
+              display={isBubbleOpen[index]}
+              positionY={pos[index].posY}
+              size={pos[index].size}
               clickAnswer={clickAnswer}
             />
-          )}
-
-          {isSecondCardOpen && (
-            <WordBubble
-              number={(number + 1) % 5}
-              name={sampleQuiz[(number + 1) % 5].name}
-              positionX={pos[selected[1]].posX}
-              positionY={pos[selected[1]].posY}
-              size={pos[selected[1]].size}
-              clickAnswer={clickAnswer}
-            />
-          )}
-
-          {isThirdCardOpen && (
-            <WordBubble
-              number={(number + 2) % 5}
-              name={sampleQuiz[(number + 2) % 5].name}
-              positionX={pos[selected[2]].posX}
-              positionY={pos[selected[2]].posY}
-              size={pos[selected[2]].size}
-              clickAnswer={clickAnswer}
-            />
-          )}
-
-          {isFourthCardOpen && (
-            <WordBubble
-              number={(number + 3) % 5}
-              name={sampleQuiz[(number + 3) % 5].name}
-              positionX={pos[selected[3]].posX}
-              positionY={pos[selected[3]].posY}
-              size={pos[selected[3]].size}
-              clickAnswer={clickAnswer}
-            />
-          )}
-
+          ))}
           {isCardOpen && (
             <AnswerCard
-              answer={number}
-              number={clickedNumber}
-              name={sampleQuiz[clickedNumber].name}
-              image={sampleQuiz[clickedNumber].image}
+              answer={sampleQuiz[round].name}
+              name={sampleQuiz[round].cards[clickedNumber].name}
+              image={sampleQuiz[round].cards[clickedNumber].image}
               changeQuiz={changeQuiz}
               closeCard={closeCard}
             />
           )}
         </div>
       )}
+      {!isIntro && isGameEnd && <GameEnding />}
     </>
   );
 };
