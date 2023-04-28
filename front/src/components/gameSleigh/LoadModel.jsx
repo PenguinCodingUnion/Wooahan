@@ -1,4 +1,4 @@
-import { useAnimations, useFBO, useGLTF } from "@react-three/drei";
+import { Gltf, useAnimations, useFBO, useGLTF } from "@react-three/drei";
 import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
@@ -12,6 +12,8 @@ export const LoadModel = (props) => {
   const group = useRef();
   // const { scene, materials, animations, nodes } = useClonedModel(PENGUL);
   const { scene, materials, animations, nodes } = useClonedModel(PENGUL_old);
+
+  // const { scene, materials, animations, nodes } = useGLTF(PENGUL); 2가지 방법이 있다....
 
   const { actions, mixer, names } = useAnimations(animations, group);
 
@@ -37,7 +39,7 @@ export const LoadModel = (props) => {
   };
 
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} {...props}>
       <group name="Scene">
         <group
           name="Armature"
@@ -56,6 +58,7 @@ export const LoadModel = (props) => {
         </group>
       </group>
     </group>
+    // <Gltf src={PENGUL} ref={group} {...props} />
   );
 };
 useGLTF.preload(PENGUL);
