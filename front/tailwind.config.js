@@ -7,7 +7,10 @@ module.exports = {
       'red': '#e3342f',
       'deepBlue': '#0800ff',
       'yellow': '#eeff00',
-      'palePupple': '#ea6aed'
+      'palePupple': '#ea6aed',
+      'lightGray': '#c9bfc9',
+      'white': '#ffffff',
+      'sharkGray': '#4d5666'
     },
     extend: {},
     fontFamily: {

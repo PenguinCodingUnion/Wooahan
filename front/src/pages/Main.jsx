@@ -3,6 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Header from '../components/main/Header'
 import Carousel from '../components/main/Carousel'
+import Modal from '../components/main/modal/Modal'
 
 import { useSelector } from 'react-redux'
 
@@ -17,9 +18,11 @@ const coverImages =[
 
 export const Main = (props) => {
   const page = useSelector(state => state.backGround.page)
-  
+  const showModal = useSelector(state => state.modal.modalIsVisible)
+
   return (
     <div className="relative w-screen h-screen">
+      {showModal && <Modal />}
       <img className="absolute w-screen h-screen z-0" src={coverImages[page]} />
       <Header />  
       <Carousel />

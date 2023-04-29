@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
@@ -16,16 +16,11 @@ import bunny from "assets/images/animal/bunny.png"
 import octopus from "assets/images/animal/octopus.png"
 import fox from "assets/images/animal/fox.png"
 
-
 const games =[
     {id: 0, title: '뛰어쓰기', animal: penguin},
     {id: 1, title: '팽글썰매', animal: bunny},
     {id: 2, title: '한글방울', animal: octopus},
     {id: 3, title: '끝말기차', animal: fox},
-]
-
-const backColors = [
-    "#50BCDF", "#81C147", "#0080FF", "#F7E600"
 ]
 
 const Carousel = () => {
@@ -37,7 +32,7 @@ const Carousel = () => {
     }
     
     return (
-         <>
+        <>
             <Swiper
                 effect={"coverflow"}
                 grabCursor={true}
@@ -54,6 +49,7 @@ const Carousel = () => {
                 // loop={true}
                 pagination={true}
                 modules={[EffectCoverflow, Pagination]}
+                
                 className="mySwiper"
                 onSlideChange={(e) => changeMainCard(e.activeIndex)}
             >

@@ -20,8 +20,6 @@ const CardImage = (props) => {
     }
     backChangeHandler();
 
-
-
     return (
         <div className="absolute pin-t pin-l w-full h-full">
             {!(props.coverImage === props.id) && <img className="w-full h-full" src={coverImages[(props.id)]} />}
