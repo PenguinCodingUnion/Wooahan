@@ -53,13 +53,15 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
     setActiveAnimation(3);
   }, []);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const setActiveAnimation = useCallback((idx) => {
-    actions[ANIMATIONS[idx]].play();
-    actions[ANIMATIONS[activeAnimation.current]].stop();
+  const setActiveAnimation = useCallback(
+    (idx) => {
+      actions[ANIMATIONS[idx]].play();
+      actions[ANIMATIONS[activeAnimation.current]].stop();
 
-    activeAnimation.current = idx;
-  });
+      activeAnimation.current = idx;
+    },
+    [actions]
+  );
 
   //update
   useFrame((_, delta) => {
@@ -90,17 +92,6 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
       newPosition[2]
     );
     characterPosition.current = newPosition;
-    // setCharacterPosition(() => {
-    //   return [
-    //     characterPosition[0] < EDGE
-    //       ? characterPosition[0] + newVelocity[0] * delta
-    //       : -EDGE,
-    //     isGrounded.current
-    //       ? GROUND_HEIGHT
-    //       : characterPosition[1] + newVelocity[1] * delta,
-    //     characterPosition[2] + newVelocity[2] * delta,
-    //   ];
-    // });
   });
 
   const velocityCalc = useCallback(
