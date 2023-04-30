@@ -4,7 +4,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/test?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
     username: root
-    password: root
+    password: ssafy
   # JPA ??
   jpa:
     database: mysql
@@ -17,13 +17,13 @@ spring:
       hibernate:
         format_sql: true
 
-  OAuth2:
-    google:
-      url : https://accounts.google.com/o/oauth2/v2/auth
+oauth2:
+  google:
       client-id: 658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com
       client-secret: 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
-      callback-url: http://localhost:8080/login/oauth2/code/goole
-      scope : https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile
+      redirect-uri: http://localhost:8080/login/oauth2/code/google
+      token-uri: https://oauth2.googleapis.com/token
+      resource-uri: https://www.googleapis.com/oauth2/v2/userinfo
 
 
 logging:
