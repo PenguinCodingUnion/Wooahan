@@ -47,7 +47,7 @@ export const gameStatusSlice = createSlice({
   // },
 });
 
-export const actions = gameStatusSlice.actions;
+export const gameStatusActions = gameStatusSlice.actions;
 
 // export const selectCount = (state) => state.counter.value;
 
