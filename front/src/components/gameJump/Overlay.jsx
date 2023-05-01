@@ -37,6 +37,8 @@ const GameStartContainer = () => {
   );
 };
 
+const OVERLAY_CLASS = `absolute h-full w-full mix-blend-multiply bg-mainSlate-300`;
+
 const GameReadyContainer = ({ startGame, ...props }) => {
   return (
     <>
@@ -44,7 +46,7 @@ const GameReadyContainer = ({ startGame, ...props }) => {
 
       <div className={`absolute flex flex-col justify-between h-full w-full`}>
         <div
-          className={`border-4 border-indigo-600 rounded-2xl w-2/4 p-4 m-8 mx-auto bg-white z-50`}
+          className={`border-4 border-indigo-600 rounded-2xl w-2/4 p-4 m-8 mx-auto bg-mainWhite z-50`}
         >
           <h2 className={`text-center font-bold`}>
             띄어쓰기에 맞게 점프하세요.
@@ -56,7 +58,7 @@ const GameReadyContainer = ({ startGame, ...props }) => {
             startGame();
           }}
         >
-          <h1 className={`text-6xl text-center font-bold text-indigo-600`}>
+          <h1 className={`text-6xl text-center font-bold text-mainIndigo-600`}>
             시 작 !
           </h1>
         </div>
@@ -69,6 +71,6 @@ Overlay.propTypes = {
   startGame: PropTypes.func.isRequired,
 };
 
-const OVERLAY_CLASS = `absolute h-full w-full mix-blend-multiply bg-slate-300`;
+
 
 export default Overlay;
