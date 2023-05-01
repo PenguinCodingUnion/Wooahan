@@ -2,7 +2,7 @@ spring:
   # ??? ?? ??
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/test2?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
     username: root
     password: ssafy
   # JPA ??
@@ -16,6 +16,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    generate-ddl: true
 
 oauth2:
   google:

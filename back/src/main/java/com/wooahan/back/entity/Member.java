@@ -29,11 +29,11 @@ public class Member {
     private boolean isGuest;
 
     @OneToMany(mappedBy = "member")
-    private List<Reward>
+    private List<Word> wordList;
 
-    public Member update(String name, boolean isGuest) {
-        this.name = name;
-        this.isGuest = isGuest;
-        return this;
-    }
+//    public Member update(String name, boolean isGuest) {
+//        this.name = name;
+//        this.isGuest = isGuest;
+//        return this;
+//    }
 }

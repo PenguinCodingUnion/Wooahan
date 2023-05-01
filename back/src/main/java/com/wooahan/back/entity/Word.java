@@ -1,5 +1,7 @@
 package com.wooahan.back.entity;
 
+import com.wooahan.back.dto.Difficulty;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,9 +19,11 @@ public class Word {
     @Column(nullable = false)
     private String imgUrl;
 
+    @Enumerated(EnumType.ORDINAL)
+    private Difficulty difficulty;
 
-    //TODO 대충만
-    @Column(nullable = false)
-    private Integer difficulty;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="member_id")
+    private Member member;
 
 }

@@ -22,7 +22,6 @@ public class LoginService {
     private final MemberRepository memberRepository;
 
     public String socialLogin(String code, String registrationId) {
-        System.out.println(code+"코드다");
         String accessToken = getAccessToken(code, registrationId);
         JsonNode userResourceNode = getUserResource(accessToken, registrationId);
         System.out.println("userResourceNode = " + userResourceNode);
