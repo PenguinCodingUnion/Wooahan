@@ -52,7 +52,7 @@ export const GameJump = (props) => {
   }, [dispatch]);
 
   return (
-    <div className="mx-auto h-screen w-screen flex relative">
+    <div className="relative flex w-screen h-screen mx-auto">
       {level >= LAST_LEVEL ? (
         <Navigate to={`/`} />
       ) : (
