@@ -9,7 +9,7 @@ module.exports = {
       // 기본 컬러
       mainBlack: colors.black,
       mainWhite: colors.white,
-      mainSlate: colors.state,
+      mainSlate: colors.slate,
       mainGray: colors.gray,
       mainZinc: colors.zinc,
       mainNeutral: colors.neutral,

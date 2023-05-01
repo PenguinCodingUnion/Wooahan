@@ -24,6 +24,7 @@ import { GameStatus } from "util/Enums.ts";
 import { Navigate } from "react-router-dom";
 
 const BOTTOM_POSITION = -70;
+const SHORTEST_DISTANCE_FOR_JUMP = 50;
 
 const TEST_PROBLEM = [
   [{ word: `개구리가` }, { word: `폴짝폴짝` }, { word: `뛰어요` }],
@@ -45,7 +46,7 @@ export const GameJump = (props) => {
   const level = useSelector((state) => state.gameStatus.level);
   const [problems, setProblems] = useState(TEST_PROBLEM ? TEST_PROBLEM : [[]]);
 
-  let lastIcePosition = -280;
+  let lastIcePosition = -325;
 
   console.log(gameStatus);
   useEffect(() => {
@@ -66,6 +67,7 @@ export const GameJump = (props) => {
           return <Navigate to={`/`} />;
         })()
       ) : (
+        //750 length
         <Canvas>
           <Suspense fallback={null}>
             <>
@@ -80,40 +82,22 @@ export const GameJump = (props) => {
             <PengulModel ref={character} bottom={BOTTOM_POSITION} />
 
             <>
-              <IceModel icePosition={-400} bottom={BOTTOM_POSITION} />
-              <IceModel icePosition={400} bottom={BOTTOM_POSITION} />
+              <IceModel icePosition={-375} bottom={BOTTOM_POSITION} />
+              <IceModel icePosition={375} bottom={BOTTOM_POSITION} />
             </>
 
             {gameStatus === GameStatus.GAME_START &&
               problems[level].map((el, idx) => {
+                const length =
+                  (700 -
+                    SHORTEST_DISTANCE_FOR_JUMP * (problems[level].length - 1)) /
+                  problems[level].length;
+
+                lastIcePosition += length + SHORTEST_DISTANCE_FOR_JUMP;
+
                 if (idx === 0) {
-                  return (
-                    <React.Fragment key={idx}>
-                      <TextObject text={el.word} position={[-355, 150, 0]} />
-                      <IceModel icePosition={-280} bottom={BOTTOM_POSITION} />
-                    </React.Fragment>
-                  );
-                } else if (idx === problems[level].length - 1) {
-                  let cnt = 0;
-
-                  lastIcePosition += 150 + 50;
-
-                  return (
-                    <React.Fragment key={idx}>
-                      <TextObject
-                        text={el.word}
-                        position={[lastIcePosition - 75, 150, 0]}
-                      />
-
-                      <IceModel
-                        icePosition={lastIcePosition}
-                        bottom={BOTTOM_POSITION}
-                      />
-                    </React.Fragment>
-                  );
+                  lastIcePosition -= length;
                 }
-
-                lastIcePosition += 150 + 45;
 
                 return (
                   <React.Fragment key={idx}>
@@ -124,6 +108,7 @@ export const GameJump = (props) => {
                     <IceModel
                       icePosition={lastIcePosition}
                       bottom={BOTTOM_POSITION}
+                      length={length / 15}
                     />
                   </React.Fragment>
                 );
