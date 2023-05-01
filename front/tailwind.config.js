@@ -6,6 +6,16 @@ module.exports = {
   content: ["./src/**/*.{html,js,jsx}"],
   theme: {
     colors: {
+      'iceBlue': '#1fb6ff',
+      'red': '#e3342f',
+      'deepBlue': '#0800ff',
+      'yellow': '#eeff00',
+      'palePupple': '#ea6aed',
+      'lightGray': '#c9bfc9',
+      'white': '#ffffff',
+      'sharkGray': '#4d5666',
+      'deepPink':'#f7a3e3',
+      'sample': "#fcfb00",
       // 기본 컬러
       mainBlack: colors.black,
       mainWhite: colors.white,
@@ -31,17 +41,6 @@ module.exports = {
       mainFuchsia: colors.fuchsia,
       mainPink: colors.pink,
       mainRose: colors.rose,
-
-      // 사용자 정의 컬러
-      iceBlue: "#1fb6ff",
-      red: "#e3342f",
-      deepBlue: "#0800ff",
-      yellow: "#eeff00",
-      palePupple: "#ea6aed",
-      lightGray: "#c9bfc9",
-      white: "#ffffff",
-      sharkGray: "#4d5666",
-      deepPink: "#f7a3e3",
     },
     fontFamily: {
       netmarbleB: ["netmarbleB"],
