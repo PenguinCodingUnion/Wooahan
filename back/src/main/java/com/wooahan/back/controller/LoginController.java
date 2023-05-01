@@ -15,7 +15,6 @@ public class LoginController {
 
     @GetMapping("/guest/{androidId}")
     //TODO 기기명을 받아야 전환을 하든 받든함
-    //TODO dto 처리
     public ResponseEntity<String> guestLogin(@PathVariable String androidID) {
         return new ResponseEntity<>(loginService.tempLogin(androidID), HttpStatus.OK);
     }

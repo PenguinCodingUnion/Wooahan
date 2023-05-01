@@ -1,6 +1,7 @@
 package com.wooahan.back.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.List;
@@ -28,12 +29,20 @@ public class Member {
     @Column(nullable = false)
     private boolean isGuest;
 
-    @OneToMany(mappedBy = "member")
-    private List<Word> wordList;
+    @ColumnDefault("0")
+    private int starCount;
 
-//    public Member update(String name, boolean isGuest) {
-//        this.name = name;
-//        this.isGuest = isGuest;
-//        return this;
-//    }
+    @OneToMany(mappedBy = "member")
+    private List<Reward> rewards;
+
+    public Member update(String name, boolean isGuest) {
+        this.name = name;
+        this.isGuest = isGuest;
+        return this;
+    }
+
+    public int starUp(int starCount) {
+        this.starCount=starCount;
+        return this.starCount;
+    }
 }

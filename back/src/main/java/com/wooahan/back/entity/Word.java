@@ -22,8 +22,5 @@ public class Word {
     @Enumerated(EnumType.ORDINAL)
     private Difficulty difficulty;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="member_id")
-    private Member member;
 
 }
