@@ -43,7 +43,11 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
   const dispatch = useDispatch();
 
   const doJump = useCallback(() => {
-    if (isJumping.current === false && gameStatus === GameStatus.GAME_START) {
+    if (
+      isJumping.current === false &&
+      gameStatus === GameStatus.GAME_START &&
+      activeAnimation.current === 1
+    ) {
       isJumping.current = true;
       jumpNow.current = true;
       setActiveAnimation(2);
