@@ -16,7 +16,7 @@ import GameEnding from "components/common/GameEnding";
 export const GameBubble = (props) => {
   const sampleQuiz = [
     {
-      name: "비행기",
+      answer: "비행기",
       image: airplane,
       cards: [
         { name: "개미", image: ant },
@@ -26,7 +26,7 @@ export const GameBubble = (props) => {
       ],
     },
     {
-      name: "개미",
+      answer: "개미",
       image: ant,
       cards: [
         { name: "강아지", image: dog },
@@ -36,7 +36,7 @@ export const GameBubble = (props) => {
       ],
     },
     {
-      name: "나비",
+      answer: "나비",
       image: butterfly,
       cards: [
         { name: "닭", image: chicken },
@@ -46,7 +46,7 @@ export const GameBubble = (props) => {
       ],
     },
     {
-      name: "닭",
+      answer: "닭",
       image: chicken,
       cards: [
         { name: "닭", image: chicken },
@@ -56,7 +56,7 @@ export const GameBubble = (props) => {
       ],
     },
     {
-      name: "강아지",
+      answer: "강아지",
       image: dog,
       cards: [
         { name: "개미", image: ant },
@@ -148,7 +148,7 @@ export const GameBubble = (props) => {
           ]);
           break;
       }
-      if (sampleQuiz[round].cards[num].name === sampleQuiz[round].name) {
+      if (sampleQuiz[round].cards[num].name === sampleQuiz[round].answer) {
       }
 
       setClickedNumber(num);
@@ -165,7 +165,7 @@ export const GameBubble = (props) => {
       {isIntro && (
         <BubbleIntro
           closeIntro={closeIntro}
-          name={sampleQuiz[0].name}
+          name={sampleQuiz[0].answer}
           image={sampleQuiz[0].image}
           pos={pos}
         />
@@ -180,7 +180,7 @@ export const GameBubble = (props) => {
           }}
         >
           <QuizCard
-            name={sampleQuiz[round].name}
+            name={sampleQuiz[round].answer}
             image={sampleQuiz[round].image}
           />
 
@@ -198,7 +198,7 @@ export const GameBubble = (props) => {
           ))}
           {isCardOpen && (
             <AnswerCard
-              answer={sampleQuiz[round].name}
+              answer={sampleQuiz[round].answer}
               name={sampleQuiz[round].cards[clickedNumber].name}
               image={sampleQuiz[round].cards[clickedNumber].image}
               changeQuiz={changeQuiz}

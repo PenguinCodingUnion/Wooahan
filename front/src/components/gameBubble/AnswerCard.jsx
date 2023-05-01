@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 export const AnswerCard = (props) => {
   useEffect(() => {
     if (props.name === props.answer) {
-      console.log("정답");
       setTimeout(() => {
         props.closeCard();
         props.changeQuiz();
