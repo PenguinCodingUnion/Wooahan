@@ -5,6 +5,7 @@ import GameJump from "pages/GameJump";
 import GameSleigh from "pages/GameSleigh";
 import GameBubble from "pages/GameBubble";
 import GameTrain from "pages/GameTrain";
+import Books from 'pages/Books';
 
 const route = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const route = createBrowserRouter([
       {
         path: `/`,
         element: <Main />,
+      },
+      {
+        path: `books`,
+        element: <Books />
       },
       {
         path: `jump`,
