@@ -4,15 +4,17 @@ import { connect } from 'react-redux'
 import Header from '../components/main/Header' 
 import Modal from '../components/main/modal/Modal'
 import { useSelector } from 'react-redux'
+import BlockSet from "../components/main/books/BlockSet"
 
 export const Books = () => {
-  
-    const showModal = useSelector(state => state.modal.modalIsVisible)
+
+  const showModal = useSelector(state => state.modal.modalIsVisible)
 
   return (
     <div className="relative w-screen h-screen bg-deepPink">
-        <Header titleIsVisible={false} topLeftButton={"home"}/>
-        {showModal && <Modal />}
+      <Header titleIsVisible={false} topLeftButton={"home"}/>
+      {showModal && <Modal />}
+      <BlockSet />
     </div>
   )
 }

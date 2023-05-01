@@ -11,7 +11,8 @@ module.exports = {
       'lightGray': '#c9bfc9',
       'white': '#ffffff',
       'sharkGray': '#4d5666',
-      'deepPink':'#f7a3e3'
+      'deepPink':'#f7a3e3',
+      'sample': "#fcfb00"
     },
     fontFamily: {
       netmarbleB: ["netmarbleB"],
