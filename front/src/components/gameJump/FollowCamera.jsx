@@ -4,31 +4,33 @@ import { useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { OrthographicCamera } from "@react-three/drei";
 
-const FollowCamera = () =>
-  // {target,
+const FollowCamera = ({ target }) =>
   // distance = 120,
   // height = 55,
-  // viewFace = 0,}
+  // viewFace = 0,
+
   {
     const cameraRef = useRef();
     const { invalidate } = useThree();
 
     useEffect(() => {
       if (cameraRef.current) invalidate();
-    }, [invalidate, cameraRef]);
+
+      const newPosition = target.current.position.clone();
+
+      // newPosition.y += height;
+      // newPosition.z += distance;
+      // newPosition.x += viewFace;
+
+      cameraRef.current.position.lerp(newPosition, 0.1);
+      cameraRef.current.lookAt(target.current.position);
+      cameraRef.current.updateProjectionMatrix();
+    }, [invalidate, cameraRef, target]);
 
     // useFrame(() => {
     //   if (!target.current || !cameraRef.current) return;
 
-    //   const newPosition = target.current.position.clone();
-
-    //   newPosition.y += height;
-    //   newPosition.z += distance;
-    //   newPosition.x += viewFace;
-
-    //   cameraRef.current.position.lerp(newPosition, 0.1);
-    //   cameraRef.current.lookAt(target.current.position);
-    //   cameraRef.current.updateProjectionMatrix();
+    //
 
     //   console.log(
     //     `camera : ${cameraRef.current.position.x}, ${cameraRef.current.position.y}, ${cameraRef.current.position.z}`
