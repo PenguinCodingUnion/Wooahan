@@ -1,13 +1,38 @@
 /** @type {import('tailwindcss').Config} */
+
 const colors = require("tailwindcss/colors");
+
 module.exports = {
   content: ["./src/**/*.{html,js,jsx}"],
   theme: {
     colors: {
+      // 기본 컬러
+      mainBlack: colors.black,
+      mainWhite: colors.white,
+      mainSlate: colors.state,
+      mainGray: colors.gray,
+      mainZinc: colors.zinc,
+      mainNeutral: colors.neutral,
+      mainStone: colors.stone,
       mainRed: colors.red,
-      mainBlue: colors.blue,
+      mainOrange: colors.orange,
+      mainAmber: colors.amber,
       mainYellow: colors.yellow,
+      mainLime: colors.lime,
       mainGreen: colors.green,
+      mainEmerald: colors.emerald,
+      mainTeal: colors.teal,
+      mainCyan: colors.cyan,
+      mainSky: colors.sky,
+      mainBlue: colors.blue,
+      mainIndigo: colors.indigo,
+      mainViolet: colors.violet,
+      mainPurple: colors.purple,
+      mainFuchsia: colors.fuchsia,
+      mainPink: colors.pink,
+      mainRose: colors.rose,
+
+      // 사용자 정의 컬러
       iceBlue: "#1fb6ff",
       red: "#e3342f",
       deepBlue: "#0800ff",
