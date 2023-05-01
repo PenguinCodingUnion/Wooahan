@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux"
 import { modalActions } from 'store/features/mainCard/modalSlice'
 
-const ModalHeader = (props) => {
+const ModalHeader = () => {
 
     const dispatch = useDispatch();
 

@@ -1,21 +1,21 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookOpenReader } from '@fortawesome/free-solid-svg-icons';
+import { faHouseChimney } from '@fortawesome/free-solid-svg-icons';
 import {useNavigate} from 'react-router-dom';
 
-library.add(faBookOpenReader);
+library.add(faHouseChimney);
 
-const Reward = () => {
-
+const Home = () => {
+    
     const nav = useNavigate();
 
     return (
-        <div onClick={() => {nav(`/books`)}} className="pl-4 w-1/6 h-full flex justify-start items-center">
+        <div onClick={() => {nav(`/`)}} className="pl-4 w-1/6 h-full flex justify-start items-center">
             <button className="bg-palePupple rounded-xl w-1/2 h-4/5 flex items-center justify-center">
-                <FontAwesomeIcon icon={faBookOpenReader} size='2xl'/>
+                <FontAwesomeIcon icon={faHouseChimney} size='2xl'/>
             </button>
         </div>
     )
 }
 
-export default Reward;
+export default Home;

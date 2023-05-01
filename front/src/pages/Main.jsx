@@ -16,15 +16,15 @@ const coverImages =[
   image_iceburg, image_forest, image_underwater, image_dessert
 ]
 
-export const Main = (props) => {
+export const Main = () => {
   const page = useSelector(state => state.backGround.page)
   const showModal = useSelector(state => state.modal.modalIsVisible)
 
-  return (
+  return ( 
     <div className="relative w-screen h-screen">
       {showModal && <Modal />}
       <img className="absolute w-screen h-screen z-0" src={coverImages[page]} />
-      <Header />  
+      <Header titleIsVisible={true} topLeftButton={"books"}/>  
       <Carousel />
     </div>
   )

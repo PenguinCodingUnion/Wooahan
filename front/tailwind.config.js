@@ -10,7 +10,8 @@ module.exports = {
       'palePupple': '#ea6aed',
       'lightGray': '#c9bfc9',
       'white': '#ffffff',
-      'sharkGray': '#4d5666'
+      'sharkGray': '#4d5666',
+      'deepPink':'#f7a3e3'
     },
     extend: {},
     fontFamily: {
