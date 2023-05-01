@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+const colors = require("tailwindcss/colors");
+
 module.exports = {
   content: ["./src/**/*.{html,js,jsx}"],
   theme: {
@@ -12,7 +15,32 @@ module.exports = {
       'white': '#ffffff',
       'sharkGray': '#4d5666',
       'deepPink':'#f7a3e3',
-      'sample': "#fcfb00"
+      'sample': "#fcfb00",
+      // 기본 컬러
+      mainBlack: colors.black,
+      mainWhite: colors.white,
+      mainSlate: colors.slate,
+      mainGray: colors.gray,
+      mainZinc: colors.zinc,
+      mainNeutral: colors.neutral,
+      mainStone: colors.stone,
+      mainRed: colors.red,
+      mainOrange: colors.orange,
+      mainAmber: colors.amber,
+      mainYellow: colors.yellow,
+      mainLime: colors.lime,
+      mainGreen: colors.green,
+      mainEmerald: colors.emerald,
+      mainTeal: colors.teal,
+      mainCyan: colors.cyan,
+      mainSky: colors.sky,
+      mainBlue: colors.blue,
+      mainIndigo: colors.indigo,
+      mainViolet: colors.violet,
+      mainPurple: colors.purple,
+      mainFuchsia: colors.fuchsia,
+      mainPink: colors.pink,
+      mainRose: colors.rose,
     },
     fontFamily: {
       netmarbleB: ["netmarbleB"],
@@ -20,7 +48,7 @@ module.exports = {
       netmarbleM: ["netmarbleM"],
       MaplestoryBold: ["MaplestoryBold"],
       MaplestoryLight: ["MaplestoryLight"],
-      MaplestoryOTFBold: ['MaplestoryOTFBold']
+      MaplestoryOTFBold: ["MaplestoryOTFBold"],
     },
     extend: {
       keyframes: {
@@ -28,9 +56,19 @@ module.exports = {
           from: { transform: "translateY(300%) scale(0.5)" },
           to: { transform: "translateY(-300%) scale(1.0)" },
         },
+        goTrain: {
+          "0%": { transform: "translateX(700px) " },
+          "100%": { transform: "translateX(-1400px)" },
+        },
+        oneTrain: {
+          "0%": { transform: "translateX(0px) " },
+          "100%": { transform: "translateX(-1400px)" },
+        },
       },
       animation: {
         intro: "intro 4s linear infinite",
+        goTrain: "goTrain 10s linear infinite",
+        oneTrain: "oneTrain 1.5s linear",
       },
     },
     textFillColor: (theme) => theme("borderColor"),

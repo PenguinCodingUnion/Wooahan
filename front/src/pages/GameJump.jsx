@@ -24,10 +24,17 @@ import { GameStatus } from "util/Enums.ts";
 import { Navigate } from "react-router-dom";
 
 const BOTTOM_POSITION = -70;
+const SHORTEST_DISTANCE_FOR_JUMP = 50;
 
 const TEST_PROBLEM = [
   [{ word: `개구리가` }, { word: `폴짝폴짝` }, { word: `뛰어요` }],
   [{ word: `이지우가` }, { word: `빈둥빈둥` }, { word: `놀아요` }],
+  [
+    { word: `개구리가` },
+    { word: `폴짝폴짝` },
+    { word: `엄청나게` },
+    { word: `뛴다` },
+  ],
 ];
 const LAST_LEVEL = TEST_PROBLEM.length;
 
@@ -38,6 +45,8 @@ export const GameJump = (props) => {
 
   const level = useSelector((state) => state.gameStatus.level);
   const [problems, setProblems] = useState(TEST_PROBLEM ? TEST_PROBLEM : [[]]);
+
+  let lastIcePosition = -325;
 
   console.log(gameStatus);
   useEffect(() => {
@@ -54,8 +63,11 @@ export const GameJump = (props) => {
   return (
     <div className="mx-auto h-screen w-screen flex relative">
       {level >= LAST_LEVEL ? (
-        <Navigate to={`/`} />
+        (() => {
+          return <Navigate to={`/`} />;
+        })()
       ) : (
+        //750 length
         <Canvas>
           <Suspense fallback={null}>
             <>
@@ -70,44 +82,37 @@ export const GameJump = (props) => {
             <PengulModel ref={character} bottom={BOTTOM_POSITION} />
 
             <>
-              <IceModel icePosition={-400} bottom={BOTTOM_POSITION} />
-              <IceModel icePosition={-300} bottom={BOTTOM_POSITION} />
-              <IceModel icePosition={300} bottom={BOTTOM_POSITION} />
-              <IceModel icePosition={400} bottom={BOTTOM_POSITION} />
+              <IceModel icePosition={-375} bottom={BOTTOM_POSITION} />
+              <IceModel icePosition={375} bottom={BOTTOM_POSITION} />
             </>
 
-            <>
-              {gameStatus === GameStatus.GAME_START &&
-                problems[level].map((el, idx) => {
-                  if (idx === 0) {
-                    return (
-                      <TextObject
-                        key={idx}
-                        text={el.word}
-                        position={[-360, 150, 0]}
-                      />
-                    );
-                  } else if (idx === problems[level].length - 1) {
-                    return (
-                      <TextObject
-                        key={idx}
-                        text={el.word}
-                        position={[240, 150, 0]}
-                      />
-                    );
-                  }
+            {gameStatus === GameStatus.GAME_START &&
+              problems[level].map((el, idx) => {
+                const length =
+                  (700 -
+                    SHORTEST_DISTANCE_FOR_JUMP * (problems[level].length - 1)) /
+                  problems[level].length;
 
-                  return (
+                lastIcePosition += length + SHORTEST_DISTANCE_FOR_JUMP;
+
+                if (idx === 0) {
+                  lastIcePosition -= length;
+                }
+
+                return (
+                  <React.Fragment key={idx}>
                     <TextObject
-                      key={idx}
                       text={el.word}
-                      position={[-80, 150, 0]}
+                      position={[lastIcePosition - 75, 150, 0]}
                     />
-                  );
-                })}
-              {/* <TextObject text={`폴짝폴짝`} position={[0, 100, 0]} /> */}
-              <IceModel icePosition={0} bottom={BOTTOM_POSITION} />
-            </>
+                    <IceModel
+                      icePosition={lastIcePosition}
+                      bottom={BOTTOM_POSITION}
+                      length={length / 15}
+                    />
+                  </React.Fragment>
+                );
+              })}
           </Suspense>
         </Canvas>
       )}
