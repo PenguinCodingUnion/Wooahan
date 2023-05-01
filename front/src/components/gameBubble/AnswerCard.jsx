@@ -15,7 +15,7 @@ export const AnswerCard = (props) => {
 
   return (
     <div className="w-screen h-screen">
-      <div className="absolute grid -mt-40 -ml-40 overflow-hidden bg-white border-4 border-black justify-items-center h-80 rounded-3xl top-1/2 left-1/2 w-80">
+      <div className="absolute grid -mt-40 -ml-40 overflow-hidden border-4 border-mainBlack bg-mainWhite justify-items-center h-80 rounded-3xl top-1/2 left-1/2 w-80">
         <div
           className="h-64 overflow-hidden w-80"
           style={{

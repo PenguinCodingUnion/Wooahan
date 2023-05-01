@@ -1,7 +1,36 @@
 /** @type {import('tailwindcss').Config} */
+
+const colors = require("tailwindcss/colors");
+
 module.exports = {
   content: ["./src/**/*.{html,js,jsx}"],
   theme: {
+    colors: {
+      mainBlack: colors.black,
+      mainWhite: colors.white,
+      mainSlate: colors.state,
+      mainGray: colors.gray,
+      mainZinc: colors.zinc,
+      mainNeutral: colors.neutral,
+      mainStone: colors.stone,
+      mainRed: colors.red,
+      mainOrange: colors.orange,
+      mainAmber: colors.amber,
+      mainYellow: colors.yellow,
+      mainLime: colors.lime,
+      mainGreen: colors.green,
+      mainEmerald: colors.emerald,
+      mainTeal: colors.teal,
+      mainCyan: colors.cyan,
+      mainSky: colors.sky,
+      mainBlue: colors.blue,
+      mainIndigo: colors.indigo,
+      mainViolet: colors.violet,
+      mainPurple: colors.purple,
+      mainFuchsia: colors.fuchsia,
+      mainPink: colors.pink,
+      mainRose: colors.rose,
+    },
     fontFamily: {
       netmarbleB: ["netmarbleB"],
       netmarbleL: ["netmarbleL"],
