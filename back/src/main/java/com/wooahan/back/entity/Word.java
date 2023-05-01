@@ -1,9 +1,11 @@
 package com.wooahan.back.entity;
 
 import com.wooahan.back.dto.Difficulty;
+import lombok.Getter;
 
 import javax.persistence.*;
 
+@Getter
 @Entity
 public class Word {
     public enum Initial {
@@ -21,6 +23,7 @@ public class Word {
 
     @Enumerated(EnumType.ORDINAL)
     private Difficulty difficulty;
+
 
 
 }
