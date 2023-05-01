@@ -14,7 +14,7 @@ export const GameEnding = (props) => {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="text-[#6937A1] font-MaplestoryBold text-6xl text-stroke-white text-stroke-2">
+      <div className="text-[#6937A1] font-MaplestoryBold text-6xl text-stroke-mainWhite text-stroke-2">
         야호!
       </div>
     </div>
