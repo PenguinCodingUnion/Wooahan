@@ -1,10 +1,24 @@
 // import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import playground from "assets/images/background_playground.jpg";
+import ant from "assets/images/sample/ant.jpg";
+import EndingScene from "components/gameEnding/EndingScene";
+import GetStar from "components/gameEnding/GetStar";
 
 export const GameEnding = (props) => {
+  const sampleReward = {
+    starCount: 4,
+    card: { name: "개미", image: ant },
+  };
+
+  const [isEndingSceneOpen, setIsEndingSceneOpen] = useState(true);
+
+  const closeEndingScene = () => {
+    setIsEndingSceneOpen(false);
+  };
+
   return (
     <div
       className="grid items-center w-screen h-screen"
@@ -14,9 +28,8 @@ export const GameEnding = (props) => {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="text-[#6937A1] font-MaplestoryBold text-6xl text-stroke-mainWhite text-stroke-2">
-        야호!
-      </div>
+      {isEndingSceneOpen && <EndingScene closeEndingScene={closeEndingScene} />}
+      {!isEndingSceneOpen && <GetStar starCount={sampleReward.starCount} />}
     </div>
   );
 };

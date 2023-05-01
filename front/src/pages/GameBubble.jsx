@@ -11,7 +11,7 @@ import butterfly from "assets/images/sample/butterfly.jpg";
 import chicken from "assets/images/sample/chicken.jpg";
 import dog from "assets/images/sample/dog.jpg";
 import BubbleIntro from "components/gameBubble/BubbleIntro";
-import GameEnding from "components/common/GameEnding";
+import GameEnding from "pages/GameEnding";
 
 export const GameBubble = (props) => {
   const sampleQuiz = [
@@ -162,7 +162,7 @@ export const GameBubble = (props) => {
 
   return (
     <>
-      {isIntro && (
+      {isIntro && !isGameEnd && (
         <BubbleIntro
           closeIntro={closeIntro}
           name={sampleQuiz[0].answer}
