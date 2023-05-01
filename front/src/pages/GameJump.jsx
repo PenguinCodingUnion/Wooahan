@@ -28,13 +28,13 @@ const SHORTEST_DISTANCE_FOR_JUMP = 50;
 
 const TEST_PROBLEM = [
   [{ word: `개구리가` }, { word: `폴짝폴짝` }, { word: `뛰어요` }],
-  [{ word: `이지우가` }, { word: `빈둥빈둥` }, { word: `놀아요` }],
   [
     { word: `개구리가` },
     { word: `폴짝폴짝` },
     { word: `엄청나게` },
     { word: `뛴다` },
   ],
+  [{ word: `이지우가` }, { word: `빈둥빈둥` }, { word: `놀아요` }],
 ];
 const LAST_LEVEL = TEST_PROBLEM.length;
 
@@ -48,7 +48,6 @@ export const GameJump = (props) => {
 
   let lastIcePosition = -325;
 
-  console.log(gameStatus);
   useEffect(() => {
     console.log("Loading....");
 
@@ -69,51 +68,51 @@ export const GameJump = (props) => {
       ) : (
         //750 length
         <Canvas>
-          <Suspense fallback={null}>
-            <>
-              {/* <OrbitControls /> */}
-              <ambientLight args={["white", 1.5]} castShadow />
-              <BackgroundImage imagePath={bgImage} />
-              <FallowCamera target={character} />
-              {/* <FlatCamera /> */}
-              <WaterFloor bottom={BOTTOM_POSITION} />
-            </>
+          {/* <Suspense fallback={null}> */}
+          <>
+            {/* <OrbitControls /> */}
+            <ambientLight args={["white", 1.5]} castShadow />
+            <BackgroundImage imagePath={bgImage} />
+            <FallowCamera target={character} />
+            {/* <FlatCamera /> */}
+            <WaterFloor bottom={BOTTOM_POSITION} />
+          </>
 
-            <PengulModel ref={character} bottom={BOTTOM_POSITION} />
+          <PengulModel ref={character} bottom={BOTTOM_POSITION} />
 
-            <>
-              <IceModel icePosition={-375} bottom={BOTTOM_POSITION} />
-              <IceModel icePosition={375} bottom={BOTTOM_POSITION} />
-            </>
+          <>
+            <IceModel icePosition={-375} bottom={BOTTOM_POSITION} />
+            <IceModel icePosition={375} bottom={BOTTOM_POSITION} />
+          </>
 
-            {gameStatus === GameStatus.GAME_START &&
-              problems[level].map((el, idx) => {
-                const length =
-                  (700 -
-                    SHORTEST_DISTANCE_FOR_JUMP * (problems[level].length - 1)) /
-                  problems[level].length;
+          {gameStatus === GameStatus.GAME_START &&
+            problems[level].map((el, idx) => {
+              const length =
+                (700 -
+                  SHORTEST_DISTANCE_FOR_JUMP * (problems[level].length - 1)) /
+                problems[level].length;
 
-                lastIcePosition += length + SHORTEST_DISTANCE_FOR_JUMP;
+              lastIcePosition += length + SHORTEST_DISTANCE_FOR_JUMP;
 
-                if (idx === 0) {
-                  lastIcePosition -= length;
-                }
+              if (idx === 0) {
+                lastIcePosition -= length;
+              }
 
-                return (
-                  <React.Fragment key={idx}>
-                    <TextObject
-                      text={el.word}
-                      position={[lastIcePosition - 75, 150, 0]}
-                    />
-                    <IceModel
-                      icePosition={lastIcePosition}
-                      bottom={BOTTOM_POSITION}
-                      length={length / 15}
-                    />
-                  </React.Fragment>
-                );
-              })}
-          </Suspense>
+              return (
+                <React.Fragment key={idx}>
+                  <TextObject
+                    text={el.word}
+                    position={[lastIcePosition - 75, 150, 0]}
+                  />
+                  <IceModel
+                    icePosition={lastIcePosition}
+                    bottom={BOTTOM_POSITION}
+                    length={length / 15}
+                  />
+                </React.Fragment>
+              );
+            })}
+          {/* </Suspense> */}
         </Canvas>
       )}
       <Overlay startGame={startGame} />
