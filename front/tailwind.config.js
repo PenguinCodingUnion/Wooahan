@@ -31,6 +31,7 @@ module.exports = {
       mainFuchsia: colors.fuchsia,
       mainPink: colors.pink,
       mainRose: colors.rose,
+      mainTransparent: colors.transparent,
 
       // 사용자 정의 컬러
       iceBlue: "#1fb6ff",
