@@ -1,11 +1,14 @@
 import React, { forwardRef, useCallback, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
-import { useGLTF, useAnimations } from "@react-three/drei";
+import { useGLTF, useAnimations, useSelect } from "@react-three/drei";
 import PengulE from "assets/models/PENGUL_v2.gltf";
 import { useFrame } from "@react-three/fiber";
 import useRaycast from "util/hooks/useRaycast.ts";
 import { Vector3 } from "three";
 import { useClonedModel } from "util/hooks/useClonedModel";
+import { useDispatch, useSelector } from "react-redux";
+import { GameStatus } from "util/Enums.ts";
+import { gameStatusActions } from "store/features/gameStatus/gameStatusSlice";
 
 const GRAVITY = -60 * 2;
 const ANIMATIONS = ["t-pose", "idle", "jumping", "walk"];
@@ -36,33 +39,48 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
   const { nodes, materials, animations } = useClonedModel(PengulE);
   const { actions, names } = useAnimations(animations, ref);
 
+  const gameStatus = useSelector((state) => state.gameStatus.status);
+  const dispatch = useDispatch();
+
+  const doJump = useCallback(() => {
+    if (isJumping.current === false && gameStatus === GameStatus.GAME_START) {
+      isJumping.current = true;
+      jumpNow.current = true;
+      setActiveAnimation(2);
+      setTimeout(() => {
+        setActiveAnimation(3);
+      }, 1600);
+    }
+  }, [gameStatus]);
+
   useEffect(() => {
     //Add Jump
     window.addEventListener(`keydown`, (e) => {
-      if (isJumping.current === false && e.code === `Space`) {
+      if (e.code === `Space`) {
         e.preventDefault();
-        isJumping.current = true;
-        jumpNow.current = true;
-        setActiveAnimation(2);
-        setTimeout(() => {
-          setActiveAnimation(3);
-        }, 1600);
+        doJump();
       }
     });
 
-    setActiveAnimation(3);
-  }, []);
+    setActiveAnimation(1);
+  }, [doJump]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const setActiveAnimation = useCallback((idx) => {
-    actions[ANIMATIONS[idx]].play();
-    actions[ANIMATIONS[activeAnimation.current]].stop();
+  const setActiveAnimation = useCallback(
+    (idx) => {
+      if (activeAnimation.current === idx) return;
 
-    activeAnimation.current = idx;
-  });
+      actions[ANIMATIONS[idx]].play();
+      actions[ANIMATIONS[activeAnimation.current]].stop();
+
+      activeAnimation.current = idx;
+    },
+    [actions]
+  );
 
   //update
   useFrame((_, delta) => {
+    // if (gameStatus !== GameStatus.GAME_START) return;
+
     if (characterPosition.current[1] < GROUND_HEIGHT) {
       isGrounded.current = true;
       isJumping.current = false;
@@ -73,6 +91,10 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
     // console.log(newVelocity, characterPosition);
 
     // console.log(pengulE.current);
+
+    if (characterPosition.current[0] >= EDGE) {
+      dispatch(gameStatusActions.goNextLevel());
+    }
 
     const newPosition = [
       characterPosition.current[0] < EDGE
@@ -90,22 +112,13 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
       newPosition[2]
     );
     characterPosition.current = newPosition;
-    // setCharacterPosition(() => {
-    //   return [
-    //     characterPosition[0] < EDGE
-    //       ? characterPosition[0] + newVelocity[0] * delta
-    //       : -EDGE,
-    //     isGrounded.current
-    //       ? GROUND_HEIGHT
-    //       : characterPosition[1] + newVelocity[1] * delta,
-    //     characterPosition[2] + newVelocity[2] * delta,
-    //   ];
-    // });
   });
 
   const velocityCalc = useCallback(
     (delta) => {
       const newVelocity = [...characterVelocity.current];
+
+      if (gameStatus !== GameStatus.GAME_START) return newVelocity;
 
       //in Air
       if (!isGrounded.current) {
@@ -117,13 +130,18 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
         newVelocity[1] = 0;
 
         if (jumpNow.current) {
+          //jump
           jumpNow.current = false;
           isGrounded.current = false;
 
           newVelocity[1] += JUMP_FORCE;
         } else if (raycast().length < 3) {
+          //now edge
           newVelocity[0] = 0;
-          if (activeAnimation.current !== 1) setActiveAnimation(1);
+          setActiveAnimation(1);
+        } else {
+          //just walk
+          setActiveAnimation(3);
         }
       }
 
@@ -131,7 +149,7 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
 
       return newVelocity;
     },
-    [raycast, setActiveAnimation]
+    [raycast, setActiveAnimation, gameStatus]
   );
 
   return (
