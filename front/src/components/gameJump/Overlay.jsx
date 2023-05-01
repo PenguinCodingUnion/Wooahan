@@ -27,12 +27,12 @@ const Overlay = ({ startGame, ...props }) => {
 const GameStartContainer = () => {
   return (
     <div className={`absolute flex flex-col justify-between h-full w-full`}>
-      <div className={`w-4/4 p-4 mx-auto z-50`}>
+      {/* <div className={`w-4/4 p-4 mx-auto z-50`}>
         <h1 className={`text-center font-bold text-5xl`}>
           개구리가 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;폴짝폴짝
           &nbsp;&nbsp;&nbsp;뛰어요
         </h1>
-      </div>
+      </div> */}
     </div>
   );
 };

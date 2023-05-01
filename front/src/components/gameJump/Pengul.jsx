@@ -6,8 +6,9 @@ import { useFrame } from "@react-three/fiber";
 import useRaycast from "util/hooks/useRaycast.ts";
 import { Vector3 } from "three";
 import { useClonedModel } from "util/hooks/useClonedModel";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { GameStatus } from "util/Enums.ts";
+import { gameStatusActions } from "store/features/gameStatus/gameStatusSlice";
 
 const GRAVITY = -60 * 2;
 const ANIMATIONS = ["t-pose", "idle", "jumping", "walk"];
@@ -39,6 +40,7 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
   const { actions, names } = useAnimations(animations, ref);
 
   const gameStatus = useSelector((state) => state.gameStatus.status);
+  const dispatch = useDispatch();
 
   const doJump = useCallback(() => {
     if (isJumping.current === false && gameStatus === GameStatus.GAME_START) {
@@ -89,6 +91,10 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
     // console.log(newVelocity, characterPosition);
 
     // console.log(pengulE.current);
+
+    if (characterPosition.current[0] >= EDGE) {
+      dispatch(gameStatusActions.goNextLevel());
+    }
 
     const newPosition = [
       characterPosition.current[0] < EDGE

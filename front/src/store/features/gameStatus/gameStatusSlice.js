@@ -12,6 +12,7 @@ import { GameStatus } from "util/Enums.ts";
 
 const initialState = {
   status: GameStatus.GAME_NOT_LOADED,
+  level: 0,
 };
 
 export const gameStatusSlice = createSlice({
@@ -33,6 +34,12 @@ export const gameStatusSlice = createSlice({
     },
     outOfGame: (state) => {
       state.status = GameStatus.GAME_NOT_LOADED;
+    },
+    goNextLevel: (state) => {
+      state.level += 1;
+    },
+    clearLevel: (state) => {
+      state.level = 0;
     },
   },
   // extraReducers: (builder) => {
