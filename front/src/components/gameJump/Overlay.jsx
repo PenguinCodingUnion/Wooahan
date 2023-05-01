@@ -37,6 +37,8 @@ const GameStartContainer = () => {
   );
 };
 
+const OVERLAY_CLASS = `absolute h-full w-full mix-blend-multiply bg-slate-300`;
+
 const GameReadyContainer = ({ startGame, ...props }) => {
   return (
     <>
@@ -69,6 +71,6 @@ Overlay.propTypes = {
   startGame: PropTypes.func.isRequired,
 };
 
-const OVERLAY_CLASS = `absolute h-full w-full mix-blend-multiply bg-slate-300`;
+
 
 export default Overlay;

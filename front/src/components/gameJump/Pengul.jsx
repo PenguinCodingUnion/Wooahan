@@ -69,8 +69,8 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
     (idx) => {
       if (activeAnimation.current === idx) return;
 
-      actions[ANIMATIONS[idx]].play();
-      actions[ANIMATIONS[activeAnimation.current]].stop();
+      actions[ANIMATIONS[activeAnimation.current]].fadeOut(0.3);
+      actions[ANIMATIONS[idx]].reset().fadeIn(0.3).play();
 
       activeAnimation.current = idx;
     },

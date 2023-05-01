@@ -2,10 +2,14 @@ import PropTypes from "prop-types";
 import { Html } from "@react-three/drei";
 
 const TextObject = ({ text, position = [0, 0, 0], ...props }) => {
+
+
   return (
     <mesh position={position}>
       <Html>
-        <div className={`whitespace-nowrap text-4xl`}>{text}</div>
+        <div className={`whitespace-nowrap text-4xl font-MaplestoryBold`}>
+          {text}
+        </div>
       </Html>
     </mesh>
   );
