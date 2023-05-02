@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import React, {
   Suspense,
   useCallback,
@@ -9,8 +9,7 @@ import React, {
 } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { PengulModel } from "components/gameJump/Pengul";
-import { Loader, OrbitControls } from "@react-three/drei";
-import FallowCamera, { FlatCamera } from "components/gameJump/FollowCamera";
+import FallowCamera from "components/gameJump/FollowCamera";
 import { IceModel } from "components/gameJump/IcePannel";
 import BackgroundImage from "components/gameJump/BackgroundImage";
 
@@ -67,60 +66,59 @@ export const GameJump = (props) => {
 
   return (
     <Suspense fallback={<LoadingComponent />}>
-        {level >= LAST_LEVEL ? (
-          (() => {
-            return <Navigate to={`/`} />;
-          })()
-        ) : (
-          //750 length
-          <Canvas>
-            {/* <Suspense fallback={null}> */}
-            <>
-              {/* <OrbitControls /> */}
-              <ambientLight args={["white", 1.5]} castShadow />
-              <BackgroundImage imagePath={bgImage} />
-              <FallowCamera target={character} />
-              {/* <FlatCamera /> */}
-              <WaterFloor bottom={BOTTOM_POSITION} />
-            </>
+      {level >= LAST_LEVEL ? (
+        (() => {
+          return <Navigate to={`/ending`} />;
+        })()
+      ) : (
+        //750 length
+        <Canvas>
+          {/* <Suspense fallback={null}> */}
+          <>
+            {/* <OrbitControls /> */}
+            <ambientLight args={["white", 1.5]} castShadow />
+            <BackgroundImage imagePath={bgImage} />
+            <FallowCamera target={character} />
+            {/* <FlatCamera /> */}
+            <WaterFloor bottom={BOTTOM_POSITION} />
+          </>
 
-              <PengulModel ref={character} bottom={BOTTOM_POSITION} />
+          <PengulModel ref={character} bottom={BOTTOM_POSITION} />
 
-              <>
-                <IceModel icePosition={-375} bottom={BOTTOM_POSITION} />
-                <IceModel icePosition={375} bottom={BOTTOM_POSITION} />
-              </>
+          <>
+            <IceModel icePosition={-375} bottom={BOTTOM_POSITION} />
+            <IceModel icePosition={375} bottom={BOTTOM_POSITION} />
+          </>
 
-              {gameStatus === GameStatus.GAME_START &&
-                problems[level].map((el, idx) => {
-                  const length =
-                    (700 -
-                      SHORTEST_DISTANCE_FOR_JUMP *
-                        (problems[level].length - 1)) /
-                    problems[level].length;
+          {gameStatus === GameStatus.GAME_START &&
+            problems[level].map((el, idx) => {
+              const length =
+                (700 -
+                  SHORTEST_DISTANCE_FOR_JUMP * (problems[level].length - 1)) /
+                problems[level].length;
 
-                  lastIcePosition += length + SHORTEST_DISTANCE_FOR_JUMP;
+              lastIcePosition += length + SHORTEST_DISTANCE_FOR_JUMP;
 
-                  if (idx === 0) {
-                    lastIcePosition -= length;
-                  }
+              if (idx === 0) {
+                lastIcePosition -= length;
+              }
 
-                  return (
-                    <React.Fragment key={idx}>
-                      <TextObject
-                        text={el.word}
-                        position={[lastIcePosition - 75, 150, 0]}
-                      />
-                      <IceModel
-                        icePosition={lastIcePosition}
-                        bottom={BOTTOM_POSITION}
-                        length={length / 15}
-                      />
-                    </React.Fragment>
-                  );
-                })}
-              <GameJumpOverlay startGame={startGame} />
-            </Canvas>
+              return (
+                <React.Fragment key={idx}>
+                  <TextObject
+                    text={el.word}
+                    position={[lastIcePosition - 75, 150, 0]}
+                  />
+                  <IceModel
+                    icePosition={lastIcePosition}
+                    bottom={BOTTOM_POSITION}
+                    length={length / 15}
+                  />
+                </React.Fragment>
+              );
+            })}
+          <GameJumpOverlay startGame={startGame} />
+        </Canvas>
       )}
     </Suspense>
   );
