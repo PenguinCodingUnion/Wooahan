@@ -23,11 +23,7 @@ const route = createBrowserRouter([
       },
       {
         path: `jump`,
-        element: (
-          <Suspense fallback={<div> 로딩중이지롱 </div>}>
-            <GameJump />
-          </Suspense>
-        ),
+        element: <GameJump />,
       },
       {
         path: `sleigh`,
