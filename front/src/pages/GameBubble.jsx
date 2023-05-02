@@ -11,9 +11,10 @@ import butterfly from "assets/images/sample/butterfly.jpg";
 import chicken from "assets/images/sample/chicken.jpg";
 import dog from "assets/images/sample/dog.jpg";
 import BubbleIntro from "components/gameBubble/BubbleIntro";
-import GameEnding from "components/common/GameEnding";
+import { Navigate } from "react-router-dom";
 
 export const GameBubble = (props) => {
+  // 백에 요청할 자리
   const sampleQuiz = [
     {
       answer: "비행기",
@@ -162,7 +163,7 @@ export const GameBubble = (props) => {
 
   return (
     <>
-      {isIntro && (
+      {isIntro && !isGameEnd && (
         <BubbleIntro
           closeIntro={closeIntro}
           name={sampleQuiz[0].answer}
@@ -207,7 +208,7 @@ export const GameBubble = (props) => {
           )}
         </div>
       )}
-      {!isIntro && isGameEnd && <GameEnding />}
+      {!isIntro && isGameEnd && <Navigate to={`/ending`} />}
     </>
   );
 };

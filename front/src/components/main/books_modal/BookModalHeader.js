@@ -28,7 +28,7 @@ const BookModalHeader = () => {
             </div>
             <div className="w-1/3 h-full flex justify-end item-start">
                <button onClick={modalCloseHandler}>
-                <FontAwesomeIcon icon={faCircleXmark} size="3x"  style={{ color: '#6fe8a7' }}/>
+                <FontAwesomeIcon className="bg-white rounded-full" icon={faCircleXmark} size="3x" style={{ color: '#6fe8a7' }}/>
                </button>
             </div>
         </header>

@@ -3,6 +3,7 @@
 const colors = require("tailwindcss/colors");
 
 module.exports = {
+  mode: `jit`,
   content: ["./src/**/*.{html,js,jsx}"],
   theme: {
     colors: {
@@ -44,6 +45,7 @@ module.exports = {
       mainFuchsia: colors.fuchsia,
       mainPink: colors.pink,
       mainRose: colors.rose,
+      mainTransparent: colors.transparent,
     },
     fontFamily: {
       netmarbleB: ["netmarbleB"],
@@ -115,12 +117,11 @@ module.exports = {
           "0%": { transform: "translateX(300px) translateY(-50px)" },
           "100%": { transform: "translateX(550px) translateY(350px)" },
         },
-        
       },
       animation: {
         intro: "intro 4s linear infinite",
         goTrain: "goTrain 10s linear infinite",
-        oneTrain: "oneTrain 1.5s linear", 
+        oneTrain: "oneTrain 1.5s linear",
         snow1: "snow1 13s linear infinite",
         snow2: "snow2 13s linear infinite",
         snow3: "snow3 15s linear infinite",
