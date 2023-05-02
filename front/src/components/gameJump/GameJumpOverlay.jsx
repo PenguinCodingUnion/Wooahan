@@ -2,25 +2,43 @@ import React from "react";
 import PropTypes from "prop-types";
 import { GameStatus } from "util/Enums.ts";
 import { useSelector } from "react-redux";
+import { Html } from "@react-three/drei";
+import CommonOverlay from "components/common/CommonOverlay";
 
-const Overlay = ({ startGame, ...props }) => {
+const GameJumpOverlay = ({ startGame, ...props }) => {
   const gameStatus = useSelector((state) => state.gameStatus.status);
 
   return (
-    <div className={`absolute h-full w-full`}>
-      {(() => {
-        switch (gameStatus) {
-          case GameStatus.GAME_READY:
-            return <GameReadyContainer startGame={startGame} />;
+    <mesh>
+      <Html
+        wrapperClass={`absolute`}
+        style={{
+          position: `fixed`,
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          transform: `none`,
+          width: `100%`,
+          height: `100%`,
+        }}
+      >
+        <div className={`absolute h-full w-full`}>
+          {(() => {
+            switch (gameStatus) {
+              case GameStatus.GAME_READY:
+                return <GameReadyContainer startGame={startGame} />;
 
-          case GameStatus.GAME_START:
-            return <GameStartContainer startGame={startGame} />;
+              case GameStatus.GAME_START:
+                return <GameStartContainer startGame={startGame} />;
 
-          default:
-            return <div></div>;
-        }
-      })()}
-    </div>
+              default:
+                return <div></div>;
+            }
+          })()}
+        </div>
+      </Html>
+    </mesh>
   );
 };
 
@@ -37,13 +55,9 @@ const GameStartContainer = () => {
   );
 };
 
-const OVERLAY_CLASS = `absolute h-full w-full mix-blend-multiply bg-mainSlate-300`;
-
 const GameReadyContainer = ({ startGame, ...props }) => {
   return (
-    <>
-      <div className={OVERLAY_CLASS}></div>
-
+    <CommonOverlay>
       <div className={`absolute flex flex-col justify-between h-full w-full`}>
         <div
           className={`border-4 border-indigo-600 rounded-2xl w-2/4 p-4 m-8 mx-auto bg-mainWhite z-50`}
@@ -58,19 +72,22 @@ const GameReadyContainer = ({ startGame, ...props }) => {
             startGame();
           }}
         >
-          <h1 className={`text-6xl text-center font-bold text-mainIndigo-600`}>
+          <h1
+            className={`text-6xl text-center font-bold text-mainIndigo-600`}
+            style={{
+              textShadow: `2px 0 #fff, -2px 0 #fff, 0 2px #fff, 0 -2px #fff`,
+            }}
+          >
             시 작 !
           </h1>
         </div>
       </div>
-    </>
+    </CommonOverlay>
   );
 };
 
-Overlay.propTypes = {
+GameJumpOverlay.propTypes = {
   startGame: PropTypes.func.isRequired,
 };
 
-
-
-export default Overlay;
+export default GameJumpOverlay;

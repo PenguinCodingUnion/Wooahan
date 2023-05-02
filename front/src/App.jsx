@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 
 const App = () => {
   return (
-    <div className="App">
+    <div className="mx-auto h-screen w-screen flex">
       <Outlet />
     </div>
   );
