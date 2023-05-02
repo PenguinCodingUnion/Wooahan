@@ -4,6 +4,6 @@ import lombok.Getter;
 
 @Getter
 public class CardReqDto {
-    private String text;
+    private char text;
     private String email;
 }

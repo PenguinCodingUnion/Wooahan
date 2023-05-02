@@ -57,9 +57,11 @@ public class RewardService {
         List<Reward>rewardList = rewardRepository.findAllByMember(member)
                 .orElseThrow(()->new NoSuchElementException("넌 card가 없어ㅋㅋ"));
 
-        //그 reward의 word 정보로 simplewordinfo 만들어
         List<SimpleWordInfo> simpleWordInfoList = rewardList.stream()
+                //그 reward의 word 정보로 simplewordinfo 만들어
                 .map(reward -> new SimpleWordInfo(reward.getWord().getName(),reward.getWord().getImgUrl()))
+                //initial 맞는거 가져와
+                .map(swi->(swi.getName().charAt(0)-0xAC00)/28/21)
                 .collect(Collectors.toList());
 
         //dto로 묶어주고 뱉어
