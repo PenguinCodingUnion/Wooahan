@@ -10,8 +10,9 @@ import PickCard from "components/gameEnding/PickCard";
 import { Navigate } from "react-router-dom";
 
 export const GameEnding = (props) => {
+  // 백에 요청할 자리
   const sampleReward = {
-    starCount: 4,
+    starCount: 5,
     card: { name: "개미", image: ant },
   };
 

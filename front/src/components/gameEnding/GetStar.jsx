@@ -1,4 +1,4 @@
-import RewardStar from "components/common/RewardStar";
+import RewardStar from "components/gameEnding/RewardStar";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
@@ -15,12 +15,12 @@ export const GetStar = (props) => {
     return newArr;
   };
   useEffect(() => {
-    setTimeout(() => props.closeGetStar(), 1500);
+    setTimeout(() => props.closeGetStar(), 2000);
   }, [props]);
   return (
     <>
       <div className="absolute w-screen h-screen bg-opacity-40 bg-mainGray-300"></div>
-      <div className="bg-[#8977AD] w-[24rem] h-[4rem] absolute top-2/3 left-1/2 -translate-x-[12rem] rounded-3xl grid grid-cols-5 items-center justify-items-center">
+      <div className="bg-[#8977AD] w-[24rem] h-[4.5rem] absolute top-2/3 left-1/2 -translate-x-[12rem] rounded-3xl grid grid-cols-5 items-center justify-items-center">
         {starLoop()}
       </div>
     </>

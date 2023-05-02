@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 export const EndingScene = (props) => {
   useEffect(() => {
-    setTimeout(() => props.closeEndingScene(), 1500);
+    setTimeout(() => props.closeEndingScene(), 2000);
   }, [props]);
   return (
     <>
