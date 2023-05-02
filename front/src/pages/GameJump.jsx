@@ -66,23 +66,23 @@ export const GameJump = (props) => {
   }, [dispatch]);
 
   return (
-    <>
-      {level >= LAST_LEVEL ? (
-        (() => {
-          return <Navigate to={`/`} />;
-        })()
-      ) : (
-        <>
-          <Suspense fallback={<LoadingComponent />}>
-            <Canvas>
-              <>
-                {/* <OrbitControls /> */}
-                <ambientLight args={["white", 1.5]} castShadow />
-                <BackgroundImage imagePath={bgImage} />
-                <FallowCamera target={character} />
-                {/* <FlatCamera /> */}
-                <WaterFloor bottom={BOTTOM_POSITION} />
-              </>
+    <Suspense fallback={<LoadingComponent />}>
+        {level >= LAST_LEVEL ? (
+          (() => {
+            return <Navigate to={`/`} />;
+          })()
+        ) : (
+          //750 length
+          <Canvas>
+            {/* <Suspense fallback={null}> */}
+            <>
+              {/* <OrbitControls /> */}
+              <ambientLight args={["white", 1.5]} castShadow />
+              <BackgroundImage imagePath={bgImage} />
+              <FallowCamera target={character} />
+              {/* <FlatCamera /> */}
+              <WaterFloor bottom={BOTTOM_POSITION} />
+            </>
 
               <PengulModel ref={character} bottom={BOTTOM_POSITION} />
 
@@ -121,10 +121,8 @@ export const GameJump = (props) => {
                 })}
               <GameJumpOverlay startGame={startGame} />
             </Canvas>
-          </Suspense>
-        </>
       )}
-    </>
+    </Suspense>
   );
 };
 
