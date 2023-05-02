@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
@@ -30,12 +30,19 @@ const Carousel = () => {
     const nav = useNavigate();
     const dispatch = useDispatch();
 
+    // const page = useSelector(state => state.backGround.page)
+
     const [mainCard, setMainCard] = useState(0);
 
     const changeMainCard = (num) => {
         setMainCard(num);
         dispatch(backActions.changeBackGround(num))
     }
+
+    useEffect(() => {
+        dispatch(backActions.changeBackGround(0))
+    }, [])
+
     const movePageHandler = (game, idx) => {
         if(mainCard === idx) nav(game.url)
     }
@@ -55,10 +62,9 @@ const Carousel = () => {
                     slideShadows: false,
                 }}
                 // loopPreventsSlide={true}
-                // loop={true}
+                // loop={true}  
                 pagination={true}
                 modules={[EffectCoverflow, Pagination]}
-                
                 className="mySwiper"
                 onSlideChange={(e) => changeMainCard(e.activeIndex)}
             >

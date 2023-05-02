@@ -22,7 +22,7 @@ const BookModalHeader = () => {
             <div className="w-1/3 h-full">
             </div>
             <div className="w-1/3 h-full flex justify-center items-center">
-                <div className="bg-modernOrange rounded-xl w-[70%] h-[70%] font-MaplestoryBold text-[200%] text-white flex justify-center item-center">
+                <div className="bg-modernOrange rounded-xl w-[70%] h-[80%] font-MaplestoryBold text-[200%] text-white flex justify-center item-center">
                     {textTitle}
                 </div>
             </div>
