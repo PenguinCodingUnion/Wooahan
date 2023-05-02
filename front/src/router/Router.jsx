@@ -5,7 +5,8 @@ import GameJump from "pages/GameJump";
 import GameSleigh from "pages/GameSleigh";
 import GameBubble from "pages/GameBubble";
 import GameTrain from "pages/GameTrain";
-import Books from 'pages/Books';
+import Books from "pages/Books";
+import GameEnding from "pages/GameEnding";
 import { Suspense } from "react";
 
 const route = createBrowserRouter([
@@ -36,6 +37,10 @@ const route = createBrowserRouter([
       {
         path: `bubble`,
         element: <GameBubble />,
+      },
+      {
+        path: `ending`,
+        element: <GameEnding />,
       },
     ],
   },

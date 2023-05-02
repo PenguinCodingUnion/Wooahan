@@ -8,7 +8,7 @@ export const AnswerCard = (props) => {
         props.closeCard();
         props.changeQuiz();
       }, 1500);
-    } else {
+    } else if (props.name !== props.answer) {
       setTimeout(() => props.closeCard(), 1500);
     }
   }, [props]);
