@@ -27,7 +27,9 @@ export const GameEnding = (props) => {
 
   const closeGetStar = () => {
     setIsGetStarOpen(false);
-    setIsPickCardOpen(true);
+    if (sampleReward.starCount === 5) {
+      setIsPickCardOpen(true);
+    }
   };
 
   const closePickCard = () => {
