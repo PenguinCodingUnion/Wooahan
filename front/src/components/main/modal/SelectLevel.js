@@ -13,7 +13,6 @@ const SelectLevel = () => {
     }
 
     const selectedLevel = useSelector(state => state.level.level)
-    console.log(selectedLevel);
 
     return (
         <div className="flex justify-around items-center w-full h-[50%] pt-[1%]">
