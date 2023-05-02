@@ -5,7 +5,7 @@ import TrainLastWord from "./TrainLastWord";
 import TrainWordCard from "./TrainWordCard";
 import jar from "assets/images/tmp/무공해항아리.avif";
 import pig from "assets/images/tmp/넷째돼지.png";
-import TrainEnd from "./TrainEnd";
+import { Navigate } from "react-router-dom";
 
 export const Train = (props) => {
   const data = [
@@ -44,7 +44,7 @@ export const Train = (props) => {
       {}
       {!end && <TrainLastWord data={data[round].last} />}
       {!end && <TrainWordCard data={data[round]} nextGame={nextGame} />}
-      {end && <TrainEnd />}
+      {end && <Navigate to={`/ending`} />}
     </div>
   );
 };
