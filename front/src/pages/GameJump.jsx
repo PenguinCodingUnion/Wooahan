@@ -80,23 +80,22 @@ export const GameJump = (props) => {
               setIsLoading(false);
             }}
           >
-            {/* <Suspense fallback={null}> */}
-            <>
-              {/* <OrbitControls /> */}
-              <ambientLight args={["white", 1.5]} castShadow />
-              <BackgroundImage imagePath={bgImage} />
-              <FallowCamera target={character} />
-              {/* <FlatCamera /> */}
-              <WaterFloor bottom={BOTTOM_POSITION} />
-            </>
+            {/** 배경설정 */}
+            {/* <OrbitControls /> */}
+            <ambientLight args={["white", 1.5]} castShadow />
+            <BackgroundImage imagePath={bgImage} />
+            <FallowCamera target={character} />
+            <WaterFloor bottom={BOTTOM_POSITION} />
+            <GameJumpOverlay startGame={startGame} />
 
+            {/** 캐릭터 모델 */}
             <PengulModel ref={character} bottom={BOTTOM_POSITION} />
 
-            <>
-              <IceModel icePosition={-375} bottom={BOTTOM_POSITION} />
-              <IceModel icePosition={375} bottom={BOTTOM_POSITION} />
-            </>
+            {/** 고정 오브젝트 */}
+            <IceModel icePosition={-375} bottom={BOTTOM_POSITION} />
+            <IceModel icePosition={375} bottom={BOTTOM_POSITION} />
 
+            {/** 동적 오브젝트 */}
             {gameStatus === GameStatus.GAME_START &&
               problems[level].map((el, idx) => {
                 const length =
@@ -124,7 +123,6 @@ export const GameJump = (props) => {
                   </React.Fragment>
                 );
               })}
-            <GameJumpOverlay startGame={startGame} />
           </Canvas>
         </Suspense>
       )}
