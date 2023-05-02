@@ -66,26 +66,11 @@ module.exports = {
           "0%": { transform: "translateX(0px) " },
           "100%": { transform: "translateX(-1400px)" },
         },
-        bubblePop: {
-          "0%": {
-            transform: "scale(1)",
-            opacity: "1",
-          },
-          "20%": {
-            transform: "scale(0)",
-            opacity: "0.6",
-          },
-          "100%": {
-            transform: "scale(0.5)",
-            opacity: "0",
-          },
-        },
       },
       animation: {
         intro: "intro 4s linear infinite",
         goTrain: "goTrain 10s linear infinite",
         oneTrain: "oneTrain 1.5s linear",
-        bubblePop: "bubblePop 1.1s ease",
       },
     },
     textFillColor: (theme) => theme("borderColor"),

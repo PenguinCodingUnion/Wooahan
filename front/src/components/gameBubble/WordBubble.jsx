@@ -5,35 +5,42 @@ import bgBubble from "assets/images/structure_bubble.png";
 import classNames from "classnames";
 
 export const WordBubble = (props) => {
-  const [doBubblePop, setDoBubblePop] = useState("");
+  const [styleStr, setStyleStr] = useState({
+    backgroundImage: `url(${bgBubble})`,
+    backgroundSize: `cover`,
+  });
   const classStr = classNames(
     "absolute grid items-center text-3xl font-extrabold justify-items-center font-MaplestoryBold",
     props.positionX,
     props.positionY,
     props.size,
-    props.animation,
-    doBubblePop
+    props.animation
   );
 
   const clickAnswer = () => {
     if (props.clickAnswer) {
-      setDoBubblePop("animate-bubblePop");
+      setStyleStr({
+        backgroundImage: `url(${bgBubble})`,
+        backgroundSize: `cover`,
+        transition: `.4s ease-out`,
+        transform: `scale(3) `,
+        opacity: 0,
+      });
       setTimeout(() => {
         props.clickAnswer(props.number);
+        setStyleStr({
+          backgroundImage: `url(${bgBubble})`,
+          backgroundSize: `cover`,
+          transform: `scale(1)`,
+          opacity: 1,
+        });
       }, 500);
     }
   };
   return (
     <>
       {props.display && (
-        <div
-          className={classStr}
-          style={{
-            backgroundImage: `url(${bgBubble})`,
-            backgroundSize: "cover",
-          }}
-          onClick={clickAnswer}
-        >
+        <div className={classStr} style={styleStr} onClick={clickAnswer}>
           {props.name}
         </div>
       )}
