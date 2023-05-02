@@ -67,7 +67,7 @@ export const GameJump = (props) => {
 
   return (
     <Suspense fallback={<LoadingComponent />}>
-      <div className="mx-auto h-screen w-screen flex relative">
+      <div className="relative flex w-screen h-screen mx-auto">
         {level >= LAST_LEVEL ? (
           (() => {
             return <Navigate to={`/`} />;
