@@ -10,7 +10,6 @@ export const backSlice = createSlice({
     reducers : {
         changeBackGround(state, action){
             state.page = action.payload
-            console.log(state.page);
         }
     }
 })

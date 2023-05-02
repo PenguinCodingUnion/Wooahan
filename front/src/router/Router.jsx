@@ -7,6 +7,7 @@ import GameBubble from "pages/GameBubble";
 import GameTrain from "pages/GameTrain";
 import Books from "pages/Books";
 import GameEnding from "pages/GameEnding";
+import { Suspense } from "react";
 
 const route = createBrowserRouter([
   {
