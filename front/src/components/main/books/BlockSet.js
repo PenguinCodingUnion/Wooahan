@@ -1,8 +1,14 @@
 import Block from './Block'
+import { useSelector } from 'react-redux';
 
 const BlockSet =() => {
+
+    const selectedText = useSelector(state => state.bookText.text)
+
+    console.log(selectedText)
+
     return(
-        <div className="absolute top-[20%] w-[200%] h-[75%] bg-sharkGray">
+        <div className="absolute top-[20%] w-[200%] h-[75%] bg-transparent">
             <Block top={"5%"} left={"5%"} text={"ㄱ"} z={"10"}/>
             <Block top={"17%"} left={"10%"} text={"ㄴ"} z={"10"}/>
             <Block top={"30%"} left={"15%"} text={"ㄷ"} z={"10"}/>
