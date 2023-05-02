@@ -1,8 +1,6 @@
 package com.wooahan.back.controller;
 
-import com.wooahan.back.dto.BubbleResDto;
-import com.wooahan.back.dto.OverResDto;
-import com.wooahan.back.dto.TrainResDto;
+import com.wooahan.back.dto.*;
 import com.wooahan.back.entity.Member;
 import com.wooahan.back.service.BubbleService;
 import com.wooahan.back.service.RewardService;
@@ -32,9 +30,16 @@ public class GameController {
         return new ResponseEntity<>(trainService.trainStart(difficulty), HttpStatus.OK);
     }
 
-    @GetMapping("/over/{email}")
+    @GetMapping("/over/{email:.+}")
     public ResponseEntity<OverResDto>overSign(@PathVariable String email){
         return new ResponseEntity<>(rewardService.giveMeReward(email), HttpStatus.OK);
     }
+
+    @PostMapping("/reward")
+    public ResponseEntity<CardResDto>myRewards(@RequestBody CardReqDto cardReqDto){
+        return new ResponseEntity<>(rewardService.getMyRewards(cardReqDto),HttpStatus.OK);
+    }
+
+
 
 }

@@ -2,6 +2,7 @@ package com.wooahan.back.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -9,6 +10,8 @@ import javax.persistence.*;
 
 
 @Entity
+@Getter
+@NoArgsConstructor
 public class Reward {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
