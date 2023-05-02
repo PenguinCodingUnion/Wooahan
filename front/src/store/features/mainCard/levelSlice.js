@@ -10,7 +10,6 @@ export const levelSlice = createSlice({
     reducers: {
         selectLevel(state, action){
             state.level = action.payload
-            console.log(state.level);
         }
     }
 })
