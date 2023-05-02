@@ -7,9 +7,11 @@ export const GetStar = (props) => {
     const newArr = [];
     for (let i = 0; i < 5; i++) {
       if (i < props.starCount) {
-        newArr.push(<RewardStar key={i} color={i + 1} />);
+        newArr.push(
+          <RewardStar key={i} color={i + 1} count={props.starCount} />
+        );
       } else {
-        newArr.push(<RewardStar key={i} color={0} />);
+        newArr.push(<RewardStar key={i} color={0} count={props.starCount} />);
       }
     }
     return newArr;
