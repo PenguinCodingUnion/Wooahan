@@ -38,6 +38,25 @@
                     }
                 },
                 {
+                    "source": "C:\\Users\\SSAFY\\Desktop\\S08P31B206\\hangul\\app\\src\\main\\res\\values\\themes.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "102",
+                        "endLines": "15",
+                        "endColumns": "12",
+                        "endOffsets": "857"
+                    },
+                    "to": {
+                        "startLines": "6073",
+                        "startColumns": "4",
+                        "startOffsets": "418870",
+                        "endLines": "6086",
+                        "endColumns": "12",
+                        "endOffsets": "419491"
+                    }
+                },
+                {
                     "source": "C:\\Users\\SSAFY\\.gradle\\caches\\transforms-3\\d937372f4d1bea6dffbb3852bb38fc5f\\transformed\\transition-1.2.0\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11",
@@ -52,6 +71,23 @@
                         "startOffsets": "105708,105748,106880,107062,107117,108613,108667,108719,108768,108829",
                         "endColumns": "39,46,42,54,46,53,51,48,60,49",
                         "endOffsets": "105743,105790,106918,107112,107159,108662,108714,108763,108824,108874"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\SSAFY\\Desktop\\S08P31B206\\hangul\\app\\src\\main\\res\\values\\strings.xml",
+                    "from": {
+                        "startLines": "1",
+                        "startColumns": "4",
+                        "startOffsets": "17",
+                        "endColumns": "43",
+                        "endOffsets": "56"
+                    },
+                    "to": {
+                        "startLines": "1798",
+                        "startColumns": "4",
+                        "startOffsets": "115512",
+                        "endColumns": "43",
+                        "endOffsets": "115551"
                     }
                 },
                 {
@@ -262,6 +298,23 @@
                     }
                 },
                 {
+                    "source": "C:\\Users\\SSAFY\\Desktop\\S08P31B206\\hangul\\app\\src\\main\\res\\values\\colors.xml",
+                    "from": {
+                        "startLines": "7,2,3,4,5,6,8",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "293,57,105,153,201,247,336",
+                        "endColumns": "41,46,46,46,44,44,41",
+                        "endOffsets": "330,99,147,195,241,287,373"
+                    },
+                    "to": {
+                        "startLines": "619,871,872,873,884,885,888",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "31578,49831,49878,49925,50669,50714,50880",
+                        "endColumns": "41,46,46,46,44,44,41",
+                        "endOffsets": "31615,49873,49920,49967,50709,50754,50917"
+                    }
+                },
+                {
                     "source": "C:\\Users\\SSAFY\\.gradle\\caches\\transforms-3\\93ac10b68cc6b2ecdb3339310a897f91\\transformed\\fragment-1.3.6\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2,3,4,5,10",
@@ -281,23 +334,6 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\SSAFY\\Desktop\\hangul-app\\hangul\\app\\src\\main\\res\\values\\strings.xml",
-                    "from": {
-                        "startLines": "1",
-                        "startColumns": "4",
-                        "startOffsets": "16",
-                        "endColumns": "43",
-                        "endOffsets": "55"
-                    },
-                    "to": {
-                        "startLines": "1798",
-                        "startColumns": "4",
-                        "startOffsets": "115512",
-                        "endColumns": "43",
-                        "endOffsets": "115551"
-                    }
-                },
-                {
                     "source": "C:\\Users\\SSAFY\\.gradle\\caches\\transforms-3\\bdeac150b6ce0fcc7996d2b9a9f9c390\\transformed\\startup-runtime-1.1.1\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2",
@@ -312,42 +348,6 @@
                         "startOffsets": "115429",
                         "endColumns": "82",
                         "endOffsets": "115507"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\SSAFY\\Desktop\\hangul-app\\hangul\\app\\src\\main\\res\\values\\themes.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "100",
-                        "endLines": "15",
-                        "endColumns": "12",
-                        "endOffsets": "842"
-                    },
-                    "to": {
-                        "startLines": "6073",
-                        "startColumns": "4",
-                        "startOffsets": "418870",
-                        "endLines": "6086",
-                        "endColumns": "12",
-                        "endOffsets": "419491"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\SSAFY\\Desktop\\hangul-app\\hangul\\app\\src\\main\\res\\values\\colors.xml",
-                    "from": {
-                        "startLines": "7,2,3,4,5,6,8",
-                        "startColumns": "4,4,4,4,4,4,4",
-                        "startOffsets": "286,55,102,149,196,241,328",
-                        "endColumns": "41,46,46,46,44,44,41",
-                        "endOffsets": "323,97,144,191,236,281,365"
-                    },
-                    "to": {
-                        "startLines": "619,871,872,873,884,885,888",
-                        "startColumns": "4,4,4,4,4,4,4",
-                        "startOffsets": "31578,49831,49878,49925,50669,50714,50880",
-                        "endColumns": "41,46,46,46,44,44,41",
-                        "endOffsets": "31615,49873,49920,49967,50709,50754,50917"
                     }
                 },
                 {

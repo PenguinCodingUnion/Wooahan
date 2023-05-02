@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <EditText
+        android:id="@+id/urlEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="http://localhost:3000/"
+        android:inputType="textUri"
+        tools:ignore="MissingConstraints" />
     <WebView
         android:id="@+id/myWebView"
         android:layout_width="0dp"
