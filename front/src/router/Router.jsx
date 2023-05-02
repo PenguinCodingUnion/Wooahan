@@ -6,6 +6,7 @@ import GameSleigh from "pages/GameSleigh";
 import GameBubble from "pages/GameBubble";
 import GameTrain from "pages/GameTrain";
 import Books from 'pages/Books';
+import { Suspense } from "react";
 
 const route = createBrowserRouter([
   {
@@ -18,7 +19,7 @@ const route = createBrowserRouter([
       },
       {
         path: `books`,
-        element: <Books />
+        element: <Books />,
       },
       {
         path: `jump`,
