@@ -17,6 +17,8 @@ module.exports = {
       'deepPink':'#f7a3e3',
       'sample': "#fcfb00",
       'beige': "#fcf0c7",
+      'modernOrange': "#f48733",
+      'mint': "#91ffb7",
       // 기본 컬러
       mainBlack: colors.black,
       mainWhite: colors.white,

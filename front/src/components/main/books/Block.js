@@ -1,5 +1,4 @@
 import brick from 'assets/images/books/brick.png'
-import bookModal from '../books_modal/BookModal';
 import { useDispatch } from 'react-redux';
 import { bookModalActions } from 'store/features/mainCard/bookSlice';
 
