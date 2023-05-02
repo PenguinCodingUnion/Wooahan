@@ -4,6 +4,7 @@ import backSlice from "./features/mainCard/backSlice";
 import modalSlice from './features/mainCard/modalSlice';
 import levelSlice from './features/mainCard/levelSlice';
 import gameStatusSlice from "./features/gameStatus/gameStatusSlice";
+import bookSlice from "./features/mainCard/bookSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     modal: modalSlice,
     level: levelSlice,
     gameStatus: gameStatusSlice,
+    bookText: bookSlice,
   },
 });
