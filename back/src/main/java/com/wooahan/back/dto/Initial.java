@@ -12,6 +12,7 @@ public enum Initial {
     ㅈ(8),ㅉ(8),
     ㅊ(9), ㅋ(10),ㅌ(11),ㅍ(12),ㅎ(13);
     private int value;
+
     Initial(int value) {
         this.value = value;
     }

@@ -1,9 +1,6 @@
 package com.wooahan.back.service;
 
-import com.wooahan.back.dto.CardReqDto;
-import com.wooahan.back.dto.CardResDto;
-import com.wooahan.back.dto.OverResDto;
-import com.wooahan.back.dto.SimpleWordInfo;
+import com.wooahan.back.dto.*;
 import com.wooahan.back.entity.Member;
 import com.wooahan.back.entity.Reward;
 import com.wooahan.back.entity.Word;
@@ -49,6 +46,7 @@ public class RewardService {
         return new OverResDto(updatedStar,simpleWordInfo);
         //가지고 있는 rewards 제외하고
     }
+
     public CardResDto getMyRewards(CardReqDto cardReqDto){
         //이메일로 멤버 가져와
         Member member = memberRepository.findByEmail(cardReqDto.getEmail()).get();
@@ -58,9 +56,10 @@ public class RewardService {
                 .orElseThrow(()->new NoSuchElementException("넌 card가 없어ㅋㅋ"));
 
         List<SimpleWordInfo> simpleWordInfoList = rewardList.stream()
+                //reward의 단어에 이니셜(숫자)==Initial에 매핑된 숫자인것만 가져
+                .filter(reward -> reward.getWord().getInitial()==Initial.valueOf(cardReqDto.getText()).getValue())
                 //그 reward의 word 정보로 simplewordinfo 만들어
                 .map(reward -> new SimpleWordInfo(reward.getWord().getName(),reward.getWord().getImgUrl()))
-                //initial 맞는거 가져와
                 .collect(Collectors.toList());
 
         //dto로 묶어주고 뱉어
