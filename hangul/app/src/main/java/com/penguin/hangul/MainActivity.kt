@@ -1,8 +1,12 @@
 package com.penguin.hangul
 
 import android.app.Activity
+import android.content.Context
 import android.content.pm.ActivityInfo
+import android.hardware.*
 import android.os.Bundle
+import android.os.Debug
+import android.util.Log
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -10,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import java.util.Timer
 import kotlin.concurrent.timerTask
+import kotlin.math.sqrt
 
 
 class MainActivity : AppCompatActivity() {
@@ -37,16 +42,58 @@ class MainActivity : AppCompatActivity() {
         myWebView?.addJavascriptInterface(MyJavaScriptInterFace(MyData()), "myData")
         myWebView?.addJavascriptInterface(myJSCC, "android")
 
-//        myWebView?.loadUrl("https://www.naver.co.kr")
+
+
+//        val timer = Timer()
+//
+//        timer.scheduleAtFixedRate(timerTask {
+//            runOnUiThread {
+//                myWebView?.evaluateJavascript("javascript:window.doJump();", null)
+//            }
+//        }, 0, 15000)
+
+        val sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager;
+        val accelermeter = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        val sensorEventListner = object : SensorEventListener {
+            var lastAccel: Float = 0f;
+            var accel: Float = 0f;
+            var currentAccel = 0f;
+
+            override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+                Log.i("Android", "What are you doing")
+            }
+
+            override fun onSensorChanged(event: SensorEvent) {
+                if ( event.sensor.type == Sensor.TYPE_ACCELEROMETER) {
+                    lastAccel = currentAccel
+                    currentAccel = sqrt((event.values[0] * event.values[0] + event.values[1] * event.values[1] + event.values[2] * event.values[2]))
+                    val delta: Float = currentAccel - lastAccel
+                    accel = accel * 0.9f + delta;
+
+//                    Log.i("Android", "this is ACCELEROMETER")
+                    if (accel > 2) {
+                        onJumpDetected()
+                    }
+                }
+            }
+        }
+
+        sensorManager.registerListener(sensorEventListner, accelermeter, SensorManager.SENSOR_DELAY_GAME);
+
+        //내 커널임
+//      myWebView?.loadUrl("https://8447-14-50-47-145.ngrok-free.app/")
         myWebView?.loadUrl("http://10.0.2.2:3000")
 
-        val timer = Timer()
 
-        timer.scheduleAtFixedRate(timerTask {
-            runOnUiThread {
-                myWebView?.evaluateJavascript("javascript:window.doJump();", null)
-            }
-        }, 0, 15000)
+    }
+
+    fun onJumpDetected() {
+//        Log.i("Android", "Send Jump Function To Web")
+
+        runOnUiThread {
+            myWebView?.evaluateJavascript("javascript:window.doJump();", null)
+        }
     }
 
     override fun onBackPressed() {
