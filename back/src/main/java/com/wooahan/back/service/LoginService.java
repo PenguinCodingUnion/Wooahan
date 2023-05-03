@@ -24,11 +24,17 @@ public class LoginService {
     public String socialLogin(String code, String registrationId) {
         String accessToken = getAccessToken(code, registrationId);
         JsonNode userResourceNode = getUserResource(accessToken, registrationId);
-        System.out.println("userResourceNode = " + userResourceNode);
+//        System.out.println("userResourceNode = " + userResourceNode);
 
         String id = userResourceNode.get("id").asText();
         String email = userResourceNode.get("email").asText();
         String nickname = userResourceNode.get("name").asText();
+
+//        Member member = memberRepository.findByEmail(androidId)
+//                //없으면 만들어
+//                .orElseGet(()->createMember(androidId));
+//        memberRepository.findByEmail()
+
         Member member = Member.builder()
                 .name(nickname)
                 .email(email)
@@ -37,9 +43,9 @@ public class LoginService {
                 .build();
         memberRepository.save(member);
 
-        System.out.println("id = " + id);
-        System.out.println("email = " + email);
-        System.out.println("nickname = " + nickname);
+//        System.out.println("id = " + id);
+//        System.out.println("email = " + email);
+//        System.out.println("nickname = " + nickname);
         return email;
     }
 
@@ -80,15 +86,22 @@ public class LoginService {
         return restTemplate.exchange(resourceUri, HttpMethod.GET, entity, JsonNode.class).getBody();
     }
 
-    //guestlogin
-    public String tempLogin(String androidID) {
+    public Member createMember(String androidId){
         Member member = Member.builder()
                 .name("guest")
                 .email(UUID.randomUUID().toString())
-                .provider(androidID)
+                .provider(androidId)
                 .isGuest(true)
                 .build();
         memberRepository.save(member);
+        return member;
+    }
+
+    //guestlogin
+    public String tempLogin(String androidId) {
+        Member member = memberRepository.findByEmail(androidId)
+                //없으면 만들어
+                .orElseGet(()->createMember(androidId));
         return member.getEmail();
     }
 }
