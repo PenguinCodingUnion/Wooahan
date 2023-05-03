@@ -2,30 +2,27 @@ import React from "react";
 import PropTypes from "prop-types";
 import { GameStatus } from "util/Enums.ts";
 import { useSelector } from "react-redux";
-import { Html } from "@react-three/drei";
 import CommonOverlay from "components/common/CommonOverlay";
 
 const GameJumpOverlay = ({ startGame, ...props }) => {
   const gameStatus = useSelector((state) => state.gameStatus.status);
 
-  return (
-    <mesh>
-      <Html>
-        {(() => {
-          switch (gameStatus) {
-            case GameStatus.GAME_READY:
-              return <GameReadyContainer startGame={startGame} />;
+  return (() => {
+    switch (gameStatus) {
+      case GameStatus.GAME_READY:
+        return (
+          <CommonOverlay>
+            <GameReadyContainer startGame={startGame} />
+          </CommonOverlay>
+        );
 
-            case GameStatus.GAME_START:
-              return <GameStartContainer startGame={startGame} />;
+      case GameStatus.GAME_START:
+        return <GameStartContainer startGame={startGame} />;
 
-            default:
-              return <div></div>;
-          }
-        })()}
-      </Html>
-    </mesh>
-  );
+      default:
+        return <div></div>;
+    }
+  })();
 };
 
 const GameStartContainer = () => {
@@ -43,34 +40,30 @@ const GameStartContainer = () => {
 
 const GameReadyContainer = ({ startGame, ...props }) => {
   return (
-    <>
-      <CommonOverlay>
-        <div className={`absolute flex flex-col justify-between h-full w-full`}>
-          <div
-            className={`border-4 border-indigo-600 rounded-2xl w-2/4 p-4 m-8 mx-auto bg-mainWhite z-50`}
-          >
-            <h2 className={`text-center font-bold`}>
-              띄어쓰기에 맞게 점프하세요.
-            </h2>
-          </div>
-          <div
-            className={`w-2/4 p-4 m-8 mx-auto`}
-            onClick={() => {
-              startGame();
-            }}
-          >
-            <h1
-              className={`text-6xl text-center font-bold text-mainIndigo-600`}
-              style={{
-                textShadow: `2px 0 #fff, -2px 0 #fff, 0 2px #fff, 0 -2px #fff`,
-              }}
-            >
-              시 작 !
-            </h1>
-          </div>
-        </div>
-      </CommonOverlay>
-    </>
+    // <>
+    //   <CommonOverlay>
+    <div className={`absolute flex flex-col justify-between h-full w-full`}>
+      <div
+        className={`border-4 border-indigo-600 rounded-2xl w-2/4 p-4 m-8 mx-auto bg-mainWhite z-50`}
+      >
+        <h2 className={`text-center font-bold`}>띄어쓰기에 맞게 점프하세요.</h2>
+      </div>
+      <div
+        className={`w-2/4 p-4 m-8 mx-auto`}
+        onClick={() => {
+          startGame();
+        }}
+      >
+        <h1
+          className={`text-6xl text-center font-bold text-mainIndigo-600`}
+          style={{
+            textShadow: `2px 0 #fff, -2px 0 #fff, 0 2px #fff, 0 -2px #fff`,
+          }}
+        >
+          시 작 !
+        </h1>
+      </div>
+    </div>
   );
 };
 

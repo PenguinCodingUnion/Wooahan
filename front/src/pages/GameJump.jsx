@@ -74,7 +74,11 @@ export const GameJump = (props) => {
       ) : (
         //750 length
         <Suspense fallback={<LoadingComponent />}>
-          {isLoading && <LoadingComponent />}
+          {isLoading ? (
+            <LoadingComponent />
+          ) : (
+            <GameJumpOverlay startGame={startGame} />
+          )}
           <Canvas
             onCreated={() => {
               setIsLoading(false);
@@ -86,7 +90,6 @@ export const GameJump = (props) => {
             <BackgroundImage imagePath={bgImage} />
             <FallowCamera target={character} />
             <WaterFloor bottom={BOTTOM_POSITION} />
-            <GameJumpOverlay startGame={startGame} />
 
             {/** 캐릭터 모델 */}
             <PengulModel ref={character} bottom={BOTTOM_POSITION} />
