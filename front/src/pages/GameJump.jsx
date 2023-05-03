@@ -44,6 +44,7 @@ export const GameJump = (props) => {
   const gameStatus = useSelector((state) => state.gameStatus.status);
 
   const level = useSelector((state) => state.gameStatus.level);
+  const [isLoading, setIsLoading] = useState(true);
   const [problems, setProblems] = useState(TEST_PROBLEM ? TEST_PROBLEM : [[]]);
 
   let lastIcePosition = -325;
@@ -65,62 +66,70 @@ export const GameJump = (props) => {
   }, [dispatch]);
 
   return (
-    <Suspense fallback={<LoadingComponent />}>
+    <>
       {level >= LAST_LEVEL ? (
         (() => {
           return <Navigate to={`/ending`} />;
         })()
       ) : (
         //750 length
-        <Canvas>
-          {/* <Suspense fallback={null}> */}
-          <>
+        <Suspense fallback={<LoadingComponent />}>
+          {isLoading ? (
+            <LoadingComponent />
+          ) : (
+            <GameJumpOverlay startGame={startGame} />
+          )}
+          <Canvas
+            onCreated={() => {
+              setIsLoading(false);
+            }}
+          >
+            {/** 배경설정 */}
             {/* <OrbitControls /> */}
             <ambientLight args={["white", 1.5]} castShadow />
             <BackgroundImage imagePath={bgImage} />
             <FallowCamera target={character} />
-            {/* <FlatCamera /> */}
             <WaterFloor bottom={BOTTOM_POSITION} />
-          </>
 
-          <PengulModel ref={character} bottom={BOTTOM_POSITION} />
+            {/** 캐릭터 모델 */}
+            <PengulModel ref={character} bottom={BOTTOM_POSITION} />
 
-          <>
+            {/** 고정 오브젝트 */}
             <IceModel icePosition={-375} bottom={BOTTOM_POSITION} />
             <IceModel icePosition={375} bottom={BOTTOM_POSITION} />
-          </>
 
-          {gameStatus === GameStatus.GAME_START &&
-            problems[level].map((el, idx) => {
-              const length =
-                (700 -
-                  SHORTEST_DISTANCE_FOR_JUMP * (problems[level].length - 1)) /
-                problems[level].length;
+            {/** 동적 오브젝트 */}
+            {gameStatus === GameStatus.GAME_START &&
+              problems[level].map((el, idx) => {
+                const length =
+                  (700 -
+                    SHORTEST_DISTANCE_FOR_JUMP * (problems[level].length - 1)) /
+                  problems[level].length;
 
-              lastIcePosition += length + SHORTEST_DISTANCE_FOR_JUMP;
+                lastIcePosition += length + SHORTEST_DISTANCE_FOR_JUMP;
 
-              if (idx === 0) {
-                lastIcePosition -= length;
-              }
+                if (idx === 0) {
+                  lastIcePosition -= length;
+                }
 
-              return (
-                <React.Fragment key={idx}>
-                  <TextObject
-                    text={el.word}
-                    position={[lastIcePosition - 75, 150, 0]}
-                  />
-                  <IceModel
-                    icePosition={lastIcePosition}
-                    bottom={BOTTOM_POSITION}
-                    length={length / 15}
-                  />
-                </React.Fragment>
-              );
-            })}
-          <GameJumpOverlay startGame={startGame} />
-        </Canvas>
+                return (
+                  <React.Fragment key={idx}>
+                    <TextObject
+                      text={el.word}
+                      position={[lastIcePosition - 75, 150, 0]}
+                    />
+                    <IceModel
+                      icePosition={lastIcePosition}
+                      bottom={BOTTOM_POSITION}
+                      length={length / 15}
+                    />
+                  </React.Fragment>
+                );
+              })}
+          </Canvas>
+        </Suspense>
       )}
-    </Suspense>
+    </>
   );
 };
 
