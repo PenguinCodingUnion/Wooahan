@@ -66,7 +66,16 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
       }
     });
 
+    window.doJump = doJump;
+
     setActiveAnimation(1);
+
+    return () => {
+      activeAnimation.current = 0;
+      window.doJump = () => {
+        console.log(`not claim function`);
+      };
+    };
   }, [doJump]);
 
   const setActiveAnimation = useCallback(

@@ -9,6 +9,9 @@ import route from "./router/Router";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
+window.doJump = () => {
+  console.log(`not claim function`);
+};
 
 root.render(
   <React.StrictMode>

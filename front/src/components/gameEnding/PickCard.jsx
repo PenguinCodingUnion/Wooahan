@@ -15,6 +15,7 @@ export const PickCard = (props) => {
         <RewardCard
           key={i}
           openPickedCard={openPickedCard}
+          isCardOpened={isPickedCardrOpen}
           name={props.cardName}
         />
       );
