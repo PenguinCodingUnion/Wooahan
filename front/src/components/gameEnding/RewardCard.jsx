@@ -6,7 +6,10 @@ export const RewardCard = (props) => {
     transition: `.4s`,
     transformStyle: `preserve-3d`,
   });
-  const ratateCard = () => {
+  const rotateCard = () => {
+    if (props.isCardOpened) {
+      return;
+    }
     setStyleStr({
       transition: `.4s`,
       transformStyle: `preserve-3d`,
@@ -21,7 +24,7 @@ export const RewardCard = (props) => {
     <div
       className="relative grid items-center justify-items-center "
       style={styleStr}
-      onClick={ratateCard}
+      onClick={rotateCard}
     >
       <div
         className="absolute w-[10rem] h-[6rem] bg-[#964b00] border-4 border-[#c68a12] rounded-lg  justify-items-center items-center grid"
