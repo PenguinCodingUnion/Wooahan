@@ -21,7 +21,7 @@ export const GetStar = (props) => {
   }, [props]);
   return (
     <>
-      <div className="absolute w-screen h-screen bg-opacity-40 bg-mainGray-300"></div>
+      <div className="relative w-screen h-screen bg-opacity-40 bg-mainGray-300"></div>
       <div className="bg-[#8977AD] w-[24rem] h-[4.5rem] absolute top-2/3 left-1/2 -translate-x-[12rem] rounded-3xl grid grid-cols-5 items-center justify-items-center">
         {starLoop()}
       </div>
