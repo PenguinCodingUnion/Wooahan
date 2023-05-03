@@ -24,9 +24,9 @@ export const Main = () => {
   const showModal = useSelector(state => state.modal.modalIsVisible)
 
   return ( 
-    <div className="relative w-screen h-screen">
+    <div className="relative overflow-x-scroll w-screen h-screen">
       <FallingAnimate falling={page}/>
-      {showModal && <Modal />}
+      {showModal && <Modal config={"setting"}/>}
       <img className="absolute w-screen h-screen z-0" src={coverImages[page]} />
       <Header titleIsVisible={true} topLeftButton={"books"}/>  
       <Carousel />
