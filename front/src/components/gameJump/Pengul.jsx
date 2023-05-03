@@ -1,6 +1,6 @@
 import React, { forwardRef, useCallback, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
-import { useGLTF, useAnimations, useSelect } from "@react-three/drei";
+import { useGLTF, useAnimations } from "@react-three/drei";
 import PengulE from "assets/models/PENGUL_v2.gltf";
 import { useFrame } from "@react-three/fiber";
 import useRaycast from "util/hooks/useRaycast.ts";
@@ -21,6 +21,7 @@ const EDGE = 360;
 
 export const PengulModel = forwardRef(({ bottom, props }, ref) => {
   const pengulE = useRef();
+  const { nodes, materials, animations } = useClonedModel(PengulE);
   const raycast = useRaycast(pengulE, 55, new Vector3(1, -1, 0));
 
   //캐릭터 상태관리
@@ -36,11 +37,22 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
 
   //else
   // const { nodes, materials, animations } = useGLTF(PengulE);
-  const { nodes, materials, animations } = useClonedModel(PengulE);
-  const { actions, names } = useAnimations(animations, ref);
+  const { actions } = useAnimations(animations, ref);
 
   const gameStatus = useSelector((state) => state.gameStatus.status);
   const dispatch = useDispatch();
+
+  const setActiveAnimation = useCallback(
+    (idx) => {
+      if (activeAnimation.current === idx) return;
+
+      actions[ANIMATIONS[activeAnimation.current]].fadeOut(0.3);
+      actions[ANIMATIONS[idx]].reset().fadeIn(0.3).play();
+
+      activeAnimation.current = idx;
+    },
+    [actions]
+  );
 
   const doJump = useCallback(() => {
     if (
@@ -55,7 +67,7 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
         setActiveAnimation(3);
       }, 1000);
     }
-  }, [gameStatus]);
+  }, [gameStatus, setActiveAnimation]);
 
   useEffect(() => {
     //Add Jump
@@ -76,19 +88,7 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
         console.log(`not claim function`);
       };
     };
-  }, [doJump]);
-
-  const setActiveAnimation = useCallback(
-    (idx) => {
-      if (activeAnimation.current === idx) return;
-
-      actions[ANIMATIONS[activeAnimation.current]].fadeOut(0.3);
-      actions[ANIMATIONS[idx]].reset().fadeIn(0.3).play();
-
-      activeAnimation.current = idx;
-    },
-    [actions]
-  );
+  }, [doJump, setActiveAnimation]);
 
   //update
   useFrame((_, delta) => {
@@ -174,7 +174,7 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
 
       return newVelocity;
     },
-    [raycast, setActiveAnimation, gameStatus]
+    [raycast, setActiveAnimation, gameStatus, actions]
   );
 
   return (
