@@ -2,6 +2,8 @@ import AnswerCard from "components/gameBubble/AnswerCard";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import RewardCard from "./RewardCard";
+import ReactAudioPlayer from "react-audio-player";
+import getcard from "assets/sounds/getcard.wav";
 
 export const PickCard = (props) => {
   const [isPickedCardrOpen, setIsPickedCardrOpen] = useState(false);
@@ -13,6 +15,7 @@ export const PickCard = (props) => {
         <RewardCard
           key={i}
           openPickedCard={openPickedCard}
+          isCardOpened={isPickedCardrOpen}
           name={props.cardName}
         />
       );
@@ -38,11 +41,14 @@ export const PickCard = (props) => {
         {cardLoop()}
       </div>
       {isPickedCardrOpen && (
-        <AnswerCard
-          name={props.cardName}
-          image={props.cardImg}
-          closeCard={closePickedCard}
-        />
+        <div>
+          <AnswerCard
+            name={props.cardName}
+            image={props.cardImg}
+            closeCard={closePickedCard}
+          />
+          <ReactAudioPlayer src={getcard} autoPlay />
+        </div>
       )}
     </>
   );

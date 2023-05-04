@@ -1,8 +1,12 @@
-import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import ReactAudioPlayer from "react-audio-player";
+import correct from "assets/sounds/correct.wav";
+import wrong from "assets/sounds/wrong.wav";
 
 export const TrainAnswerCard = (props) => {
+  const [sound, setsound] = useState(<></>);
+
   useEffect(() => {
     if (props.word.word === props.ans) {
       setTimeout(() => {
@@ -11,8 +15,10 @@ export const TrainAnswerCard = (props) => {
         props.resetClass();
       }, 1500);
       props.changeTrainClass();
+      setsound(<ReactAudioPlayer src={correct} autoPlay volume={1} />);
     } else {
       setTimeout(() => props.cleanWord(props.word.word), 1500);
+      setsound(<ReactAudioPlayer src={wrong} autoPlay volume={1} />);
     }
   }, [props]);
   return (
@@ -21,6 +27,7 @@ export const TrainAnswerCard = (props) => {
         {props.word.word}
       </p>
       <img className="h-48 w-48 mx-auto" src={props.word.img} alt="사진"></img>
+      <div>{sound}</div>
     </div>
   );
 };
