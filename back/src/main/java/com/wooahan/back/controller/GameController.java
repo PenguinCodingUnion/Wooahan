@@ -21,12 +21,12 @@ public class GameController {
     private final RewardService rewardService;
 
     @GetMapping("/bubble/{difficulty}")
-    public ResponseEntity<List<BubbleResDto>>bubbleGaming(@PathVariable String difficulty){
+    public ResponseEntity<List<BubbleResDto>>bubbleGaming(@PathVariable int difficulty){
         return new ResponseEntity<>(bubbleService.bubbleStart(difficulty), HttpStatus.OK);
     }
 
     @GetMapping("/train/{difficulty}")
-    public ResponseEntity<List<TrainResDto>>trainGaming(@PathVariable String difficulty){
+    public ResponseEntity<List<TrainResDto>>trainGaming(@PathVariable int difficulty){
         return new ResponseEntity<>(trainService.trainStart(difficulty), HttpStatus.OK);
     }
 

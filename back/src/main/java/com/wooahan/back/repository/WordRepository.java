@@ -11,8 +11,8 @@ import java.util.Optional;
 
 public interface WordRepository extends JpaRepository<Word, String> {
     //Bubble,train
-    @Query(value="SELECT word_name as name, img_url as imgUrl FROM word WHERE difficulty= :difficulty ORDER BY RAND() LIMIT :cnt",nativeQuery = true)
-    Optional<List<SimpleWordInfo>> findByRandom(@Param("difficulty") String difficulty, @Param("cnt")int cnt);
+    @Query(value="SELECT * FROM word WHERE difficulty= :difficulty ORDER BY RAND() LIMIT :cnt",nativeQuery = true)
+    Optional<List<Word>> findByRandom(@Param("difficulty") int difficulty, @Param("cnt")int cnt);
 
 
 }

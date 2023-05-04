@@ -15,11 +15,11 @@ public class Word {
     @Column
     private int initial ;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 1000)
     private String imgUrl;
 
-    @Enumerated(EnumType.ORDINAL)
-    private Difficulty difficulty;
+//    @Enumerated(EnumType.ORDINAL)
+    private int difficulty;
 
 
 
