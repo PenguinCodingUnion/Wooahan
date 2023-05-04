@@ -17,7 +17,7 @@ const MIN_SPEED_FOR_JUMP_ICE = 150;
 const GROUND_HEIGHT = -80;
 const EDGE = 360;
 
-const usePengul = ({ pengulE, ref, animations, ...props }) => {
+const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
   const raycast = useRaycast(pengulE, 55, new Vector3(1, -1, 0));
 
   //캐릭터 상태관리
@@ -56,8 +56,11 @@ const usePengul = ({ pengulE, ref, animations, ...props }) => {
       gameStatus === GameStatus.GAME_START &&
       activeAnimation.current === 1
     ) {
+      //점프 상태 관리
       isJumping.current = true;
       jumpNow.current = 1;
+
+      //점프 애니메이션 재생
       setActiveAnimation(2);
       setTimeout(() => {
         setActiveAnimation(3);
@@ -153,6 +156,9 @@ const usePengul = ({ pengulE, ref, animations, ...props }) => {
             //do jump
             newVelocity[1] += JUMP_FORCE;
 
+            //점프 소리 내기
+            sounds.jumpSound.current.play();
+
             jumpNow.current = false;
             isGrounded.current = false;
           }
@@ -170,7 +176,7 @@ const usePengul = ({ pengulE, ref, animations, ...props }) => {
 
       return newVelocity;
     },
-    [raycast, setActiveAnimation, gameStatus, actions]
+    [raycast, setActiveAnimation, gameStatus, actions, sounds]
   );
 };
 

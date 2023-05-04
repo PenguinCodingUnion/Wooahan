@@ -35,6 +35,13 @@ const TEST_PROBLEM = [
     { word: `빈둥빈둥` },
     { word: `놀아요` },
   ],
+  [
+    { word: `혹시` },
+    { word: `네` },
+    { word: `자리의` },
+    { word: `띄어쓰기도` },
+    { word: `되나요` },
+  ],
 ];
 const LAST_LEVEL = TEST_PROBLEM.length;
 

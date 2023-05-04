@@ -5,12 +5,17 @@ import PengulE from "assets/models/PENGUL_v2.gltf";
 
 import { useClonedModel } from "util/hooks/useClonedModel";
 import usePengul from "util/hooks/usePengulJump";
+import JumpSound from "components/gameJump/JumpSound";
+
+import jumpSoundUrl from "assets/sounds/pengulJump.mp3";
 
 export const PengulModel = forwardRef(({ bottom, props }, ref) => {
   const pengulE = useRef();
   const { nodes, materials, animations } = useClonedModel(PengulE);
 
-  usePengul({ pengulE, ref, animations });
+  const jumpSound = useRef();
+
+  usePengul({ pengulE, ref, animations, sounds: { jumpSound } });
 
   return (
     <group {...props} ref={ref} position={[0, 0, -50]} name="PengulE">
@@ -31,6 +36,7 @@ export const PengulModel = forwardRef(({ bottom, props }, ref) => {
             morphTargetInfluences={nodes.cartoon_penguin.morphTargetInfluences}
           />
         </group>
+        <JumpSound ref={jumpSound} url={jumpSoundUrl} />
       </group>
     </group>
   );
