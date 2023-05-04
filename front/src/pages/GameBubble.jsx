@@ -21,52 +21,52 @@ export const GameBubble = (props) => {
   const sampleQuiz = [
     {
       answer: "비행기",
-      image: airplane,
+      answerImg: airplane,
       cards: [
-        { name: "개미", image: ant },
-        { name: "나비", image: butterfly },
-        { name: "비행기", image: airplane },
-        { name: "닭", image: chicken },
+        { name: "개미", imgUrl: ant },
+        { name: "나비", imgUrl: butterfly },
+        { name: "비행기", imgUrl: airplane },
+        { name: "닭", imgUrl: chicken },
       ],
     },
     {
       answer: "개미",
-      image: ant,
+      answerImg: ant,
       cards: [
-        { name: "강아지", image: dog },
-        { name: "개미", image: ant },
-        { name: "나비", image: butterfly },
-        { name: "닭", image: chicken },
+        { name: "강아지", imgUrl: dog },
+        { name: "개미", imgUrl: ant },
+        { name: "나비", imgUrl: butterfly },
+        { name: "닭", imgUrl: chicken },
       ],
     },
     {
       answer: "나비",
-      image: butterfly,
+      answerImg: butterfly,
       cards: [
-        { name: "닭", image: chicken },
-        { name: "강아지", image: dog },
-        { name: "비행기", image: airplane },
-        { name: "나비", image: butterfly },
+        { name: "닭", imgUrl: chicken },
+        { name: "강아지", imgUrl: dog },
+        { name: "비행기", imgUrl: airplane },
+        { name: "나비", imgUrl: butterfly },
       ],
     },
     {
       answer: "닭",
-      image: chicken,
+      answerImg: chicken,
       cards: [
-        { name: "닭", image: chicken },
-        { name: "비행기", image: airplane },
-        { name: "나비", image: butterfly },
-        { name: "강아지", image: dog },
+        { name: "닭", imgUrl: chicken },
+        { name: "비행기", imgUrl: airplane },
+        { name: "나비", imgUrl: butterfly },
+        { name: "강아지", imgUrl: dog },
       ],
     },
     {
       answer: "강아지",
-      image: dog,
+      answerImg: dog,
       cards: [
-        { name: "개미", image: ant },
-        { name: "강아지", image: dog },
-        { name: "나비", image: butterfly },
-        { name: "닭", image: chicken },
+        { name: "개미", imgUrl: ant },
+        { name: "강아지", imgUrl: dog },
+        { name: "나비", imgUrl: butterfly },
+        { name: "닭", imgUrl: chicken },
       ],
     },
   ];
@@ -171,7 +171,7 @@ export const GameBubble = (props) => {
         <BubbleIntro
           closeIntro={closeIntro}
           name={sampleQuiz[0].answer}
-          image={sampleQuiz[0].image}
+          image={sampleQuiz[0].answerImg}
           pos={pos}
         />
       )}
@@ -186,7 +186,7 @@ export const GameBubble = (props) => {
         >
           <QuizCard
             name={sampleQuiz[round].answer}
-            image={sampleQuiz[round].image}
+            image={sampleQuiz[round].answerImg}
           />
 
           {sampleQuiz[round].cards.map((card, index) => (
@@ -205,7 +205,7 @@ export const GameBubble = (props) => {
             <AnswerCard
               answer={sampleQuiz[round].answer}
               name={sampleQuiz[round].cards[clickedNumber].name}
-              image={sampleQuiz[round].cards[clickedNumber].image}
+              image={sampleQuiz[round].cards[clickedNumber].imgUrl}
               changeQuiz={changeQuiz}
               closeCard={closeCard}
             />
