@@ -14,7 +14,6 @@ pipeline {
     }
     stages {
         stage('Git Clone') {
-            echo 'git clone이에유'
             steps {
                 git branch: 'feat-be-member',
                 url: 'https://lab.ssafy.com/s08-final/S08P31B206.git'
