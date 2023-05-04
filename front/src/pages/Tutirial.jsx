@@ -27,7 +27,7 @@ export const Tutirial = (props) => {
   };
   return (
     <div>
-      <div className="bg-mainRed-400 grid grid-cols-5">
+      <div className="bg-mainRed-400 grid grid-cols-5 overflow-hidden">
         <div className=" grid grid-rows-4 items-center content-between w-48 h-screen left-0 ">
           <div
             className="bg-mainBlue-400 w-48 h-[6rem] pr-6 rounded-3xl"
