@@ -19,6 +19,9 @@ const GameJumpOverlay = ({ startGame, ...props }) => {
       case GameStatus.GAME_START:
         return <GameStartContainer startGame={startGame} />;
 
+      case GameStatus.GAME_END:
+        return <CommonOverlay></CommonOverlay>;
+
       default:
         return <div></div>;
     }
