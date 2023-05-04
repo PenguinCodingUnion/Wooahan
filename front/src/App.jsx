@@ -3,8 +3,6 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 
 const App = () => {
-  console.log("a");
-
   return (
     <React.Suspense fallback={<LoadingComponent />}>
       <div className="mx-auto h-screen w-screen flex text-center">
