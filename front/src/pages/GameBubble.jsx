@@ -12,6 +12,9 @@ import chicken from "assets/images/sample/chicken.jpg";
 import dog from "assets/images/sample/dog.jpg";
 import BubbleIntro from "components/gameBubble/BubbleIntro";
 import { Navigate } from "react-router-dom";
+import ReactAudioPlayer from "react-audio-player";
+
+import bgm from "assets/sounds/bubblebgm.mp3";
 
 export const GameBubble = (props) => {
   // 백에 요청할 자리
@@ -163,6 +166,7 @@ export const GameBubble = (props) => {
 
   return (
     <>
+      <ReactAudioPlayer src={bgm} autoPlay={true} volume={1} loop />
       {isIntro && !isGameEnd && (
         <BubbleIntro
           closeIntro={closeIntro}

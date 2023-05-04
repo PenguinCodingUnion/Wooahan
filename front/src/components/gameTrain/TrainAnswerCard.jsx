@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import ReactAudioPlayer from "react-audio-player";
