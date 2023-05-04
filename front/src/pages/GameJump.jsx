@@ -28,12 +28,7 @@ const SHORTEST_DISTANCE_FOR_JUMP = 50;
 
 const TEST_PROBLEM = [
   [{ word: `개구리가` }, { word: `폴짝폴짝` }, { word: `뛰어요` }],
-  [
-    { word: `개구리가` },
-    { word: `폴짝폴짝` },
-    { word: `엄청나게` },
-    { word: `뛴다` },
-  ],
+  [{ word: `니나니나` }, { word: `니고릴라` }],
   [{ word: `이지우가` }, { word: `빈둥빈둥` }, { word: `놀아요` }],
 ];
 const LAST_LEVEL = TEST_PROBLEM.length;
@@ -100,7 +95,7 @@ export const GameJump = (props) => {
             {gameStatus === GameStatus.GAME_START &&
               problems[level].map((el, idx) => {
                 const length =
-                  (700 -
+                  (750 -
                     SHORTEST_DISTANCE_FOR_JUMP * (problems[level].length - 1)) /
                   problems[level].length;
 
