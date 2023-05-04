@@ -1,14 +1,16 @@
+import LoadingComponent from "components/common/LoadingComponent";
 import React from "react";
-import logo from "./logo.svg";
-import { Counter } from "./store/features/counter/Counter";
-import "./App.css";
 import { Outlet } from "react-router-dom";
 
 const App = () => {
+  console.log("a");
+
   return (
-    <div className="App">
-      <Outlet />
-    </div>
+    <React.Suspense fallback={<LoadingComponent />}>
+      <div className="mx-auto h-screen w-screen flex text-center">
+        <Outlet />
+      </div>
+    </React.Suspense>
   );
 };
 

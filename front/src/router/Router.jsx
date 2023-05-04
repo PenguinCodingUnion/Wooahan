@@ -1,12 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "App";
 import Main from "pages/Main";
-import GameJump from "pages/GameJump";
 import GameSleigh from "pages/GameSleigh";
 import GameBubble from "pages/GameBubble";
 import GameTrain from "pages/GameTrain";
 import Books from "pages/Books";
 import Tutirial from "pages/Tutirial";
+import GameEnding from "pages/GameEnding";
 
 const route = createBrowserRouter([
   {
@@ -23,7 +23,12 @@ const route = createBrowserRouter([
       },
       {
         path: `jump`,
-        element: <GameJump />,
+        async lazy() {
+          let { GameJump } = await import(`pages/GameJump`);
+          return {
+            Component: GameJump,
+          };
+        },
       },
       {
         path: `sleigh`,
@@ -40,6 +45,10 @@ const route = createBrowserRouter([
       {
         path: `tutorial`,
         element: <Tutirial />,
+      },
+      {
+        path: `ending`,
+        element: <GameEnding />,
       },
     ],
   },
