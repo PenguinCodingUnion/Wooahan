@@ -1,9 +1,9 @@
-import AnswerCard from "components/gameBubble/AnswerCard";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import RewardCard from "./RewardCard";
 import ReactAudioPlayer from "react-audio-player";
 import getcard from "assets/sounds/getcard.wav";
+import SelectedCard from "./SelectedCard";
 
 export const PickCard = (props) => {
   const [isPickedCardrOpen, setIsPickedCardrOpen] = useState(false);
@@ -42,7 +42,7 @@ export const PickCard = (props) => {
       </div>
       {isPickedCardrOpen && (
         <div>
-          <AnswerCard
+          <SelectedCard
             name={props.cardName}
             image={props.cardImg}
             closeCard={closePickedCard}
