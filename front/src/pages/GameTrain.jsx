@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import TrainStart from "components/gameTrain/TrainStart";
 import ReactAudioPlayer from "react-audio-player";

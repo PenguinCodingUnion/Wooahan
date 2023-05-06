@@ -1,13 +1,20 @@
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import trainlong from "assets/images/tmp/structure_train_long.png";
 import Train from "./Train";
+import instance from "util/Axios";
 
 export const TrainStart = (props) => {
+  const [data, setdata] = useState([]);
+  useEffect(() => {
+    instance.get("/game/train/0").then((response) => {
+      setdata(response);
+    });
+  }, []);
   const [start, setStart] = useState();
   const cilckStart = () => {
-    setStart(<Train />);
+    setStart(<Train data={data} />);
   };
   return (
     <div>
