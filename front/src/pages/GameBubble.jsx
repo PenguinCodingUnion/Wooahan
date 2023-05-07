@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import bgImage from "assets/images/background-underwater.jpg";
 import QuizCard from "components/gameBubble/QuizCard";
@@ -15,6 +15,7 @@ import { Navigate } from "react-router-dom";
 import ReactAudioPlayer from "react-audio-player";
 
 import bgm from "assets/sounds/bubblebgm.mp3";
+import instance from "util/Axios";
 
 export const GameBubble = (props) => {
   // 백에 요청할 자리
@@ -100,7 +101,18 @@ export const GameBubble = (props) => {
   const [clickedNumber, setClickedNumber] = useState(0);
   const [isBubbleOpen, setIsbubbleOpen] = useState([true, true, true, true]);
   const [isGameEnd, setIsGameEnd] = useState(false);
+  const [quizData, setQuizData] = useState([]);
 
+  useEffect(() => {
+    instance
+      .get("/game/bubble/0")
+      .then((response) => {
+        console.log(response);
+        setQuizData(response);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+  
   const closeIntro = () => {
     setIsIntro(false);
   };
@@ -170,8 +182,6 @@ export const GameBubble = (props) => {
       {isIntro && !isGameEnd && (
         <BubbleIntro
           closeIntro={closeIntro}
-          name={sampleQuiz[0].answer}
-          image={sampleQuiz[0].answerImg}
           pos={pos}
         />
       )}
@@ -185,11 +195,11 @@ export const GameBubble = (props) => {
           }}
         >
           <QuizCard
-            name={sampleQuiz[round].answer}
-            image={sampleQuiz[round].answerImg}
+            name={quizData[round].answer}
+            image={quizData[round].answerImg}
           />
 
-          {sampleQuiz[round].cards.map((card, index) => (
+          {quizData[round].cards.map((card, index) => (
             <WordBubble
               key={card.name}
               number={index}
@@ -203,9 +213,9 @@ export const GameBubble = (props) => {
           ))}
           {isCardOpen && (
             <AnswerCard
-              answer={sampleQuiz[round].answer}
-              name={sampleQuiz[round].cards[clickedNumber].name}
-              image={sampleQuiz[round].cards[clickedNumber].imgUrl}
+              answer={quizData[round].answer}
+              name={quizData[round].cards[clickedNumber].name}
+              image={quizData[round].cards[clickedNumber].imgUrl}
               changeQuiz={changeQuiz}
               closeCard={closeCard}
             />
