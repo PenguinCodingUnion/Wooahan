@@ -23,17 +23,20 @@ import { GameStatus } from "util/Enums.ts";
 import { Navigate } from "react-router-dom";
 import LoadingComponent from "components/common/LoadingComponent";
 
+//test code
+import first_1 from "assets/sounds/test/1_1_엄마랑.mp3";
+import first_2 from "assets/sounds/test/1_2_공원에.mp3";
+import first_3 from "assets/sounds/test/1_3_놀러.mp3";
+import first_4 from "assets/sounds/test/1_4_가요.mp3";
+
+//test code is end
+
 const BOTTOM_POSITION = -70;
 const SHORTEST_DISTANCE_FOR_JUMP = 50;
 
 const TEST_PROBLEM = [
-  [{ word: `개구리가` }, { word: `폴짝폴짝` }, { word: `뛰어요` }],
-  [
-    { word: `내일의` },
-    { word: `이지우가` },
-    { word: `빈둥빈둥` },
-    { word: `놀아요` },
-  ],
+  // [{ word: `개구리가` }, { word: `폴짝폴짝` }, { word: `뛰어요` }],
+  [{ word: `엄마랑`, url: first_1 }, { word: `공원에`, url: first_2 }, { word: `놀러`, url: first_3 }, { word: `가요`, url: first_4 }],
 ];
 const LAST_LEVEL = TEST_PROBLEM.length;
 
@@ -113,6 +116,7 @@ export const GameJump = (props) => {
                   <React.Fragment key={idx}>
                     <TextObject
                       text={el.word}
+                      url={el.url}
                       position={[lastIcePosition - 75, 150, 0]}
                     />
                     <IceModel
