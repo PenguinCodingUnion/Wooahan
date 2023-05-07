@@ -13,7 +13,7 @@ export const WordBubble = (props) => {
     backgroundSize: `cover`,
   });
   const classStr = classNames(
-    "absolute grid items-center text-3xl font-extrabold justify-items-center font-MaplestoryBold",
+    "absolute grid whitespace-nowrap items-center text-3xl font-extrabold justify-items-center font-MaplestoryBold",
     props.positionX,
     props.positionY,
     props.size,
@@ -29,7 +29,7 @@ export const WordBubble = (props) => {
         transform: `scale(3) `,
         opacity: 0,
       });
-      setsound(<ReactAudioPlayer src={bubblepop} autoPlay volume={1}/>);
+      setsound(<ReactAudioPlayer src={bubblepop} autoPlay volume={1} />);
       setTimeout(() => {
         props.clickAnswer(props.number);
         setStyleStr({
@@ -44,7 +44,7 @@ export const WordBubble = (props) => {
   };
   return (
     <>
-    <div>{sound}</div>
+      <div>{sound}</div>
       {props.display && (
         <div className={classStr} style={styleStr} onClick={clickAnswer}>
           {props.name}
