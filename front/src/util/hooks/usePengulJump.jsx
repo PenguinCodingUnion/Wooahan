@@ -6,6 +6,7 @@ import { Vector3 } from "three";
 import { useDispatch, useSelector } from "react-redux";
 import { GameStatus } from "util/Enums.ts";
 import { gameStatusActions } from "store/features/gameStatus/gameStatusSlice";
+import { jumpActions } from "store/features/jump/jumpSlice";
 
 const GRAVITY = -120 * 1.5;
 const ANIMATIONS = ["t-pose", "idle", "jumping", "walk"];
@@ -38,6 +39,7 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
   const gameStatus = useSelector((state) => state.gameStatus.status);
   const dispatch = useDispatch();
 
+  //애니메이션 변경하기
   const setActiveAnimation = useCallback(
     (idx) => {
       if (activeAnimation.current === idx) return;
@@ -50,6 +52,7 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
     [actions]
   );
 
+  //점프하기
   const doJump = useCallback(() => {
     if (
       isJumping.current === false &&
@@ -68,6 +71,7 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
     }
   }, [gameStatus, setActiveAnimation]);
 
+  //펭귄의 시작 세팅
   useEffect(() => {
     //Add Jump
     window.addEventListener(`keydown`, (e) => {
@@ -98,16 +102,15 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
       isJumping.current = false;
     }
 
+    //속력 계산하기
     const newVelocity = velocityCalc(delta);
 
-    // console.log(newVelocity, characterPosition);
-
-    // console.log(pengulE.current);
-
+    //맵 오른쪽 끝 도착
     if (characterPosition.current[0] >= EDGE) {
       dispatch(gameStatusActions.goNextLevel());
     }
 
+    //속력에 맞춰 위치 이동
     const newPosition = [
       characterPosition.current[0] < EDGE
         ? characterPosition.current[0] + newVelocity[0] * delta
@@ -126,6 +129,7 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
     characterPosition.current = newPosition;
   });
 
+  //속력을 계산하는 함수
   const velocityCalc = useCallback(
     (delta) => {
       const newVelocity = [...characterVelocity.current];
@@ -161,6 +165,7 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
 
             jumpNow.current = false;
             isGrounded.current = false;
+            dispatch(jumpActions.nextAction());
           }
         } else if (raycast().length < 3) {
           //now edge
