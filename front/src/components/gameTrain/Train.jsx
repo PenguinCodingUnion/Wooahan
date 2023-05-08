@@ -6,27 +6,6 @@ import TrainWordCard from "./TrainWordCard";
 import { Navigate } from "react-router-dom";
 
 export const Train = (props) => {
-  // const data = [
-  //   {
-  //     last: "지",
-  //     word1: { word: "돼지", img: pig },
-  //     word2: { word: "항아리", img: jar },
-  //     ans: "돼지",
-  //   },
-  //   {
-  //     last: "비",
-  //     word1: { word: "나방", img: pig },
-  //     word2: { word: "나비", img: jar },
-  //     ans: "나비",
-  //   },
-  //   {
-  //     last: "제",
-  //     word1: { word: "사형제", img: pig },
-  //     word2: { word: "도덕률", img: jar },
-  //     ans: "사형제",
-  //   },
-  // ];
-
   const [round, setRound] = useState(0);
   const [end, setEnd] = useState(false);
   const nextGame = () => {
