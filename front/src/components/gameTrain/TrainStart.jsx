@@ -4,13 +4,39 @@ import { connect } from "react-redux";
 import trainlong from "assets/images/tmp/structure_train_long.png";
 import Train from "./Train";
 import instance from "util/Axios";
+import pig from "assets/images/tmp/넷째돼지.png";
+import jar from "assets/images/tmp/무공해항아리.avif";
 
 export const TrainStart = (props) => {
   const [data, setdata] = useState([]);
   useEffect(() => {
-    instance.get("/game/train/0").then((response) => {
-      setdata(response);
-    });
+    instance
+      .get("/game/train/0")
+      .then((response) => {
+        setdata(response);
+      })
+      .catch(
+        setdata([
+          {
+            last: "지",
+            word1: { name: "돼지", imgUrl: pig },
+            word2: { name: "항아리", imgUrl: jar },
+            ans: "돼지",
+          },
+          {
+            last: "비",
+            word1: { name: "나방", imgUrl: pig },
+            word2: { name: "나비", imgUrl: jar },
+            ans: "나비",
+          },
+          {
+            last: "제",
+            word1: { name: "사형제", imgUrl: pig },
+            word2: { name: "도덕률", imgUrl: jar },
+            ans: "사형제",
+          },
+        ])
+      );
   }, []);
   const [start, setStart] = useState();
   const cilckStart = () => {
