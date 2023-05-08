@@ -5,12 +5,11 @@ import lombok.*;
 
 import java.util.List;
 
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class JumpResDto {
 
+
+@Builder
+@Getter
+public class JumpResDto {
 
     //전체 문장, 어절들, 어절 순서, 파일명
     private String wholeSentence;
