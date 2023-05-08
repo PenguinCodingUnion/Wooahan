@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
@@ -20,10 +20,14 @@ import { useDispatch } from "react-redux"
 import { backActions } from 'store/features/mainCard/backSlice' 
 
 const games =[
-    {id: 0, title: '뛰어쓰기', animal: penguin, url: '/jump'},
-    {id: 1, title: '팽글썰매', animal: bunny, url: '/sleigh'},
-    {id: 2, title: '한글방울', animal: octopus, url: '/bubble'},
-    {id: 3, title: '끝말기차', animal: fox, url: '/train'},
+    {id: 1, title: '뛰어쓰기', animal: penguin, url: '/jump'},
+    {id: 2, title: '팽글썰매', animal: bunny, url: '/sleigh'},
+    {id: 3, title: '한글방울', animal: octopus, url: '/bubble'},
+    {id: 4, title: '끝말기차', animal: fox, url: '/train'},
+    {id: 5, title: '뛰어쓰기', animal: penguin, url: '/jump'},
+    {id: 6, title: '팽글썰매', animal: bunny, url: '/sleigh'},
+    {id: 7, title: '한글방울', animal: octopus, url: '/bubble'},
+    {id: 8, title: '끝말기차', animal: fox, url: '/train'},
 ]
 
 const Carousel = () => {
@@ -34,9 +38,9 @@ const Carousel = () => {
 
     const [mainCard, setMainCard] = useState(0);
 
-    const changeMainCard = (num) => {
-        setMainCard(num);
-        dispatch(backActions.changeBackGround(num))
+    const changeMainCard = (swiper) => {
+        setMainCard(swiper.realIndex);
+        dispatch(backActions.changeBackGround(swiper.realIndex))
     }
 
     useEffect(() => {
@@ -48,41 +52,75 @@ const Carousel = () => {
     }
     
     return (
+        // <>
+        //     <Swiper
+        //         effect={"coverflow"}
+        //         grabCursor={true}
+        //         centeredSlides={true}
+        //         slidesPerView={3}
+        //         coverflowEffect={{
+        //             rotate: 50,
+        //             stretch: 10,
+        //             depth: 100,
+        //             modifier: 1,
+        //             slideShadows: false,
+        //         }}
+        //         // loopPreventsSlide={false}
+        //         // loop={true}  
+        //         pagination={true}
+        //         modules={[EffectCoverflow, Pagination]}
+        //         className="mySwiper"
+        //         onSlideChange={(e) => changeMainCard(e.activeIndex)}
+        //     >
+        //         {games.map((game, idx) => (
+        //             <SwiperSlide onClick={() => {movePageHandler(game, idx)}} key={game.id} id={idx} className="relative rounded-xl">
+        //                 <CardImage coverImage={mainCard} id={idx}/>
+        //                 <img src={games[idx].animal} 
+        //                         className="ml-[2%] mt-[2%] mb-[2%] w-28 h-36" />
+        //                 <GameCard
+        //                     id={game.id}
+        //                     title={game.title}
+        //                 />
+        //             </SwiperSlide>
+        //         ))}
+        //     </Swiper>
+        // </>
+        ///////////////////////////////////////////////////////
+        
+        
         <>
             <Swiper
                 effect={"coverflow"}
                 grabCursor={true}
                 centeredSlides={true}
-                slidesPerView={'auto'}
+                slidesPerView={3}
+                loop={true}
                 coverflowEffect={{
-                    rotate: 50,
-                    stretch: 10,
-                    depth: 100,
+                    rotate: 20,
+                    stretch: 0,
+                    depth: 200,
                     modifier: 1,
-                    slideShadows: false,
+                    slideShadows: true,
                 }}
-                // loopPreventsSlide={true}
-                // loop={true}  
-                pagination={true}
+                pagination={false}
                 modules={[EffectCoverflow, Pagination]}
                 className="mySwiper"
-                onSlideChange={(e) => changeMainCard(e.activeIndex)}
+                // style={{height: "230%"}}
+                onSlideChange={changeMainCard}
             >
-                <div id="slides">
-                    {games.map((game, idx) => (
-                        <SwiperSlide onClick={() => {movePageHandler(game, idx)}} key={game.id} id={idx} className="relative rounded-xl">
-                            <CardImage coverImage={mainCard} id={idx}/>
-                            <img src={games[idx].animal} 
-                                 className="ml-[2%] mt-[2%] mb-[2%] w-28 h-36" />
-                            <GameCard
-                                id={game.id}
-                                title={game.title}
-                            />
-                        </SwiperSlide>
-                    ))}
-                </div>
+
+                {games.map((game, idx) => (
+                    <SwiperSlide onClick={() => {movePageHandler(game, idx)}} key={game.id} id={idx} className="relative rounded-xl">
+                        <CardImage coverImage={mainCard} id={idx}/>
+                        <img src={games[idx].animal} 
+                                className="ml-[2%] mt-[2%] mb-[2%] w-28 h-36" />
+                        <GameCard id={game.id} title={game.title} />
+                    </SwiperSlide>
+                ))}
+
             </Swiper>
         </>
+
         )
     }
 
