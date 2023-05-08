@@ -110,9 +110,12 @@ export const GameBubble = (props) => {
         console.log(response);
         setQuizData(response);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        setQuizData(sampleQuiz);
+      });
   }, []);
-  
+
   const closeIntro = () => {
     setIsIntro(false);
   };
@@ -180,10 +183,7 @@ export const GameBubble = (props) => {
     <>
       <ReactAudioPlayer src={bgm} autoPlay={true} volume={1} loop />
       {isIntro && !isGameEnd && (
-        <BubbleIntro
-          closeIntro={closeIntro}
-          pos={pos}
-        />
+        <BubbleIntro closeIntro={closeIntro} pos={pos} />
       )}
       {!isIntro && !isGameEnd && (
         <div
