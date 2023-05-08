@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { GameStatus } from "util/Enums.ts";
 
 // export const incrementAsync = createAsyncThunk(
 //   "counter/fetchCount",
@@ -22,7 +21,6 @@ export const jumpSlice = createSlice({
       state.actionWord = state.actionWord + 1;
     },
     setAction: (state, { payload }) => {
-      console.log(`payload : `, payload);
       state.actionWord = payload;
     },
   },

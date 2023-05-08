@@ -165,7 +165,7 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
 
             jumpNow.current = false;
             isGrounded.current = false;
-            dispatch(jumpActions.nextAction());
+            setTimeout(() => dispatch(jumpActions.nextAction()), 1000);
           }
         } else if (raycast().length < 3) {
           //now edge
@@ -181,7 +181,7 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
 
       return newVelocity;
     },
-    [raycast, setActiveAnimation, gameStatus, actions, sounds]
+    [raycast, setActiveAnimation, gameStatus, actions, sounds, dispatch]
   );
 };
 
