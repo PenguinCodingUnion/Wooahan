@@ -304,7 +304,7 @@ const GameSleigh = () => {
               onMouseUp={stopMove}
               className="bg-mainBlack opacity-80 rounded-[100%] text-[4vw] text-white w-[8vw] h-[8vw] z-20"
             >
-              <p className="translate-x-[-0.3vw] translate-y-[-0.5vh]">◀</p>
+              <p className="translate-x-[-0.3vw]">◀</p>
             </button>
             <button
               type="button"
@@ -322,7 +322,7 @@ const GameSleigh = () => {
               onMouseUp={stopMove}
               className="bg-mainBlack opacity-80 rounded-[100%] text-[4vw] text-white w-[8vw] h-[8vw] z-20 translate-x-[2%]"
             >
-              <p className="translate-x-[0.3vw] translate-y-[-0.5vh]">▶</p>
+              <p className="translate-x-[0.3vw]">▶</p>
             </button>
           </div>
         )}
@@ -341,36 +341,6 @@ const GameSleigh = () => {
             }
           />
         )}
-        {/* {isEnd && (
-          <div>
-            <button
-              onClick={() => {
-                // dispatch(sleighActions.setStage(stageLevel + 1));
-                setIsEnd(false);
-                setIsStart(false);
-                setIsLoading(true);
-              }}
-            >
-              다음 단계로
-            </button>
-            <button
-              onClick={() => {
-                setIsEnd(false);
-                setIsStart(false);
-                setIsLoading(true);
-              }}
-            >
-              다시하기
-            </button>
-            <button
-              onClick={() => {
-                navigation("/");
-              }}
-            >
-              메인으로
-            </button>
-          </div>
-        )} */}
       </div>
     </>
   );
