@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import ReactAudioPlayer from "react-audio-player";
 import correct from "assets/sounds/correct.wav";
 import wrong from "assets/sounds/wrong.wav";
+import fox from "assets/images/animal/fox.png";
 
 export const TrainAnswerCard = (props) => {
-  const [sound, setsound] = useState(<></>);
-
   useEffect(() => {
+    const correctSound = document.getElementById("correct");
+    const wrongSound = document.getElementById("wrong");
     if (props.word.name === props.ans) {
       setTimeout(() => {
         props.cleanWord(props.word.name);
@@ -15,23 +16,37 @@ export const TrainAnswerCard = (props) => {
         props.resetClass();
       }, 1500);
       props.changeTrainClass();
-      setsound(<ReactAudioPlayer src={correct} autoPlay volume={1} />);
+      correctSound.play();
     } else {
       setTimeout(() => props.cleanWord(props.word.word), 1500);
-      setsound(<ReactAudioPlayer src={wrong} autoPlay volume={1} />);
+      wrongSound.play();
     }
   }, [props]);
   return (
-    <div className="rounded-xl absolute top-1/2 left-1/2 h-72 w-72 -mt-36 -ml-36  bg-mainRed-200">
-      <p className="h-20 leading-[5rem] text-[4rem] text-center top-0 font-netmarbleB">
-        {props.word.name}
-      </p>
-      <img
-        className="h-48 w-48 mx-auto"
-        src={props.word.imgUrl}
-        alt="사진"
-      ></img>
-      <div>{sound}</div>
+    <div>
+      <div className="absolute top-0 w-screen h-screen bg-opacity-40 bg-mainGray-300"></div>
+      <div>
+        <img
+          className=" w-96 h-72 absolute left-3 top-1/4"
+          src={fox}
+          alt="fox"
+        />
+        <div className="absolute top-1/3 right-0 h-[30rem] w-[30rem] -mt-36 bg-[url('assets/images/woodsign.png')]">
+          <div className="bg-mainOrange-100 shadow-lg shadow-sharkGray rounded-xl h-64 w-64 mt-8 ml-24">
+            <div className="h-5"></div>
+            <img
+              className="h-40 w-40 mx-auto "
+              src={props.word.imgUrl}
+              alt="사진"
+            ></img>
+            <p className=" h-20 leading-[4.5rem] text-[3.3rem] text-center font-netmarbleB">
+              {props.word.name}
+            </p>
+          </div>
+          <ReactAudioPlayer src={correct} volume={1} id="correct" />
+          <ReactAudioPlayer src={wrong} volume={1} id="wrong" />
+        </div>
+      </div>
     </div>
   );
 };
