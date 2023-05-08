@@ -21,7 +21,7 @@ export const TrainAnswerCard = (props) => {
       setTimeout(() => props.cleanWord(props.word.word), 1500);
       wrongSound.play();
     }
-  }, [props]);
+  }, []);
   return (
     <div>
       <div className="absolute top-0 w-screen h-screen bg-opacity-40 bg-mainGray-300"></div>
