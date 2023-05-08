@@ -54,7 +54,7 @@ export const Model = (props) => {
       <group name="Scene">
         <group
           name="Armature"
-          rotation={[0.2, 0, 0]}
+          rotation={[0, 0, 0]}
           position={[0, -2, 0]}
           scale={modelScale()}
         >
