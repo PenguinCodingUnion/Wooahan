@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { GameStatus } from "util/Enums.ts";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CommonOverlay from "components/common/CommonOverlay";
+import { jumpActions } from "store/features/jump/jumpSlice";
 
 const GameJumpOverlay = ({ startGame, ...props }) => {
   const gameStatus = useSelector((state) => state.gameStatus.status);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (gameStatus === GameStatus.GAME_START) {
+      dispatch(jumpActions.setAction(0));
+    }
+  }, [gameStatus, dispatch]);
 
   return (() => {
     switch (gameStatus) {
@@ -18,6 +26,9 @@ const GameJumpOverlay = ({ startGame, ...props }) => {
 
       case GameStatus.GAME_START:
         return <GameStartContainer startGame={startGame} />;
+
+      case GameStatus.GAME_END:
+        return <CommonOverlay></CommonOverlay>;
 
       default:
         return <div></div>;

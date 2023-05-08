@@ -8,19 +8,19 @@ module.exports = {
   content: ["./src/**/*.{html,js,jsx}"],
   theme: {
     colors: {
-      'iceBlue': '#1fb6ff',
-      'red': '#e3342f',
-      'deepBlue': '#0800ff',
-      'yellow': '#eeff00',
-      'palePupple': '#ea6aed',
-      'lightGray': '#c9bfc9',
-      'white': '#ffffff',
-      'sharkGray': '#4d5666',
-      'deepPink':'#f7a3e3',
-      'sample': "#fcfb00",
-      'beige': "#fcf0c7",
-      'modernOrange': "#f48733",
-      'mint': "#91ffb7",
+      iceBlue: "#1fb6ff",
+      red: "#e3342f",
+      deepBlue: "#0800ff",
+      yellow: "#eeff00",
+      palePupple: "#ea6aed",
+      lightGray: "#c9bfc9",
+      white: "#ffffff",
+      sharkGray: "#4d5666",
+      deepPink: "#f7a3e3",
+      sample: "#fcfb00",
+      beige: "#fcf0c7",
+      modernOrange: "#f48733",
+      mint: "#91ffb7",
       // 기본 컬러
       mainBlack: colors.black,
       mainWhite: colors.white,
@@ -117,6 +117,10 @@ module.exports = {
         snow12: {
           "0%": { transform: "translateX(300px) translateY(-50px)" },
           "100%": { transform: "translateX(550px) translateY(350px)" },
+        },
+        textSlide: {
+          "0%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
         },
         "scale-up-center": {
           "0%": {

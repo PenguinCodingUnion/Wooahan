@@ -6,6 +6,7 @@ import levelSlice from "./features/mainCard/levelSlice";
 import gameStatusSlice from "./features/gameStatus/gameStatusSlice";
 import bookSlice from "./features/mainCard/bookSlice";
 import sleighReducer from "./features/sliegh/sleighSlice";
+import jumpSlice from "./features/jump/jumpSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export const store = configureStore({
     gameStatus: gameStatusSlice,
     bookText: bookSlice,
     sleigh: sleighReducer,
+    jump: jumpSlice,
   },
 });
