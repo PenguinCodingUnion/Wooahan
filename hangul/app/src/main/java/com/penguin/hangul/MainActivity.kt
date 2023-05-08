@@ -4,12 +4,15 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.hardware.*
+import android.os.Build
 import android.os.Bundle
 import android.os.Debug
+import android.provider.Settings
 import android.util.Log
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import java.util.Timer
@@ -24,6 +27,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        /**
+         * 디바이스 정보 가져오기
+         */
+
+        Log.d("start", "시작")
+
+        val deviceInformation = DeviceInformation(this)
+        Log.d("-----deviceId------",
+            "deviceInformation 확인 :"+deviceInformation.getDeviceId())
+        Log.d("-----deviceName------",
+            "deviceInformation 확인 :"+deviceInformation.getDeviceModel())
+
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
@@ -104,6 +120,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
+class DeviceInformation(val context: Context){
+
+    // 해당 디바이스 기기ID
+    fun getDeviceId(): String{
+        return Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID);
+    }
+
+    // 해당 디바이스 모델명
+    fun getDeviceModel(): String {
+        return Build.MODEL;
+    }
+}
+
+
+
 
 // 변수 관련 클래스를 만들고 인터페이스를 통해(getValue 등) 전달..
 class MyData {
