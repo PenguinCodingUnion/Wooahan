@@ -303,7 +303,7 @@ const GameSleigh = () => {
 
   return (
     <>
-      <div className="mx-auto h-screen">
+      <div className="h-screen w-screen">
         <Canvas flat={true}>
           <Suspense fallback={null}>
             <PerspectiveCamera {...camera} makeDefault />
