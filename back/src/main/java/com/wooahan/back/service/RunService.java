@@ -22,11 +22,11 @@ public class RunService {
     @AllArgsConstructor
     @Setter
     public static class RunWord{
-        public SimpleWordInfo simpleWordInfo;
+        public SimpleWordInfo word;
         private boolean answer;
 
         public RunWord(SimpleWordInfo simpleWordInfo){
-            this.simpleWordInfo=simpleWordInfo;
+            this.word=simpleWordInfo;
         }
     }
     public List<RunResDto> runStart(int difficulty){
@@ -43,6 +43,7 @@ public class RunService {
             RunWord word2 = runWords.get(i+1);
             word1.setAnswer(true);
             word2.setAnswer(false);
+            word2.setAnswer(false);
 
             List<RunWord>words = new ArrayList<>();
 
@@ -50,7 +51,7 @@ public class RunService {
             words.add(word2);
             Collections.shuffle(words);
 
-            runResDtoList.add(new RunResDto(word1.simpleWordInfo.getName(),words));
+            runResDtoList.add(new RunResDto(word1.word.getName(),words));
         }
         return runResDtoList;
     }
