@@ -1,12 +1,12 @@
-#Wed May 03 12:32:47 KST 2023
+#Mon May 08 10:41:31 KST 2023
 path.3=7/classes.dex
 path.2=1/classes.dex
 path.1=0/classes.dex
 path.0=classes.dex
-base.3=C\:\\Users\\jimmy\\projects\\android-repos\\S08P31B206\\hangul\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\7\\classes.dex
-base.2=C\:\\Users\\jimmy\\projects\\android-repos\\S08P31B206\\hangul\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
-base.1=C\:\\Users\\jimmy\\projects\\android-repos\\S08P31B206\\hangul\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
-base.0=C\:\\Users\\jimmy\\projects\\android-repos\\S08P31B206\\hangul\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+base.3=C\:\\Users\\SSAFY\\Documents\\S08P31B206\\hangul\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\7\\classes.dex
+base.2=C\:\\Users\\SSAFY\\Documents\\S08P31B206\\hangul\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
+base.1=C\:\\Users\\SSAFY\\Documents\\S08P31B206\\hangul\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.0=C\:\\Users\\SSAFY\\Documents\\S08P31B206\\hangul\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 renamed.3=classes4.dex
 renamed.2=classes3.dex
 renamed.1=classes2.dex
