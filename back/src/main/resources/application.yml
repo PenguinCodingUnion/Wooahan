@@ -22,7 +22,7 @@ oauth2:
   google:
       client-id: 658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com
       client-secret: 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
-      redirect-uri: http://localhost:9090/login/oauth2/code/google
+      redirect-uri: http://k8b206.p.ssafy.io/api/login/oauth2/code/google
       token-uri: https://oauth2.googleapis.com/token
       resource-uri: https://www.googleapis.com/oauth2/v2/userinfo
 
