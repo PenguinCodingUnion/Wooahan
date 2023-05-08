@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import React, {
   Suspense,
   useCallback,
@@ -9,14 +9,13 @@ import React, {
 } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { PengulModel } from "components/gameJump/Pengul";
-import { OrbitControls } from "@react-three/drei";
-import FallowCamera, { FlatCamera } from "components/gameJump/FollowCamera";
+import FallowCamera from "components/gameJump/FollowCamera";
 import { IceModel } from "components/gameJump/IcePannel";
 import BackgroundImage from "components/gameJump/BackgroundImage";
 
 import bgImage from "assets/images/background/background_iceberg.png";
 import WaterFloor from "components/gameJump/WaterFloor";
-import Overlay from "components/gameJump/Overlay";
+import GameJumpOverlay from "components/gameJump/GameJumpOverlay";
 import { gameStatusActions } from "store/features/gameStatus/gameStatusSlice";
 import TextObject from "components/gameJump/TextObject";
 
@@ -29,13 +28,20 @@ const SHORTEST_DISTANCE_FOR_JUMP = 50;
 
 const TEST_PROBLEM = [
   [{ word: `개구리가` }, { word: `폴짝폴짝` }, { word: `뛰어요` }],
+  [{ word: `니나니나` }, { word: `니고릴라` }],
   [
-    { word: `개구리가` },
-    { word: `폴짝폴짝` },
-    { word: `엄청나게` },
-    { word: `뛴다` },
+    { word: `내일의` },
+    { word: `이지우가` },
+    { word: `빈둥빈둥` },
+    { word: `놀아요` },
   ],
-  [{ word: `이지우가` }, { word: `빈둥빈둥` }, { word: `놀아요` }],
+  [
+    { word: `혹시` },
+    { word: `네` },
+    { word: `자리의` },
+    { word: `띄어쓰기도` },
+    { word: `되나요` },
+  ],
 ];
 const LAST_LEVEL = TEST_PROBLEM.length;
 
@@ -45,6 +51,7 @@ export const GameJump = (props) => {
   const gameStatus = useSelector((state) => state.gameStatus.status);
 
   const level = useSelector((state) => state.gameStatus.level);
+  const [isLoading, setIsLoading] = useState(true);
   const [problems, setProblems] = useState(TEST_PROBLEM ? TEST_PROBLEM : [[]]);
 
   let lastIcePosition = -325;
@@ -66,36 +73,41 @@ export const GameJump = (props) => {
   }, [dispatch]);
 
   return (
-    <Suspense fallback={<LoadingComponent />}>
-      <div className="relative flex w-screen h-screen mx-auto">
-        {level >= LAST_LEVEL ? (
-          (() => {
-            return <Navigate to={`/`} />;
-          })()
-        ) : (
-          //750 length
-          <Canvas>
-            {/* <Suspense fallback={null}> */}
-            <>
-              {/* <OrbitControls /> */}
-              <ambientLight args={["white", 1.5]} castShadow />
-              <BackgroundImage imagePath={bgImage} />
-              <FallowCamera target={character} />
-              {/* <FlatCamera /> */}
-              <WaterFloor bottom={BOTTOM_POSITION} />
-            </>
+    <>
+      {level >= LAST_LEVEL ? (
+        <Navigate to={`/ending`} />
+      ) : (
+        //750 length
+        <Suspense fallback={<LoadingComponent />}>
+          {isLoading ? (
+            <LoadingComponent />
+          ) : (
+            <GameJumpOverlay startGame={startGame} />
+          )}
+          <Canvas
+            onCreated={() => {
+              setIsLoading(false);
+            }}
+          >
+            {/** 배경설정 */}
+            {/* <OrbitControls /> */}
+            <ambientLight args={["white", 1.5]} castShadow />
+            <BackgroundImage imagePath={bgImage} />
+            <FallowCamera target={character} />
+            <WaterFloor bottom={BOTTOM_POSITION} />
 
+            {/** 캐릭터 모델 */}
             <PengulModel ref={character} bottom={BOTTOM_POSITION} />
 
-            <>
-              <IceModel icePosition={-375} bottom={BOTTOM_POSITION} />
-              <IceModel icePosition={375} bottom={BOTTOM_POSITION} />
-            </>
+            {/** 고정 오브젝트 */}
+            <IceModel icePosition={-375} bottom={BOTTOM_POSITION} />
+            <IceModel icePosition={375} bottom={BOTTOM_POSITION} />
 
+            {/** 동적 오브젝트 */}
             {gameStatus === GameStatus.GAME_START &&
               problems[level].map((el, idx) => {
                 const length =
-                  (700 -
+                  (750 -
                     SHORTEST_DISTANCE_FOR_JUMP * (problems[level].length - 1)) /
                   problems[level].length;
 
@@ -119,12 +131,10 @@ export const GameJump = (props) => {
                   </React.Fragment>
                 );
               })}
-            {/* </Suspense> */}
           </Canvas>
-        )}
-        <Overlay startGame={startGame} />
-      </div>
-    </Suspense>
+        </Suspense>
+      )}
+    </>
   );
 };
 

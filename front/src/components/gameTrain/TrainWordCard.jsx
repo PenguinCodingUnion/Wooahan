@@ -46,14 +46,14 @@ export const TrainWordCard = (props) => {
             goAnswer(props.data.word1);
           }}
         >
-          {props.data.word1.word}
+          {props.data.word1.name}
         </div>
         <div
           onClick={() => {
             goAnswer(props.data.word2);
           }}
         >
-          {props.data.word2.word}
+          {props.data.word2.name}
         </div>
       </div>
       <div>

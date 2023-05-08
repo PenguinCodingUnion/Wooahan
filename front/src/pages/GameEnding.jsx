@@ -8,6 +8,9 @@ import EndingScene from "components/gameEnding/EndingScene";
 import GetStar from "components/gameEnding/GetStar";
 import PickCard from "components/gameEnding/PickCard";
 import { Navigate } from "react-router-dom";
+import ReactAudioPlayer from "react-audio-player";
+import clap from "assets/sounds/clap.wav";
+import star from "assets/sounds/star.wav";
 
 export const GameEnding = (props) => {
   // 백에 요청할 자리
@@ -27,7 +30,9 @@ export const GameEnding = (props) => {
 
   const closeGetStar = () => {
     setIsGetStarOpen(false);
-    setIsPickCardOpen(true);
+    if (sampleReward.starCount === 5) {
+      setIsPickCardOpen(true);
+    }
   };
 
   const closePickCard = () => {
@@ -45,13 +50,19 @@ export const GameEnding = (props) => {
       }}
     >
       {isEndingSceneOpen && !isGetStarOpen && !isPickCardOpen && (
-        <EndingScene closeEndingScene={closeEndingScene} />
+        <div>
+          <EndingScene closeEndingScene={closeEndingScene} />
+          <ReactAudioPlayer src={clap} autoPlay volume={1} />
+        </div>
       )}
       {!isEndingSceneOpen && isGetStarOpen && !isPickCardOpen && (
-        <GetStar
-          starCount={sampleReward.starCount}
-          closeGetStar={closeGetStar}
-        />
+        <div>
+          <GetStar
+            starCount={sampleReward.starCount}
+            closeGetStar={closeGetStar}
+          />
+          <ReactAudioPlayer src={star} autoPlay />
+        </div>
       )}
       {!isEndingSceneOpen && !isGetStarOpen && isPickCardOpen && (
         <PickCard
