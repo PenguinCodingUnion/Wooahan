@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 const colors = require("tailwindcss/colors");
+const plugin = require("tailwindcss/plugin");
 
 module.exports = {
   mode: `jit`,
@@ -117,6 +118,36 @@ module.exports = {
           "0%": { transform: "translateX(300px) translateY(-50px)" },
           "100%": { transform: "translateX(550px) translateY(350px)" },
         },
+        "scale-up-center": {
+          "0%": {
+            "-webkit-transform": "scale(0.5)",
+            transform: "scale(0.5)",
+          },
+          "100%": {
+            "-webkit-transform": "scale(1)",
+            transform: "scale(1)",
+          },
+        },
+        mybounce: {
+          "0%": {
+            "-webkit-transform": "translateY(0)",
+            transform: "translateY(0)",
+            "-webkit-animation-timing-function": "ease-in",
+            "animation-timing-function": "ease-in",
+          },
+          "50%": {
+            "-webkit-transform": "translateY(1.5vh)",
+            transform: "translateY(1.5vh)",
+            "-webkit-animation-timing-function": "ease-out",
+            "animation-timing-function": "ease-out",
+          },
+          "100%": {
+            "-webkit-transform": "translateY(0)",
+            transform: "translateY(0)",
+            "-webkit-animation-timing-function": "ease-in",
+            "animation-timing-function": "ease-in",
+          },
+        },
       },
       animation: {
         intro: "intro 4s linear infinite",
@@ -134,6 +165,16 @@ module.exports = {
         snow10: "snow10 17s linear infinite",
         snow11: "snow11 22s linear infinite",
         snow12: "snow12 19s linear infinite",
+        "scale-up-center":
+          "scale-up-center 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both",
+        bounce: "mybounce 1.3s infinite",
+      },
+      textShadow: {
+        sm: "0 1px 2px var(--tw-shadow-color)",
+        DEFAULT: "0 2px 4px var(--tw-shadow-color)",
+        lg: "0 8px 16px var(--tw-shadow-color)",
+        loading:
+          "-2px 0 var(--tw-shadow-color), 0 2px var(--tw-shadow-color), 2px 0 var(--tw-shadow-color), 0 -2px var(--tw-shadow-color)",
       },
     },
     textFillColor: (theme) => theme("borderColor"),
@@ -157,5 +198,15 @@ module.exports = {
   },
   plugins: [
     require("tailwindcss-text-fill-stroke")(), // no options to configure
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          "text-shadow": (value) => ({
+            textShadow: value,
+          }),
+        },
+        { values: theme("textShadow") }
+      );
+    }),
   ],
 };

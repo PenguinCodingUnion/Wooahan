@@ -9,17 +9,25 @@ import {
 } from "@react-three/drei";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import Model from "components/gameSleigh/Model";
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, {
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as THREE from "three";
 import forestMap from "assets/images/background_forest.png";
-import QuizBox from "components/gameSleigh/QuizBox";
+import QuizCard from "components/gameSleigh/QuizCard";
 import bfyImg from "assets/images/bfy.png";
 import dogIMg from "assets/images/dog.png";
 import { SleighLoading, LoadingProgress } from "components/gameSleigh/Loading";
 import QuizResult from "components/gameSleigh/QuizResult";
 import { useNavigate } from "react-router-dom";
 import { sleighActions } from "store/features/sliegh/sleighSlice";
+import Intro from "components/gameSleigh/Intro";
+import QuizWord from "components/gameSleigh/QuizWord";
 
 //메인에서 클릭 시  -> 게임 단계 화면 -> 단계선택 -> 로딩화면 -> 게임시작 버튼 -> 클릭 시 게임시작 -> 캐릭터 걷기 -> 문제정보가 위에서 떨어짐
 // -> 캐릭터 멈춤 -> 자이로센서 값 받아서 캐릭터 이동 -> 정답 시 동그라미 보여주고 정보? -> 틀릴 시 X 하고 오답정보와 모션
@@ -37,40 +45,72 @@ import { sleighActions } from "store/features/sliegh/sleighSlice";
 // 만약 캔버스에 안그리는 거면 펭귄이 어디쯤 갓을때 정답인지 판단하기 힘듬..
 // 화면 크기, 비율별로 펭귄이 움직여야하는 거리가 달라짐...
 
+// export const STAGE_DATA = [
+//   [
+//     [
+//       { quiz: "나비" },
+//       { word: "나비", url: bfyImg, answer: true },
+//       { word: "강아지", url: dogIMg, answer: false },
+//     ],
+//     [
+//       { quiz: "도그" },
+//       { word: "도그", url: dogIMg, answer: true },
+//       { word: "버터", url: bfyImg, answer: false },
+//     ],
+//     [
+//       { quiz: "호랑나비" },
+//       { word: "호랑나비", url: bfyImg, answer: true },
+//       { word: "웰시코기", url: dogIMg, answer: false },
+//     ],
+//   ],
+//   [
+//     [
+//       { quiz: "고고고" },
+//       { word: "고고고", url: bfyImg, answer: true },
+//       { word: "가가가", url: dogIMg, answer: false },
+//     ],
+//     [
+//       { quiz: "123" },
+//       { word: "그33", url: dogIMg, answer: true },
+//       { word: "버터", url: bfyImg, answer: false },
+//     ],
+//     [
+//       { quiz: "2322" },
+//       { word: "2322", url: bfyImg, answer: true },
+//       { word: "132", url: dogIMg, answer: false },
+//     ],
+//   ],
+// ];
 export const STAGE_DATA = [
   [
-    [
-      { quiz: "나비" },
-      { word: "나비", url: bfyImg, answer: true },
-      { word: "강아지", url: dogIMg, answer: false },
-    ],
-    [
-      { quiz: "도그" },
-      { word: "도그", url: dogIMg, answer: true },
-      { word: "버터", url: bfyImg, answer: false },
-    ],
-    [
-      { quiz: "호랑나비" },
-      { word: "호랑나비", url: bfyImg, answer: true },
-      { word: "웰시코기", url: dogIMg, answer: false },
-    ],
+    { quiz: "나비" },
+    { word: "나비", url: bfyImg, answer: true },
+    { word: "강아지", url: dogIMg, answer: false },
   ],
   [
-    [
-      { quiz: "고고고" },
-      { word: "고고고", url: bfyImg, answer: true },
-      { word: "가가가", url: dogIMg, answer: false },
-    ],
-    [
-      { quiz: "123" },
-      { word: "그33", url: dogIMg, answer: true },
-      { word: "버터", url: bfyImg, answer: false },
-    ],
-    [
-      { quiz: "2322" },
-      { word: "2322", url: bfyImg, answer: true },
-      { word: "132", url: dogIMg, answer: false },
-    ],
+    { quiz: "도그" },
+    { word: "도그", url: dogIMg, answer: true },
+    { word: "버터", url: bfyImg, answer: false },
+  ],
+  [
+    { quiz: "호랑나비" },
+    { word: "호랑나비", url: bfyImg, answer: true },
+    { word: "웰시코기", url: dogIMg, answer: false },
+  ],
+  [
+    { quiz: "고고고" },
+    { word: "고고고", url: bfyImg, answer: true },
+    { word: "가가가", url: dogIMg, answer: false },
+  ],
+  [
+    { quiz: "123" },
+    { word: "그33", url: dogIMg, answer: true },
+    { word: "버터", url: bfyImg, answer: false },
+  ],
+  [
+    { quiz: "2322" },
+    { word: "2322", url: bfyImg, answer: true },
+    { word: "132", url: dogIMg, answer: false },
   ],
 ];
 
@@ -82,6 +122,7 @@ const GameSleigh = () => {
   const [quizStatus, setQuizStatus] = useState("idle"); // 퀴즈 상태 idle(대기) start(퀴즈내려옴) stop(퀴즈맞추기) check(정답확인)
   const [quizCount, setQuizCount] = useState(0);
   const [quizResult, setQuizResult] = useState("left"); // left right
+  // const [isMove, setIsMove] = useState(0); // 0 정지 (-) 왼쪽 (+) 오른쪽
 
   const dispatch = useDispatch();
   const navigation = useNavigate();
@@ -93,9 +134,9 @@ const GameSleigh = () => {
   ]);
 
   // stage 단계 정보
-  const stageLevel = useSelector((state) => {
-    return state.sleigh.stageLevel;
-  });
+  // const stageLevel = useSelector((state) => {
+  //   return state.sleigh.stageLevel;
+  // });
 
   // 게임 배경 Texture 로딩 및 색상 인코딩
   const texture = new THREE.TextureLoader().load(forestMap);
@@ -107,14 +148,46 @@ const GameSleigh = () => {
   // 캐릭터 애니메이션
   const [modelAnimations, setModelAnimations] = useState(null);
 
+  const doMove = useCallback(
+    (value) => {
+      const { actions, mixer, names } = modelAnimations;
+
+      // setIsMove(+value);
+      modelRef.current.isMove = value;
+      actions[names[0]].fadeOut(0.2).stop();
+      mixer.timeScale = 1.5;
+      modelRef.current.rotation.y = (Math.PI / 2) * value;
+      actions[names[3]].play();
+    },
+    [modelAnimations]
+  );
+
+  const stopMove = useCallback(() => {
+    const { actions, mixer, names } = modelAnimations;
+
+    // setIsMove(0);
+    modelRef.current.isMove = 0;
+    actions[names[3]].fadeOut(0.5).stop();
+    modelRef.current.rotation.y = 0;
+    mixer.timeScale = 1;
+    actions[names[0]].play();
+  }, [modelAnimations]);
+
+  useEffect(() => {
+    if (modelAnimations)
+      modelAnimations.actions[modelAnimations.names[0]].play();
+  }, [modelAnimations]);
+
   // 게임 시작 시
   useEffect(() => {
     if (!modelAnimations || !isStart) return;
 
     const { actions, mixer, names } = modelAnimations;
 
+    actions[names[0]].stop();
+    modelRef.current.rotation.y = Math.PI;
     actions[names[3]].reset().fadeIn(0.2).play();
-
+    mixer.timeScale = 1.5;
     setTimeout(() => {
       setQuizStatus("start");
     }, 2000);
@@ -137,75 +210,85 @@ const GameSleigh = () => {
       });
     };
 
-    const onKeyDown = (e) => {
-      e.preventDefault();
-      if (e.key === "ArrowLeft") {
-        modelAnimations.mixer.timeScale = 1.5;
-        modelRef.current.position.x -= 0.06;
-        modelRef.current.rotation.y = Math.PI / 2;
-        actions[names[3]].play();
-      } else if (e.key === "ArrowRight") {
-        modelAnimations.mixer.timeScale = 1.5;
-        modelRef.current.position.x += 0.06;
-        modelRef.current.rotation.y = -Math.PI / 2;
-        actions[names[3]].play();
-      }
-    };
-
-    const onKeyUp = (e) => {
-      e.preventDefault();
-      if (e.key === "ArrowLeft") {
-        actions[names[3]].reset().fadeOut(0.5).stop();
-        modelRef.current.rotation.y = Math.PI;
-        modelAnimations.mixer.timeScale = 1;
-      } else if (e.key === "ArrowRight") {
-        actions[names[3]].reset().fadeOut(0.5).stop();
-        modelRef.current.rotation.y = Math.PI;
-        modelAnimations.mixer.timeScale = 1;
-      }
-    };
-
     // 다음 문제
     if (quizStatus === "nextQuiz") {
       stopActions();
-
       if (quizCount < 3) {
-        modelRef.current.rotation.y = 0;
-        actions[names[3]].reset().fadeIn(0.2).play();
+        modelRef.current.rotation.y = Math.PI;
+        mixer.timeScale = 1.5;
+        actions[names[3]].fadeIn(0.2).play();
 
         setTimeout(() => {
           setQuizStatus("start");
         }, 2000);
       } else {
-        actions[names[1]].reset().fadeIn(0.2).play();
-        setQuizStatus("idle");
-        setQuizCount(0);
-        setIsEnd(true);
+        // 퀴즈 전부 종료
+        actions[names[1]].fadeIn(0.2).play();
+
+        setTimeout(() => {
+          setQuizStatus("idle");
+          setQuizCount(0);
+          setIsEnd(true);
+        }, 3000);
       }
     }
 
     // 문제 시작
     if (quizStatus === "stop") {
       stopActions();
-      modelRef.current.rotation.y = Math.PI;
-
-      document.addEventListener("keydown", onKeyDown);
-      document.addEventListener("keyup", onKeyUp);
-
-      actions[names[0]].fadeIn(0.2).play();
+      modelRef.current.rotation.y = 0;
+      mixer.timeScale = 1.5;
+      actions[names[0]].play();
     }
 
     // 정답 확인
     if (quizStatus === "check") {
       stopActions();
-      modelRef.current.rotation.y = Math.PI;
+      stopMove();
       modelRef.current.position.x = 0;
-      actions[names[0]].fadeIn(0.2).play();
+      actions[names[0]].play();
+    }
+
+    // return () => {};
+  }, [quizStatus]);
+
+  useEffect(() => {
+    if (isEnd) navigation("/ending");
+  }, [isEnd]);
+
+  const addMoveEvent = () => {
+    window.doMove = (value) => {
+      doMove(value);
+    };
+    window.stopMove = stopMove;
+  };
+
+  const removeMoveEvent = () => {
+    window.doMove = () => null;
+    window.stopMove = () => null;
+  };
+
+  // 게임 입장 시 중력센서용 함수 윈도우에 추가
+  useEffect(() => {
+    if (window.sleigh) {
+      window.sleigh.addGravitySensor();
     }
 
     return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.removeEventListener("keyup", onKeyUp);
+      if (window.sleigh) {
+        window.sleigh.removeGravitySensor();
+      }
+    };
+  }, []);
+
+  // 게임 진행상황에 맞게 센서 사용 온오프
+  useEffect(() => {
+    if (quizStatus === "stop" && quizCount < 3) {
+      addMoveEvent();
+    }
+
+    return () => {
+      removeMoveEvent();
     };
   }, [quizStatus]);
 
@@ -218,17 +301,14 @@ const GameSleigh = () => {
 
   const quizScale = (window.innerWidth / window.innerHeight) * 1.25;
 
-  useEffect(() => {
-    if (+quizCount === 3) {
-    }
-  }, [quizCount]);
-
   return (
     <>
-      <div className="mx-auto h-screen">
-        <Canvas>
+      <div className="h-screen w-screen">
+        <Canvas flat={true}>
           <Suspense fallback={null}>
             <PerspectiveCamera {...camera} makeDefault />
+            <ambientLight />
+            <Environment background={true} map={texture} />
             <Model
               modelRef={modelRef}
               quizScale={quizScale}
@@ -237,88 +317,114 @@ const GameSleigh = () => {
               setQuizStatus={setQuizStatus}
               setModelAnimations={setModelAnimations}
             />
-            <ambientLight />
             {quizStatus !== "idle" &&
               quizStatus !== "nextQuiz" &&
               quizCount < 3 && (
                 <>
-                  <QuizBox
+                  <QuizCard
                     side="left"
                     setQuizStatus={setQuizStatus}
                     quizScale={quizScale}
                     quizData={
                       random[quizCount] > 0.5
-                        ? STAGE_DATA[stageLevel][quizCount][1]
-                        : STAGE_DATA[stageLevel][quizCount][2]
+                        ? STAGE_DATA[quizCount][1]
+                        : STAGE_DATA[quizCount][2]
                     }
                   />
-                  <QuizBox
+                  <QuizCard
                     side="right"
                     quizScale={quizScale}
                     quizData={
                       random[quizCount] > 0.5
-                        ? STAGE_DATA[stageLevel][quizCount][2]
-                        : STAGE_DATA[stageLevel][quizCount][1]
+                        ? STAGE_DATA[quizCount][2]
+                        : STAGE_DATA[quizCount][1]
                     }
                   />
                 </>
               )}
-            <Environment background={true} map={texture} />
           </Suspense>
           {isLoading && <LoadingProgress setIsLoading={setIsLoading} />}
         </Canvas>
+
+        {!isLoading && !isStart && <Intro setIsStart={setIsStart} />}
         {quizStatus === "stop" && quizCount < 3 && (
-          <>
-            <div
-              style={{
-                position: "absolute",
-                top: 10,
-                background: "#d9d9d9",
-                left: "50%",
-                fontSize: "40px",
+          <div className="absolute bottom-[5vh] w-screen flex justify-between px-[10vw]">
+            <button
+              type="button"
+              onTouchStart={(e) => {
+                e.preventDefault();
+                removeMoveEvent();
+                doMove(-1);
               }}
+              onMouseDown={() => {
+                doMove(-1);
+              }}
+              onTouchEnd={(e) => {
+                e.preventDefault();
+                addMoveEvent();
+                stopMove();
+              }}
+              onMouseUp={stopMove}
+              style={{
+                WebkitUserSelect: "none",
+                MozUserSelect: "none",
+                msUserSelect: "none",
+                userSelect: "none",
+              }}
+              className="bg-mainBlack opacity-80 rounded-[100%] text-[4vw] text-white w-[8vw] h-[8vw] z-20"
             >
-              {STAGE_DATA[stageLevel][quizCount][0].quiz}
-            </div>
-          </>
-        )}
-        {isLoading && <SleighLoading />}
-        {!isLoading && !isStart && (
-          <div
-            style={{
-              position: "absolute",
-              background: "blue",
-              textAlign: "center",
-              top: "50%",
-              left: "50%",
-            }}
-            onClick={() => {
-              setIsStart(!isStart);
-            }}
-          >
-            시작하기
+              {"⬅"}
+            </button>
+            <button
+              type="button"
+              onTouchStart={(e) => {
+                e.preventDefault();
+                removeMoveEvent();
+                doMove(1);
+              }}
+              onMouseDown={() => {
+                doMove(1);
+              }}
+              onTouchEnd={(e) => {
+                e.preventDefault();
+                addMoveEvent();
+                stopMove();
+              }}
+              onMouseUp={stopMove}
+              style={{
+                WebkitUserSelect: "none",
+                MozUserSelect: "none",
+                msUserSelect: "none",
+                userSelect: "none",
+              }}
+              className="bg-mainBlack opacity-80 rounded-[100%] text-[4vw] text-white w-[8vw] h-[8vw] z-20"
+            >
+              {"➡"}
+            </button>
           </div>
         )}
+
+        {quizStatus === "stop" && quizCount < 3 && (
+          <QuizWord word={STAGE_DATA[quizCount][0].quiz} />
+        )}
+
+        {isLoading && <SleighLoading />}
         {quizStatus === "check" && (
           <QuizResult
             setQuizStatus={setQuizStatus}
             setQuizCount={setQuizCount}
             result={
               quizResult === "left"
-                ? STAGE_DATA[stageLevel][quizCount][
-                    random[quizCount] > 0.5 ? 1 : 2
-                  ]
-                : STAGE_DATA[stageLevel][quizCount][
-                    random[quizCount] > 0.5 ? 2 : 1
-                  ]
+                ? STAGE_DATA[quizCount][random[quizCount] > 0.5 ? 1 : 2]
+                : STAGE_DATA[quizCount][random[quizCount] > 0.5 ? 2 : 1]
             }
           />
         )}
-        {isEnd && (
+        {/* {isEnd && (
           <div>
             <button
               onClick={() => {
-                dispatch(sleighActions.setStage(stageLevel + 1));
+                // dispatch(sleighActions.setStage(stageLevel + 1));
                 setIsEnd(false);
                 setIsStart(false);
                 setIsLoading(true);
@@ -343,7 +449,7 @@ const GameSleigh = () => {
               메인으로
             </button>
           </div>
-        )}
+        )} */}
       </div>
     </>
   );
