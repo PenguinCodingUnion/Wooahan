@@ -5,9 +5,7 @@ import com.wooahan.back.entity.Segment;
 import com.wooahan.back.entity.Sentence;
 import com.wooahan.back.repository.SegementRepository;
 import com.wooahan.back.repository.SentenceRepository;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,8 +16,10 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class JumpService {
+    @NoArgsConstructor
     @AllArgsConstructor
     @Setter
+    @Getter
     public static class JumpWord {
         private String content;
         private int wordOrder;

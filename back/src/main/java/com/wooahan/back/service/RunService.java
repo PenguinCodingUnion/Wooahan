@@ -4,6 +4,7 @@ import com.wooahan.back.dto.RunResDto;
 import com.wooahan.back.dto.SimpleWordInfo;
 import com.wooahan.back.repository.WordRepository;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ public class RunService {
 
     @AllArgsConstructor
     @Setter
+    @Getter
     public static class RunWord{
         public SimpleWordInfo word;
         private boolean answer;
