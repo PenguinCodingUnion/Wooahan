@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/login")
+@RequestMapping(value = "/api/login")
 public class LoginController {
 
     private final LoginService loginService;

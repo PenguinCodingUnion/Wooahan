@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -27,10 +28,13 @@ public class BubbleService {
         List<BubbleResDto>bubbleResDtoList = new ArrayList<>();
         int i=0;
         while(i<20) {
+            List<SimpleWordInfo>tmp = simpleWordInfoList.subList(i,i+4);
+            Collections.shuffle(tmp);
+
             BubbleResDto bubbleResDto = BubbleResDto.builder()
                     .answer(simpleWordInfoList.get(i).getName())
                     .answerImg(simpleWordInfoList.get(i).getImgUrl())
-                    .cards(simpleWordInfoList.subList(i, i+4))
+                    .cards(tmp)
                     .build();
             bubbleResDtoList.add(bubbleResDto);
             i+=4;

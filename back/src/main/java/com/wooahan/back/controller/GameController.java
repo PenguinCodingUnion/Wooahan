@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/game")
+@RequestMapping(value = "/api/game")
 public class GameController {
     private final BubbleService bubbleService;
     private final TrainService trainService;
