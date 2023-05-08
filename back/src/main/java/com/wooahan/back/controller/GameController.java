@@ -1,10 +1,7 @@
 package com.wooahan.back.controller;
 
 import com.wooahan.back.dto.*;
-import com.wooahan.back.entity.Member;
-import com.wooahan.back.service.BubbleService;
-import com.wooahan.back.service.RewardService;
-import com.wooahan.back.service.TrainService;
+import com.wooahan.back.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +16,8 @@ public class GameController {
     private final BubbleService bubbleService;
     private final TrainService trainService;
     private final RewardService rewardService;
+    private final JumpService jumpService;
+    private final RunService runService;
 
     @GetMapping("/bubble/{difficulty}")
     public ResponseEntity<List<BubbleResDto>>bubbleGaming(@PathVariable int difficulty){
@@ -28,6 +27,16 @@ public class GameController {
     @GetMapping("/train/{difficulty}")
     public ResponseEntity<List<TrainResDto>>trainGaming(@PathVariable int difficulty){
         return new ResponseEntity<>(trainService.trainStart(difficulty), HttpStatus.OK);
+    }
+
+    @GetMapping("/run/{difficulty}")
+    public ResponseEntity<List<RunResDto>>runGaming(@PathVariable int difficulty){
+        return new ResponseEntity<>(runService.runStart(difficulty), HttpStatus.OK);
+    }
+
+    @GetMapping("/jump/{difficulty}")
+    public ResponseEntity<List<JumpResDto>>jumpGaming(@PathVariable int difficulty){
+        return new ResponseEntity<>(jumpService.jumpStart(difficulty), HttpStatus.OK);
     }
 
     @GetMapping("/over/{email:.+}")

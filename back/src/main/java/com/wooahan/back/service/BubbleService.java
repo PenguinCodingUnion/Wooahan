@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class BubbleService {
     private final WordRepository wordRepository;
 
-    //TODO 이쁘께
+    //TODO 살찐 코드
     public List<BubbleResDto> bubbleStart(int difficulty){
         List<SimpleWordInfo> simpleWordInfoList = wordRepository.findByRandom(difficulty,20)
                 .orElseThrow(()->new NoSuchElementException("bubbleStart에서 일어난 일"))

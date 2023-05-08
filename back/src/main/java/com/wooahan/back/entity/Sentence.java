@@ -13,13 +13,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Sentence {
+    //TODO 추후 난이도 조절 필요
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="sentence_id")
     private Long id;
 
-    @Enumerated(EnumType.ORDINAL)
-    private Difficulty difficulty;
+    @Column(nullable = false)
+    private int difficulty;
 
     @Column(nullable = false)
     private String content;
