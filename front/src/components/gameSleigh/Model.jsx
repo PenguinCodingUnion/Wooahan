@@ -7,6 +7,8 @@ import { useClonedModel } from "util/hooks/useClonedModel";
 export const Model = (props) => {
   const model = props.modelRef;
 
+  const isMove = props.isMove;
+
   const { scene, materials, animations, nodes } = useClonedModel(PENGUL);
 
   const _animations = useAnimations(animations, model);
@@ -15,9 +17,9 @@ export const Model = (props) => {
     props.setModelAnimations(_animations);
   }, []);
 
-  const modelScale = () => {
-    const ratio = window.innerWidth / window.innerHeight;
+  const ratio = window.innerWidth / window.innerHeight;
 
+  const modelScale = () => {
     if (ratio < 0.6) {
       return ratio * 0.025;
     }
@@ -36,6 +38,15 @@ export const Model = (props) => {
         props.setQuizResult("right");
       }
     }
+
+    // console.log(props.isMove);
+
+    if (+model.current.isMove === -1) {
+      model.current.position.x -= 0.02 * ratio;
+    }
+    if (+model.current.isMove === 1) {
+      model.current.position.x += 0.02 * ratio;
+    }
   });
 
   return (
@@ -43,7 +54,7 @@ export const Model = (props) => {
       <group name="Scene">
         <group
           name="Armature"
-          rotation={[0.2, Math.PI, 0]}
+          rotation={[0.2, 0, 0]}
           position={[0, -2, 0]}
           scale={modelScale()}
         >
