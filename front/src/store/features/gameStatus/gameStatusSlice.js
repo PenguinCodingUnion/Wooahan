@@ -32,9 +32,6 @@ export const gameStatusSlice = createSlice({
     end: (state) => {
       state.status = GameStatus.GAME_END;
     },
-    outOfGame: (state) => {
-      state.status = GameStatus.GAME_NOT_LOADED;
-    },
     goNextLevel: (state) => {
       state.level += 1;
     },

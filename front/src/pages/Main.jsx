@@ -18,6 +18,10 @@ const coverImages = [
   image_forest,
   image_underwater,
   image_dessert,
+  image_iceburg,
+  image_forest,
+  image_underwater,
+  image_dessert,
 ];
 
 export const Main = () => {
