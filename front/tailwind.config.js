@@ -152,6 +152,20 @@ module.exports = {
             "animation-timing-function": "ease-in",
           },
         },
+        loadingBall: {
+          "15%": {
+            transform: "translateX(0)",
+          },
+          "45%": {
+            transform: "translateX( 22.75rem )", // $loader--width - $loader-dot--size
+          },
+          "65%": {
+            transform: "translateX( 22.75rem )",
+          },
+          "95%": {
+            transform: "translateX(0)",
+          },
+        },
       },
       animation: {
         intro: "intro 4s linear infinite",
@@ -172,6 +186,7 @@ module.exports = {
         "scale-up-center":
           "scale-up-center 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both",
         bounce: "mybounce 1.3s infinite",
+        loadingBall: "loadingBall 3s ease-in-out infinite",
       },
       textShadow: {
         sm: "0 1px 2px var(--tw-shadow-color)",
@@ -202,6 +217,7 @@ module.exports = {
   },
   plugins: [
     require("tailwindcss-text-fill-stroke")(), // no options to configure
+    require("tailwindcss-animation-delay"),
     plugin(function ({ matchUtilities, theme }) {
       matchUtilities(
         {

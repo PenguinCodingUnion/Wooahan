@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import bgImage from "assets/images/background-underwater.jpg";
 import QuizCard from "components/gameBubble/QuizCard";
@@ -16,6 +16,8 @@ import ReactAudioPlayer from "react-audio-player";
 
 import bgm from "assets/sounds/bubblebgm.mp3";
 import instance from "util/Axios";
+import LoadingComponent from "components/common/LoadingComponent";
+import SleighLoading, { LoadingProgress } from "components/gameSleigh/Loading";
 
 export const GameBubble = (props) => {
   // 백에 요청할 자리
@@ -96,6 +98,7 @@ export const GameBubble = (props) => {
   ];
 
   const [isIntro, setIsIntro] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [round, setRound] = useState(0);
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [clickedNumber, setClickedNumber] = useState(0);
@@ -104,20 +107,26 @@ export const GameBubble = (props) => {
   const [quizData, setQuizData] = useState([]);
 
   useEffect(() => {
-    instance
+    const loadData = async () => {
+      await instance
       .get("/game/bubble/0")
       .then((response) => {
-        console.log(response);
+        // setIsLoading(false);
         setQuizData(response);
       })
       .catch((error) => {
         console.log(error);
+        // setIsLoading(false);
         setQuizData(sampleQuiz);
       });
+    }
+    loadData();
   }, []);
 
   const closeIntro = () => {
-    setIsIntro(false);
+    if (quizData.length !== 0) {
+      setIsIntro(false);
+    }
   };
 
   const changeQuiz = () => {
@@ -182,10 +191,12 @@ export const GameBubble = (props) => {
   return (
     <>
       <ReactAudioPlayer src={bgm} autoPlay={true} volume={1} loop />
-      {isIntro && !isGameEnd && (
+      {isLoading && <LoadingComponent />}
+      {!isLoading && isIntro && !isGameEnd && (
         <BubbleIntro closeIntro={closeIntro} pos={pos} />
       )}
-      {!isIntro && !isGameEnd && (
+      
+      {!isLoading && !isIntro && !isGameEnd && (
         <div
           className="fixed w-screen h-screen mx-auto"
           style={{
@@ -222,7 +233,8 @@ export const GameBubble = (props) => {
           )}
         </div>
       )}
-      {!isIntro && isGameEnd && <Navigate to={`/ending`} />}
+      {!isLoading && !isIntro && isGameEnd && <Navigate to={`/ending`} />}
+      
     </>
   );
 };
