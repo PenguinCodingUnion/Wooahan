@@ -19,7 +19,7 @@ public class LoginController {
         return new ResponseEntity<>(loginService.tempLogin(androidId), HttpStatus.OK);
     }
 
-    //https://accounts.google.com/o/oauth2/auth?client_id=658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com&redirect_uri=http://localhost:9090/login/oauth2/code/google&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile
+    //https://accounts.google.com/o/oauth2/auth?client_id=658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com&redirect_uri=http://k8b206.p.ssafy.io/api/login/oauth2/code/google&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile
     //TODO 만약 게스트였던 녀석이었으면의 로직 작성 필요
     @GetMapping("/oauth2/code/{registrationId}")
     public ResponseEntity<String> googleLogin(@RequestParam String code, @PathVariable String registrationId) {
