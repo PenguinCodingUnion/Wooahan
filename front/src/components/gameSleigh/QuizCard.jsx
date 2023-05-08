@@ -3,7 +3,7 @@ import { useFrame } from "@react-three/fiber";
 import { useRef, useState } from "react";
 import * as THREE from "three";
 
-export const QuizBox = (props) => {
+export const QuizCard = (props) => {
   const imgRef = useRef();
 
   const x = 0;
@@ -25,6 +25,9 @@ export const QuizBox = (props) => {
   const geometry = new THREE.ShapeGeometry(shape);
 
   const texture = new THREE.TextureLoader().load(props.quizData.url);
+  texture.encoding = THREE.sRGBEncoding;
+  texture.magFilter = THREE.NearestFilter;
+  texture.minFilter = THREE.LinearMipMapLinearFilter;
 
   const [down, setDown] = useState(true);
 
@@ -52,11 +55,11 @@ export const QuizBox = (props) => {
           -1,
         ]}
       >
-        <meshBasicMaterial map={texture} />
+        <meshStandardMaterial attach="material" map={texture} />
         {/* <Edges /> */}
       </mesh>
     </group>
   );
 };
 
-export default QuizBox;
+export default QuizCard;
