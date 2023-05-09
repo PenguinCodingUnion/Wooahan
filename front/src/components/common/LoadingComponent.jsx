@@ -15,36 +15,27 @@ const LoadingComponent = (props) => {
   ];
 
   const gif = [
-    require("assets/images/penguel_greeting.gif"),
-    require("assets/images/penguel_rolling.gif"),
     require("assets/images/penguel_swing.gif"),
     require("assets/images/penguel_hiphop.gif"),
+    require("assets/images/penguel_chicken_dance.gif"),
   ];
 
-  const gifStyle = [
-    "absolute bottom-1/3 mb-8 w-1/2 left-1/4", // greeting
-    "absolute bottom-1/3 w-full -mb-16", // rolling
-    "absolute bottom-1/3 -mb-0 w-1/2 left-1/4", // swing
-    "absolute bottom-1/3 -mb-0 w-1/2 left-1/4" // hiphop
-  ]
 
   const [loadingText, setLoadingText] = useState("");
   const [loadingGif, setLoadingGif] = useState("");
-  const [loadingGifStyle, setLoadingGifStyle] = useState("");
 
   useEffect(() => {
-    const gifNum = Math.floor(Math.random() * 4);
+    const gifNum = Math.floor(Math.random() * 3);
     const textNum = Math.floor(Math.random() * 10);
     setLoadingText(text[textNum]);
     setLoadingGif(gif[gifNum]);
-    setLoadingGifStyle(gifStyle[gifNum]);
   }, []);
 
   return (
     <div
       className={`h-screen w-screen font-MaplestoryBold bg-mainBlue-200 overflow-hidden`}
     >
-      <div className={loadingGifStyle} >
+      <div className="absolute bottom-1/3 -mb-0 w-1/2 left-1/4" >
         <img src={loadingGif} alt="loadingGif" />
       </div>
       <div className="w-96 h-36 absolute bottom-0 left-1/2 -ml-48">

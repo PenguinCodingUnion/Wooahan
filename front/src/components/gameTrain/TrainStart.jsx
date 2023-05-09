@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import trainlong from "assets/images/tmp/structure_train_long.png";
@@ -6,6 +5,7 @@ import Train from "./Train";
 import instance from "util/Axios";
 import pig from "assets/images/tmp/넷째돼지.png";
 import jar from "assets/images/tmp/무공해항아리.avif";
+import LoadingComponent from "components/common/LoadingComponent";
 
 export const TrainStart = (props) => {
   const [data, setdata] = useState([]);
@@ -13,9 +13,15 @@ export const TrainStart = (props) => {
     instance
       .get("/game/train/0")
       .then((response) => {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 2000);
         setdata(response);
       })
-      .catch(
+      .catch((error) => {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 2000);
         setdata([
           {
             last: "지",
@@ -35,16 +41,18 @@ export const TrainStart = (props) => {
             word2: { name: "도덕률", imgUrl: jar },
             ans: "사형제",
           },
-        ])
-      );
+        ]);
+      });
   }, []);
   const [start, setStart] = useState();
+  const [isLoading, setIsLoading] = useState(true);
   const cilckStart = () => {
     setStart(<Train data={data} />);
   };
   return (
     <div>
-      {!start && (
+      {isLoading && <LoadingComponent />}
+      {!start && !isLoading && (
         <>
           <div className="h-6"></div>
           <div className=" h-[6rem]">
