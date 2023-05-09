@@ -35,9 +35,11 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Reward> rewards;
 
-    public Member update(String name, boolean isGuest) {
+    public Member update(String email, String provider, String name) {
         this.name = name;
-        this.isGuest = isGuest;
+        this.isGuest = false;
+        this.email=email;
+        this.provider=provider;
         return this;
     }
 
