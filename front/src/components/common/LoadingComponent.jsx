@@ -1,17 +1,61 @@
-import React from "react";
-import PropTypes from "prop-types";
-import TmpLoadingImage from "assets/images/background/TmpLoading.png";
+import React, { useEffect, useState } from "react";
 
 const LoadingComponent = (props) => {
+  const text = [
+    "펭글이 간식먹는 중",
+    "펭글이 공부하는 중",
+    "펭글이 춤추는 중",
+    "펭글이 낚시하는 중",
+    "펭글이 옷입는 중",
+    "펭글이 책읽는 중",
+    "펭글이 노래하는 중",
+    "펭글이 산책하는 중",
+    "펭글이 잠자는 중",
+    "펭글이 양치하는 중",
+  ];
+
+  const gif = [
+    require("assets/images/penguel_rolling.gif"),
+    require("assets/images/penguel_rolling.gif"),
+    require("assets/images/penguel_rolling.gif"),
+    require("assets/images/penguel_rolling.gif"),
+    require("assets/images/penguel_rolling.gif"),
+  ];
+
+  const [loadingText, setLoadingText] = useState(text[0]);
+  const [loadingGif, setLoadingGif] = useState(gif[0]);
+
+  useEffect(() => {
+    const gifNum = Math.floor(Math.random() * 5);
+    const textNum = Math.floor(Math.random() * 10);
+    setLoadingText(text[textNum]);
+    setLoadingGif(gif[gifNum]);
+  }, []);
+
   return (
     <div
-      className={`flex justify-center item-center absolute h-screen w-screen`}
+      className={`h-screen w-screen font-MaplestoryBold bg-mainBlue-200 overflow-hidden`}
     >
-      <img
-        className={`flex justify-center item-center absolute h-screen w-screen`}
-        src={TmpLoadingImage}
-        alt={`로딩 페이지입니다`}
-      />
+      <div className="absolute bottom-1/3 w-full -mb-16">
+        <img src={loadingGif} alt="loadingGif" />
+      </div>
+      <div className="w-96 h-36 absolute bottom-0 left-1/2 -ml-48">
+        <div className="h-5 w-5 rounded-full bg-[#8cc759] absolute border-2 border-mainWhite animate-loadingBall animation-delay-500"></div>
+        <div className="h-5 w-5 rounded-full bg-[#8c6daf] absolute border-2 border-mainWhite animate-loadingBall animation-delay-400"></div>
+        <div className="h-5 w-5 rounded-full bg-[#ef5d74] absolute border-2 border-mainWhite animate-loadingBall animation-delay-300"></div>
+        <div className="h-5 w-5 rounded-full bg-[#f9a74b] absolute border-2 border-mainWhite animate-loadingBall animation-delay-200"></div>
+        <div className="h-5 w-5 rounded-full bg-[#60beeb] absolute border-2 border-mainWhite animate-loadingBall animation-delay-100"></div>
+        <div className="h-5 w-5 rounded-full bg-[#fbef5a] absolute border-2 border-mainWhite animate-loadingBall animation-delay-none"></div>
+        <div className="absolute w-full top-1/3 text-xl ">
+          <span className="">{loadingText}</span>
+          <div className="relative inline-block">
+            <span className="overflow-x-hidden whitespace-nowrap">
+              &nbsp;. . .
+            </span>
+            <span className="absolute bg-mainBlue-200 top-0 left-0 w-full h-full animate-typing"></span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
