@@ -1,9 +1,12 @@
 package com.wooahan.back.entity;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 
 @Entity
+@Getter
 public class Segment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +23,5 @@ public class Segment {
     @Column(nullable = false, name = "word_order")
     private Integer wordOrder;
 
-    @Column(nullable = false)
-    private String voiceUrl;
 }
 

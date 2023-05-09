@@ -2,9 +2,10 @@ package com.wooahan.back.dto;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.Builder;
+import lombok.Getter;
 
 @Builder
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+@Getter
 public class TrainResDto {
     private String last;
     private SimpleWordInfo word1;
