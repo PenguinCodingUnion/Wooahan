@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import bgImage from "assets/images/background-underwater.jpg";
 import QuizCard from "components/gameBubble/QuizCard";
@@ -17,7 +17,6 @@ import ReactAudioPlayer from "react-audio-player";
 import bgm from "assets/sounds/bubblebgm.mp3";
 import instance from "util/Axios";
 import LoadingComponent from "components/common/LoadingComponent";
-import SleighLoading, { LoadingProgress } from "components/gameSleigh/Loading";
 
 export const GameBubble = (props) => {
   // 백에 요청할 자리
@@ -109,17 +108,21 @@ export const GameBubble = (props) => {
   useEffect(() => {
     const loadData = async () => {
       await instance
-      .get("/game/bubble/0")
-      .then((response) => {
-        // setIsLoading(false);
-        setQuizData(response);
-      })
-      .catch((error) => {
-        console.log(error);
-        // setIsLoading(false);
-        setQuizData(sampleQuiz);
-      });
-    }
+        .get("/game/bubble/0")
+        .then((response) => {
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 2000);
+          setQuizData(response);
+        })
+        .catch((error) => {
+          console.log(error);
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 2000);
+          setQuizData(sampleQuiz);
+        });
+    };
     loadData();
   }, []);
 
@@ -195,7 +198,7 @@ export const GameBubble = (props) => {
       {!isLoading && isIntro && !isGameEnd && (
         <BubbleIntro closeIntro={closeIntro} pos={pos} />
       )}
-      
+
       {!isLoading && !isIntro && !isGameEnd && (
         <div
           className="fixed w-screen h-screen mx-auto"
@@ -234,7 +237,6 @@ export const GameBubble = (props) => {
         </div>
       )}
       {!isLoading && !isIntro && isGameEnd && <Navigate to={`/ending`} />}
-      
     </>
   );
 };
