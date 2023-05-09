@@ -20,7 +20,6 @@ const TextObject = ({ no, text, url, position = [0, 0, 0], ...props }) => {
   const audioRef = useRef();
 
   const animationStyle = {
-    fontSize: "24px",
     background: "linear-gradient(90deg, red 50%, black 50%)",
     backgroundClip: "text",
     WebkitBackgroundClip: "text",

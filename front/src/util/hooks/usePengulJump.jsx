@@ -9,7 +9,15 @@ import { gameStatusActions } from "store/features/gameStatus/gameStatusSlice";
 import { jumpActions } from "store/features/jump/jumpSlice";
 
 const GRAVITY = -120 * 1.5;
-const ANIMATIONS = ["t-pose", "idle", "jumping", "walk"];
+const ANIMATIONS = [
+  "t-pose",
+  "idle",
+  "jumping",
+  "walk",
+  "surprize",
+  "swim",
+  "waving",
+];
 
 const JUMP_FORCE = 80;
 const BASE_MOVEMENT_SPEED = 50;
@@ -82,6 +90,7 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
     });
 
     window.doJump = doJump;
+    if (window.jump) window.jump.resumeSensor();
 
     setActiveAnimation(1);
 
@@ -90,6 +99,8 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
       window.doJump = () => {
         console.log(`not claim function`);
       };
+
+      if (window.jump) window.jump.pauseSensor();
     };
   }, [doJump, setActiveAnimation]);
 
