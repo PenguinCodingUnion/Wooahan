@@ -37,7 +37,7 @@ const LoadingComponent = (props) => {
         className={`h-screen w-screen font-MaplestoryBold bg-mainBlue-200 overflow-hidden`}
       >
         <div className="absolute bottom-1/3 -mb-0 w-1/2 left-1/4">
-          <img src={loadingGif} alt="loadingGif" />
+          <img src={loadingGif} alt="" />
         </div>
         <div className="w-96 h-36 absolute bottom-0 left-1/2 -ml-48">
           <div className="h-5 w-5 rounded-full bg-[#8cc759] absolute border-2 border-mainWhite animate-loadingBall animation-delay-500"></div>
