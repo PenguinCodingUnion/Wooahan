@@ -24,7 +24,6 @@ const QuizResult = (props) => {
   return (
     <div className="absolute w-screen h-screen top-0 flex flex-col justify-center items-center">
       {visible ? (
-        // <div className="w-[50%]">
         <>
           <div className="border-[4px] rounded-[16px] animate-scale-up-center">
             <img
@@ -51,7 +50,7 @@ const QuizResult = (props) => {
         <div
           className="font-MaplestoryBold text-mainIndigo-600 animate-scale-up-center"
           style={{
-            fontSize: ratio > 1 ? 75 / ratio + "vw" : 75 * ratio + "vh",
+            fontSize: ratio > 1 ? 66 / ratio + "vw" : 75 * ratio + "vh",
           }}
         >
           O
@@ -60,7 +59,7 @@ const QuizResult = (props) => {
         <div
           className="font-MaplestoryBold text-red animate-scale-up-center"
           style={{
-            fontSize: ratio > 1 ? 75 / ratio + "vw" : 75 * ratio + "vh",
+            fontSize: ratio > 1 ? 66 / ratio + "vw" : 75 * ratio + "vh",
           }}
         >
           X

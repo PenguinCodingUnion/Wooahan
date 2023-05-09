@@ -1,13 +1,5 @@
-import {
-  Environment,
-  Html,
-  Image,
-  Loader,
-  OrbitControls,
-  PerspectiveCamera,
-  useProgress,
-} from "@react-three/drei";
-import { Canvas, useFrame, useLoader } from "@react-three/fiber";
+import { Environment, PerspectiveCamera } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
 import Model from "components/gameSleigh/Model";
 import React, {
   Suspense,
@@ -29,58 +21,6 @@ import { sleighActions } from "store/features/sliegh/sleighSlice";
 import Intro from "components/gameSleigh/Intro";
 import QuizWord from "components/gameSleigh/QuizWord";
 
-//메인에서 클릭 시  -> 게임 단계 화면 -> 단계선택 -> 로딩화면 -> 게임시작 버튼 -> 클릭 시 게임시작 -> 캐릭터 걷기 -> 문제정보가 위에서 떨어짐
-// -> 캐릭터 멈춤 -> 자이로센서 값 받아서 캐릭터 이동 -> 정답 시 동그라미 보여주고 정보? -> 틀릴 시 X 하고 오답정보와 모션
-// -> 다음 문제 진행 -> 반복 -> 문제 3개 완료되면 완료화면 보여주고 별가루 하나 주던가하고 메인으로
-
-// 로딩화면 만들고 로딩 완료되면 시작버튼이 보여지게 해야 함 <- useProgress
-
-// 캔버스에 이미지 그려서 한다고하면... lookat으로 해당방향의 이미지 처다보게하고 걷게함
-// 그리고 기울이는 방향으로 캐릭터가 움직일지.. 아니면 그림이 움직여서 캐릭터로 오게할지..
-// raycaster로 그림에 닿는거를 판단하던지 아니면 포지션위치가 같아지는 거로 정답 판단하면 될듯
-// ㅅㅂ 개어렵네 이미지 네모깍는거만 하루종일햇네 ㅅㅂ
-
-// 캔버스의 이미지를 안쓴다면 이미지가 가운데로 이동하는 거로해서 가운뎅왓을때 정답체크해야할듯
-
-// 만약 캔버스에 안그리는 거면 펭귄이 어디쯤 갓을때 정답인지 판단하기 힘듬..
-// 화면 크기, 비율별로 펭귄이 움직여야하는 거리가 달라짐...
-
-// export const STAGE_DATA = [
-//   [
-//     [
-//       { quiz: "나비" },
-//       { word: "나비", url: bfyImg, answer: true },
-//       { word: "강아지", url: dogIMg, answer: false },
-//     ],
-//     [
-//       { quiz: "도그" },
-//       { word: "도그", url: dogIMg, answer: true },
-//       { word: "버터", url: bfyImg, answer: false },
-//     ],
-//     [
-//       { quiz: "호랑나비" },
-//       { word: "호랑나비", url: bfyImg, answer: true },
-//       { word: "웰시코기", url: dogIMg, answer: false },
-//     ],
-//   ],
-//   [
-//     [
-//       { quiz: "고고고" },
-//       { word: "고고고", url: bfyImg, answer: true },
-//       { word: "가가가", url: dogIMg, answer: false },
-//     ],
-//     [
-//       { quiz: "123" },
-//       { word: "그33", url: dogIMg, answer: true },
-//       { word: "버터", url: bfyImg, answer: false },
-//     ],
-//     [
-//       { quiz: "2322" },
-//       { word: "2322", url: bfyImg, answer: true },
-//       { word: "132", url: dogIMg, answer: false },
-//     ],
-//   ],
-// ];
 export const STAGE_DATA = [
   [
     { quiz: "나비" },
@@ -213,7 +153,7 @@ const GameSleigh = () => {
     // 다음 문제
     if (quizStatus === "nextQuiz") {
       stopActions();
-      if (quizCount < 3) {
+      if (quizCount < 5) {
         modelRef.current.rotation.y = Math.PI;
         mixer.timeScale = 1.5;
         actions[names[3]].fadeIn(0.2).play();
@@ -268,22 +208,22 @@ const GameSleigh = () => {
     window.stopMove = () => null;
   };
 
-  // 게임 입장 시 중력센서용 함수 윈도우에 추가
+  // 게임 입장 시 중력센서 사용
   useEffect(() => {
     if (window.sleigh) {
-      window.sleigh.addGravitySensor();
+      window.sleigh.resumeSensor();
     }
 
     return () => {
       if (window.sleigh) {
-        window.sleigh.removeGravitySensor();
+        window.sleigh.pauseSensor();
       }
     };
   }, []);
 
-  // 게임 진행상황에 맞게 센서 사용 온오프
+  // 게임 진행상황에 맞게 함수 추가 삭제
   useEffect(() => {
-    if (quizStatus === "stop" && quizCount < 3) {
+    if (quizStatus === "stop" && quizCount < 5) {
       addMoveEvent();
     }
 
@@ -319,7 +259,7 @@ const GameSleigh = () => {
             />
             {quizStatus !== "idle" &&
               quizStatus !== "nextQuiz" &&
-              quizCount < 3 && (
+              quizCount < 5 && (
                 <>
                   <QuizCard
                     side="left"
@@ -345,14 +285,12 @@ const GameSleigh = () => {
           </Suspense>
           {isLoading && <LoadingProgress setIsLoading={setIsLoading} />}
         </Canvas>
-
         {!isLoading && !isStart && <Intro setIsStart={setIsStart} />}
-        {quizStatus === "stop" && quizCount < 3 && (
+        {quizStatus === "stop" && quizCount < 5 && (
           <div className="absolute bottom-[5vh] w-screen flex justify-between px-[10vw]">
             <button
               type="button"
               onTouchStart={(e) => {
-                e.preventDefault();
                 removeMoveEvent();
                 doMove(-1);
               }}
@@ -360,25 +298,17 @@ const GameSleigh = () => {
                 doMove(-1);
               }}
               onTouchEnd={(e) => {
-                e.preventDefault();
                 addMoveEvent();
                 stopMove();
               }}
               onMouseUp={stopMove}
-              style={{
-                WebkitUserSelect: "none",
-                MozUserSelect: "none",
-                msUserSelect: "none",
-                userSelect: "none",
-              }}
               className="bg-mainBlack opacity-80 rounded-[100%] text-[4vw] text-white w-[8vw] h-[8vw] z-20"
             >
-              {"⬅"}
+              <p className="translate-x-[-0.3vw]">◀</p>
             </button>
             <button
               type="button"
               onTouchStart={(e) => {
-                e.preventDefault();
                 removeMoveEvent();
                 doMove(1);
               }}
@@ -386,28 +316,19 @@ const GameSleigh = () => {
                 doMove(1);
               }}
               onTouchEnd={(e) => {
-                e.preventDefault();
                 addMoveEvent();
                 stopMove();
               }}
               onMouseUp={stopMove}
-              style={{
-                WebkitUserSelect: "none",
-                MozUserSelect: "none",
-                msUserSelect: "none",
-                userSelect: "none",
-              }}
-              className="bg-mainBlack opacity-80 rounded-[100%] text-[4vw] text-white w-[8vw] h-[8vw] z-20"
+              className="bg-mainBlack opacity-80 rounded-[100%] text-[4vw] text-white w-[8vw] h-[8vw] z-20 translate-x-[2%]"
             >
-              {"➡"}
+              <p className="translate-x-[0.3vw]">▶</p>
             </button>
           </div>
         )}
-
-        {quizStatus === "stop" && quizCount < 3 && (
+        {quizStatus === "stop" && quizCount < 5 && (
           <QuizWord word={STAGE_DATA[quizCount][0].quiz} />
         )}
-
         {isLoading && <SleighLoading />}
         {quizStatus === "check" && (
           <QuizResult
@@ -420,36 +341,6 @@ const GameSleigh = () => {
             }
           />
         )}
-        {/* {isEnd && (
-          <div>
-            <button
-              onClick={() => {
-                // dispatch(sleighActions.setStage(stageLevel + 1));
-                setIsEnd(false);
-                setIsStart(false);
-                setIsLoading(true);
-              }}
-            >
-              다음 단계로
-            </button>
-            <button
-              onClick={() => {
-                setIsEnd(false);
-                setIsStart(false);
-                setIsLoading(true);
-              }}
-            >
-              다시하기
-            </button>
-            <button
-              onClick={() => {
-                navigation("/");
-              }}
-            >
-              메인으로
-            </button>
-          </div>
-        )} */}
       </div>
     </>
   );
