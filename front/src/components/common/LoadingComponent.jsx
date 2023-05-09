@@ -15,18 +15,17 @@ const LoadingComponent = (props) => {
   ];
 
   const gif = [
-    require("assets/images/penguel_rolling.gif"),
-    require("assets/images/penguel_rolling.gif"),
-    require("assets/images/penguel_rolling.gif"),
-    require("assets/images/penguel_rolling.gif"),
-    require("assets/images/penguel_rolling.gif"),
+    require("assets/images/penguel_swing.gif"),
+    require("assets/images/penguel_hiphop.gif"),
+    require("assets/images/penguel_chicken_dance.gif"),
   ];
 
-  const [loadingText, setLoadingText] = useState(text[0]);
-  const [loadingGif, setLoadingGif] = useState(gif[0]);
+
+  const [loadingText, setLoadingText] = useState("");
+  const [loadingGif, setLoadingGif] = useState("");
 
   useEffect(() => {
-    const gifNum = Math.floor(Math.random() * 5);
+    const gifNum = Math.floor(Math.random() * 3);
     const textNum = Math.floor(Math.random() * 10);
     setLoadingText(text[textNum]);
     setLoadingGif(gif[gifNum]);
@@ -36,7 +35,7 @@ const LoadingComponent = (props) => {
     <div
       className={`h-screen w-screen font-MaplestoryBold bg-mainBlue-200 overflow-hidden`}
     >
-      <div className="absolute bottom-1/3 w-full -mb-16">
+      <div className="absolute bottom-1/3 -mb-0 w-1/2 left-1/4" >
         <img src={loadingGif} alt="loadingGif" />
       </div>
       <div className="w-96 h-36 absolute bottom-0 left-1/2 -ml-48">
@@ -46,8 +45,8 @@ const LoadingComponent = (props) => {
         <div className="h-5 w-5 rounded-full bg-[#f9a74b] absolute border-2 border-mainWhite animate-loadingBall animation-delay-200"></div>
         <div className="h-5 w-5 rounded-full bg-[#60beeb] absolute border-2 border-mainWhite animate-loadingBall animation-delay-100"></div>
         <div className="h-5 w-5 rounded-full bg-[#fbef5a] absolute border-2 border-mainWhite animate-loadingBall animation-delay-none"></div>
-        <div className="absolute w-full top-1/3 text-xl ">
-          <span className="">{loadingText}</span>
+        <div className="absolute w-full top-1/3 text-xl text-center">
+          <span>{loadingText}</span>
           <div className="relative inline-block">
             <span className="overflow-x-hidden whitespace-nowrap">
               &nbsp;. . .
