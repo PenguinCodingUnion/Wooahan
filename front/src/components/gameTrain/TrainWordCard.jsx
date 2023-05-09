@@ -56,18 +56,16 @@ export const TrainWordCard = (props) => {
           {props.data.word2.name}
         </div>
       </div>
-      <div>
-        {word && (
-          <TrainAnswerCard
-            word={word}
-            ans={props.data.ans}
-            cleanWord={cleanWord}
-            nextGame={props.nextGame}
-            changeTrainClass={changeTrainClass}
-            resetClass={resetClass}
-          />
-        )}
-      </div>
+      {word && (
+        <TrainAnswerCard
+          word={word}
+          ans={props.data.ans}
+          cleanWord={cleanWord}
+          nextGame={props.nextGame}
+          changeTrainClass={changeTrainClass}
+          resetClass={resetClass}
+        />
+      )}
     </div>
   );
 };
