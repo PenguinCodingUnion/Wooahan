@@ -18,6 +18,10 @@ const coverImages = [
   image_forest,
   image_underwater,
   image_dessert,
+  image_iceburg,
+  image_forest,
+  image_underwater,
+  image_dessert,
 ];
 
 export const Main = () => {
@@ -26,10 +30,10 @@ export const Main = () => {
 
   return (
     <div className="relative overflow-x-scroll w-screen h-screen">
-      <FallingAnimate falling={page} />
-      {showModal && <Modal config={"setting"} />}
-      <img className="absolute w-screen h-screen z-0" src={coverImages[page]} />
-      <Header titleIsVisible={true} topLeftButton={"books"} />
+      <FallingAnimate falling={page}/>
+      {showModal && <Modal config={"setting"}/>}
+      <img className="absolute w-screen h-screen z-0 opacity-50" src={coverImages[page]} />
+      <Header titleIsVisible={true} topLeftButton={"books"}/>  
       <Carousel />
     </div>
   );
