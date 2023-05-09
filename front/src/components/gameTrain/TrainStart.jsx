@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import trainlong from "assets/images/tmp/structure_train_long.png";
 import Train from "./Train";
 import instance from "util/Axios";
-import pig from "assets/images/tmp/넷째돼지.png";
-import jar from "assets/images/tmp/무공해항아리.avif";
+import jar from "assets/images/tmp/넷째돼지.png";
+import pig from "assets/images/tmp/무공해항아리.avif";
 
 export const TrainStart = (props) => {
   const [data, setdata] = useState([]);
@@ -15,7 +15,8 @@ export const TrainStart = (props) => {
       .then((response) => {
         setdata(response);
       })
-      .catch(
+      .catch((error) => {
+        console.log(error);
         setdata([
           {
             last: "지",
@@ -35,8 +36,8 @@ export const TrainStart = (props) => {
             word2: { name: "도덕률", imgUrl: jar },
             ans: "사형제",
           },
-        ])
-      );
+        ]);
+      });
   }, []);
   const [start, setStart] = useState();
   const cilckStart = () => {
