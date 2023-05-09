@@ -8,6 +8,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@react-oauth/google": "^0.11.0",
     "@react-three/drei": "^9.65.5",
     "@react-three/fiber": "^8.12.2",
     "@reduxjs/toolkit": "^1.9.5",
