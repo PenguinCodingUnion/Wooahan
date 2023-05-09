@@ -2,6 +2,9 @@ package com.wooahan.back.controller;
 
 import com.wooahan.back.dto.*;
 import com.wooahan.back.service.*;
+import io.swagger.annotations.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,34 +22,28 @@ public class GameController {
     private final JumpService jumpService;
     private final RunService runService;
 
+    @Operation(summary = "한글방울 게임", description = "난이도를 받아서 단어 가져옵니다.")
     @GetMapping("/bubble/{difficulty}")
-    public ResponseEntity<List<BubbleResDto>>bubbleGaming(@PathVariable int difficulty){
+    public ResponseEntity<List<BubbleResDto>>bubbleGaming(@Parameter(name="difficulty",description ="난이도") @PathVariable int difficulty){
         return new ResponseEntity<>(bubbleService.bubbleStart(difficulty), HttpStatus.OK);
     }
 
+    @Operation(summary = "끝말기차 게임", description = "난이도를 받아서 단어 가져옵니다.")
     @GetMapping("/train/{difficulty}")
-    public ResponseEntity<List<TrainResDto>>trainGaming(@PathVariable int difficulty){
+    public ResponseEntity<List<TrainResDto>>trainGaming(@Parameter(name="difficulty",description ="난이도")@PathVariable int difficulty){
         return new ResponseEntity<>(trainService.trainStart(difficulty), HttpStatus.OK);
     }
 
+    @Operation(summary = "펭글썰매 게임", description = "난이도를 받아서 단어와 파일명을 가져옵니다.")
     @GetMapping("/run/{difficulty}")
-    public ResponseEntity<List<RunResDto>>runGaming(@PathVariable int difficulty){
+    public ResponseEntity<List<RunResDto>>runGaming(@Parameter(name="difficulty",description ="난이도")@PathVariable int difficulty){
         return new ResponseEntity<>(runService.runStart(difficulty), HttpStatus.OK);
     }
 
+    @Operation(summary = "뛰어쓰기 게임", description = "난이도를 받아서 단어와 파일명을 가져옵니다.")
     @GetMapping("/jump/{difficulty}")
-    public ResponseEntity<List<JumpResDto>>jumpGaming(@PathVariable int difficulty){
+    public ResponseEntity<List<JumpResDto>>jumpGaming(@Parameter(name="difficulty",description ="난이도")@PathVariable int difficulty){
         return new ResponseEntity<>(jumpService.jumpStart(difficulty), HttpStatus.OK);
-    }
-
-    @GetMapping("/over/{email:.+}")
-    public ResponseEntity<OverResDto>overSign(@PathVariable String email){
-        return new ResponseEntity<>(rewardService.giveMeReward(email), HttpStatus.OK);
-    }
-
-    @PostMapping("/reward")
-    public ResponseEntity<CardResDto>myRewards(@RequestBody CardReqDto cardReqDto){
-        return new ResponseEntity<>(rewardService.getMyRewards(cardReqDto),HttpStatus.OK);
     }
 
 

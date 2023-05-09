@@ -2,6 +2,7 @@ package com.wooahan.back.dto;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiParam;
 import lombok.Builder;
 import lombok.Getter;
 

@@ -21,8 +21,10 @@ repositories {
 dependencies {
     compileOnly 'com.google.api-client:google-api-client:1.32.1'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
 //    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+//    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.mysql:mysql-connector-j'
