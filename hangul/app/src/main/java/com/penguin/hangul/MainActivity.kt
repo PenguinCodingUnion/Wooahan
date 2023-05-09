@@ -74,6 +74,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         myWebView?.addJavascriptInterface(MySensorManager(sensorManager, sensorEventListner, gravity), "sleigh")
+
+        myWebView?.addJavascriptInterface(
+            MySensorManager(
+                sensorManager,
+                sensorEventListner,
+                accelermeter
+            ), "jump"
+        )
+        
         myWebView?.loadUrl("http://10.0.2.2:3000")
     }
 
