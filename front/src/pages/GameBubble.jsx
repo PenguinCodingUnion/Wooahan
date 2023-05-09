@@ -118,7 +118,7 @@ export const GameBubble = (props) => {
         .catch((error) => {
           console.log(error);
           setTimeout(() => {
-            setIsLoading(false);
+            // setIsLoading(false);
           }, 2000);
           setQuizData(sampleQuiz);
         });
