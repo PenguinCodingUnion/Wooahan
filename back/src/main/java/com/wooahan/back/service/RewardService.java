@@ -7,6 +7,7 @@ import com.wooahan.back.entity.Word;
 import com.wooahan.back.repository.MemberRepository;
 import com.wooahan.back.repository.RewardRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class RewardService {
     private final MemberRepository memberRepository;
