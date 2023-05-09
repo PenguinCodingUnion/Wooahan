@@ -45,8 +45,8 @@ const LoadingComponent = (props) => {
         <div className="h-5 w-5 rounded-full bg-[#f9a74b] absolute border-2 border-mainWhite animate-loadingBall animation-delay-200"></div>
         <div className="h-5 w-5 rounded-full bg-[#60beeb] absolute border-2 border-mainWhite animate-loadingBall animation-delay-100"></div>
         <div className="h-5 w-5 rounded-full bg-[#fbef5a] absolute border-2 border-mainWhite animate-loadingBall animation-delay-none"></div>
-        <div className="absolute w-full top-1/3 text-xl ">
-          <span className="">{loadingText}</span>
+        <div className="absolute w-full top-1/3 text-xl text-center">
+          <span>{loadingText}</span>
           <div className="relative inline-block">
             <span className="overflow-x-hidden whitespace-nowrap">
               &nbsp;. . .
