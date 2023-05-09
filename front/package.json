@@ -29,6 +29,7 @@
     "react-scripts": "5.0.1",
     "sort-by": "^1.2.0",
     "swiper": "^9.2.4",
+    "tailwindcss-animation-delay": "^1.0.7",
     "three": "^0.151.3",
     "web-vitals": "^2.1.4"
   },
