@@ -2,10 +2,11 @@ import PropTypes from "prop-types";
 import { Html } from "@react-three/drei";
 import { useSelector } from "react-redux";
 import SentenceSound from "components/gameJump/SentenceSound";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { AudioLoader } from "three";
 
 const soundFileContext = require.context(
-  "assets/sounds/test",
+  "assets/sounds/jump",
   true,
   /\.(mp3|wav|ogg)$/
 );
@@ -19,6 +20,8 @@ const TextObject = ({ no, text, url, position = [0, 0, 0], ...props }) => {
 
   const audioRef = useRef();
 
+  const [audioLoaded, setAudioLoaded] = useState(false);
+
   const animationStyle = {
     background: "linear-gradient(90deg, red 50%, black 50%)",
     backgroundClip: "text",
@@ -27,9 +30,29 @@ const TextObject = ({ no, text, url, position = [0, 0, 0], ...props }) => {
     backgroundSize: "200% 100%",
   };
 
+  const fileName = useMemo(() => {
+    return getSoundFile(url);
+  }, [url]);
+
   useEffect(() => {
-    if (no === action) audioRef.current.play();
-  }, [action, no]);
+    if (no === action && audioLoaded) {
+      console.log(action, audioRef.current);
+      audioRef.current.stop();
+      audioRef.current.play();
+
+      setAudioLoaded(false);
+    }
+  }, [action, no, audioLoaded]);
+
+  useEffect(() => {
+    const loadAudio = async () => {
+      const buffer = await new AudioLoader().loadAsync(fileName);
+      audioRef.current.setBuffer(buffer);
+      setAudioLoaded(true);
+    };
+
+    loadAudio();
+  }, [fileName]);
 
   return (
     <mesh position={position}>
@@ -45,7 +68,7 @@ const TextObject = ({ no, text, url, position = [0, 0, 0], ...props }) => {
           {text}
         </div>
       </Html>
-      <SentenceSound fileName={getSoundFile(url)} ref={audioRef} />
+      <SentenceSound fileName={fileName} ref={audioRef} />
     </mesh>
   );
 };
