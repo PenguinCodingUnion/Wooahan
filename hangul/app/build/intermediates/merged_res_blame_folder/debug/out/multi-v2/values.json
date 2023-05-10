@@ -55,6 +55,23 @@
                     }
                 },
                 {
+                    "source": "C:\\Users\\SSAFY\\Documents\\S08P31B206\\hangul\\app\\src\\main\\res\\values\\strings.xml",
+                    "from": {
+                        "startLines": "1",
+                        "startColumns": "4",
+                        "startOffsets": "17",
+                        "endColumns": "43",
+                        "endOffsets": "56"
+                    },
+                    "to": {
+                        "startLines": "1798",
+                        "startColumns": "4",
+                        "startOffsets": "115512",
+                        "endColumns": "43",
+                        "endOffsets": "115551"
+                    }
+                },
+                {
                     "source": "C:\\Users\\SSAFY\\.gradle\\caches\\transforms-3\\41dcf42bc854479e43f628ab1a52618d\\transformed\\appcompat-resources-1.6.1\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2,18,24,34,50",
@@ -110,25 +127,6 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\SSAFY\\Desktop\\hangul-app\\S08P31B206\\hangul\\app\\src\\main\\res\\values\\themes.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "100",
-                        "endLines": "15",
-                        "endColumns": "12",
-                        "endOffsets": "842"
-                    },
-                    "to": {
-                        "startLines": "6073",
-                        "startColumns": "4",
-                        "startOffsets": "418870",
-                        "endLines": "6086",
-                        "endColumns": "12",
-                        "endOffsets": "419491"
-                    }
-                },
-                {
                     "source": "C:\\Users\\SSAFY\\.gradle\\caches\\transforms-3\\38d09d4ba0d273158c68be2805b798b3\\transformed\\coordinatorlayout-1.1.0\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2,3,6,16",
@@ -164,23 +162,6 @@
                         "endLines": "485,1033,1034,1035,1043,1044,1045,1640,12107",
                         "endColumns": "55,58,47,55,74,75,71,65,24",
                         "endOffsets": "24452,60528,60576,60632,61318,61394,61466,105890,720921"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\SSAFY\\Desktop\\hangul-app\\S08P31B206\\hangul\\app\\src\\main\\res\\values\\strings.xml",
-                    "from": {
-                        "startLines": "1",
-                        "startColumns": "4",
-                        "startOffsets": "16",
-                        "endColumns": "43",
-                        "endOffsets": "55"
-                    },
-                    "to": {
-                        "startLines": "1798",
-                        "startColumns": "4",
-                        "startOffsets": "115512",
-                        "endColumns": "43",
-                        "endOffsets": "115551"
                     }
                 },
                 {
@@ -279,13 +260,13 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\SSAFY\\Desktop\\hangul-app\\S08P31B206\\hangul\\app\\src\\main\\res\\values\\colors.xml",
+                    "source": "C:\\Users\\SSAFY\\Documents\\S08P31B206\\hangul\\app\\src\\main\\res\\values\\colors.xml",
                     "from": {
                         "startLines": "7,2,3,4,5,6,8",
                         "startColumns": "4,4,4,4,4,4,4",
-                        "startOffsets": "286,55,102,149,196,241,328",
+                        "startOffsets": "293,57,105,153,201,247,336",
                         "endColumns": "41,46,46,46,44,44,41",
-                        "endOffsets": "323,97,144,191,236,281,365"
+                        "endOffsets": "330,99,147,195,241,287,373"
                     },
                     "to": {
                         "startLines": "619,871,872,873,884,885,888",
@@ -331,6 +312,25 @@
                         "endLines": "1636,1668,1705,10907,10911",
                         "endColumns": "56,64,63,24,24",
                         "endOffsets": "105703,107356,109270,676611,676760"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\SSAFY\\Documents\\S08P31B206\\hangul\\app\\src\\main\\res\\values\\themes.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "102",
+                        "endLines": "15",
+                        "endColumns": "12",
+                        "endOffsets": "857"
+                    },
+                    "to": {
+                        "startLines": "6073",
+                        "startColumns": "4",
+                        "startOffsets": "418870",
+                        "endLines": "6086",
+                        "endColumns": "12",
+                        "endOffsets": "419491"
                     }
                 },
                 {
