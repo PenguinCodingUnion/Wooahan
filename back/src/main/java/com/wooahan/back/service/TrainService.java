@@ -7,9 +7,7 @@ import com.wooahan.back.repository.WordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,17 +28,20 @@ public class TrainService {
             String name = simpleWordInfoList.get(i).getName();
             SimpleWordInfo wordInfo = simpleWordInfoList.get(i+1);
 
+            //중복 정답이 되면 안되니까
             while(name.substring(name.length() - 1)
                     .equals(wordInfo.getName().substring(wordInfo.getName().length() - 1))){
                 Word tmp = wordRepository.findByRandom(difficulty,1).get().get(0);
                 wordInfo = new SimpleWordInfo(tmp.getName(),tmp.getImgUrl());
             }
-            //위에서 해줬기 떄문에 안함
+
+            List<SimpleWordInfo> pocket = Arrays.asList(wordInfo, simpleWordInfoList.get(i));
+            Collections.shuffle(pocket);
 
             TrainResDto trainResDto = TrainResDto.builder()
                     .last(name.substring(name.length()-1))
-                    .word1(simpleWordInfoList.get(i))
-                    .word2(wordInfo)
+                    .word1(pocket.get(0))
+                    .word2(pocket.get(1))
                     .ans(simpleWordInfoList.get(i).getName())
                     .build();
             trainResDtoList.add(trainResDto);
