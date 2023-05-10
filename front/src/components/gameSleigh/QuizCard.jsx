@@ -6,9 +6,9 @@ import * as THREE from "three";
 export const QuizCard = (props) => {
   const imgRef = useRef();
 
-  const [texture, setTexture] = useState(
-    new THREE.TextureLoader().load(props.quiz.word.imgUrl)
-  );
+  // const [texture, setTexture] = useState(
+  //   new THREE.TextureLoader().load(props.quiz.word.imgUrl)
+  // );
   const [shape, setShape] = useState(new THREE.Shape());
   const [geometry, setGeometry] = useState(new THREE.ShapeGeometry(shape));
 
@@ -31,13 +31,15 @@ export const QuizCard = (props) => {
   shape.lineTo(x + radius, y);
   shape.quadraticCurveTo(x, y, x, y + radius);
 
-  texture.encoding = THREE.sRGBEncoding;
-  texture.magFilter = THREE.NearestFilter;
-  texture.minFilter = THREE.LinearMipMapLinearFilter;
+  // texture.encoding = THREE.sRGBEncoding;
+  // texture.magFilter = THREE.NearestFilter;
+  // texture.minFilter = THREE.LinearMipMapLinearFilter;
 
   const [down, setDown] = useState(true);
 
   useFrame(({ clock }, delta) => {
+    imgRef.current.visible = false;
+
     if (down) {
       imgRef.current.position.y -= delta * 5;
       if (imgRef.current.position.y < 0) {
@@ -45,7 +47,7 @@ export const QuizCard = (props) => {
         if (props.setQuizStatus) props.setQuizStatus("stop");
       }
     } else {
-      imgRef.current.position.y = Math.sin(clock.getElapsedTime() * 4) * 0.03;
+      // imgRef.current.position.y = Math.sin(clock.getElapsedTime() * 4) * 0.03;
     }
   });
 
@@ -61,7 +63,8 @@ export const QuizCard = (props) => {
           -1,
         ]}
       >
-        <meshStandardMaterial attach="material" map={texture} />
+        {/* <meshStandardMaterial attach="material" map={texture} /> */}
+        <meshStandardMaterial attach="material" />
         <Edges />
       </mesh>
     </group>
