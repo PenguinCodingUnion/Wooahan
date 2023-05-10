@@ -12,27 +12,31 @@ import { useDispatch, useSelector } from "react-redux";
 import * as THREE from "three";
 import forestMap from "assets/images/background_forest.png";
 import QuizCard from "components/gameSleigh/QuizCard";
-import bfyImg from "assets/images/bfy.png";
-import dogIMg from "assets/images/dog.png";
-import { SleighLoading, LoadingProgress } from "components/gameSleigh/Loading";
+import LoadingProgress from "components/gameSleigh/LoadingProgress";
 import QuizResult from "components/gameSleigh/QuizResult";
 import { useNavigate } from "react-router-dom";
 import { getQuizData, sleighActions } from "store/features/sliegh/sleighSlice";
 import Intro from "components/gameSleigh/Intro";
 import QuizWord from "components/gameSleigh/QuizWord";
+import LoadingComponent from "components/common/LoadingComponent";
 
 const GameSleigh = () => {
   const dispatch = useDispatch();
   const navigation = useNavigate();
 
   // 게임 진행 관련 State
+  const [isCanvasLoading, setIsCanvasLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(true); // 로딩
+
   const [isStart, setIsStart] = useState(false); // 게임 시작
   const [isEnd, setIsEnd] = useState(false); // 게임 종료
   const [quizStatus, setQuizStatus] = useState("idle"); // 퀴즈 상태 idle(대기) start(퀴즈내려옴) stop(퀴즈맞추기) check(정답확인)
   const [quizCount, setQuizCount] = useState(0);
   const [quizResult, setQuizResult] = useState("left"); // left right
+
   const quizData = useSelector((state) => state.sleigh.quizData);
+  // const { isStart, isEnd, quizStatus, quizCount, quizResult, quizData } =
+  //   useSelector((state) => state.sleigh);
 
   useEffect(() => {
     dispatch(getQuizData(0));
@@ -45,11 +49,6 @@ const GameSleigh = () => {
     Math.random(),
     Math.random(),
   ]);
-
-  // stage 단계 정보
-  // const stageLevel = useSelector((state) => {
-  //   return state.sleigh.stageLevel;
-  // });
 
   // 게임 배경 Texture 로딩 및 색상 인코딩
   const texture = new THREE.TextureLoader().load(forestMap);
@@ -271,7 +270,12 @@ const GameSleigh = () => {
               </div>
             </div>
           )}
-        <Canvas flat={true}>
+        <Canvas
+          onCreated={() => {
+            setIsCanvasLoading(false);
+          }}
+          flat={true}
+        >
           <Suspense fallback={null}>
             <PerspectiveCamera {...camera} makeDefault />
             <ambientLight />
@@ -312,7 +316,9 @@ const GameSleigh = () => {
           </Suspense>
           {isLoading && <LoadingProgress setIsLoading={setIsLoading} />}
         </Canvas>
-        {!isLoading && !isStart && <Intro setIsStart={setIsStart} />}
+        {!isCanvasLoading && !isLoading && !isStart && (
+          <Intro setIsStart={setIsStart} />
+        )}
         {quizStatus === "stop" && quizCount < 5 && (
           <div className="absolute bottom-[5vh] w-screen flex justify-between px-[10vw]">
             <button
@@ -356,7 +362,7 @@ const GameSleigh = () => {
         {quizStatus === "stop" && quizCount < 5 && (
           <QuizWord word={quizData[quizCount].quiz} />
         )}
-        {isLoading && <SleighLoading />}
+        {(isCanvasLoading || isLoading) && <LoadingComponent />}
         {quizStatus === "check" && (
           <QuizResult
             setQuizStatus={setQuizStatus}
