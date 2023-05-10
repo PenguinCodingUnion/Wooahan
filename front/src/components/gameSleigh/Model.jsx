@@ -1,6 +1,7 @@
 import { useAnimations, useGLTF } from "@react-three/drei";
 import React, { useEffect, useRef, useState } from "react";
 import PENGUL from "assets/models/PENGUL_v2.gltf";
+import FOX from "assets/models/FOX_V1.gltf";
 import { useFrame } from "@react-three/fiber";
 import { useClonedModel } from "util/hooks/useClonedModel";
 
@@ -9,7 +10,7 @@ export const Model = (props) => {
 
   const isMove = props.isMove;
 
-  const { scene, materials, animations, nodes } = useClonedModel(PENGUL);
+  const { scene, materials, animations, nodes } = useClonedModel(FOX);
 
   const _animations = useAnimations(animations, model);
 
@@ -21,9 +22,9 @@ export const Model = (props) => {
 
   const modelScale = () => {
     if (ratio < 0.6) {
-      return ratio * 0.025;
+      return ratio * 2.5;
     }
-    return 0.01 + (ratio / 0.6) * 0.005;
+    return 1 + (ratio / 0.6) * 0.5;
   };
 
   useFrame(() => {
@@ -39,8 +40,6 @@ export const Model = (props) => {
       }
     }
 
-    // console.log(props.isMove);
-
     if (+model.current.isMove === -1) {
       model.current.position.x -= 0.02 * ratio;
     }
@@ -51,27 +50,28 @@ export const Model = (props) => {
 
   return (
     <group ref={model} {...props}>
-      <group name="Scene">
-        <group
-          name="Armature"
-          rotation={[0, 0, 0]}
-          position={[0, -2, 0]}
-          scale={modelScale()}
-        >
-          <primitive object={scene} />
+      <group
+        name="Scene"
+        rotation={[0, 0, 0]}
+        position={[0, -1.8, 0]}
+        scale={modelScale()}
+      >
+        <group name="Bip001">
+          <primitive object={nodes.Bip001_Pelvis} />
+          <primitive object={nodes.neutral_bone} />
           <skinnedMesh
-            name="cartoon_penguin"
-            geometry={nodes.cartoon_penguin.geometry}
-            material={materials["cartoon_penguin.001"]}
-            skeleton={nodes.cartoon_penguin.skeleton}
-            morphTargetDictionary={nodes.cartoon_penguin.morphTargetDictionary}
-            morphTargetInfluences={nodes.cartoon_penguin.morphTargetInfluences}
+            name="cartoon_fox"
+            geometry={nodes.cartoon_fox.geometry}
+            material={materials["fox.001"]}
+            skeleton={nodes.cartoon_fox.skeleton}
+            morphTargetDictionary={nodes.cartoon_fox.morphTargetDictionary}
+            morphTargetInfluences={nodes.cartoon_fox.morphTargetInfluences}
           />
         </group>
       </group>
     </group>
   );
 };
-useGLTF.preload(PENGUL);
+useGLTF.preload(FOX);
 
 export default Model;
