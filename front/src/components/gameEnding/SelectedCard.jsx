@@ -13,7 +13,7 @@ export const AnswerCard = (props) => {
           className="h-64 overflow-hidden w-80"
           style={{
             backgroundImage: `url(${props.image})`,
-            backgroundSize: "cover",
+            backgroundSize: "20rem 16rem",
             backgroundRepeat: "no-repeat",
           }}
         ></div>

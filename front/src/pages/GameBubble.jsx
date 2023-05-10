@@ -19,60 +19,6 @@ import instance from "util/Axios";
 import LoadingComponent from "components/common/LoadingComponent";
 
 export const GameBubble = (props) => {
-  // 백에 요청할 자리
-  const sampleQuiz = [
-    {
-      answer: "비행기",
-      answerImg: airplane,
-      cards: [
-        { name: "개미", imgUrl: ant },
-        { name: "나비", imgUrl: butterfly },
-        { name: "비행기", imgUrl: airplane },
-        { name: "닭", imgUrl: chicken },
-      ],
-    },
-    {
-      answer: "개미",
-      answerImg: ant,
-      cards: [
-        { name: "강아지", imgUrl: dog },
-        { name: "개미", imgUrl: ant },
-        { name: "나비", imgUrl: butterfly },
-        { name: "닭", imgUrl: chicken },
-      ],
-    },
-    {
-      answer: "나비",
-      answerImg: butterfly,
-      cards: [
-        { name: "닭", imgUrl: chicken },
-        { name: "강아지", imgUrl: dog },
-        { name: "비행기", imgUrl: airplane },
-        { name: "나비", imgUrl: butterfly },
-      ],
-    },
-    {
-      answer: "닭",
-      answerImg: chicken,
-      cards: [
-        { name: "닭", imgUrl: chicken },
-        { name: "비행기", imgUrl: airplane },
-        { name: "나비", imgUrl: butterfly },
-        { name: "강아지", imgUrl: dog },
-      ],
-    },
-    {
-      answer: "강아지",
-      answerImg: dog,
-      cards: [
-        { name: "개미", imgUrl: ant },
-        { name: "강아지", imgUrl: dog },
-        { name: "나비", imgUrl: butterfly },
-        { name: "닭", imgUrl: chicken },
-      ],
-    },
-  ];
-
   const pos = [
     {
       posX: "top-12",
@@ -119,7 +65,6 @@ export const GameBubble = (props) => {
           setTimeout(() => {
             setIsLoading(false);
           }, 2000);
-          setQuizData(sampleQuiz);
         });
     };
     loadData();
@@ -178,9 +123,6 @@ export const GameBubble = (props) => {
           ]);
           break;
       }
-      if (sampleQuiz[round].cards[num].name === sampleQuiz[round].answer) {
-      }
-
       setClickedNumber(num);
       setIsCardOpen(true);
     }
@@ -192,7 +134,7 @@ export const GameBubble = (props) => {
 
   return (
     <>
-      {/* <ReactAudioPlayer src={bgm} autoPlay={true} volume={1} loop /> */}
+      <ReactAudioPlayer src={bgm} autoPlay={true} volume={1} loop />
       {isLoading && <LoadingComponent />}
       {!isLoading && isIntro && !isGameEnd && (
         <BubbleIntro closeIntro={closeIntro} pos={pos} />
