@@ -6,6 +6,9 @@ spring:
     username: wooahan
     password: penguin
   # JPA ??
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect

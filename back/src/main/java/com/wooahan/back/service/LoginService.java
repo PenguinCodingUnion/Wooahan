@@ -1,6 +1,10 @@
 package com.wooahan.back.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.wooahan.back.dto.LoginReqDto;
+import com.wooahan.back.dto.LoginResDto;
+import com.wooahan.back.dto.OauthResDto;
+import com.wooahan.back.dto.UpdateReqDto;
 import com.wooahan.back.entity.Member;
 import com.wooahan.back.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +15,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -21,29 +26,15 @@ public class LoginService {
     private final RestTemplate restTemplate = new RestTemplate();
     private final MemberRepository memberRepository;
 
-    public String socialLogin(String code, String registrationId) {
+    public OauthResDto socialLogin(String code, String registrationId) {
         String accessToken = getAccessToken(code, registrationId);
         JsonNode userResourceNode = getUserResource(accessToken, registrationId);
-//        System.out.println("userResourceNode = " + userResourceNode);
 
-        String id = userResourceNode.get("id").asText();
+//        String id = userResourceNode.get("id").asText();
         String email = userResourceNode.get("email").asText();
         String nickname = userResourceNode.get("name").asText();
 
-//        Member member = memberRepository.findByEmail(androidId)
-//                //없으면 만들어
-//                .orElseGet(()->createMember(androidId));
-//        memberRepository.findByEmail()
-
-        Member member = Member.builder()
-                .name(nickname)
-                .email(email)
-                .isGuest(false)
-                .provider(registrationId)
-                .build();
-        memberRepository.save(member);
-
-        return email;
+        return new OauthResDto(email,nickname,registrationId);
     }
 
     private String getAccessToken(String authorizationCode, String registrationId) {
@@ -94,11 +85,23 @@ public class LoginService {
         return member;
     }
 
-    //guestlogin
-    public String tempLogin(String androidId) {
-        Member member = memberRepository.findByEmail(androidId)
-                //없으면 만들어
-                .orElseGet(()->createMember(androidId));
+    //guest
+    public LoginResDto tempLogin(LoginReqDto loginReqDto) {
+        Member member =memberRepository.findByProviderOrEmail(loginReqDto.getAndroidId(),loginReqDto.getEmail())
+                //없으면 넌 guest야
+                .orElseGet(()->createMember(loginReqDto.getAndroidId()));
+        return LoginResDto.builder()
+                .rewards(member.getRewards())
+                .starCount(member.getStarCount())
+                .email(member.getEmail())
+                .build();
+    }
+
+    //guest->google
+    public String registerMember(UpdateReqDto updateReqDto) {
+        Member member = memberRepository.findByProviderOrEmail(updateReqDto.getAndroidId(),updateReqDto.getEmail()).get();
+        member.update(updateReqDto.getEmail(), updateReqDto.getProvider(),updateReqDto.getName());
+        memberRepository.save(member);
         return member.getEmail();
     }
 }

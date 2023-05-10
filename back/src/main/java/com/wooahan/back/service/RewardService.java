@@ -6,6 +6,7 @@ import com.wooahan.back.entity.Reward;
 import com.wooahan.back.entity.Word;
 import com.wooahan.back.repository.MemberRepository;
 import com.wooahan.back.repository.RewardRepository;
+import com.wooahan.back.repository.WordRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 public class RewardService {
     private final MemberRepository memberRepository;
     private final RewardRepository rewardRepository;
+    private final WordRepository wordRepository;
 
     //TODO 꼴보기싫음
     public OverResDto giveMeReward(String email) {
@@ -29,6 +31,7 @@ public class RewardService {
 
         //그 멤버의 star갯수를 올린다.
         int updatedStar= member.starUp(member.getStarCount()+1);
+        memberRepository.save(member);
 
         //텅 빈 녀석
         SimpleWordInfo simpleWordInfo = null;
@@ -38,10 +41,12 @@ public class RewardService {
             //그럼 0으로 만들어줘
             updatedStar=0;
             member.starUp(0);
-
+            memberRepository.save(member);
+//            List<Reward> rewards = rewardRepository.findAllByMember(member);
             //member가 가지고 있는
-            Word word = rewardRepository.findWordNotMine()
-                    .orElseThrow(()->new NoSuchElementException("만렙이 존재함"));
+            Word word = rewardRepository.findWordNotMine(member.getId())
+                    .orElseGet(()->wordRepository.findByRandom(0,1).get().get(0));
+//                    .orElseThrow(()->new NoSuchElementException("만렙이 존재함"));
             rewardRepository.save(new Reward(member,word));
             simpleWordInfo = new SimpleWordInfo(word.getName(),word.getImgUrl());
         }

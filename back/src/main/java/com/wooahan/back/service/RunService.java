@@ -32,6 +32,7 @@ public class RunService {
         }
     }
     public List<RunResDto> runStart(int difficulty){
+        List<Integer>wordIdList = new ArrayList<>();
         //TODO difficulty에 따라서 cnt도 달라져볼까?
         List<RunWord> runWords = wordRepository.findByRandom(difficulty,10)
                 .orElseThrow(()->new NoSuchElementException("jumpStart에서 일어난 일"))
@@ -39,21 +40,25 @@ public class RunService {
                 .map(word -> new SimpleWordInfo(word.getName(),word.getImgUrl()))
                 .map(RunWord::new)
                 .collect(Collectors.toList());
+
         List<RunResDto>runResDtoList = new ArrayList<>();
+
         for(int i=0;i<runWords.size();i+=2){
-            RunWord word1 = runWords.get(i);
-            RunWord word2 = runWords.get(i+1);
-            word1.setAnswer(true);
-            word2.setAnswer(false);
-            word2.setAnswer(false);
+            RunWord runWord1 = runWords.get(i);
+            RunWord runWord2 = runWords.get(i+1);
+
+            runWord1.setAnswer(true);
+            runWord2.setAnswer(false);
 
             List<RunWord>words = new ArrayList<>();
 
-            words.add(word1);
-            words.add(word2);
+            words.add(runWord1);
+            words.add(runWord2);
+
+            //섞기
             Collections.shuffle(words);
 
-            runResDtoList.add(new RunResDto(word1.word.getName(),words));
+            runResDtoList.add(new RunResDto(runWord1.word.getName(),words));
         }
         return runResDtoList;
     }

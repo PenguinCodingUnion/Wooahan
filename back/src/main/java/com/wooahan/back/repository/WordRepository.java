@@ -15,4 +15,6 @@ public interface WordRepository extends JpaRepository<Word, String> {
     Optional<List<Word>> findByRandom(@Param("difficulty") int difficulty, @Param("cnt")int cnt);
 
 
+
+
 }
