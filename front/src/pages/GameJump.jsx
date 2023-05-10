@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { PengulModel } from "components/gameJump/Pengul";
 import FallowCamera from "components/gameJump/FollowCamera";
 import { IceModel } from "components/gameJump/IcePannel";
@@ -22,32 +22,10 @@ import TextObject from "components/gameJump/TextObject";
 import { GameStatus } from "util/Enums.ts";
 import { Navigate } from "react-router-dom";
 import LoadingComponent from "components/common/LoadingComponent";
-import { jumpActions } from "store/features/jump/jumpSlice";
+import { jumpActions, jumpDataAction } from "store/features/jump/jumpSlice";
 
 const BOTTOM_POSITION = -70;
 const SHORTEST_DISTANCE_FOR_JUMP = 50;
-
-const TEST_PROBLEM = [
-  [
-    { word: `엄마랑`, url: "1_1_엄마랑.mp3" },
-    { word: `공원에`, url: "1_2_공원에.mp3" },
-    { word: `놀러`, url: "1_3_놀러.mp3" },
-    { word: `가요`, url: "1_4_가요.mp3" },
-  ],
-  [
-    { word: `반갑다`, url: "1_1_엄마랑.mp3" },
-    { word: `반갑다`, url: "1_1_엄마랑.mp3" },
-    { word: `반갑다`, url: "1_1_엄마랑.mp3" },
-    { word: `같은`, url: "1_2_공원에.mp3" },
-    { word: `소리만`, url: "1_3_놀러.mp3" },
-  ],
-  [
-    { word: `개구리가`, url: "1_1_엄마랑.mp3" },
-    { word: `폴짝폴짝`, url: "1_2_공원에.mp3" },
-    { word: `뛰어요`, url: "1_3_놀러.mp3" },
-  ],
-];
-const LAST_LEVEL = TEST_PROBLEM.length;
 
 export const GameJump = (props) => {
   const character = useRef();
@@ -56,12 +34,16 @@ export const GameJump = (props) => {
 
   const level = useSelector((state) => state.gameStatus.level);
   const [isLoading, setIsLoading] = useState(true);
-  const [problems, setProblems] = useState(TEST_PROBLEM ? TEST_PROBLEM : [[]]);
+  const problems = useSelector((state) => state.jump.problems);
+
+  const LAST_LEVEL = problems.length;
 
   let lastIcePosition = -325;
 
   useEffect(() => {
     //실제로는 비동기 통신이 이루어지면서 게임 데이터를 로딩한다
+    dispatch(jumpDataAction(0));
+
     dispatch(gameStatusActions.loaded());
 
     //clear
@@ -126,11 +108,11 @@ export const GameJump = (props) => {
                 return (
                   <React.Fragment key={idx}>
                     <TextObject
-                      text={el.word}
+                      text={el.content}
                       url={el.url}
                       no={idx}
                       position={[
-                        lastIcePosition - (el.word.length * 35) / 2,
+                        lastIcePosition - (el.content.length * 35) / 2,
                         150,
                         0,
                       ]}

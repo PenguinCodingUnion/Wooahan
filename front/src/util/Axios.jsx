@@ -3,8 +3,8 @@ import axios from "axios";
 const instance = axios.create({
   baseURL:
     process.env.NODE_ENV === `developement`
-      ? `http://localhost:8888`
-      : `http://localhost:9090`,
+      ? `http://k8b206.p.ssafy.io:9090/api/`
+      : `http://k8b206.p.ssafy.io:9090/api`,
 
   timeout: 2000,
 
