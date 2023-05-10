@@ -22,26 +22,29 @@ import TextObject from "components/gameJump/TextObject";
 import { GameStatus } from "util/Enums.ts";
 import { Navigate } from "react-router-dom";
 import LoadingComponent from "components/common/LoadingComponent";
-
-//test code
-import first_1 from "assets/sounds/test/1_1_엄마랑.mp3";
-import first_2 from "assets/sounds/test/1_2_공원에.mp3";
-import first_3 from "assets/sounds/test/1_3_놀러.mp3";
-import first_4 from "assets/sounds/test/1_4_가요.mp3";
 import { jumpActions } from "store/features/jump/jumpSlice";
-
-//test code is end
 
 const BOTTOM_POSITION = -70;
 const SHORTEST_DISTANCE_FOR_JUMP = 50;
 
 const TEST_PROBLEM = [
-  [{ word: `개구리가` }, { word: `폴짝폴짝` }, { word: `뛰어요` }],
   [
-    { word: `엄마랑`, url: first_1 },
-    { word: `공원에`, url: first_2 },
-    { word: `놀러`, url: first_3 },
-    { word: `가요`, url: first_4 },
+    { word: `엄마랑`, url: "1_1_엄마랑.mp3" },
+    { word: `공원에`, url: "1_2_공원에.mp3" },
+    { word: `놀러`, url: "1_3_놀러.mp3" },
+    { word: `가요`, url: "1_4_가요.mp3" },
+  ],
+  [
+    { word: `반갑다`, url: "1_1_엄마랑.mp3" },
+    { word: `반갑다`, url: "1_1_엄마랑.mp3" },
+    { word: `반갑다`, url: "1_1_엄마랑.mp3" },
+    { word: `같은`, url: "1_2_공원에.mp3" },
+    { word: `소리만`, url: "1_3_놀러.mp3" },
+  ],
+  [
+    { word: `개구리가`, url: "1_1_엄마랑.mp3" },
+    { word: `폴짝폴짝`, url: "1_2_공원에.mp3" },
+    { word: `뛰어요`, url: "1_3_놀러.mp3" },
   ],
 ];
 const LAST_LEVEL = TEST_PROBLEM.length;
@@ -111,9 +114,8 @@ export const GameJump = (props) => {
             {gameStatus === GameStatus.GAME_START &&
               problems[level].map((el, idx) => {
                 const length =
-                  (750 -
-                    SHORTEST_DISTANCE_FOR_JUMP * (problems[level].length - 1)) /
-                  problems[level].length;
+                  (325 * 2 - 100) / (problems[level].length - 1) -
+                  SHORTEST_DISTANCE_FOR_JUMP;
 
                 lastIcePosition += length + SHORTEST_DISTANCE_FOR_JUMP;
 
@@ -127,7 +129,11 @@ export const GameJump = (props) => {
                       text={el.word}
                       url={el.url}
                       no={idx}
-                      position={[lastIcePosition - 75, 150, 0]}
+                      position={[
+                        lastIcePosition - (el.word.length * 35) / 2,
+                        150,
+                        0,
+                      ]}
                     />
                     <IceModel
                       icePosition={lastIcePosition}
@@ -148,8 +154,4 @@ GameJump.propTypes = {
   // gameStatus: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(GameJump);
+export default GameJump;

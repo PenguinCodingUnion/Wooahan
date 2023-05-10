@@ -1,18 +1,35 @@
 import PropTypes from "prop-types";
 import { Html } from "@react-three/drei";
 import { useSelector } from "react-redux";
+import SentenceSound from "components/gameJump/SentenceSound";
+import { useEffect, useRef } from "react";
 
-const TextObject = ({ no, text, position = [0, 0, 0], ...props }) => {
+const soundFileContext = require.context(
+  "assets/sounds/test",
+  true,
+  /\.(mp3|wav|ogg)$/
+);
+
+const getSoundFile = (filename) => {
+  return soundFileContext(`./${filename}`);
+};
+
+const TextObject = ({ no, text, url, position = [0, 0, 0], ...props }) => {
   const action = useSelector((state) => state.jump.actionWord);
 
+  const audioRef = useRef();
+
   const animationStyle = {
-    fontSize: "24px",
     background: "linear-gradient(90deg, red 50%, black 50%)",
     backgroundClip: "text",
     WebkitBackgroundClip: "text",
     color: no === action ? "transparent" : action > no ? "red" : "black",
     backgroundSize: "200% 100%",
   };
+
+  useEffect(() => {
+    if (no === action) audioRef.current.play();
+  }, [action, no]);
 
   return (
     <mesh position={position}>
@@ -28,6 +45,7 @@ const TextObject = ({ no, text, position = [0, 0, 0], ...props }) => {
           {text}
         </div>
       </Html>
+      <SentenceSound fileName={getSoundFile(url)} ref={audioRef} />
     </mesh>
   );
 };

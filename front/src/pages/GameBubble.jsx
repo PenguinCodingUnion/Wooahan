@@ -109,14 +109,13 @@ export const GameBubble = (props) => {
     const loadData = async () => {
       await instance
         .get("/game/bubble/0")
-        .then((response) => {
+        .then((response) => { 
           setTimeout(() => {
             setIsLoading(false);
           }, 2000);
           setQuizData(response);
         })
         .catch((error) => {
-          console.log(error);
           setTimeout(() => {
             setIsLoading(false);
           }, 2000);

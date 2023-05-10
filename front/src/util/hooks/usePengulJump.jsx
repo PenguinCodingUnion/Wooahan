@@ -9,7 +9,15 @@ import { gameStatusActions } from "store/features/gameStatus/gameStatusSlice";
 import { jumpActions } from "store/features/jump/jumpSlice";
 
 const GRAVITY = -120 * 1.5;
-const ANIMATIONS = ["t-pose", "idle", "jumping", "walk"];
+const ANIMATIONS = [
+  "t-pose",
+  "idle",
+  "jumping",
+  "walk",
+  "surprize",
+  "swim",
+  "waving",
+];
 
 const JUMP_FORCE = 80;
 const BASE_MOVEMENT_SPEED = 50;
@@ -24,6 +32,7 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
   //캐릭터 상태관리
   const isJumping = useRef(false);
   const jumpNow = useRef(false);
+  const justJump = useRef(false);
   const isGrounded = useRef(false);
 
   const characterPosition = useRef([-EDGE, GROUND_HEIGHT, 0]);
@@ -54,14 +63,15 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
 
   //점프하기
   const doJump = useCallback(() => {
-    if (
-      isJumping.current === false &&
-      gameStatus === GameStatus.GAME_START &&
-      activeAnimation.current === 1
-    ) {
+    if (isJumping.current === false && gameStatus === GameStatus.GAME_START) {
       //점프 상태 관리
       isJumping.current = true;
       jumpNow.current = 1;
+
+      //제자리 점프인가?
+      if (activeAnimation.current !== 1) {
+        justJump.current = true;
+      }
 
       //점프 애니메이션 재생
       setActiveAnimation(2);
@@ -82,6 +92,7 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
     });
 
     window.doJump = doJump;
+    if (window.jump) window.jump.resumeSensor();
 
     setActiveAnimation(1);
 
@@ -90,6 +101,8 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
       window.doJump = () => {
         console.log(`not claim function`);
       };
+
+      if (window.jump) window.jump.pauseSensor();
     };
   }, [doJump, setActiveAnimation]);
 
@@ -100,6 +113,8 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
     if (characterPosition.current[1] < GROUND_HEIGHT && !isGrounded.current) {
       isGrounded.current = true;
       isJumping.current = false;
+
+      if (justJump.current) justJump.current = false;
     }
 
     //속력 계산하기
@@ -138,7 +153,12 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
 
       //in Air
       if (!isGrounded.current) {
-        newVelocity[0] = MIN_SPEED_FOR_JUMP_ICE;
+        //제자리 뛰기인가?
+        if (!justJump.current) {
+          newVelocity[0] = MIN_SPEED_FOR_JUMP_ICE;
+        } else {
+          newVelocity[0] = 0;
+        }
         newVelocity[1] += GRAVITY * delta;
       } else {
         //calc xVelocity
@@ -165,7 +185,8 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
 
             jumpNow.current = false;
             isGrounded.current = false;
-            setTimeout(() => dispatch(jumpActions.nextAction()), 1000);
+            if (!justJump.current)
+              setTimeout(() => dispatch(jumpActions.nextAction()), 1000);
           }
         } else if (raycast().length < 3) {
           //now edge

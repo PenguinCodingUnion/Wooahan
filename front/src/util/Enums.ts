@@ -5,3 +5,13 @@ export enum GameStatus {
   GAME_PAUSE,
   GAME_END,
 }
+
+export enum PengulAnimation {
+  T_POSE,
+  IDLE,
+  JUMPING,
+  WALK,
+  SURPRIZE,
+  SWIM,
+  WAVING,
+}
