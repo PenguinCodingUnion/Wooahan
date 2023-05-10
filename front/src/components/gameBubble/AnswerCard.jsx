@@ -19,17 +19,17 @@ export const AnswerCard = (props) => {
       setIsOpened(true);
     }, 500);
     if (props.name === props.answer) {
+      setCorrectVolume(1);
       setTimeout(() => {
         props.closeCard();
         props.changeQuiz();
-      }, 2500);
-      setCorrectVolume(1);
+      }, 5000);
       // setsound(<ReactAudioPlayer src={correct} autoPlay volume={1} />);
     } else if (props.name !== props.answer) {
+      setWrongVolume(1);
       setTimeout(() => {
         props.closeCard();
-      }, 2500);
-      setWrongVolume(1);
+      }, 5000);
       // setsound(<ReactAudioPlayer src={wrong} autoPlay volume={1} />);
     }
   }, [props]);
