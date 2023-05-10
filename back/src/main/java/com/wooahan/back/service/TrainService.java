@@ -19,11 +19,12 @@ public class TrainService {
 
     //TODO 너무 더러워서 보기싫음
     public List<TrainResDto> trainStart(int difficulty){
-        List<SimpleWordInfo> simpleWordInfoList= wordRepository.findByRandom(difficulty,6)
+        List<SimpleWordInfo> simpleWordInfoList= wordRepository.findByTrainRandom(difficulty,6)
                 .orElseThrow(()-> new NoSuchElementException("끝말기차여유~"))
                 .stream()
                 .map(word -> new SimpleWordInfo(word.getName(),word.getImgUrl()))
-                .collect(Collectors.toList());;
+                .collect(Collectors.toList());
+        //단어 2~3만해
         List<TrainResDto>trainResDtoList = new ArrayList<>();
         for(int i=0;i<6;i+=2) {
             String name = simpleWordInfoList.get(i).getName();
