@@ -1,6 +1,6 @@
 import axiosInstance from "util/Axios";
 
-const gameURL = "/api/game";
+const gameURL = "game";
 
 export const game = {
   get: {
