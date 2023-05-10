@@ -1,12 +1,10 @@
-import PropTypes from "prop-types";
-import React from "react";
+import {useEffect} from "react"
 import { connect } from "react-redux";
 import Header from "../components/main/Header";
 import Carousel from "../components/main/Carousel";
 import Modal from "../components/main/modal/Modal";
 import FallingAnimate from "../components/main/animate/FallingAnimate";
-
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 import image_iceburg from "assets/images/background_iceberg.jpg";
 import image_dessert from "assets/images/background_desert.jpg";
@@ -31,15 +29,20 @@ export const Main = () => {
   const page = useSelector((state) => state.backGround.page);
   const showModal = useSelector((state) => state.modal.modalIsVisible);
 
+  useEffect(() => {
+    console.log("main page")
+  }, [])
+
   useSound(bgm, 1, 2000);
   
   return (
     <div className="relative w-screen h-screen overflow-x-scroll">
-      <FallingAnimate falling={page}/>
-      {showModal && <Modal config={"setting"}/>}
-      <img className="absolute z-0 w-screen h-screen opacity-50" src={coverImages[page]} />
-      <Header titleIsVisible={true} topLeftButton={"books"}/>  
-      <Carousel />
+        <FallingAnimate falling={page}/>
+        {showModal && <Modal config={"setting"}/>}
+        <img className="absolute z-0 w-screen h-screen opacity-50" src={coverImages[page]} alt="" />
+        <Header titleIsVisible={true} topLeftButton={"books"}/>  
+        <Carousel />
+        
     </div>
   );
 };
