@@ -16,22 +16,22 @@ export const AnswerCard = (props) => {
       setIsOpened(true);
     }, 500);
     if (props.name === props.answer) {
+      correct.play();
       setTimeout(() => {
         props.closeCard();
         props.changeQuiz();
       }, 2500);
-      correct.play();
     } else if (props.name !== props.answer) {
-      setTimeout(() => props.closeCard(), 2500);
       wrong.play();
+      setTimeout(() => props.closeCard(), 2500);
     }
   }, [props]);
 
   return (
-    <div className="w-screen h-screen grid">
+    <div className="grid w-screen h-screen">
       <ReactAudioPlayer src={correct} volume={1} id="correct" />
       <ReactAudioPlayer src={wrong} volume={1} id="wrong" />
-      <div className="h-3/4 relative self-center grid items-center">
+      <div className="relative grid items-center self-center h-3/4">
         {!isOpened && (
           <img
             className="absolute w-[36rem] left-1/2 -ml-[18rem] top-1/4"
@@ -46,10 +46,10 @@ export const AnswerCard = (props) => {
               src={openedSeashell}
               alt="img"
             />
-            <div className="absolute grid grid-rows-4 overflow-hidden bg-mainPink-200 justify-items-center h-80 rounded-3xl w-80 shadow-lg shadow-mainBlack left-1/2 -ml-40">
-              <div className="row-span-3 grid self-end">
+            <div className="absolute grid grid-rows-4 -ml-40 overflow-hidden shadow-lg bg-mainPink-200 justify-items-center h-80 rounded-3xl w-80 shadow-mainBlack left-1/2">
+              <div className="grid self-end row-span-3">
                 <div
-                  className="h-52 overflow-hidden w-60"
+                  className="overflow-hidden h-52 w-60"
                   style={{
                     backgroundImage: `url(${props.image})`,
                     backgroundSize: "cover",
@@ -57,7 +57,7 @@ export const AnswerCard = (props) => {
                   }}
                 ></div>
               </div>
-              <div className="text-5xl font-bold font-netmarbleB row-span-1 grid self-center">
+              <div className="grid self-center row-span-1 text-5xl font-bold font-netmarbleB">
                 <div className="">{props.name}</div>
               </div>
             </div>
