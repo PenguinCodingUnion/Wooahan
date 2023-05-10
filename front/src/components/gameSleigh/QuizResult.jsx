@@ -22,7 +22,7 @@ const QuizResult = (props) => {
   }, [visible]);
 
   return (
-    <div className="absolute w-screen h-screen top-0 flex flex-col justify-center items-center">
+    <div className="absolute w-screen h-screen top-0 flex flex-col justify-center items-center z-[60]">
       {visible ? (
         <>
           <div className="border-[4px] rounded-[16px] animate-scale-up-center bg-white">
