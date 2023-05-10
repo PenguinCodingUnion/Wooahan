@@ -11,16 +11,18 @@ export const TrainAnswerCard = (props) => {
     const correctSound = document.getElementById("correct");
     const wrongSound = document.getElementById("wrong");
     if (props.word.name === props.ans) {
+      setIsans(<ReactAudioPlayer src={correct} autoPlay volume={1} />);
       setTimeout(() => {
         props.cleanWord(props.word.name);
         props.nextGame();
         props.resetClass();
       }, 1500);
       props.changeTrainClass();
-      setIsans(<ReactAudioPlayer src={correct} autoPlay volume={1} />);
+      setIsans(<></>);
     } else {
-      setTimeout(() => props.cleanWord(props.word.word), 1500);
       setIsans( <ReactAudioPlayer src={wrong} autoPlay volume={1}  />)
+      setTimeout(() => props.cleanWord(props.word.word), 1500);
+      setIsans(<></>);
     }
     
   }, []);

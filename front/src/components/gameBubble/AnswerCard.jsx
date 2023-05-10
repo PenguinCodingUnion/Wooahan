@@ -21,9 +21,11 @@ export const AnswerCard = (props) => {
         props.closeCard();
         props.changeQuiz();
       }, 2500);
+      correct.pause();
     } else if (props.name !== props.answer) {
       wrong.play();
       setTimeout(() => props.closeCard(), 2500);
+      wrong.pause();
     }
   }, [props]);
 
