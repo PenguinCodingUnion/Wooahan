@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin("*")
 @RequiredArgsConstructor
 @RequestMapping(value = "/api/login")
 public class LoginController {

@@ -1,5 +1,6 @@
 package com.wooahan.back;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -9,6 +10,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Date;
 
+@OpenAPIDefinition
 @SpringBootApplication
 public class BackApplication {
 
