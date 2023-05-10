@@ -26,6 +26,7 @@ import { jumpActions, jumpDataAction } from "store/features/jump/jumpSlice";
 
 const BOTTOM_POSITION = -70;
 const SHORTEST_DISTANCE_FOR_JUMP = 50;
+const EDGE = 375;
 
 export const GameJump = (props) => {
   const character = useRef();
@@ -94,16 +95,36 @@ export const GameJump = (props) => {
 
             {/** 동적 오브젝트 */}
             {gameStatus === GameStatus.GAME_START &&
-              problems[level].map((el, idx) => {
+              problems[level].result.map((el, idx) => {
+                //띄어쓰기 수
+                const problemCnt = problems[level].result.length - 1;
+                //총 글자 수
+                let countWord = 0;
+                // problems[level].result[0].content.length();
+                problems[level].result.forEach((element, index) => {
+                  if (
+                    index === 0 ||
+                    index === problems[level].result.length - 1
+                  ) {
+                    countWord += element.content.length / 2;
+                  } else {
+                    countWord += element.content.length;
+                  }
+                });
+
                 const length =
-                  (325 * 2 - 100) / (problems[level].length - 1) -
-                  SHORTEST_DISTANCE_FOR_JUMP;
+                  (325 * 2 - SHORTEST_DISTANCE_FOR_JUMP * problemCnt) /
+                  countWord;
 
-                lastIcePosition += length + SHORTEST_DISTANCE_FOR_JUMP;
+                const realLength = length * el.content.length;
 
-                if (idx === 0) {
-                  lastIcePosition -= length;
+                if (idx !== 0) {
+                  lastIcePosition += realLength / 2;
                 }
+
+                const nowPosition = lastIcePosition;
+
+                lastIcePosition += realLength / 2 + SHORTEST_DISTANCE_FOR_JUMP;
 
                 return (
                   <React.Fragment key={idx}>
@@ -111,16 +132,15 @@ export const GameJump = (props) => {
                       text={el.content}
                       url={el.url}
                       no={idx}
-                      position={[
-                        lastIcePosition - (el.content.length * 35) / 2,
-                        150,
-                        0,
-                      ]}
+                      edge={EDGE}
+                      isFirst={idx === 0}
+                      isLast={idx === problemCnt}
+                      position={[nowPosition, 150, 0]}
                     />
                     <IceModel
-                      icePosition={lastIcePosition}
+                      icePosition={nowPosition}
                       bottom={BOTTOM_POSITION}
-                      length={length / 15}
+                      length={realLength / 15}
                     />
                   </React.Fragment>
                 );
