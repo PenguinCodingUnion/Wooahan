@@ -43,9 +43,6 @@ public class LoginService {
                 .build();
         memberRepository.save(member);
 
-//        System.out.println("id = " + id);
-//        System.out.println("email = " + email);
-//        System.out.println("nickname = " + nickname);
         return email;
     }
 

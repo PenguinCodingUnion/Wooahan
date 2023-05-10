@@ -17,7 +17,16 @@ spring:
       hibernate:
         format_sql: true
     generate-ddl: true
-
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - profile
+              - email
 oauth2:
   google:
       client-id: 658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com
