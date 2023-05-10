@@ -10,7 +10,7 @@ const JumpSound = forwardRef(({ url }, sound) => {
   useEffect(() => {
     sound.current.setBuffer(buffer);
     sound.current.setRefDistance(1);
-    sound.current.setVolume(10);
+    sound.current.setVolume(50);
 
     // sound.current.play();
     // console.log(sound.current);
