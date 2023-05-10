@@ -25,13 +25,14 @@ const QuizResult = (props) => {
     <div className="absolute w-screen h-screen top-0 flex flex-col justify-center items-center">
       {visible ? (
         <>
-          <div className="border-[4px] rounded-[16px] animate-scale-up-center">
+          <div className="border-[4px] rounded-[16px] animate-scale-up-center bg-white">
             <img
               className="rounded-t-[12px]"
               style={{
                 width: ratio > 1 ? 67.5 / ratio + "vw" : 67.5 * ratio + "vh",
+                height: ratio > 1 ? 67.5 / ratio + "vw" : 67.5 * ratio + "vh",
               }}
-              src={result.url}
+              src={result.word.imgUrl}
               alt="#"
             />
             <p
@@ -41,7 +42,7 @@ const QuizResult = (props) => {
               }}
               className="h-[15vh] rounded-b-[12px] bg-white flex justify-center items-center font-MaplestoryBold text-[6vw] tracking-[1vw]"
             >
-              {result.word}
+              {result.word.name}
             </p>
           </div>
         </>
