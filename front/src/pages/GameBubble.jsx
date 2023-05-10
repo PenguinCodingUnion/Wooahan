@@ -192,7 +192,7 @@ export const GameBubble = (props) => {
 
   return (
     <>
-      <ReactAudioPlayer src={bgm} autoPlay={true} volume={1} loop />
+      {/* <ReactAudioPlayer src={bgm} autoPlay={true} volume={1} loop /> */}
       {isLoading && <LoadingComponent />}
       {!isLoading && isIntro && !isGameEnd && (
         <BubbleIntro closeIntro={closeIntro} pos={pos} />

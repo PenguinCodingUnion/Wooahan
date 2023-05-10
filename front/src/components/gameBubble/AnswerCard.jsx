@@ -16,16 +16,16 @@ export const AnswerCard = (props) => {
       setIsOpened(true);
     }, 500);
     if (props.name === props.answer) {
-      correct.play();
       setTimeout(() => {
         props.closeCard();
         props.changeQuiz();
       }, 2500);
-      correct.pause();
+      correct.play();
     } else if (props.name !== props.answer) {
+      setTimeout(() => {
+        props.closeCard();
+      }, 2500);
       wrong.play();
-      setTimeout(() => props.closeCard(), 2500);
-      wrong.pause();
     }
   }, [props]);
 
