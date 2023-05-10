@@ -202,7 +202,7 @@ const GameSleigh = () => {
         window.sleigh.pauseSensor();
       }
     };
-  }, []);
+  }, [quizStatus]);
 
   // 게임 진행상황에 맞게 함수 추가 삭제
   useEffect(() => {
@@ -211,7 +211,7 @@ const GameSleigh = () => {
     return () => {
       removeMoveEvent();
     };
-  }, [quizStatus]);
+  }, []);
 
   // 카메라 설정
   const camera = {
