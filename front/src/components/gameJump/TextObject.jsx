@@ -15,7 +15,16 @@ const getSoundFile = (filename) => {
   return soundFileContext(`./${filename}`);
 };
 
-const TextObject = ({ no, text, url, position = [0, 0, 0], ...props }) => {
+const TextObject = ({
+  no,
+  text,
+  url,
+  isLast,
+  isFirst,
+  edge,
+  position = [0, 0, 0],
+  ...props
+}) => {
   const action = useSelector((state) => state.jump.actionWord);
 
   const audioRef = useRef();
@@ -36,7 +45,6 @@ const TextObject = ({ no, text, url, position = [0, 0, 0], ...props }) => {
 
   useEffect(() => {
     if (no === action && audioLoaded) {
-      console.log(action, audioRef.current);
       audioRef.current.stop();
       audioRef.current.play();
 
@@ -54,11 +62,23 @@ const TextObject = ({ no, text, url, position = [0, 0, 0], ...props }) => {
     loadAudio();
   }, [fileName]);
 
+  const calcPosition = () => {
+    if (isFirst) return -edge;
+
+    if (isLast) return edge;
+
+    return position[0];
+  };
+
   return (
-    <mesh position={position}>
+    <mesh position={[calcPosition(), position[1], position[2]]}>
       <Html>
         <div
-          className={`whitespace-nowrap bg-clip-text mt-8 text-4xl font-MaplestoryBold ${
+          className={`whitespace-nowrap 
+          bg-clip-text mt-8 p-8 text-5xl font-MaplestoryBold 
+          ${!(isFirst || isLast) && `-translate-x-1/2`} 
+          ${isLast && `-translate-x-full`}
+          ${
             no === action
               ? `animate-[textSlide_1s_linear_1_forwards]`
               : `bg-[0%]`
@@ -77,6 +97,9 @@ TextObject.propTypes = {
   no: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
   position: PropTypes.array,
+  edge: PropTypes.number.isRequired,
+  isFirst: PropTypes.bool,
+  isLast: PropTypes.bool,
 };
 
 export default TextObject;

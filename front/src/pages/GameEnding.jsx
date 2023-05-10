@@ -1,9 +1,8 @@
 // import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import playground from "assets/images/background_playground.jpg";
-import ant from "assets/images/sample/ant.jpg";
 import EndingScene from "components/gameEnding/EndingScene";
 import GetStar from "components/gameEnding/GetStar";
 import PickCard from "components/gameEnding/PickCard";
@@ -11,17 +10,29 @@ import { Navigate } from "react-router-dom";
 import ReactAudioPlayer from "react-audio-player";
 import clap from "assets/sounds/clap.wav";
 import star from "assets/sounds/star.wav";
+import instance from "util/Axios";
 
 export const GameEnding = (props) => {
-  // 백에 요청할 자리
-  const sampleReward = {
-    starCount: 5,
-    card: { name: "개미", image: ant },
-  };
-
+  const [reward, setReward] = useState([]);
   const [isEndingSceneOpen, setIsEndingSceneOpen] = useState(true);
   const [isGetStarOpen, setIsGetStarOpen] = useState(false);
   const [isPickCardOpen, setIsPickCardOpen] = useState(false);
+
+  const email = "lsms3723@gmail.com";
+
+  useEffect(() => {
+    const getStarData = async () => {
+      await instance
+        .get(`/reward/over/${email}`)
+        .then((response) => {
+          setReward(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    getStarData();
+  }, []);
 
   const closeEndingScene = () => {
     setIsEndingSceneOpen(false);
@@ -30,7 +41,7 @@ export const GameEnding = (props) => {
 
   const closeGetStar = () => {
     setIsGetStarOpen(false);
-    if (sampleReward.starCount === 5) {
+    if (reward.starCount === 0) {
       setIsPickCardOpen(true);
     }
   };
@@ -39,7 +50,6 @@ export const GameEnding = (props) => {
     setIsPickCardOpen(false);
   };
 
-  // 별이 5개 아니면 pickcard안열고 메인으로 보내기
   return (
     <div
       className="grid items-center w-screen h-screen"
@@ -58,16 +68,16 @@ export const GameEnding = (props) => {
       {!isEndingSceneOpen && isGetStarOpen && !isPickCardOpen && (
         <div>
           <GetStar
-            starCount={sampleReward.starCount}
+            starCount={reward.starCount}
             closeGetStar={closeGetStar}
           />
           <ReactAudioPlayer src={star} autoPlay />
         </div>
       )}
-      {!isEndingSceneOpen && !isGetStarOpen && isPickCardOpen && (
+      {reward.card && !isEndingSceneOpen && !isGetStarOpen && isPickCardOpen && (
         <PickCard
-          cardName={sampleReward.card.name}
-          cardImg={sampleReward.card.image}
+          cardName={reward.card.name}
+          cardImg={reward.card.imgUrl}
           closePickCard={closePickCard}
         />
       )}

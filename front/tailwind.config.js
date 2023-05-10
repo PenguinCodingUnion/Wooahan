@@ -132,7 +132,7 @@ module.exports = {
             transform: "scale(1)",
           },
         },
-        mybounce: {
+        myBounce: {
           "0%": {
             "-webkit-transform": "translateY(0)",
             transform: "translateY(0)",
@@ -150,6 +150,38 @@ module.exports = {
             transform: "translateY(0)",
             "-webkit-animation-timing-function": "ease-in",
             "animation-timing-function": "ease-in",
+          },
+        },
+        cardBounce: {
+          "0%": {
+            "-webkit-transform": "translateY(0)",
+            transform: "translateY(0)",
+            "-webkit-animation-timing-function": "ease-out",
+            "animation-timing-function": "ease-out",
+          },
+          "25%": {
+            "-webkit-transform": "translateY(0.5vh)",
+            transform: "translateY(0.5vh)",
+            "-webkit-animation-timing-function": "ease-in",
+            "animation-timing-function": "ease-in",
+          },
+          "50%": {
+            "-webkit-transform": "translateY(0vh)",
+            transform: "translateY(0vh)",
+            "-webkit-animation-timing-function": "ease-out",
+            "animation-timing-function": "ease-out",
+          },
+          "75%": {
+            "-webkit-transform": "translateY(-0.5vh)",
+            transform: "translateY(-0.5vh)",
+            "-webkit-animation-timing-function": "ease-in",
+            "animation-timing-function": "ease-in",
+          },
+          "100%": {
+            "-webkit-transform": "translateY(0)",
+            transform: "translateY(0)",
+            "-webkit-animation-timing-function": "ease-out",
+            "animation-timing-function": "ease-out",
           },
         },
         loadingBall: {
@@ -191,7 +223,8 @@ module.exports = {
         snow12: "snow12 19s linear infinite",
         "scale-up-center":
           "scale-up-center 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both",
-        bounce: "mybounce 1.3s infinite",
+        bounce: "myBounce 1.3s infinite",
+        "card-bounce": "cardBounce 1.6s infinite",
         loadingBall: "loadingBall 3s ease-in-out infinite",
         typing: "typing 1s ease-out .8s infinite",
       },
