@@ -17,44 +17,14 @@ import dogIMg from "assets/images/dog.png";
 import { SleighLoading, LoadingProgress } from "components/gameSleigh/Loading";
 import QuizResult from "components/gameSleigh/QuizResult";
 import { useNavigate } from "react-router-dom";
-import { sleighActions } from "store/features/sliegh/sleighSlice";
+import { getQuizData, sleighActions } from "store/features/sliegh/sleighSlice";
 import Intro from "components/gameSleigh/Intro";
 import QuizWord from "components/gameSleigh/QuizWord";
 
-export const STAGE_DATA = [
-  [
-    { quiz: "나비" },
-    { word: "나비", url: bfyImg, answer: true },
-    { word: "강아지", url: dogIMg, answer: false },
-  ],
-  [
-    { quiz: "도그" },
-    { word: "도그", url: dogIMg, answer: true },
-    { word: "버터", url: bfyImg, answer: false },
-  ],
-  [
-    { quiz: "호랑나비" },
-    { word: "호랑나비", url: bfyImg, answer: true },
-    { word: "웰시코기", url: dogIMg, answer: false },
-  ],
-  [
-    { quiz: "고고고" },
-    { word: "고고고", url: bfyImg, answer: true },
-    { word: "가가가", url: dogIMg, answer: false },
-  ],
-  [
-    { quiz: "123" },
-    { word: "그33", url: dogIMg, answer: true },
-    { word: "버터", url: bfyImg, answer: false },
-  ],
-  [
-    { quiz: "2322" },
-    { word: "2322", url: bfyImg, answer: true },
-    { word: "132", url: dogIMg, answer: false },
-  ],
-];
-
 const GameSleigh = () => {
+  const dispatch = useDispatch();
+  const navigation = useNavigate();
+
   // 게임 진행 관련 State
   const [isLoading, setIsLoading] = useState(true); // 로딩
   const [isStart, setIsStart] = useState(false); // 게임 시작
@@ -62,12 +32,15 @@ const GameSleigh = () => {
   const [quizStatus, setQuizStatus] = useState("idle"); // 퀴즈 상태 idle(대기) start(퀴즈내려옴) stop(퀴즈맞추기) check(정답확인)
   const [quizCount, setQuizCount] = useState(0);
   const [quizResult, setQuizResult] = useState("left"); // left right
-  // const [isMove, setIsMove] = useState(0); // 0 정지 (-) 왼쪽 (+) 오른쪽
+  const quizData = useSelector((state) => state.sleigh.quizData);
 
-  const dispatch = useDispatch();
-  const navigation = useNavigate();
+  useEffect(() => {
+    dispatch(getQuizData(0));
+  }, []);
 
   const [random, setRandom] = useState([
+    Math.random(),
+    Math.random(),
     Math.random(),
     Math.random(),
     Math.random(),
@@ -276,19 +249,19 @@ const GameSleigh = () => {
                     side="left"
                     setQuizStatus={setQuizStatus}
                     quizScale={quizScale}
-                    quizData={
+                    quiz={
                       random[quizCount] > 0.5
-                        ? STAGE_DATA[quizCount][1]
-                        : STAGE_DATA[quizCount][2]
+                        ? quizData[quizCount].words[0]
+                        : quizData[quizCount].words[1]
                     }
                   />
                   <QuizCard
                     side="right"
                     quizScale={quizScale}
-                    quizData={
+                    quiz={
                       random[quizCount] > 0.5
-                        ? STAGE_DATA[quizCount][2]
-                        : STAGE_DATA[quizCount][1]
+                        ? quizData[quizCount].words[1]
+                        : quizData[quizCount].words[0]
                     }
                   />
                 </>
@@ -338,7 +311,7 @@ const GameSleigh = () => {
           </div>
         )}
         {quizStatus === "stop" && quizCount < 5 && (
-          <QuizWord word={STAGE_DATA[quizCount][0].quiz} />
+          <QuizWord word={quizData[quizCount].quiz} />
         )}
         {isLoading && <SleighLoading />}
         {quizStatus === "check" && (
@@ -347,8 +320,8 @@ const GameSleigh = () => {
             setQuizCount={setQuizCount}
             result={
               quizResult === "left"
-                ? STAGE_DATA[quizCount][random[quizCount] > 0.5 ? 1 : 2]
-                : STAGE_DATA[quizCount][random[quizCount] > 0.5 ? 2 : 1]
+                ? quizData[quizCount].words[random[quizCount] > 0.5 ? 0 : 1]
+                : quizData[quizCount].words[random[quizCount] > 0.5 ? 1 : 0]
             }
           />
         )}
