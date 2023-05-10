@@ -9,6 +9,8 @@ import closedSeashell from "assets/images/bubble/closed_seashell.png";
 export const AnswerCard = (props) => {
   const [isOpened, setIsOpened] = useState(false);
   const [sound, setsound] = useState(<></>);
+  const [correctVolume, setCorrectVolume] = useState(0);
+  const [wrongVolume, setWrongVolume] = useState(0);
 
   useEffect(() => {
     // const correct = document.getElementById("correct");
@@ -21,18 +23,21 @@ export const AnswerCard = (props) => {
         props.closeCard();
         props.changeQuiz();
       }, 2500);
-      setsound(<ReactAudioPlayer src={correct} autoPlay volume={1} />);
+      setCorrectVolume(1);
+      // setsound(<ReactAudioPlayer src={correct} autoPlay volume={1} />);
     } else if (props.name !== props.answer) {
       setTimeout(() => {
         props.closeCard();
       }, 2500);
-      setsound(<ReactAudioPlayer src={wrong} autoPlay volume={1} />);
+      setWrongVolume(1);
+      // setsound(<ReactAudioPlayer src={wrong} autoPlay volume={1} />);
     }
   }, [props]);
 
   return (
     <>
-      <div>{sound}</div>
+      <div><ReactAudioPlayer src={correct} autoPlay volume={correctVolume} loop /></div>
+      <div><ReactAudioPlayer src={wrong} autoPlay volume={wrongVolume} loop /></div>
       <div className="grid w-screen h-screen">
         {/* <ReactAudioPlayer src={correct} volume={1} id="correct" />
       <ReactAudioPlayer src={wrong} volume={1} id="wrong" /> */}
