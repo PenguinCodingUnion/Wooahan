@@ -23,13 +23,13 @@ export const AnswerCard = (props) => {
       setTimeout(() => {
         props.closeCard();
         props.changeQuiz();
-      }, 5000);
+      }, 3000);
       // setsound(<ReactAudioPlayer src={correct} autoPlay volume={1} />);
     } else if (props.name !== props.answer) {
       setWrongVolume(1);
       setTimeout(() => {
         props.closeCard();
-      }, 5000);
+      }, 3000);
       // setsound(<ReactAudioPlayer src={wrong} autoPlay volume={1} />);
     }
   }, [props]);
@@ -59,10 +59,10 @@ export const AnswerCard = (props) => {
               <div className="absolute grid grid-rows-4 -ml-40 overflow-hidden shadow-lg bg-mainPink-200 justify-items-center h-80 rounded-3xl w-80 shadow-mainBlack left-1/2">
                 <div className="grid self-end row-span-3">
                   <div
-                    className="overflow-hidden h-52 w-60"
+                    className="overflow-hidden border h-52 w-60 bg-mainWhite border-mainWhite"
                     style={{
                       backgroundImage: `url(${props.image})`,
-                      backgroundSize: "cover",
+                      backgroundSize: "15rem 13rem",
                       backgroundRepeat: "no-repeat",
                     }}
                   ></div>
