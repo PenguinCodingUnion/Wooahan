@@ -228,6 +228,49 @@ const GameSleigh = () => {
   return (
     <>
       <div className="h-screen w-screen">
+        {quizStatus !== "idle" &&
+          quizStatus !== "start" &&
+          quizStatus !== "nextQuiz" &&
+          quizCount < 5 && (
+            <div className=" absolute h-screen w-screen justify-center items-center flex">
+              <div
+                className="animate-scale-up-center z-50 absolute w-[19vw] h-[19vw] left-[12.5vw]"
+                style={{
+                  top: `${(30 / (quizScale / 1.25)) * 0.7}vh`,
+                }}
+              >
+                <div className="w-[100%] h-[100%] rounded-[20px] animate-card-bounce border-2 bg-white">
+                  <img
+                    className="w-[100%] h-[100%] rounded-[16px]"
+                    alt="#"
+                    src={
+                      random[quizCount] > 0.5
+                        ? quizData[quizCount].words[0].word.imgUrl
+                        : quizData[quizCount].words[1].word.imgUrl
+                    }
+                  />
+                </div>
+              </div>
+              <div
+                className="animate-scale-up-center z-50 absolute w-[19vw] h-[19vw] right-[12.5vw]"
+                style={{
+                  top: `${(30 / (quizScale / 1.25)) * 0.7}vh`,
+                }}
+              >
+                <div className="w-[100%] h-[100%] rounded-[20px] animate-card-bounce border-2 bg-white">
+                  <img
+                    className="w-[100%] h-[100%] rounded-[16px]"
+                    alt="#"
+                    src={
+                      random[quizCount] > 0.5
+                        ? quizData[quizCount].words[1].word.imgUrl
+                        : quizData[quizCount].words[0].word.imgUrl
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          )}
         <Canvas flat={true}>
           <Suspense fallback={null}>
             <PerspectiveCamera {...camera} makeDefault />

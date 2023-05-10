@@ -11,8 +11,8 @@ library.add(faCircleXmark);
 const BookModalHeader = () => {
 
     const dispatch = useDispatch();
-
     const textTitle = useSelector(state => state.bookText.text)
+
     const modalCloseHandler = () => {
         dispatch(bookModalActions.closeModal())
     }

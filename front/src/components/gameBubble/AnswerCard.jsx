@@ -5,12 +5,16 @@ import correct from "assets/sounds/correct.wav";
 import wrong from "assets/sounds/wrong.wav";
 import openedSeashell from "assets/images/bubble/opened_seashell.png";
 import closedSeashell from "assets/images/bubble/closed_seashell.png";
+import effectSound from 'util/effectSound';
 
 export const AnswerCard = (props) => {
   const [isOpened, setIsOpened] = useState(false);
   const [sound, setsound] = useState(<></>);
   const [correctVolume, setCorrectVolume] = useState(0);
   const [wrongVolume, setWrongVolume] = useState(0);
+
+  const es_correct = effectSound(correct, 1);
+  const es_wrong = effectSound(wrong, 1);
 
   useEffect(() => {
     // const correct = document.getElementById("correct");
@@ -19,14 +23,16 @@ export const AnswerCard = (props) => {
       setIsOpened(true);
     }, 500);
     if (props.name === props.answer) {
-      setCorrectVolume(1);
+      // setCorrectVolume(1);
+      es_correct.play();
       setTimeout(() => {
         props.closeCard();
         props.changeQuiz();
       }, 3000);
       // setsound(<ReactAudioPlayer src={correct} autoPlay volume={1} />);
     } else if (props.name !== props.answer) {
-      setWrongVolume(1);
+      // setWrongVolume(1);
+      es_wrong.play();
       setTimeout(() => {
         props.closeCard();
       }, 3000);
@@ -36,8 +42,8 @@ export const AnswerCard = (props) => {
 
   return (
     <>
-      <div><ReactAudioPlayer src={correct} autoPlay volume={correctVolume} loop /></div>
-      <div><ReactAudioPlayer src={wrong} autoPlay volume={wrongVolume} loop /></div>
+      {/* <div><ReactAudioPlayer src={correct} autoPlay volume={correctVolume} loop /></div>
+      <div><ReactAudioPlayer src={wrong} autoPlay volume={wrongVolume} loop /></div> */}
       <div className="grid w-screen h-screen">
         {/* <ReactAudioPlayer src={correct} volume={1} id="correct" />
       <ReactAudioPlayer src={wrong} volume={1} id="wrong" /> */}

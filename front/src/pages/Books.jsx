@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import Header from '../components/main/Header' 
 import Modal from '../components/main/modal/Modal'
@@ -12,6 +12,13 @@ export const Books = () => {
   const showModal = useSelector(state => state.modal.modalIsVisible)
   const showBookModal = useSelector(state => state.bookText.modalIsVisible)
   const bookText = useSelector(state => state.bookText.text)
+  const starCount = useSelector(state => state.loginInfo.starCount)
+  const rewards = useSelector(state => state.loginInfo.rewards)
+
+  useEffect(() => {
+    console.log("별가루 : " + starCount)
+    console.log("보상 카드 : " + rewards)
+  }, [])
 
   return (
     <div>
