@@ -49,7 +49,7 @@ public class JumpService {
                             segments.stream()
                                     .map(seg -> sentence.getId().toString() + "_" + seg.getWordOrder().toString()
                                             + "_"
-                                            + ((seg.getContent().contains("!")||seg.getContent().contains("?"))?seg.getContent().substring(seg.getContent().length()-1):seg.getContent()))
+                                            + ((seg.getContent().contains("!")||seg.getContent().contains("?"))?seg.getContent().substring(0,seg.getContent().length()-1):seg.getContent()))
                                     .collect(Collectors.toList())
                     )
                     .build();
