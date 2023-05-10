@@ -8,7 +8,7 @@ export const RewardStar = (props) => {
   const [color, setColor] = useState("#FFFFFF");
   const [styleStr, setStyleStr] = useState({});
   useEffect(() => {
-    if (props.color === props.count) {
+    if (props.color === props.count && props.color !== 0) {
       setTimeout(() => {
         setStyleStr({
           transition: `.4s`,
