@@ -5,14 +5,10 @@ import QuizCard from "components/gameBubble/QuizCard";
 import WordBubble from "components/gameBubble/WordBubble";
 import AnswerCard from "components/gameBubble/AnswerCard";
 
-import airplane from "assets/images/sample/airplane.jpg";
-import ant from "assets/images/sample/ant.jpg";
-import butterfly from "assets/images/sample/butterfly.jpg";
-import chicken from "assets/images/sample/chicken.jpg";
-import dog from "assets/images/sample/dog.jpg";
 import BubbleIntro from "components/gameBubble/BubbleIntro";
 import { Navigate } from "react-router-dom";
 import ReactAudioPlayer from "react-audio-player";
+import useSound from "util/hooks/useSound";
 
 import bgm from "assets/sounds/bubblebgm.mp3";
 import instance from "util/Axios";
@@ -132,9 +128,11 @@ export const GameBubble = (props) => {
     setIsCardOpen(false);
   };
 
+  useSound(bgm, 1, 2000);
+
   return (
     <>
-      <ReactAudioPlayer src={bgm} autoPlay={true} volume={1} loop />
+      {/* <ReactAudioPlayer src={bgm} autoPlay={true} volume={1} loop /> */}
       {isLoading && <LoadingComponent />}
       {!isLoading && isIntro && !isGameEnd && (
         <BubbleIntro closeIntro={closeIntro} pos={pos} />
