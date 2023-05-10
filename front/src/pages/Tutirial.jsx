@@ -52,21 +52,21 @@ export const Tutirial = (props) => {
           <div
             className="bg-mainBlue-400 top-32 w-48 h-[6rem] pr-6 rounded-3xl"
             onClick={() => {
-              goLink(3);
-            }}
-          >
-            <p className="font-MaplestoryBold text-3xl leading-[6rem] ">
-              끝말기차
-            </p>
-          </div>
-          <div
-            className="bg-mainBlue-400 top-32 w-48 h-[6rem] pr-6 rounded-3xl"
-            onClick={() => {
               goLink(4);
             }}
           >
             <p className="font-MaplestoryBold text-3xl leading-[6rem] ">
               한글방울
+            </p>
+          </div>
+          <div
+            className="bg-mainBlue-400 top-32 w-48 h-[6rem] pr-6 rounded-3xl"
+            onClick={() => {
+              goLink(3);
+            }}
+          >
+            <p className="font-MaplestoryBold text-3xl leading-[6rem] ">
+              끝말기차
             </p>
           </div>
         </div>
