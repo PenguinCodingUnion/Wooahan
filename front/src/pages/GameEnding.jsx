@@ -7,9 +7,6 @@ import EndingScene from "components/gameEnding/EndingScene";
 import GetStar from "components/gameEnding/GetStar";
 import PickCard from "components/gameEnding/PickCard";
 import { Navigate } from "react-router-dom";
-import ReactAudioPlayer from "react-audio-player";
-import clap from "assets/sounds/clap.wav";
-import star from "assets/sounds/star.wav";
 import instance from "util/Axios";
 
 export const GameEnding = (props) => {
@@ -62,7 +59,6 @@ export const GameEnding = (props) => {
       {isEndingSceneOpen && !isGetStarOpen && !isPickCardOpen && (
         <div>
           <EndingScene closeEndingScene={closeEndingScene} />
-          <ReactAudioPlayer src={clap} autoPlay volume={1} />
         </div>
       )}
       {!isEndingSceneOpen && isGetStarOpen && !isPickCardOpen && (
@@ -71,7 +67,6 @@ export const GameEnding = (props) => {
             starCount={reward.starCount}
             closeGetStar={closeGetStar}
           />
-          <ReactAudioPlayer src={star} autoPlay />
         </div>
       )}
       {reward.card && !isEndingSceneOpen && !isGetStarOpen && isPickCardOpen && (
