@@ -24,6 +24,7 @@ public class LoginController {
     private final LoginService loginService;
     @Operation(summary = "어플 시작하자마자 실행할 로그인 요청",description = "androidId와 email을 받고,email과 starCount,Rewards를 return ")
     @PostMapping("/guest")
+    //TODO request없으면 안되게 반환
     public ResponseEntity<LoginResDto> guestLogin(@Parameter(name="loginReqDto",description ="email,androidId") @RequestBody LoginReqDto loginReqDto) {
         return new ResponseEntity<>(loginService.tempLogin(loginReqDto), HttpStatus.OK);
     }

@@ -7,10 +7,7 @@ import com.wooahan.back.repository.WordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,14 +23,15 @@ public class BubbleService {
                 .map(word -> new SimpleWordInfo(word.getName(),word.getImgUrl()))
                 .collect(Collectors.toList());
         List<BubbleResDto>bubbleResDtoList = new ArrayList<>();
+        Random randomizer = new Random();
         int i=0;
         while(i<20) {
             List<SimpleWordInfo>tmp = simpleWordInfoList.subList(i,i+4);
-            Collections.shuffle(tmp);
+            SimpleWordInfo randomWord = tmp.get(randomizer.nextInt(tmp.size()));
 
             BubbleResDto bubbleResDto = BubbleResDto.builder()
-                    .answer(simpleWordInfoList.get(i).getName())
-                    .answerImg(simpleWordInfoList.get(i).getImgUrl())
+                    .answer(randomWord.getName())
+                    .answerImg(randomWord.getImgUrl())
                     .cards(tmp)
                     .build();
             bubbleResDtoList.add(bubbleResDto);
