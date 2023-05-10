@@ -48,7 +48,8 @@ public class JumpService {
                     .fileNameList(
                             segments.stream()
                                     .map(seg -> sentence.getId().toString() + "_" + seg.getWordOrder().toString()
-                                            + "_" + seg.getContent())
+                                            + "_"
+                                            + ((seg.getContent().contains("!")||seg.getContent().contains("?"))?seg.getContent().substring(seg.getContent().length()-1):seg.getContent()))
                                     .collect(Collectors.toList())
                     )
                     .build();
