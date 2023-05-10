@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import bgImage from "assets/images/background-underwater.jpg";
+import bgImage from "assets/images/background_underwater.jpg";
 import QuizCard from "components/gameBubble/QuizCard";
 import WordBubble from "components/gameBubble/WordBubble";
 import AnswerCard from "components/gameBubble/AnswerCard";
 
 import BubbleIntro from "components/gameBubble/BubbleIntro";
 import { Navigate } from "react-router-dom";
-import ReactAudioPlayer from "react-audio-player";
-import useSound from "util/hooks/useSound";
 
+import useSound from "util/hooks/useSound";
 import bgm from "assets/sounds/bubblebgm.mp3";
+
 import instance from "util/Axios";
 import LoadingComponent from "components/common/LoadingComponent";
 
@@ -132,7 +132,6 @@ export const GameBubble = (props) => {
 
   return (
     <>
-      {/* <ReactAudioPlayer src={bgm} autoPlay={true} volume={1} loop /> */}
       {isLoading && <LoadingComponent />}
       {!isLoading && isIntro && !isGameEnd && (
         <BubbleIntro closeIntro={closeIntro} pos={pos} />

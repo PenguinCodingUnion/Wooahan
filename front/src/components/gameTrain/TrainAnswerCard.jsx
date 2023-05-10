@@ -1,28 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import ReactAudioPlayer from "react-audio-player";
 import correct from "assets/sounds/correct.wav";
 import wrong from "assets/sounds/wrong.wav";
 import fox from "assets/images/animal/fox.png";
+import effectSound from "util/effectSound";
 
 export const TrainAnswerCard = (props) => {
-  const [isans,setIsans]=useState(<></>)
+  const es_correct = effectSound(correct, 1);
+  const es_wrong = effectSound(wrong, 1);
+
   useEffect(() => {
-    const correctSound = document.getElementById("correct");
-    const wrongSound = document.getElementById("wrong");
     if (props.word.name === props.ans) {
+      es_correct.play();
       setTimeout(() => {
         props.cleanWord(props.word.name);
         props.nextGame();
         props.resetClass();
       }, 1500);
-      setIsans(<ReactAudioPlayer src={correct} autoPlay volume={1} />);
       props.changeTrainClass();
     } else {
+      es_wrong.play();
       setTimeout(() => props.cleanWord(props.word.word), 1500);
-      setIsans( <ReactAudioPlayer src={wrong} autoPlay volume={1}  />)
     }
-    
   }, []);
   return (
     <div>
@@ -45,9 +44,6 @@ export const TrainAnswerCard = (props) => {
               {props.word.name}
             </p>
           </div>
-          {isans}
-          {/* <ReactAudioPlayer src={correct} volume={1} id="correct" />
-          <ReactAudioPlayer src={wrong} volume={1} id="wrong" /> */}
         </div>
       </div>
     </div>

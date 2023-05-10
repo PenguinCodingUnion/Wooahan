@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import {useEffect} from "react"
 import { connect } from "react-redux";
 import Header from "../components/main/Header";
@@ -12,6 +11,8 @@ import image_dessert from "assets/images/background_desert.jpg";
 import image_forest from "assets/images/background_forest.jpg";
 import image_underwater from "assets/images/background_underwater.jpg";
 
+import useSound from "util/hooks/useSound";
+import bgm from "assets/sounds/mainbgm.mp3";
 
 const coverImages = [
   image_iceburg,
@@ -32,11 +33,13 @@ export const Main = () => {
     console.log("main page")
   }, [])
 
+  useSound(bgm, 1, 2000);
+  
   return (
-    <div className="relative overflow-x-scroll w-screen h-screen">
+    <div className="relative w-screen h-screen overflow-x-scroll">
         <FallingAnimate falling={page}/>
         {showModal && <Modal config={"setting"}/>}
-        <img className="absolute w-screen h-screen z-0 opacity-50" src={coverImages[page]} />
+        <img className="absolute z-0 w-screen h-screen opacity-50" src={coverImages[page]} alt="" />
         <Header titleIsVisible={true} topLeftButton={"books"}/>  
         <Carousel />
         
