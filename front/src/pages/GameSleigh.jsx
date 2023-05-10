@@ -193,7 +193,7 @@ const GameSleigh = () => {
 
   // 게임 입장 시 중력센서 사용
   useEffect(() => {
-    if (window.sleigh) {
+    if (window.sleigh && quizStatus === "stop" && quizCount < 5) {
       window.sleigh.resumeSensor();
     }
 
@@ -206,9 +206,7 @@ const GameSleigh = () => {
 
   // 게임 진행상황에 맞게 함수 추가 삭제
   useEffect(() => {
-    if (quizStatus === "stop" && quizCount < 5) {
-      addMoveEvent();
-    }
+    addMoveEvent();
 
     return () => {
       removeMoveEvent();
@@ -316,9 +314,9 @@ const GameSleigh = () => {
           </Suspense>
           {isLoading && <LoadingProgress setIsLoading={setIsLoading} />}
         </Canvas>
-        {/* {!isCanvasLoading && !isLoading && !isStart && (
+        {!isCanvasLoading && !isLoading && !isStart && (
           <Intro setIsStart={setIsStart} />
-        )} */}
+        )}
         {quizStatus === "stop" && quizCount < 5 && (
           <div className="absolute bottom-[5vh] w-screen flex justify-between px-[10vw]">
             <button
@@ -362,7 +360,7 @@ const GameSleigh = () => {
         {quizStatus === "stop" && quizCount < 5 && (
           <QuizWord word={quizData[quizCount].quiz} />
         )}
-        {/* {(isCanvasLoading || isLoading) && <LoadingComponent />} */}
+        {(isCanvasLoading || isLoading) && <LoadingComponent />}
         {quizStatus === "check" && (
           <QuizResult
             setQuizStatus={setQuizStatus}
