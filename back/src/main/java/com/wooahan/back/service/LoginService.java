@@ -1,13 +1,13 @@
 package com.wooahan.back.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.wooahan.back.dto.LoginReqDto;
-import com.wooahan.back.dto.LoginResDto;
-import com.wooahan.back.dto.OauthResDto;
-import com.wooahan.back.dto.UpdateReqDto;
+import com.wooahan.back.dto.*;
 import com.wooahan.back.entity.Member;
 import com.wooahan.back.repository.MemberRepository;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.core.env.Environment;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -17,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -84,14 +85,16 @@ public class LoginService {
         memberRepository.save(member);
         return member;
     }
-
     //guest
     public LoginResDto tempLogin(LoginReqDto loginReqDto) {
         Member member =memberRepository.findByProviderOrEmail(loginReqDto.getAndroidId(),loginReqDto.getEmail())
                 //없으면 넌 guest야
                 .orElseGet(()->createMember(loginReqDto.getAndroidId()));
         return LoginResDto.builder()
-                .rewards(member.getRewards())
+                .rewards(member.getRewards()
+                        .stream()
+                        .map(reward -> new SimpleWordInfo(reward.getWord().getName(), reward.getWord().getImgUrl()))
+                        .collect(Collectors.toList()))
                 .starCount(member.getStarCount())
                 .email(member.getEmail())
                 .build();

@@ -14,5 +14,5 @@ import java.util.List;
 public class LoginResDto {
     private String email;
     private int starCount;
-    private List<Reward> rewards;
+    private List<SimpleWordInfo> rewards;
 }
