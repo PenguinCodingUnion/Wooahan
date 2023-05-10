@@ -13,7 +13,7 @@ const JumpSound = forwardRef(({ url }, sound) => {
     sound.current.setVolume(10);
 
     // sound.current.play();
-    console.log(sound.current);
+    // console.log(sound.current);
     camera.add(listener);
     return () => camera.remove(listener);
   }, []);

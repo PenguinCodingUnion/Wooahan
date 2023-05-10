@@ -94,10 +94,11 @@ const GameSleigh = () => {
 
       // setIsMove(+value);
       modelRef.current.isMove = value;
-      actions[names[0]].fadeOut(0.2).stop();
-      mixer.timeScale = 1.5;
+      actions[names[5]].fadeOut(0.2).stop();
+      mixer.timeScale = 5;
+      modelRef.current.scale.y = 1.055;
       modelRef.current.rotation.y = (Math.PI / 2) * value;
-      actions[names[3]].play();
+      actions[names[7]].play();
     },
     [modelAnimations]
   );
@@ -107,15 +108,18 @@ const GameSleigh = () => {
 
     // setIsMove(0);
     modelRef.current.isMove = 0;
-    actions[names[3]].fadeOut(0.5).stop();
+    actions[names[7]].fadeOut(0.5).stop();
     modelRef.current.rotation.y = 0;
-    mixer.timeScale = 1;
-    actions[names[0]].play();
+    mixer.timeScale = 1.5;
+    modelRef.current.scale.y = 1;
+    actions[names[5]].play();
   }, [modelAnimations]);
 
   useEffect(() => {
-    if (modelAnimations)
-      modelAnimations.actions[modelAnimations.names[0]].play();
+    if (modelAnimations) {
+      modelRef.current.rotation.x = -0.1;
+      modelAnimations.actions[modelAnimations.names[5]].play();
+    }
   }, [modelAnimations]);
 
   // 게임 시작 시
@@ -124,10 +128,11 @@ const GameSleigh = () => {
 
     const { actions, mixer, names } = modelAnimations;
 
-    actions[names[0]].stop();
+    actions[names[5]].stop();
     modelRef.current.rotation.y = Math.PI;
-    actions[names[3]].reset().fadeIn(0.2).play();
-    mixer.timeScale = 1.5;
+    actions[names[6]].play();
+    actions[names[7]].play();
+    mixer.timeScale = 4;
     setTimeout(() => {
       setQuizStatus("start");
     }, 2000);
@@ -155,15 +160,19 @@ const GameSleigh = () => {
       stopActions();
       if (quizCount < 5) {
         modelRef.current.rotation.y = Math.PI;
-        mixer.timeScale = 1.5;
-        actions[names[3]].fadeIn(0.2).play();
+        mixer.timeScale = 4;
+        actions[names[6]].play();
+        actions[names[7]].play();
 
         setTimeout(() => {
           setQuizStatus("start");
         }, 2000);
       } else {
         // 퀴즈 전부 종료
-        actions[names[1]].fadeIn(0.2).play();
+        modelRef.current.rotation.x = -0.2;
+        mixer.timeScale = 3;
+        actions[names[4]].play();
+        actions[names[6]].play();
 
         setTimeout(() => {
           setQuizStatus("idle");
@@ -178,7 +187,7 @@ const GameSleigh = () => {
       stopActions();
       modelRef.current.rotation.y = 0;
       mixer.timeScale = 1.5;
-      actions[names[0]].play();
+      actions[names[5]].play();
     }
 
     // 정답 확인
@@ -186,7 +195,9 @@ const GameSleigh = () => {
       stopActions();
       stopMove();
       modelRef.current.position.x = 0;
-      actions[names[0]].play();
+      mixer.timeScale = 1.5;
+      actions[names[4]].play();
+      actions[names[5]].play();
     }
 
     // return () => {};
