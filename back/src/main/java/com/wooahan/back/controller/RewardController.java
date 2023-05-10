@@ -25,7 +25,7 @@ public class RewardController {
     }
 
     @Operation(summary = "member의 reward 보는거 ", description = "email하고 초성을 request로 받음")
-    @PostMapping("/reward")
+    @PostMapping
     public ResponseEntity<CardResDto>myRewards(@Parameter(name="cardReqDto",description ="text(초성),email")@RequestBody CardReqDto cardReqDto){
         return new ResponseEntity<>(rewardService.getMyRewards(cardReqDto),HttpStatus.OK);
     }
