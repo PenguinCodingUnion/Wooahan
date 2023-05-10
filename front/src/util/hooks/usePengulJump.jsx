@@ -53,7 +53,7 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
     (idx) => {
       if (activeAnimation.current === idx) return;
 
-      actions[ANIMATIONS[activeAnimation.current]].fadeOut(0.3);
+      actions[ANIMATIONS[activeAnimation.current]]?.fadeOut(0.3);
       actions[ANIMATIONS[idx]].reset().fadeIn(0.3).play();
 
       activeAnimation.current = idx;
