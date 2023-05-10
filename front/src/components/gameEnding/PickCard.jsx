@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import RewardCard from "./RewardCard";
-import ReactAudioPlayer from "react-audio-player";
-import getcard from "assets/sounds/getcard.wav";
 import SelectedCard from "./SelectedCard";
 
 export const PickCard = (props) => {
@@ -47,7 +45,6 @@ export const PickCard = (props) => {
             image={props.cardImg}
             closeCard={closePickedCard}
           />
-          <ReactAudioPlayer src={getcard} autoPlay />
         </div>
       )}
     </>
