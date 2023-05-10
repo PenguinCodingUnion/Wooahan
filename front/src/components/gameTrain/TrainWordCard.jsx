@@ -10,7 +10,7 @@ export const TrainWordCard = (props) => {
     "absolute w-[45rem] h-[10.5rem] -right-14 bottom-0"
   );
   const [wordclass, setWordClass] = useState(
-    "grid grid-cols-2 items-center w-[21rem] h-[10.5rem] right-2 bottom-0 text-[3.3rem]  absolute font-netmarbleB"
+    "grid grid-cols-2 whitespace-nowrap items-center w-[21rem] h-[10.5rem] right-2 bottom-0 text-[3.3rem]  absolute font-netmarbleB"
   );
 
   const changeTrainClass = () => {
@@ -18,7 +18,7 @@ export const TrainWordCard = (props) => {
       "absolute w-[45rem] h-[10.5rem] -right-14 bottom-0 animate-oneTrain"
     );
     setWordClass(
-      "grid grid-cols-2 items-center w-[21rem] h-[10.5rem] right-2 bottom-0 text-[3.3rem]  absolute font-netmarbleB animate-oneTrain"
+      "grid grid-cols-2 items-center  whitespace-nowrap w-[21rem] h-[10.5rem] right-2 bottom-0 text-[3.3rem]  absolute font-netmarbleB animate-oneTrain"
     );
   };
 
