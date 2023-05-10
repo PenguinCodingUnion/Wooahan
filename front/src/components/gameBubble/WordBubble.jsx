@@ -5,6 +5,7 @@ import bgBubble from "assets/images/structure_bubble.png";
 import classNames from "classnames";
 import ReactAudioPlayer from "react-audio-player";
 import bubblepop from "assets/sounds/bubblepop.mp3";
+import effectSound from 'util/effectSound';
 
 export const WordBubble = (props) => {
   const [sound, setsound] = useState(<></>);
@@ -20,6 +21,8 @@ export const WordBubble = (props) => {
     props.animation
   );
 
+  const es = effectSound(bubblepop, 1);
+
   const clickAnswer = () => {
     if (props.clickAnswer) {
       setStyleStr({
@@ -29,7 +32,8 @@ export const WordBubble = (props) => {
         transform: `scale(3) `,
         opacity: 0,
       });
-      setsound(<ReactAudioPlayer src={bubblepop} autoPlay volume={1} />);
+      // setsound(<ReactAudioPlayer src={bubblepop} autoPlay volume={1} />);
+      es.play();
       setTimeout(() => {
         props.clickAnswer(props.number);
         setStyleStr({
@@ -38,13 +42,13 @@ export const WordBubble = (props) => {
           transform: `scale(1)`,
           opacity: 1,
         });
-        setsound(<></>);
+        // setsound(<></>);
       }, 500);
     }
   };
   return (
     <>
-      <div>{sound}</div>
+      {/* <div>{sound}</div> */}
       {props.display && (
         <div className={classStr} style={styleStr} onClick={clickAnswer}>
           {props.name}
