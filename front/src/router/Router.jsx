@@ -7,6 +7,7 @@ import GameTrain from "pages/GameTrain";
 import Books from "pages/Books";
 import Tutirial from "pages/Tutirial";
 import GameEnding from "pages/GameEnding";
+import MainLoading from "pages/MainLoading";
 
 const route = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const route = createBrowserRouter([
     children: [
       {
         path: `/`,
+        element: <MainLoading />,
+      },
+      {
+        path: `/main`,
         element: <Main />,
       },
       {
