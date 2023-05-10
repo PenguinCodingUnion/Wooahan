@@ -5,6 +5,7 @@ import GameSleigh from "pages/GameSleigh";
 import GameBubble from "pages/GameBubble";
 import GameTrain from "pages/GameTrain";
 import Books from "pages/Books";
+import Tutirial from "pages/Tutirial";
 import GameEnding from "pages/GameEnding";
 
 const route = createBrowserRouter([
@@ -40,6 +41,10 @@ const route = createBrowserRouter([
       {
         path: `bubble`,
         element: <GameBubble />,
+      },
+      {
+        path: `tutorial`,
+        element: <Tutirial />,
       },
       {
         path: `ending`,
