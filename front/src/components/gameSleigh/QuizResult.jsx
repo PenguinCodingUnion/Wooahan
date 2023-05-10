@@ -40,7 +40,7 @@ const QuizResult = (props) => {
                 width: ratio > 1 ? 67.5 / ratio + "vw" : 67.5 * ratio + "vh",
                 height: ratio > 1 ? 20 / ratio + "vw" : 20 * ratio + "vh",
               }}
-              className="h-[15vh] rounded-b-[12px] bg-white flex justify-center items-center font-MaplestoryBold text-[6vw] tracking-[1vw]"
+              className="h-[15vh] rounded-b-[12px] bg-white flex justify-center items-center font-MaplestoryBold text-[6vw] tracking-[1vw] border-t-4"
             >
               {result.word.name}
             </p>
