@@ -316,9 +316,9 @@ const GameSleigh = () => {
           </Suspense>
           {isLoading && <LoadingProgress setIsLoading={setIsLoading} />}
         </Canvas>
-        {!isCanvasLoading && !isLoading && !isStart && (
+        {/* {!isCanvasLoading && !isLoading && !isStart && (
           <Intro setIsStart={setIsStart} />
-        )}
+        )} */}
         {quizStatus === "stop" && quizCount < 5 && (
           <div className="absolute bottom-[5vh] w-screen flex justify-between px-[10vw]">
             <button
@@ -362,7 +362,7 @@ const GameSleigh = () => {
         {quizStatus === "stop" && quizCount < 5 && (
           <QuizWord word={quizData[quizCount].quiz} />
         )}
-        {(isCanvasLoading || isLoading) && <LoadingComponent />}
+        {/* {(isCanvasLoading || isLoading) && <LoadingComponent />} */}
         {quizStatus === "check" && (
           <QuizResult
             setQuizStatus={setQuizStatus}
