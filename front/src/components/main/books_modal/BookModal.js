@@ -1,8 +1,10 @@
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { bookModalActions } from 'store/features/mainCard/bookSlice';
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import BookModalHeader from './BookModalHeader'
 import BookCard from './BookCard'
+
+// const cards = null
 
 const Overlay = () => {
 
@@ -17,11 +19,9 @@ const Overlay = () => {
     )
 }
 
-const cards = [
-    "가방", "호랑이", "비행기" ,"나비", "개미", "불", "전화기", "자동차", "다람쥐", "문어", "기린", "사자", "핸드폰", "바구니"
-]
-
 const BookModal = () => {
+
+    const cards = useSelector((state) => state.bookText.wordArray)
 
     return (
         <div className="flex flex-col justify-start sticky top-[5%] left-[5%] z-40 bg-beige w-[90%] h-[90%] px-4 rounded-xl">
@@ -29,7 +29,7 @@ const BookModal = () => {
             <div className="w-full h-full flex flex-wrap overflow-y-scroll mt-[2%] bg-beige">
                 {cards.map((card, idx) => {
                    return (
-                        <BookCard key={idx} word={card}/>
+                        <BookCard key={idx} word={card.name} img={card.imgUrl}/>
                     )
                 })}
             </div>

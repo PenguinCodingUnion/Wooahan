@@ -29,10 +29,6 @@ export const Main = () => {
   const page = useSelector((state) => state.backGround.page);
   const showModal = useSelector((state) => state.modal.modalIsVisible);
 
-  useEffect(() => {
-    console.log("main page")
-  }, [])
-
   useSound(bgm, 1, 2000);
   
   return (
