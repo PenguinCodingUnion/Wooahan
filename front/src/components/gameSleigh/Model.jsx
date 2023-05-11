@@ -41,10 +41,10 @@ export const Model = (props) => {
     }
 
     if (+model.current.isMove === -1) {
-      model.current.position.x -= 0.02 * ratio;
+      model.current.position.x -= 0.04 * ratio;
     }
     if (+model.current.isMove === 1) {
-      model.current.position.x += 0.02 * ratio;
+      model.current.position.x += 0.04 * ratio;
     }
   });
 
