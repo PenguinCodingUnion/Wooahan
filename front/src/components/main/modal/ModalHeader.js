@@ -12,7 +12,7 @@ const ModalHeader = () => {
     return (
         <header className="flex border-b border-black py-[2%]">
             <div className="w-1/3"></div>
-            <div className="w-1/3 font-['MaplestoryOTFBold'] text-3xl">
+            <div className="w-1/3 font-['MaplestoryOTFBold'] text-2xl">
                 설정
             </div>
             <div className="flex w-1/3 justify-end">

@@ -15,11 +15,11 @@ const SelectLevel = () => {
     const selectedLevel = useSelector(state => state.level.level)
 
     return (
-        <div className="flex justify-around items-center w-full h-[60%] pt-[1%]">
+        <div className="flex justify-around items-center w-full h-[50%] pt-[1%]">
             {levels.map((level, index) => {
                 return (
                     <div onClick={selectLevelHandler} id={index} key={index} className={`flex justify-around items-center w-[8%] h-full ${(+selectedLevel === +index) ? `border border-sharkGray`: ``} rounded-lg`}>
-                        <div className="font-['MaplestoryOTFBold'] text-2xl">
+                        <div className="font-['MaplestoryOTFBold'] text-xl">
                             {level}
                         </div>
                     </div>
