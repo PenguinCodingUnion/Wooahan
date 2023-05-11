@@ -16,8 +16,9 @@ import bunny from "assets/images/animal/bunny.png"
 import octopus from "assets/images/animal/octopus.png"
 import fox from "assets/images/animal/fox.png"
 import {useNavigate} from 'react-router-dom';
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { backActions } from 'store/features/mainCard/backSlice' 
+import { cardActions } from 'store/features/mainCard/cardSlice'
 
 const games =[
     {id: 1, title: '뛰어쓰기', animal: penguin, url: '/jump'},
@@ -33,15 +34,20 @@ const games =[
 const Carousel = () => {
     const nav = useNavigate();
     const dispatch = useDispatch();
+    const startPage = useSelector((state) => state.prevPage.prevPage)
 
     // const page = useSelector(state => state.backGround.page)
 
-    const [mainCard, setMainCard] = useState(0);
+    const [mainCard, setMainCard] = useState(startPage);
 
     const changeMainCard = (swiper) => {
         setMainCard(swiper.realIndex);
         dispatch(backActions.changeBackGround(swiper.realIndex))
     }
+
+    useEffect(() => {
+        dispatch(cardActions.savePrevCard(mainCard))
+    }, [mainCard])
 
     useEffect(() => {
         dispatch(backActions.changeBackGround(0))
@@ -52,42 +58,6 @@ const Carousel = () => {
     }
     
     return (
-        // <>
-        //     <Swiper
-        //         effect={"coverflow"}
-        //         grabCursor={true}
-        //         centeredSlides={true}
-        //         slidesPerView={3}
-        //         coverflowEffect={{
-        //             rotate: 50,
-        //             stretch: 10,
-        //             depth: 100,
-        //             modifier: 1,
-        //             slideShadows: false,
-        //         }}
-        //         // loopPreventsSlide={false}
-        //         // loop={true}  
-        //         pagination={true}
-        //         modules={[EffectCoverflow, Pagination]}
-        //         className="mySwiper"
-        //         onSlideChange={(e) => changeMainCard(e.activeIndex)}
-        //     >
-        //         {games.map((game, idx) => (
-        //             <SwiperSlide onClick={() => {movePageHandler(game, idx)}} key={game.id} id={idx} className="relative rounded-xl">
-        //                 <CardImage coverImage={mainCard} id={idx}/>
-        //                 <img src={games[idx].animal} 
-        //                         className="ml-[2%] mt-[2%] mb-[2%] w-28 h-36" />
-        //                 <GameCard
-        //                     id={game.id}
-        //                     title={game.title}
-        //                 />
-        //             </SwiperSlide>
-        //         ))}
-        //     </Swiper>
-        // </>
-        ///////////////////////////////////////////////////////
-        
-        
         <>
             <Swiper
                 effect={"coverflow"}
@@ -107,6 +77,7 @@ const Carousel = () => {
                 className="mySwiper"
                 // style={{height: "230%"}}
                 onSlideChange={changeMainCard}
+                initialSlide={mainCard}
             >
 
                 {games.map((game, idx) => (
