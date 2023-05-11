@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import train1 from "assets/images/tutorials/train1.png";
+import train from "assets/images/tutorials/train.png";
 import { Navigate } from "react-router-dom";
 
 export const Train = (props) => {
@@ -51,7 +51,7 @@ export const Train = (props) => {
         </div>
       </div>
       <div className="h-full w-full">
-        <img className="h-full w-full" src={train1} alt="기차설명1" />
+        <img className="h-full w-full" src={train} alt="기차설명1" />
       </div>
       <div>{end && <Navigate to={`/`} />}</div>
     </div>
