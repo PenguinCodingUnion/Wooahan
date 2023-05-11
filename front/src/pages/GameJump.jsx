@@ -24,6 +24,9 @@ import { Navigate } from "react-router-dom";
 import LoadingComponent from "components/common/LoadingComponent";
 import { jumpActions, jumpDataAction } from "store/features/jump/jumpSlice";
 
+import useSound from "util/hooks/useSound";
+import bgm from "assets/sounds/jumpbgm.mp3";
+
 const BOTTOM_POSITION = -70;
 const SHORTEST_DISTANCE_FOR_JUMP = 50;
 const EDGE = 375;
@@ -61,6 +64,8 @@ export const GameJump = (props) => {
   const startGame = useCallback(() => {
     dispatch(gameStatusActions.start());
   }, [dispatch]);
+
+  useSound(bgm, 1, 2000);
 
   return (
     <>

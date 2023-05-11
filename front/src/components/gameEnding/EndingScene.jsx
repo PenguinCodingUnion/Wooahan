@@ -2,9 +2,18 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
+import clap from "assets/sounds/clap.wav";
+import effectSound from "util/effectSound";
+
 export const EndingScene = (props) => {
+  const es_clap = effectSound(clap, 1);
+
   useEffect(() => {
-    setTimeout(() => props.closeEndingScene(), 2000);
+    es_clap.play();
+    setTimeout(() => {
+      props.closeEndingScene();
+      es_clap.pause();
+    }, 2000);
   }, [props]);
   return (
     <>

@@ -10,7 +10,7 @@ const Home = () => {
     const nav = useNavigate();
 
     return (
-        <div onClick={() => {nav(`/`)}} className="pl-4 w-1/6 h-full flex justify-start items-center">
+        <div onClick={() => {nav(`/main`)}} className="pl-4 w-1/6 h-full flex justify-start items-center">
             <button className="bg-palePupple rounded-xl w-1/2 h-4/5 flex items-center justify-center">
                 <FontAwesomeIcon icon={faHouseChimney} size='2xl'/>
             </button>

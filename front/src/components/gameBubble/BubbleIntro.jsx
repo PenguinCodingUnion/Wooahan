@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import bgImage from "assets/images/background-underwater.jpg";
+import bgImage from "assets/images/background_underwater.jpg";
 import WordBubble from "./WordBubble";
 
 export const BubbleIntro = (props) => {
