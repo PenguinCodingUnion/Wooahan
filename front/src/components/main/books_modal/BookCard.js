@@ -45,7 +45,7 @@ const BookCard = (props) => {
                 onClick={rotateCardToFront}
 
             >
-                뒷면!!
+                <img src={`${props.img}`} className="w-full h-full" />
             </div>
         </div>
     )
