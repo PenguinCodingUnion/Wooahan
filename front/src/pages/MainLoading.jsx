@@ -28,8 +28,10 @@ const MainLoading = () => {
             .post("/login/guest", postData)
             .then((res) => {
                 console.log(res)
+                console.log(loginActions);
                 // setLoginInfo(res)
                 dispatch(loginActions.getStarCount(res.starCount))
+                console.log("짜잔");
                 dispatch(loginActions.getRewards(res.rewards))
                 setTimeout(() => {
                     setIsLoading(false)
