@@ -20,7 +20,7 @@ const ANIMATIONS = [
 ];
 
 const JUMP_FORCE = 80;
-const BASE_MOVEMENT_SPEED = 50;
+const BASE_MOVEMENT_SPEED = 70;
 const MIN_SPEED_FOR_JUMP_ICE = 150;
 
 const GROUND_HEIGHT = -80;
@@ -51,9 +51,9 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
   //애니메이션 변경하기
   const setActiveAnimation = useCallback(
     (idx) => {
-      if (activeAnimation.current === idx) return;
+      if (idx < 0 || activeAnimation.current === idx) return;
 
-      actions[ANIMATIONS[activeAnimation.current]].fadeOut(0.3);
+      actions[ANIMATIONS[activeAnimation.current]]?.fadeOut(0.3);
       actions[ANIMATIONS[idx]].reset().fadeIn(0.3).play();
 
       activeAnimation.current = idx;
