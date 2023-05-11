@@ -5,6 +5,7 @@ const QuizResult = (props) => {
   const ratio = window.innerWidth / window.innerHeight;
 
   const [visible, setVisible] = useState(false);
+  // const [imageLoadState, setImageLoadState] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -21,6 +22,16 @@ const QuizResult = (props) => {
     }
   }, [visible]);
 
+  // useEffect(() => {
+  //   if (imageLoadState) {
+  //     setTimeout(() => {
+  //       props.setQuizCount((count) => count + 1);
+  //       props.setQuizStatus("nextQuiz");
+  //     }, 2500);
+  //     // 음성파일 연결할때 setTimeout 시간부분을 음성파일 길이로 설정
+  //   }
+  // }, [imageLoadState]);
+
   return (
     <div className="absolute w-screen h-screen top-0 flex flex-col justify-center items-center z-[60]">
       {visible ? (
@@ -34,6 +45,7 @@ const QuizResult = (props) => {
               }}
               src={result.word.imgUrl}
               alt="#"
+              // onLoad={() => setImageLoadState(true)}
             />
             <p
               style={{
