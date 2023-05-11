@@ -23,5 +23,7 @@ public class Segment {
     @Column(nullable = false, name = "word_order")
     private Integer wordOrder;
 
+    @Column(nullable = false,name = "file_length")
+    private Integer fileLength;
 }
 

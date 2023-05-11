@@ -23,6 +23,7 @@ public class JumpService {
     public static class JumpWord {
         private String content;
         private int wordOrder;
+        private int fileLength;
 
     }
 
@@ -42,7 +43,7 @@ public class JumpService {
                     .wholeSentence(sentence.getContent())
                     .jumpWordList(
                             segments.stream()
-                                    .map(seg -> new JumpWord(seg.getContent(), seg.getWordOrder()))
+                                    .map(seg -> new JumpWord(seg.getContent(), seg.getWordOrder(),seg.getFileLength()))
                                     .collect(Collectors.toList())
                     )
                     .fileNameList(
