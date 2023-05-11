@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
-import playground from "assets/images/background_playground_min.jpg";
+import playground from "assets/images/background_playground.jpg";
 import EndingScene from "components/gameEnding/EndingScene";
 import GetStar from "components/gameEnding/GetStar";
 import PickCard from "components/gameEnding/PickCard";
