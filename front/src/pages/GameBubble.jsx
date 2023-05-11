@@ -46,12 +46,13 @@ export const GameBubble = (props) => {
   const [isBubbleOpen, setIsbubbleOpen] = useState([true, true, true, true]);
   const [isGameEnd, setIsGameEnd] = useState(false);
   const [quizData, setQuizData] = useState([]);
+  const [isQuizCardOpen, setIsQuizCardOpen] = useState(true);
 
   useEffect(() => {
     const loadData = async () => {
       await instance
         .get("/game/bubble/0")
-        .then((response) => { 
+        .then((response) => {
           setTimeout(() => {
             setIsLoading(false);
           }, 2000);
@@ -84,6 +85,7 @@ export const GameBubble = (props) => {
 
   const clickAnswer = (num) => {
     if (!isCardOpen) {
+      setIsQuizCardOpen(false);
       // eslint-disable-next-line default-case
       switch (num) {
         case 0:
@@ -126,6 +128,7 @@ export const GameBubble = (props) => {
 
   const closeCard = () => {
     setIsCardOpen(false);
+    setIsQuizCardOpen(true);
   };
 
   useSound(bgm, 1, 2000);
@@ -146,10 +149,12 @@ export const GameBubble = (props) => {
             backgroundRepeat: "no-repeat",
           }}
         >
-          <QuizCard
-            name={quizData[round].answer}
-            image={quizData[round].answerImg}
-          />
+          {isQuizCardOpen && (
+            <QuizCard
+              name={quizData[round].answer}
+              image={quizData[round].answerImg}
+            />
+          )}
 
           {quizData[round].cards.map((card, index) => (
             <WordBubble

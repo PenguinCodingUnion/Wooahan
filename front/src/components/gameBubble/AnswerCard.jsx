@@ -32,7 +32,7 @@ export const AnswerCard = (props) => {
 
   return (
     <>
-      <div className="grid w-screen h-screen">
+      <div className="grid w-screen h-screen absolute top-0">
         <div className="relative grid items-center self-center h-3/4">
           {!isOpened && (
             <img
