@@ -22,7 +22,7 @@ const Overlay = () => {
 
 const ModalOverlay = (props) => {
     return (
-        <div className={`flex flex-col justify-start ${(props.config === "setting") ? `absolute` : `sticky`} top-[15%] left-[15%] z-40 bg-lightGray w-[70%] h-[70%] px-4 rounded-xl`}>
+        <div className={`flex flex-col justify-start ${(props.config === "setting") ? `absolute` : `sticky`} top-[15%] left-[15%] z-40 bg-lightGray w-[70%] h-[72%] px-4 rounded-xl`}>
             <ModalHeader />
             <Level />
             <Login />
