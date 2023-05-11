@@ -10,6 +10,9 @@ export const loginSlice = createSlice({
     name: "loginInfo",
     initialState,
     reducers: {
+        getEmail: (state, action) => {
+            state.email = action.payload
+        },
         getStarCount :(state, action) => {
             console.log("hey");
             state.starCount = action.payload
