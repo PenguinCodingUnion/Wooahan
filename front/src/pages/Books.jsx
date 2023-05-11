@@ -14,10 +14,12 @@ export const Books = () => {
   const bookText = useSelector(state => state.bookText.text)
   const starCount = useSelector(state => state.loginInfo.starCount)
   const rewards = useSelector(state => state.loginInfo.rewards)
+  const email = useSelector(state => state.loginInfo.email)
 
   useEffect(() => {
-    console.log("별가루 : " + starCount)
-    console.log("보상 카드 : " + rewards)
+    // console.log("별가루 : " + starCount)
+    // console.log("보상 카드 : " + rewards)
+    // console.log("보상 카드 : " + email)
   }, [])
 
   return (
