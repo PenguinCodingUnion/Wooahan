@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.Debug
 import android.provider.Settings
 import android.util.Log
+import android.view.View
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -37,6 +38,13 @@ class MainActivity : AppCompatActivity() {
             "deviceInformation 확인 :"+deviceInformation.getDeviceId())
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+
+        //액션바 제거
+        val decorView = window.decorView
+        val uiOptions = (View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+        decorView.systemUiVisibility = uiOptions
 
         myWebView = findViewById(R.id.myWebView)
 
@@ -68,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                     accel = accel * 0.9f + delta;
 
 //                    Log.i("Android", "this is ACCELEROMETER")
-                    if (accel > 2) {
+                    if (accel > 21) {
                         onJumpDetected()
                     }
                 }
@@ -105,7 +113,7 @@ class MainActivity : AppCompatActivity() {
             ,"react_toast"
         )
 
-        myWebView?.loadUrl("http://10.0.2.2:3000")
+        myWebView?.loadUrl("https://k8b206.p.ssafy.io")
     }
 
 
@@ -129,7 +137,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (myWebView?.canGoBack() == true) {
-            myWebView?.goBack()
+//            myWebView?.goBack()
         } else {
             finish()
         }
