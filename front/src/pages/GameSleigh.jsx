@@ -251,6 +251,19 @@ const GameSleigh = () => {
 
   const quizScale = (window.innerWidth / window.innerHeight) * 1.25;
 
+  useEffect(() => {
+    let loadingTimer;
+    if (isLoading) {
+      loadingTimer = setTimeout(() => {
+        navigation("/");
+      }, 10000);
+    }
+
+    return () => {
+      clearTimeout(loadingTimer);
+    };
+  }, [isLoading]);
+
   return (
     <>
       <div className="h-screen w-screen">
@@ -258,7 +271,7 @@ const GameSleigh = () => {
           quizStatus !== "start" &&
           quizStatus !== "nextQuiz" &&
           quizCount < 5 && (
-            <div className=" absolute h-screen w-screen justify-center items-center flex">
+            <div className="absolute h-screen w-screen justify-center items-center flex">
               <div
                 className={`animate-scale-up-center z-50 absolute w-[19vw] h-[19vw] left-[12.5vw]`}
                 // className={`${
@@ -270,9 +283,9 @@ const GameSleigh = () => {
                   top: `${(30 / (quizScale / 1.25)) * 0.7}vh`,
                 }}
               >
-                <div className="w-[100%] h-[100%] rounded-[20px] animate-card-bounce border-2 bg-white">
+                <div className="w-full h-full rounded-[20px] animate-card-bounce border-2 bg-white">
                   <img
-                    className="w-[100%] h-[100%] rounded-[16px]"
+                    className="w-full h-full rounded-[16px]"
                     alt="#"
                     src={
                       random[quizCount] > 0.5
@@ -298,9 +311,9 @@ const GameSleigh = () => {
                   top: `${(30 / (quizScale / 1.25)) * 0.7}vh`,
                 }}
               >
-                <div className="w-[100%] h-[100%] rounded-[20px] animate-card-bounce border-2 bg-white">
+                <div className="w-full h-full rounded-[20px] animate-card-bounce border-2 bg-white">
                   <img
-                    className="w-[100%] h-[100%] rounded-[16px]"
+                    className="w-full h-full rounded-[16px]"
                     alt="#"
                     src={
                       random[quizCount] > 0.5
@@ -363,7 +376,9 @@ const GameSleigh = () => {
                 )}
             </Suspense>
           )}
-          {!isCanvasLoading && <LoadingProgress setIsLoading={setIsLoading} />}
+          {!isCanvasLoading && isLoading && (
+            <LoadingProgress setIsLoading={setIsLoading} />
+          )}
         </Canvas>
         {!isCanvasLoading && !isLoading && !isStart && (
           <Intro setIsStart={setIsStart} />
