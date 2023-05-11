@@ -1,46 +1,38 @@
 import React, { useEffect, useState } from "react";
-import ReactAudioPlayer from "react-audio-player";
 import { connect } from "react-redux";
 import correct from "assets/sounds/correct.wav";
 import wrong from "assets/sounds/wrong.wav";
 import openedSeashell from "assets/images/bubble/opened_seashell.png";
 import closedSeashell from "assets/images/bubble/closed_seashell.png";
+import effectSound from 'util/effectSound';
 
 export const AnswerCard = (props) => {
   const [isOpened, setIsOpened] = useState(false);
-  const [sound, setsound] = useState(<></>);
-  const [correctVolume, setCorrectVolume] = useState(0);
-  const [wrongVolume, setWrongVolume] = useState(0);
+
+  const es_correct = effectSound(correct, 1);
+  const es_wrong = effectSound(wrong, 1);
 
   useEffect(() => {
-    // const correct = document.getElementById("correct");
-    // const wrong = document.getElementById("wrong");
     setTimeout(() => {
       setIsOpened(true);
     }, 500);
     if (props.name === props.answer) {
-      setCorrectVolume(1);
+      es_correct.play();
       setTimeout(() => {
         props.closeCard();
         props.changeQuiz();
-      }, 5000);
-      // setsound(<ReactAudioPlayer src={correct} autoPlay volume={1} />);
+      }, 3000);
     } else if (props.name !== props.answer) {
-      setWrongVolume(1);
+      es_wrong.play();
       setTimeout(() => {
         props.closeCard();
-      }, 5000);
-      // setsound(<ReactAudioPlayer src={wrong} autoPlay volume={1} />);
+      }, 3000);
     }
   }, [props]);
 
   return (
     <>
-      <div><ReactAudioPlayer src={correct} autoPlay volume={correctVolume} loop /></div>
-      <div><ReactAudioPlayer src={wrong} autoPlay volume={wrongVolume} loop /></div>
       <div className="grid w-screen h-screen">
-        {/* <ReactAudioPlayer src={correct} volume={1} id="correct" />
-      <ReactAudioPlayer src={wrong} volume={1} id="wrong" /> */}
         <div className="relative grid items-center self-center h-3/4">
           {!isOpened && (
             <img
@@ -59,10 +51,10 @@ export const AnswerCard = (props) => {
               <div className="absolute grid grid-rows-4 -ml-40 overflow-hidden shadow-lg bg-mainPink-200 justify-items-center h-80 rounded-3xl w-80 shadow-mainBlack left-1/2">
                 <div className="grid self-end row-span-3">
                   <div
-                    className="overflow-hidden h-52 w-60"
+                    className="overflow-hidden border h-52 w-60 bg-mainWhite border-mainWhite"
                     style={{
                       backgroundImage: `url(${props.image})`,
-                      backgroundSize: "cover",
+                      backgroundSize: "15rem 13rem",
                       backgroundRepeat: "no-repeat",
                     }}
                   ></div>

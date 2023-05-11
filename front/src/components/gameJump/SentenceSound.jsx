@@ -11,7 +11,7 @@ const SentenceSound = forwardRef(({ fileName }, sound) => {
   useEffect(() => {
     // sound.current.setBuffer(buffer);
     sound.current.setRefDistance(1);
-    sound.current.setVolume(170);
+    sound.current.setVolume(270);
 
     // sound.current.play();
 

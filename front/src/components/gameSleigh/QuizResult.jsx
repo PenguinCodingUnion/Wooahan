@@ -5,6 +5,7 @@ const QuizResult = (props) => {
   const ratio = window.innerWidth / window.innerHeight;
 
   const [visible, setVisible] = useState(false);
+  // const [imageLoadState, setImageLoadState] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -21,27 +22,39 @@ const QuizResult = (props) => {
     }
   }, [visible]);
 
+  // useEffect(() => {
+  //   if (imageLoadState) {
+  //     setTimeout(() => {
+  //       props.setQuizCount((count) => count + 1);
+  //       props.setQuizStatus("nextQuiz");
+  //     }, 2500);
+  //     // 음성파일 연결할때 setTimeout 시간부분을 음성파일 길이로 설정
+  //   }
+  // }, [imageLoadState]);
+
   return (
-    <div className="absolute w-screen h-screen top-0 flex flex-col justify-center items-center">
+    <div className="absolute w-screen h-screen top-0 flex flex-col justify-center items-center z-[60]">
       {visible ? (
         <>
-          <div className="border-[4px] rounded-[16px] animate-scale-up-center">
+          <div className="border-[4px] rounded-[16px] animate-scale-up-center bg-white">
             <img
               className="rounded-t-[12px]"
               style={{
                 width: ratio > 1 ? 67.5 / ratio + "vw" : 67.5 * ratio + "vh",
+                height: ratio > 1 ? 67.5 / ratio + "vw" : 67.5 * ratio + "vh",
               }}
-              src={result.url}
+              src={result.word.imgUrl}
               alt="#"
+              // onLoad={() => setImageLoadState(true)}
             />
             <p
               style={{
                 width: ratio > 1 ? 67.5 / ratio + "vw" : 67.5 * ratio + "vh",
                 height: ratio > 1 ? 20 / ratio + "vw" : 20 * ratio + "vh",
               }}
-              className="h-[15vh] rounded-b-[12px] bg-white flex justify-center items-center font-MaplestoryBold text-[6vw] tracking-[1vw]"
+              className="h-[15vh] rounded-b-[12px] bg-white flex justify-center items-center font-MaplestoryBold text-[6vw] tracking-[1vw] border-t-4"
             >
-              {result.word}
+              {result.word.name}
             </p>
           </div>
         </>

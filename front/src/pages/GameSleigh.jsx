@@ -12,71 +12,48 @@ import { useDispatch, useSelector } from "react-redux";
 import * as THREE from "three";
 import forestMap from "assets/images/background_forest.png";
 import QuizCard from "components/gameSleigh/QuizCard";
-import bfyImg from "assets/images/bfy.png";
-import dogIMg from "assets/images/dog.png";
-import { SleighLoading, LoadingProgress } from "components/gameSleigh/Loading";
+import LoadingProgress from "components/gameSleigh/LoadingProgress";
 import QuizResult from "components/gameSleigh/QuizResult";
 import { useNavigate } from "react-router-dom";
-import { sleighActions } from "store/features/sliegh/sleighSlice";
+import { getQuizData, sleighActions } from "store/features/sliegh/sleighSlice";
 import Intro from "components/gameSleigh/Intro";
 import QuizWord from "components/gameSleigh/QuizWord";
-
-export const STAGE_DATA = [
-  [
-    { quiz: "나비" },
-    { word: "나비", url: bfyImg, answer: true },
-    { word: "강아지", url: dogIMg, answer: false },
-  ],
-  [
-    { quiz: "도그" },
-    { word: "도그", url: dogIMg, answer: true },
-    { word: "버터", url: bfyImg, answer: false },
-  ],
-  [
-    { quiz: "호랑나비" },
-    { word: "호랑나비", url: bfyImg, answer: true },
-    { word: "웰시코기", url: dogIMg, answer: false },
-  ],
-  [
-    { quiz: "고고고" },
-    { word: "고고고", url: bfyImg, answer: true },
-    { word: "가가가", url: dogIMg, answer: false },
-  ],
-  [
-    { quiz: "123" },
-    { word: "그33", url: dogIMg, answer: true },
-    { word: "버터", url: bfyImg, answer: false },
-  ],
-  [
-    { quiz: "2322" },
-    { word: "2322", url: bfyImg, answer: true },
-    { word: "132", url: dogIMg, answer: false },
-  ],
-];
+import LoadingComponent from "components/common/LoadingComponent";
 
 const GameSleigh = () => {
+  const dispatch = useDispatch();
+  const navigation = useNavigate();
+
   // 게임 진행 관련 State
+  const [isCanvasLoading, setIsCanvasLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(true); // 로딩
+
   const [isStart, setIsStart] = useState(false); // 게임 시작
   const [isEnd, setIsEnd] = useState(false); // 게임 종료
   const [quizStatus, setQuizStatus] = useState("idle"); // 퀴즈 상태 idle(대기) start(퀴즈내려옴) stop(퀴즈맞추기) check(정답확인)
   const [quizCount, setQuizCount] = useState(0);
   const [quizResult, setQuizResult] = useState("left"); // left right
-  // const [isMove, setIsMove] = useState(0); // 0 정지 (-) 왼쪽 (+) 오른쪽
 
-  const dispatch = useDispatch();
-  const navigation = useNavigate();
+  // const [imageLoadState, setImageLoadState] = useState({
+  //   left: false,
+  //   right: false,
+  // });
+
+  const quizData = useSelector((state) => state.sleigh.quizData);
+  // const { isStart, isEnd, quizStatus, quizCount, quizResult, quizData } =
+  //   useSelector((state) => state.sleigh);
+
+  useEffect(() => {
+    dispatch(getQuizData(0));
+  }, []);
 
   const [random, setRandom] = useState([
     Math.random(),
     Math.random(),
     Math.random(),
+    Math.random(),
+    Math.random(),
   ]);
-
-  // stage 단계 정보
-  // const stageLevel = useSelector((state) => {
-  //   return state.sleigh.stageLevel;
-  // });
 
   // 게임 배경 Texture 로딩 및 색상 인코딩
   const texture = new THREE.TextureLoader().load(forestMap);
@@ -157,6 +134,7 @@ const GameSleigh = () => {
 
     // 다음 문제
     if (quizStatus === "nextQuiz") {
+      // setImageLoadState({ left: false, right: false });
       stopActions();
       if (quizCount < 5) {
         modelRef.current.rotation.y = Math.PI;
@@ -166,7 +144,8 @@ const GameSleigh = () => {
 
         setTimeout(() => {
           setQuizStatus("start");
-        }, 2000);
+          // }, 2000);  캔버스이미지일시
+        }, 1000); // onload라 시간줄임
       } else {
         // 퀴즈 전부 종료
         modelRef.current.rotation.x = -0.2;
@@ -207,6 +186,20 @@ const GameSleigh = () => {
     if (isEnd) navigation("/ending");
   }, [isEnd]);
 
+  // useEffect(() => {
+  //   if (imageLoadState.left && imageLoadState.right) {
+  //     const { actions, mixer, names } = modelAnimations;
+
+  //     names.forEach((element) => {
+  //       actions[element].stop();
+  //     });
+
+  //     modelRef.current.rotation.y = 0;
+  //     mixer.timeScale = 1.5;
+  //     actions[names[5]].play();
+  //   }
+  // }, [imageLoadState]);
+
   const addMoveEvent = () => {
     window.doMove = (value) => {
       doMove(value);
@@ -215,12 +208,18 @@ const GameSleigh = () => {
   };
 
   const removeMoveEvent = () => {
-    window.doMove = () => null;
-    window.stopMove = () => null;
+    window.doMove = () => {
+      return null;
+    };
+    window.stopMove = () => {
+      return null;
+    };
   };
 
   // 게임 입장 시 중력센서 사용
   useEffect(() => {
+    removeMoveEvent();
+
     if (window.sleigh) {
       window.sleigh.resumeSensor();
     }
@@ -252,51 +251,142 @@ const GameSleigh = () => {
 
   const quizScale = (window.innerWidth / window.innerHeight) * 1.25;
 
+  useEffect(() => {
+    let loadingTimer;
+    if (isLoading) {
+      loadingTimer = setTimeout(() => {
+        navigation("/");
+      }, 10000);
+    }
+
+    return () => {
+      clearTimeout(loadingTimer);
+    };
+  }, [isLoading]);
+
   return (
     <>
       <div className="h-screen w-screen">
-        <Canvas flat={true}>
-          <Suspense fallback={null}>
-            <PerspectiveCamera {...camera} makeDefault />
-            <ambientLight />
-            <Environment background={true} map={texture} />
-            <Model
-              modelRef={modelRef}
-              quizScale={quizScale}
-              quizStatus={quizStatus}
-              setQuizResult={setQuizResult}
-              setQuizStatus={setQuizStatus}
-              setModelAnimations={setModelAnimations}
-            />
-            {quizStatus !== "idle" &&
-              quizStatus !== "nextQuiz" &&
-              quizCount < 5 && (
-                <>
-                  <QuizCard
-                    side="left"
-                    setQuizStatus={setQuizStatus}
-                    quizScale={quizScale}
-                    quizData={
+        {quizStatus !== "idle" &&
+          quizStatus !== "start" &&
+          quizStatus !== "nextQuiz" &&
+          quizCount < 5 && (
+            <div className="absolute h-screen w-screen justify-center items-center flex">
+              <div
+                className={`animate-scale-up-center z-50 absolute w-[19vw] h-[19vw] left-[12.5vw]`}
+                // className={`${
+                //   imageLoadState.left && imageLoadState.right
+                //     ? "animate-scale-up-center"
+                //     : "hidden"
+                // } z-50 absolute w-[19vw] h-[19vw] left-[12.5vw]`}
+                style={{
+                  top: `${(30 / (quizScale / 1.25)) * 0.7}vh`,
+                }}
+              >
+                <div className="w-full h-full rounded-[20px] animate-card-bounce border-2 bg-white">
+                  <img
+                    className="w-full h-full rounded-[16px]"
+                    alt="#"
+                    src={
                       random[quizCount] > 0.5
-                        ? STAGE_DATA[quizCount][1]
-                        : STAGE_DATA[quizCount][2]
+                        ? quizData[quizCount].words[0].word.imgUrl
+                        : quizData[quizCount].words[1].word.imgUrl
                     }
+                    // onLoad={() => {
+                    //   setImageLoadState((state) => {
+                    //     return { left: true, right: state.right };
+                    //   });
+                    // }}
                   />
-                  <QuizCard
-                    side="right"
-                    quizScale={quizScale}
-                    quizData={
+                </div>
+              </div>
+              <div
+                className={`animate-scale-up-center z-50 absolute w-[19vw] h-[19vw] right-[12.5vw]`}
+                // className={`${
+                //   imageLoadState.left && imageLoadState.right
+                //     ? "animate-scale-up-center"
+                //     : "hidden"
+                // } z-50 absolute w-[19vw] h-[19vw] right-[12.5vw]`}
+                style={{
+                  top: `${(30 / (quizScale / 1.25)) * 0.7}vh`,
+                }}
+              >
+                <div className="w-full h-full rounded-[20px] animate-card-bounce border-2 bg-white">
+                  <img
+                    className="w-full h-full rounded-[16px]"
+                    alt="#"
+                    src={
                       random[quizCount] > 0.5
-                        ? STAGE_DATA[quizCount][2]
-                        : STAGE_DATA[quizCount][1]
+                        ? quizData[quizCount].words[1].word.imgUrl
+                        : quizData[quizCount].words[0].word.imgUrl
                     }
+                    // onLoad={() => {
+                    //   setImageLoadState((state) => {
+                    //     return { left: state.left, right: true };
+                    //   });
+                    // }}
                   />
-                </>
-              )}
-          </Suspense>
-          {isLoading && <LoadingProgress setIsLoading={setIsLoading} />}
+                </div>
+              </div>
+            </div>
+          )}
+        <Canvas
+          onCreated={() => {
+            setIsCanvasLoading(false);
+          }}
+          flat={true}
+        >
+          {!isCanvasLoading && (
+            <Suspense fallback={null}>
+              <PerspectiveCamera {...camera} makeDefault />
+              <ambientLight />
+              <Environment background={true} map={texture} />
+              <Model
+                modelRef={modelRef}
+                quizScale={quizScale}
+                quizStatus={quizStatus}
+                setQuizResult={setQuizResult}
+                setQuizStatus={setQuizStatus}
+                setModelAnimations={setModelAnimations}
+              />
+              {quizStatus !== "idle" &&
+                quizStatus !== "nextQuiz" &&
+                quizCount < 5 && (
+                  <>
+                    <QuizCard
+                      side="left"
+                      setQuizStatus={setQuizStatus}
+                      quizScale={quizScale}
+                      quiz={
+                        random[quizCount] > 0.5
+                          ? quizData[quizCount].words[0]
+                          : quizData[quizCount].words[1]
+                      }
+                    />
+                    <QuizCard
+                      side="right"
+                      quizScale={quizScale}
+                      quiz={
+                        random[quizCount] > 0.5
+                          ? quizData[quizCount].words[1]
+                          : quizData[quizCount].words[0]
+                      }
+                    />
+                  </>
+                )}
+            </Suspense>
+          )}
+          {!isCanvasLoading && isLoading && (
+            <LoadingProgress setIsLoading={setIsLoading} />
+          )}
         </Canvas>
-        {!isLoading && !isStart && <Intro setIsStart={setIsStart} />}
+        {!isCanvasLoading && !isLoading && !isStart && (
+          <Intro setIsStart={setIsStart} />
+        )}
+        {/* {quizStatus === "stop" &&
+          quizCount < 5 &&
+          imageLoadState.left &&
+          imageLoadState.right && ( */}
         {quizStatus === "stop" && quizCount < 5 && (
           <div className="absolute bottom-[5vh] w-screen flex justify-between px-[10vw]">
             <button
@@ -337,21 +427,23 @@ const GameSleigh = () => {
             </button>
           </div>
         )}
+        {/* {quizStatus === "stop" &&quizCount < 5 &&imageLoadState.left &&imageLoadState.right &&( */}
         {quizStatus === "stop" && quizCount < 5 && (
-          <QuizWord word={STAGE_DATA[quizCount][0].quiz} />
+          <QuizWord word={quizData[quizCount].quiz} />
         )}
-        {isLoading && <SleighLoading />}
+        {(isCanvasLoading || isLoading) && <LoadingComponent />}
         {quizStatus === "check" && (
           <QuizResult
             setQuizStatus={setQuizStatus}
             setQuizCount={setQuizCount}
             result={
               quizResult === "left"
-                ? STAGE_DATA[quizCount][random[quizCount] > 0.5 ? 1 : 2]
-                : STAGE_DATA[quizCount][random[quizCount] > 0.5 ? 2 : 1]
+                ? quizData[quizCount].words[random[quizCount] > 0.5 ? 0 : 1]
+                : quizData[quizCount].words[random[quizCount] > 0.5 ? 1 : 0]
             }
           />
         )}
+        {isCanvasLoading && "게임정보를 불러오고 있습니다"}
       </div>
     </>
   );

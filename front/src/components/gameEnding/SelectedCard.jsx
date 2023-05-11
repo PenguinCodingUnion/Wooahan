@@ -1,8 +1,14 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
+import getcard from "assets/sounds/getcard.wav";
+import effectSound from "util/effectSound";
+
 export const AnswerCard = (props) => {
+  const es_getcard = effectSound(getcard, 1);
+  
   useEffect(() => {
+    es_getcard.play();
     setTimeout(() => props.closeCard(), 1500);
   }, [props]);
 
@@ -13,7 +19,7 @@ export const AnswerCard = (props) => {
           className="h-64 overflow-hidden w-80"
           style={{
             backgroundImage: `url(${props.image})`,
-            backgroundSize: "cover",
+            backgroundSize: "20rem 16rem",
             backgroundRepeat: "no-repeat",
           }}
         ></div>

@@ -11,10 +11,17 @@ const coverImages = [
 const CardImage = (props) => {
 
     return (
-        <div className="absolute w-full h-full">
-            {!(props.coverImage === props.id) && <img className="w-full h-full" src={coverImages[(props.id)]} />}
-        </div>
-    )
+      <div className="absolute w-full h-full">
+        {!(props.coverImage === props.id) && (
+          <img
+            className="w-full h-full"
+            src={coverImages[props.id]}
+            alt={"#"}
+            loading="lazy"
+          />
+        )}
+      </div>
+    );
 }
 
 export default CardImage;

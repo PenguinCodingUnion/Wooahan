@@ -1,10 +1,20 @@
-import { Edges, Image, Wireframe } from "@react-three/drei";
+import { Edges } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
 export const QuizCard = (props) => {
   const imgRef = useRef();
+
+  // const [texture, setTexture] = useState(
+  //   new THREE.TextureLoader().load(props.quiz.word.imgUrl)
+  // );
+  const [shape, setShape] = useState(new THREE.Shape());
+  const [geometry, setGeometry] = useState(new THREE.ShapeGeometry(shape));
+
+  useEffect(() => {
+    setGeometry(new THREE.ShapeGeometry(shape));
+  }, [shape]);
 
   const x = 0;
   const y = 0;
@@ -12,7 +22,6 @@ export const QuizCard = (props) => {
   const height = 1;
   const radius = 0.25;
 
-  const shape = new THREE.Shape();
   shape.lineTo(x, y + height - radius);
   shape.quadraticCurveTo(x, y + height, x + radius, y + height);
   shape.lineTo(x + width - radius, y + height);
@@ -22,16 +31,15 @@ export const QuizCard = (props) => {
   shape.lineTo(x + radius, y);
   shape.quadraticCurveTo(x, y, x, y + radius);
 
-  const geometry = new THREE.ShapeGeometry(shape);
-
-  const texture = new THREE.TextureLoader().load(props.quizData.url);
-  texture.encoding = THREE.sRGBEncoding;
-  texture.magFilter = THREE.NearestFilter;
-  texture.minFilter = THREE.LinearMipMapLinearFilter;
+  // texture.encoding = THREE.sRGBEncoding;
+  // texture.magFilter = THREE.NearestFilter;
+  // texture.minFilter = THREE.LinearMipMapLinearFilter;
 
   const [down, setDown] = useState(true);
 
   useFrame(({ clock }, delta) => {
+    imgRef.current.visible = false;
+
     if (down) {
       imgRef.current.position.y -= delta * 5;
       if (imgRef.current.position.y < 0) {
@@ -39,7 +47,7 @@ export const QuizCard = (props) => {
         if (props.setQuizStatus) props.setQuizStatus("stop");
       }
     } else {
-      imgRef.current.position.y = Math.sin(clock.getElapsedTime() * 4) * 0.03;
+      // imgRef.current.position.y = Math.sin(clock.getElapsedTime() * 4) * 0.03;
     }
   });
 
@@ -55,8 +63,9 @@ export const QuizCard = (props) => {
           -1,
         ]}
       >
-        <meshStandardMaterial attach="material" map={texture} />
-        {/* <Edges /> */}
+        {/* <meshStandardMaterial attach="material" map={texture} /> */}
+        <meshStandardMaterial attach="material" />
+        <Edges />
       </mesh>
     </group>
   );

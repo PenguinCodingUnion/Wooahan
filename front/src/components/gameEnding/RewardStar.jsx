@@ -3,12 +3,19 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { FaStar } from "react-icons/fa";
 
+import star from "assets/sounds/star.wav";
+import effectSound from "util/effectSound";
+
 export const RewardStar = (props) => {
   const [size, setSize] = useState("2rem");
   const [color, setColor] = useState("#FFFFFF");
   const [styleStr, setStyleStr] = useState({});
+
+  const es_star = effectSound(star, 1);
+  
   useEffect(() => {
-    if (props.color === props.count) {
+    if (props.color === props.count && props.color !== 0) {
+      es_star.play();
       setTimeout(() => {
         setStyleStr({
           transition: `.4s`,

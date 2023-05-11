@@ -6,6 +6,8 @@ import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import route from "./router/Router";
+import ImagePreloadProvider from "util/context/ImagePreloadProvider";
+import { images } from "assets/images";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -14,11 +16,13 @@ window.doJump = () => {
 };
 
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
+  // <React.StrictMode>
+  <Provider store={store}>
+    <ImagePreloadProvider imageUrls={images}>
       <RouterProvider router={route} />
-    </Provider>
-  </React.StrictMode>
+    </ImagePreloadProvider>
+  </Provider>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
