@@ -4,6 +4,8 @@ const usePreloadImages = (imageUrls) => {
   const [imagesLoaded, setImagesLoaded] = useState(false);
 
   useEffect(() => {
+    if (!imageUrls || imageUrls.length <= 0) return;
+
     const preloadImages = async () => {
       const promises = imageUrls.map((url) => {
         return new Promise((resolve) => {
