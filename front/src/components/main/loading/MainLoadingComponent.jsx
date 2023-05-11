@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
 import snow from "assets/images/falling/snowflake.png";
+import { connect } from "react-redux";
 
-export const Jump = (props) => {
+export const MainLoadingComponent = (props) => {
   const gif = [
     require("assets/images/penguel_swing.gif"),
     require("assets/images/penguel_hiphop.gif"),
@@ -16,7 +16,7 @@ export const Jump = (props) => {
   }, []);
 
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full bg-mainBlue-200">
       <div className="relative h-full w-full ">
         <div>
           <img className="absolute h-10 w-10" src={snow} alt="" />
@@ -119,7 +119,7 @@ export const Jump = (props) => {
         <div className="absolute left-[23%] top-[20%] h-5 w-5 animate-ballBounce rounded-full  bg-red"></div>
         <div className="absolute left-[48%] top-[20%] h-5 w-5 animate-ballBounce rounded-full bg-mainYellow-400"></div>
         <div className="absolute left-[73%] top-[20%] h-5 w-5 animate-ballBounce rounded-full bg-mainBlue-600"></div>
-        <div className="absolute -bottom-6 w-2/3 left-[20%]">
+        <div className="absolute -bottom-6 w-1/2 left-1/4">
           <img src={loadingGif} alt="" />
         </div>
       </div>
@@ -127,12 +127,15 @@ export const Jump = (props) => {
   );
 };
 
-Jump.propTypes = {
-  // second: PropTypes.third,
+MainLoadingComponent.propTypes = {
+  //   second: PropTypes.third,
 };
 
 const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Jump);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MainLoadingComponent);
