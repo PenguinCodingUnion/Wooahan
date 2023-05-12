@@ -1,5 +1,6 @@
 package com.wooahan.back.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wooahan.back.dto.LoginReqDto;
 import com.wooahan.back.dto.LoginResDto;
 import com.wooahan.back.dto.OauthResDto;
@@ -37,7 +38,8 @@ public class LoginController {
     @GetMapping("/oauth2/code/{registrationId}")
     public void googleLogin(@RequestParam String code, @PathVariable String registrationId, HttpServletResponse response) throws IOException {
         OauthResDto oauthResDto = loginService.socialLogin(code, registrationId);
-        Cookie cookie = new Cookie("test",oauthResDto.toString());
+        ObjectMapper om = new ObjectMapper();
+        Cookie cookie = new Cookie("test",om.writeValueAsString(oauthResDto));
 //        cookie.setDomain("https://k8b206.p.ssafy.io");
         cookie.setPath("/");
         // 30초간 저장
