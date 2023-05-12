@@ -12,6 +12,10 @@ export const AnswerCard = (props) => {
   const [answerText, setAnswerText] = useState("");
   const [answeBboxStyle, setAnswerBoxStyle] = useState("");
 
+  // sample -> props.name
+  const sample = "돼지";
+  const es_word = effectSound(require(`assets/sounds/word/${sample}.mp3`), 1);
+  
   const es_correct = effectSound(correct, 1);
   const es_wrong = effectSound(wrong, 1);
   const gif = [
@@ -26,6 +30,7 @@ export const AnswerCard = (props) => {
   
   useEffect(() => {
     setTimeout(() => {
+      es_word.play();
       setIsOpened(true);
     }, 500);
     if (props.name === props.answer) {
