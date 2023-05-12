@@ -1,8 +1,7 @@
-import image_snowflake from "assets/images/falling/snowflake.png"
-import image_leaf from "assets/images/falling/leaf.png"
+import image_snowflake from "assets/images/loading/snow.png";
+import image_leaf from "assets/images/falling/leaf.png";
 
-
-const fallingThings =[image_snowflake, image_leaf]
+const fallingThings = [image_snowflake, image_leaf];
 const tmpArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 const FallingAnimate = (props) => {

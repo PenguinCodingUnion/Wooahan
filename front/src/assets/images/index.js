@@ -14,6 +14,10 @@ import penguel_swing from "assets/images/penguel_swing.gif";
 import leaf from "assets/images/falling/leaf.png";
 import snowflake from "assets/images/falling/snowflake.png";
 
+//animations
+import penguel_falldown from "assets/images/penguel_falldown.gif";
+import penguel_victory from "assets/images/penguel_victory.gif";
+
 export const images = [
   //배경화면
   background_desert,
@@ -28,4 +32,7 @@ export const images = [
   //파티클들
   leaf,
   snowflake,
+  // 애니메이션
+  penguel_falldown,
+  penguel_victory,
 ];

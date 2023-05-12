@@ -12,6 +12,9 @@ const CommonOverlay = ({ children, type = `overlay`, ...props }) => {
       case "overlay":
         return "bg-mainSlate-900/50";
 
+      case "parent":
+        return "bg-opacity-0";
+
       default:
         break;
     }
