@@ -57,7 +57,7 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
     (idx) => {
       if (idx < 0 || activeAnimation.current === idx) return;
 
-      console.log(actions, ANIMATIONS, idx);
+      // console.log(actions, ANIMATIONS, idx);
 
       if (idx === PengulAnimation.WALK) {
         mixer.timeScale = 2;

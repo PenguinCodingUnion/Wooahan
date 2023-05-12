@@ -48,7 +48,7 @@ const GameStartContainer = () => {
   };
   const warn = () => {
     setWarning(
-      <CommonOverlay>
+      <CommonOverlay type="parent">
         <div
           className={`absolute top-1/2 left-1/2 bg-white -mt-[5.5rem] -ml-[9rem] h-44 w-72  rounded-lg z-[99999998] `}
         >
