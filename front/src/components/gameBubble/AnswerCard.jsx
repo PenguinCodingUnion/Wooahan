@@ -12,6 +12,8 @@ export const AnswerCard = (props) => {
   const [answerText, setAnswerText] = useState("");
   const [answeBboxStyle, setAnswerBoxStyle] = useState("");
 
+  const es_word = effectSound(require(`assets/sounds/word/${props.name}.mp3`), 1);
+  
   const es_correct = effectSound(correct, 1);
   const es_wrong = effectSound(wrong, 1);
   const gif = [
@@ -26,8 +28,9 @@ export const AnswerCard = (props) => {
   
   useEffect(() => {
     setTimeout(() => {
+      es_word.play();
       setIsOpened(true);
-    }, 500);
+    }, 700);
     if (props.name === props.answer) {
       es_correct.play();
       setAnswerGif(gif[0]);
@@ -36,6 +39,7 @@ export const AnswerCard = (props) => {
       setTimeout(() => {
         props.closeCard();
         props.changeQuiz();
+        setAnswerGif("");
       }, 3000);
     } else if (props.name !== props.answer) {
       es_wrong.play();
@@ -44,6 +48,7 @@ export const AnswerCard = (props) => {
       setAnswerBoxStyle(boxStyle[1]);
       setTimeout(() => {
         props.closeCard();
+        setAnswerGif("");
       }, 3000);
     }
     

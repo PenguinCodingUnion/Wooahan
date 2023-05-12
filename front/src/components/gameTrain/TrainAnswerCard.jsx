@@ -6,10 +6,15 @@ import fox from "assets/images/animal/fox.png";
 import effectSound from "util/effectSound";
 
 export const TrainAnswerCard = (props) => {
+  const es_word = effectSound(require(`assets/sounds/word/${props.word.name}.mp3`), 1);
+  
   const es_correct = effectSound(correct, 1);
   const es_wrong = effectSound(wrong, 1);
 
   useEffect(() => {
+    setTimeout(() => {
+      es_word.play();
+    }, 700);
     if (props.word.name === props.ans) {
       es_correct.play();
       setTimeout(() => {

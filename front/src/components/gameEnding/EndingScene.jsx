@@ -6,7 +6,7 @@ import clap from "assets/sounds/clap.wav";
 import effectSound from "util/effectSound";
 
 export const EndingScene = (props) => {
-  const es_clap = effectSound(clap, 1);
+  const es_clap = effectSound(clap, 0.4);
 
   useEffect(() => {
     es_clap.play();
