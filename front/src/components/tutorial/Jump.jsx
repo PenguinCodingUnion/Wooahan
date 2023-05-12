@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import snow from "assets/images/falling/snowflake.png";
+import snow from "assets/images/loading/snow.png";
 
 export const Jump = (props) => {
   const gif = [
@@ -16,8 +16,8 @@ export const Jump = (props) => {
   }, []);
 
   return (
-    <div className="h-full w-full">
-      <div className="relative h-full w-full ">
+    <div className="h-full w-full overflow-hidden">
+      <div className="relative bg-mainYellow-200 h-full w-full ">
         <div>
           <img className="absolute h-10 w-10" src={snow} alt="" />
           <img className="absolute h-10 w-10 left-[20%]" src={snow} alt="" />
@@ -112,14 +112,14 @@ export const Jump = (props) => {
           <p className="font-MaplestoryBold absolute left-[70%] text-7xl">
             한글
           </p>
-          <p className="font-MaplestoryBold absolute left-[70%] text-7xl text-mainBlue-500 animate-pulse">
+          <p className="font-MaplestoryBold absolute left-[70%] text-7xl text-mainGreen-500 animate-pulse">
             한
           </p>
         </div>
         <div className="absolute left-[23%] top-[20%] h-5 w-5 animate-ballBounce rounded-full  bg-red"></div>
         <div className="absolute left-[48%] top-[20%] h-5 w-5 animate-ballBounce rounded-full bg-mainYellow-400"></div>
-        <div className="absolute left-[73%] top-[20%] h-5 w-5 animate-ballBounce rounded-full bg-mainBlue-600"></div>
-        <div className="absolute -bottom-6 w-2/3 left-[20%]">
+        <div className="absolute left-[73%] top-[20%] h-5 w-5 animate-ballBounce rounded-full bg-mainGreen-600"></div>
+        <div className="absolute -bottom-3 w-1/2 left-[30%]">
           <img src={loadingGif} alt="" />
         </div>
       </div>
