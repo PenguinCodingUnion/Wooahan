@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 
-const OVERLAY_CLASS = `absolute top-0 left-0 h-full w-full`;
+const OVERLAY_CLASS = `absolute top-0 left-0 h-full w-full z-[999999999]`;
 const CommonOverlay = ({ children, type = `overlay`, ...props }) => {
   const el = useRef(document.getElementById("overlay"));
   el.current.className = `fixed top-0 left-0 w-full h-full `;
