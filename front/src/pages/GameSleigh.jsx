@@ -14,7 +14,7 @@ import forestMap from "assets/images/background_forest.png";
 import QuizCard from "components/gameSleigh/QuizCard";
 import LoadingProgress from "components/gameSleigh/LoadingProgress";
 import QuizResult from "components/gameSleigh/QuizResult";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { getQuizData, sleighActions } from "store/features/sliegh/sleighSlice";
 import Intro from "components/gameSleigh/Intro";
 import QuizWord from "components/gameSleigh/QuizWord";
@@ -23,6 +23,7 @@ import bgm1 from "assets/sounds/sleighbgm_1.mp3";
 import bgm2 from "assets/sounds/sleighbgm_2.mp3";
 import bgm3 from "assets/sounds/sleighbgm_3.mp3";
 import { Howl } from "howler";
+import CommonOverlay from "components/common/CommonOverlay";
 
 const GameSleigh = () => {
   const dispatch = useDispatch();
@@ -293,6 +294,44 @@ const GameSleigh = () => {
     };
   }, []);
 
+  const [exit, setExit] = useState(false);
+  const [warning, setWarning] = useState(<></>);
+  const close = () => {
+    setExit(true);
+  };
+  const back = () => {
+    setWarning(<></>);
+  };
+  const warn = () => {
+    setWarning(
+      <CommonOverlay>
+        <div className="absolute top-1/2 left-1/2 bg-white -mt-[5.5rem] -ml-[9rem] h-44 w-72  rounded-lg">
+          <div className="font-MaplestoryBold">
+            <p className="mt-8 text-4xl text-center">홈으로 나갈까요?</p>
+            <div className="mt-5 flex col-span-2">
+              <div
+                onClick={() => {
+                  close();
+                }}
+                className="bg-lightGray rounded-xl w-16 text-3xl h-12 leading-[3rem] mx-auto "
+              >
+                <p className="text-center">네</p>
+              </div>
+              <div
+                onClick={() => {
+                  back();
+                }}
+                className="bg-mainYellow-300 rounded-xl w-28 text-3xl h-12 leading-[3rem] mx-auto"
+              >
+                <p className="text-center">아니요</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </CommonOverlay>
+    );
+  };
+  
   return (
     <>
       <div className="h-screen w-screen">
@@ -479,6 +518,18 @@ const GameSleigh = () => {
         )}
         {isCanvasLoading && "게임정보를 불러오고 있습니다"}
       </div>
+      <div>
+        <div
+          onClick={() => {
+            warn();
+          }}
+          className="absolute h-10 w-10 right-[3%] top-[3%] rounded-lg bg-white bg-opacity-40 font-MaplestoryLight text-4xl"
+        >
+          <p>X</p>
+        </div>
+      </div>
+      {warning}
+      {exit && <Navigate to={`/main`} />}
     </>
   );
 };
