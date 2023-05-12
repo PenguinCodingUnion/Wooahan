@@ -36,8 +36,6 @@ const Carousel = () => {
     const dispatch = useDispatch();
     const startPage = useSelector((state) => state.prevPage.prevPage)
 
-    // const page = useSelector(state => state.backGround.page)
-
     const [mainCard, setMainCard] = useState(startPage);
 
     const changeMainCard = (swiper) => {
@@ -84,7 +82,7 @@ const Carousel = () => {
                     <SwiperSlide onClick={() => {movePageHandler(game, idx)}} key={game.id} id={idx} className="relative rounded-xl">
                         <CardImage coverImage={mainCard} id={idx}/>
                         <img src={games[idx].animal} 
-                                className="ml-[2%] mt-[2%] mb-[2%] w-28 h-36" />
+                                className="ml-[2%] mt-[2%] mb-[2%] w-28 h-36 " />
                         <GameCard id={game.id} title={game.title} />
                     </SwiperSlide>
                 ))}
