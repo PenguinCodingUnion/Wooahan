@@ -13,6 +13,7 @@ import image_underwater from "assets/images/background_underwater.jpg";
 
 import useSound from "util/hooks/useSound";
 import bgm from "assets/sounds/mainbgm.mp3";
+import { useCookies } from 'react-cookie';
 
 const coverImages = [
   image_iceburg,
@@ -28,8 +29,13 @@ const coverImages = [
 export const Main = () => {
   const page = useSelector((state) => state.backGround.page);
   const showModal = useSelector((state) => state.modal.modalIsVisible);
+  const [cookies, setCookie, removeCookie] = useCookies(['test']);
 
   useSound(bgm, 1, 2000);
+
+  useEffect(() => {
+    console.log(cookies.id)
+  }, [])
   
   return (
     <div className="relative w-screen h-screen overflow-x-scroll">

@@ -293,10 +293,9 @@ const GameSleigh = () => {
                     className="w-full h-full rounded-[16px]"
                     alt="#"
                     src={
-                      // random[quizCount] > 0.5
-                      //   ? quizData[quizCount].words[0].word.imgUrl
-                      //   : quizData[quizCount].words[1].word.imgUrl
-                      "/app/frontword/1.jpg"
+                      random[quizCount] > 0.5
+                        ? quizData[quizCount].words[0].word.imgUrl
+                        : quizData[quizCount].words[1].word.imgUrl
                     }
                     onLoad={() => {
                       setImageLoadState((state) => {

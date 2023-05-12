@@ -14,6 +14,7 @@
 
 .swiper-slide {
   background-color: #ea6aed;
+  /* opacity: 0.5; */
 }
 /* .swiper-slide:nth-child(3n) {
   background-color: #81C147;

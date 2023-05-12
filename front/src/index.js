@@ -8,6 +8,7 @@ import { RouterProvider } from "react-router-dom";
 import route from "./router/Router";
 import ImagePreloadProvider from "util/context/ImagePreloadProvider";
 import { images } from "assets/images";
+import { CookiesProvider } from 'react-cookie';
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -17,9 +18,11 @@ window.doJump = () => {
 
 root.render(
   <Provider store={store}>
-    <ImagePreloadProvider imageUrls={images}>
-      <RouterProvider router={route} />
-    </ImagePreloadProvider>
+    <CookiesProvider>
+      <ImagePreloadProvider imageUrls={images}>
+        <RouterProvider router={route} />
+      </ImagePreloadProvider>
+    </CookiesProvider>
   </Provider>
 );
 
