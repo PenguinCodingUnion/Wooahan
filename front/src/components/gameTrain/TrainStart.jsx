@@ -65,7 +65,12 @@ export const TrainStart = (props) => {
               cilckStart();
             }}
           >
-            <button className=" font-MaplestoryBold text-7xl">시작</button>
+            <div>
+              <p className=" absolute  w-full animate-pulse font-MaplestoryBold text-7xl text-stroke-2 text-stroke-mainYellow-100">
+                시작
+              </p>
+              <p className="font-MaplestoryBold text-7xl">시작</p>
+            </div>
           </div>
           <div className="animate-goTrain w-[53rem] h-[9rem] absolute bottom-5 -right-6">
             <img src={trainlong} alt="기차" />
