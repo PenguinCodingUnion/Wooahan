@@ -15,6 +15,7 @@ const BookModalHeader = () => {
 
     const modalCloseHandler = () => {
         dispatch(bookModalActions.closeModal())
+        dispatch(bookModalActions.setWordArray([]))
     }
 
     return (
