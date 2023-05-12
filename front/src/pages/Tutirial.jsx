@@ -8,29 +8,58 @@ import TutorialMain from "components/tutorial/TutorialMain";
 
 export const Tutirial = (props) => {
   const [page, setPage] = useState(<TutorialMain />);
+  const [css1, setCss1] = useState(
+    "bg-mainBlue-100 w-48 h-full pr-6 rounded-3xl"
+  );
+  const [css2, setCss2] = useState(
+    "bg-mainBlue-100 w-48 h-full pr-6 rounded-3xl"
+  );
+  const [css3, setCss3] = useState(
+    "bg-mainBlue-100 w-48 h-full pr-6 rounded-3xl"
+  );
+  const [css4, setCss4] = useState(
+    "bg-mainBlue-100 w-48 h-full pr-6 rounded-3xl"
+  );
+
   const goLink = (prop) => {
     switch (prop) {
       case 1:
+        setCss1("bg-mainBlue-300 w-48 h-full pr-6 rounded-3xl");
+        setCss2("bg-mainBlue-100 w-48 h-full pr-6 rounded-3xl");
+        setCss3("bg-mainBlue-100 w-48 h-full pr-6 rounded-3xl");
+        setCss4("bg-mainBlue-100 w-48 h-full pr-6 rounded-3xl");
         setPage(<Jump />);
         break;
       case 2:
+        setCss1("bg-mainBlue-100 w-48 h-full pr-6 rounded-3xl");
+        setCss2("bg-mainBlue-300 w-48 h-full pr-6 rounded-3xl");
+        setCss3("bg-mainBlue-100 w-48 h-full pr-6 rounded-3xl");
+        setCss4("bg-mainBlue-100 w-48 h-full pr-6 rounded-3xl");
         setPage(<Sleigh />);
         break;
       case 3:
-        setPage(<Train />);
+        setCss1("bg-mainBlue-100 w-48 h-full pr-6 rounded-3xl");
+        setCss2("bg-mainBlue-100 w-48 h-full pr-6 rounded-3xl");
+        setCss3("bg-mainBlue-300 w-48 h-full pr-6 rounded-3xl");
+        setCss4("bg-mainBlue-100 w-48 h-full pr-6 rounded-3xl");
+        setPage(<Bubble />);
         break;
       case 4:
-        setPage(<Bubble />);
+        setCss1("bg-mainBlue-100 w-48 h-full pr-6 rounded-3xl");
+        setCss2("bg-mainBlue-100 w-48 h-full pr-6 rounded-3xl");
+        setCss3("bg-mainBlue-100 w-48 h-full pr-6 rounded-3xl");
+        setCss4("bg-mainBlue-300 w-48 h-full pr-6 rounded-3xl");
+        setPage(<Train />);
         break;
       default:
     }
   };
   return (
     <div>
-      <div className="bg-mainRed-400 grid grid-cols-5 overflow-hidden">
+      <div className="bg-mainYellow-200 grid grid-cols-5 overflow-hidden">
         <div className=" grid grid-rows-4 items-center content-between w-48 h-screen left-0 ">
           <div
-            className="bg-mainBlue-400 w-48 h-[6rem] pr-6 rounded-3xl"
+            className={css1}
             onClick={() => {
               goLink(1);
             }}
@@ -40,7 +69,7 @@ export const Tutirial = (props) => {
             </p>
           </div>
           <div
-            className="bg-mainBlue-400 top-32 w-48 h-[6rem] pr-6 rounded-3xl"
+            className={css2}
             onClick={() => {
               goLink(2);
             }}
@@ -50,9 +79,9 @@ export const Tutirial = (props) => {
             </p>
           </div>
           <div
-            className="bg-mainBlue-400 top-32 w-48 h-[6rem] pr-6 rounded-3xl"
+            className={css3}
             onClick={() => {
-              goLink(4);
+              goLink(3);
             }}
           >
             <p className="font-MaplestoryBold text-3xl leading-[6rem] ">
@@ -60,9 +89,9 @@ export const Tutirial = (props) => {
             </p>
           </div>
           <div
-            className="bg-mainBlue-400 top-32 w-48 h-[6rem] pr-6 rounded-3xl"
+            className={css4}
             onClick={() => {
-              goLink(3);
+              goLink(4);
             }}
           >
             <p className="font-MaplestoryBold text-3xl leading-[6rem] ">
