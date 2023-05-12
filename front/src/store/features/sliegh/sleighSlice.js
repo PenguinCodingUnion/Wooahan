@@ -13,6 +13,7 @@ const initialState = {
   quizCount: 0,
   quizResult: "left",
   quizData: [],
+  modelAnimations: null,
   status: "idle",
 };
 
@@ -34,6 +35,9 @@ export const sleighSlice = createSlice({
     },
     setQuizResult: (state, action) => {
       state.quizResult = action.payload;
+    },
+    setModelAnimations: (state, action) => {
+      state.modelAnimations = action.payload;
     },
   },
   extraReducers: (builder) => {
