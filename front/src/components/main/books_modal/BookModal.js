@@ -1,16 +1,16 @@
 import { useDispatch, useSelector } from "react-redux"
 import { bookModalActions } from 'store/features/mainCard/bookSlice';
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 import BookModalHeader from './BookModalHeader'
 import BookCard from './BookCard'
 
-// const cards = null
 
 const Overlay = () => {
 
     const dispatch = useDispatch();
     const modalCloseHandler = () => {
         dispatch(bookModalActions.closeModal())
+        dispatch(bookModalActions.setWordArray([]))
     }
     
     return (
