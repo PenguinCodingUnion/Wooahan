@@ -29,13 +29,17 @@ const coverImages = [
 export const Main = () => {
   const page = useSelector((state) => state.backGround.page);
   const showModal = useSelector((state) => state.modal.modalIsVisible);
-  const [cookies, setCookie, removeCookie] = useCookies(['test']);
+  const [cookies, setCookie, removeCookie] = useCookies();
 
   useSound(bgm, 1, 2000);
 
   useEffect(() => {
-    console.log(cookies.id)
+    console.log(cookies)
   }, [])
+
+  useEffect(() => {
+    console.log(cookies)
+  }, [cookies])
   
   return (
     <div className="relative w-screen h-screen overflow-x-scroll">
