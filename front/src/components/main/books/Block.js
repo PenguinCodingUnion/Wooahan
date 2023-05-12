@@ -9,12 +9,12 @@ const Block = (props) => {
     const dispatch = useDispatch();
 
     const modalHandler = (text) => {
-        cardRequest(text)
+        cardRequest(text)       
         dispatch(bookModalActions.openModal(text))
     }
 
-    const starCount = useSelector(state => state.loginInfo.starCount)
-    const rewards = useSelector(state => state.loginInfo.rewards)
+    // const starCount = useSelector(state => state.loginInfo.starCount)
+    // const rewards = useSelector(state => state.loginInfo.rewards)
     const email = useSelector(state => state.loginInfo.email)
 
     const cardRequest = async(text) => {
