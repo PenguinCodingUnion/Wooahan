@@ -32,11 +32,13 @@ export const BubbleIntro = (props) => {
           />
         ))}
       </div>
-      <div
-        className="absolute z-20 text-6xl font-extrabold -translate-x-1/2 top-1/3 left-1/2 font-MaplestoryBold"
-        onClick={startGame}
-      >
-        시작
+      <div onClick={startGame}>
+        <p className="absolute z-20 text-7xl font-extrabold -translate-x-1/2 top-1/3 left-1/2 font-MaplestoryBold">
+          시작
+        </p>
+        <p className=" absolute z-30 w-full animate-pulse font-MaplestoryBold text-7xl top-1/3 text-stroke-2 text-stroke-mainYellow-100">
+          시작
+        </p>
       </div>
     </div>
   );
