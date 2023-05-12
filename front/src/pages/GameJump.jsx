@@ -27,9 +27,9 @@ import { jumpActions, jumpDataAction } from "store/features/jump/jumpSlice";
 import useSound from "util/hooks/useSound";
 import bgm from "assets/sounds/jumpbgm.mp3";
 
-const BOTTOM_POSITION = -70;
+const BOTTOM_POSITION = -window.innerHeight / 2 + 110;
 const SHORTEST_DISTANCE_FOR_JUMP = 50;
-const EDGE = 375;
+const EDGE = window.innerWidth / 2 + 5;
 
 export const GameJump = (props) => {
   const character = useRef();
@@ -42,12 +42,13 @@ export const GameJump = (props) => {
 
   const LAST_LEVEL = problems.length;
 
-  let lastIcePosition = -325;
+  let lastIcePosition = -EDGE + 50;
 
   console.log("problems : ", problems);
+  console.log(`width : ${window.innerWidth}, height : ${window.innerHeight}`);
 
   useEffect(() => {
-    //실제로는 비동기 통신이 이루어지면서 게임 데이터를 로딩한다
+    //비동기 통신이 이루어지면서 게임 데이터를 로딩한다
     dispatch(jumpDataAction(0));
 
     dispatch(gameStatusActions.loaded());
@@ -97,8 +98,8 @@ export const GameJump = (props) => {
             <PengulModel ref={character} bottom={BOTTOM_POSITION} />
 
             {/** 고정 오브젝트 */}
-            <IceModel icePosition={-375} bottom={BOTTOM_POSITION} />
-            <IceModel icePosition={375} bottom={BOTTOM_POSITION} />
+            <IceModel icePosition={-EDGE} bottom={BOTTOM_POSITION} />
+            <IceModel icePosition={EDGE} bottom={BOTTOM_POSITION} />
 
             {/** 동적 오브젝트 */}
             {gameStatus === GameStatus.GAME_START &&
@@ -120,7 +121,7 @@ export const GameJump = (props) => {
                 });
 
                 const length =
-                  (325 * 2 - SHORTEST_DISTANCE_FOR_JUMP * problemCnt) /
+                  ((EDGE - 50) * 2 - SHORTEST_DISTANCE_FOR_JUMP * problemCnt) /
                   countWord;
 
                 const realLength = length * el.content.length;
