@@ -38,7 +38,7 @@ public class LoginController {
     public ResponseEntity<OauthResDto> googleLogin(@RequestParam String code, @PathVariable String registrationId, HttpServletResponse response) throws IOException {
 //        OauthResDto oauthResDto = loginService.socialLogin(code, registrationId);
         Cookie cookie = new Cookie("test","ang~");
-        cookie.setDomain("https://k8b206.p.ssafy.io");
+//        cookie.setDomain("https://k8b206.p.ssafy.io");
         cookie.setPath("/");
         // 30초간 저장
         cookie.setMaxAge(60*60*60);
