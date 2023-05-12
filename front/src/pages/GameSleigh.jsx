@@ -260,7 +260,7 @@ const GameSleigh = () => {
     if (isLoading) {
       loadingTimer = setTimeout(() => {
         navigation("/");
-      }, 15000);
+      }, 20000);
     }
 
     return () => {
