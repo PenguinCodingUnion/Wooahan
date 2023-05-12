@@ -38,6 +38,8 @@ const GameSleigh = () => {
   const [quizStatus, setQuizStatus] = useState("idle"); // 퀴즈 상태 idle(대기) start(퀴즈내려옴) stop(퀴즈맞추기) check(정답확인)
   const [quizCount, setQuizCount] = useState(0);
   const [quizResult, setQuizResult] = useState("left"); // left right
+  const [onMenu, setOnMenu] = useState(false);
+
   const bgm = useRef();
 
   const [imageLoadState, setImageLoadState] = useState({
@@ -294,44 +296,6 @@ const GameSleigh = () => {
     };
   }, []);
 
-  const [exit, setExit] = useState(false);
-  const [warning, setWarning] = useState(<></>);
-  const close = () => {
-    setExit(true);
-  };
-  const back = () => {
-    setWarning(<></>);
-  };
-  const warn = () => {
-    setWarning(
-      <CommonOverlay>
-        <div className="absolute top-1/2 left-1/2 bg-white -mt-[5.5rem] -ml-[9rem] h-44 w-72  rounded-lg">
-          <div className="font-MaplestoryBold">
-            <p className="mt-8 text-4xl text-center">홈으로 나갈까요?</p>
-            <div className="mt-5 flex col-span-2">
-              <div
-                onClick={() => {
-                  close();
-                }}
-                className="bg-lightGray rounded-xl w-16 text-3xl h-12 leading-[3rem] mx-auto "
-              >
-                <p className="text-center">네</p>
-              </div>
-              <div
-                onClick={() => {
-                  back();
-                }}
-                className="bg-mainYellow-300 rounded-xl w-28 text-3xl h-12 leading-[3rem] mx-auto"
-              >
-                <p className="text-center">아니요</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </CommonOverlay>
-    );
-  };
-  
   return (
     <>
       <div className="h-screen w-screen">
@@ -521,15 +485,40 @@ const GameSleigh = () => {
       <div>
         <div
           onClick={() => {
-            warn();
+            setOnMenu(!onMenu);
           }}
           className="absolute h-10 w-10 right-[3%] top-[3%] rounded-lg bg-white bg-opacity-40 font-MaplestoryLight text-4xl"
         >
           <p>X</p>
         </div>
       </div>
-      {warning}
-      {exit && <Navigate to={`/main`} />}
+      {onMenu && (
+        <CommonOverlay>
+          <div className="absolute top-1/2 left-1/2 bg-white -mt-[5.5rem] -ml-[9rem] h-44 w-72  rounded-lg">
+            <div className="font-MaplestoryBold">
+              <p className="mt-8 text-4xl text-center">홈으로 나갈까요?</p>
+              <div className="mt-5 flex col-span-2">
+                <div
+                  onClick={() => {
+                    navigation("/");
+                  }}
+                  className="bg-lightGray rounded-xl w-16 text-3xl h-12 leading-[3rem] mx-auto "
+                >
+                  <p className="text-center">네</p>
+                </div>
+                <div
+                  onClick={() => {
+                    setOnMenu(!onMenu);
+                  }}
+                  className="bg-mainYellow-300 rounded-xl w-28 text-3xl h-12 leading-[3rem] mx-auto"
+                >
+                  <p className="text-center">아니요</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </CommonOverlay>
+      )}
     </>
   );
 };
