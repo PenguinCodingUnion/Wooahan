@@ -35,7 +35,7 @@ public class LoginController {
     //https://accounts.google.com/o/oauth2/auth?client_id=658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com&redirect_uri=http://k8b206.p.ssafy.io/api/login/oauth2/code/google&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile
     @Operation(summary = "구글 oauth2(신경 안써도됨)", description = "구글 로그인 버튼 누르면 email,provider(google),name 줄거임")
     @GetMapping("/oauth2/code/{registrationId}")
-    public ResponseEntity<OauthResDto> googleLogin(@RequestParam String code, @PathVariable String registrationId, HttpServletResponse response) throws IOException {
+    public void googleLogin(@RequestParam String code, @PathVariable String registrationId, HttpServletResponse response) throws IOException {
         OauthResDto oauthResDto = loginService.socialLogin(code, registrationId);
         Cookie cookie = new Cookie("test",oauthResDto.toString());
 //        cookie.setDomain("https://k8b206.p.ssafy.io");
@@ -45,7 +45,6 @@ public class LoginController {
         cookie.setSecure(true);
         response.addCookie(cookie);
         response.sendRedirect("https://k8b206.p.ssafy.io/main");
-        return new ResponseEntity<>(loginService.socialLogin(code, registrationId),HttpStatus.OK);
     }
 
     @Operation(summary = "게스트를 구글계정으로 바꿔주는 거", description = "구글 oauth2누르고 나서 바로 chaining으로 보내줘야 할 것")
