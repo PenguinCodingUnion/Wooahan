@@ -13,6 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Optional;
 
 @RestController
@@ -32,7 +35,16 @@ public class LoginController {
     //https://accounts.google.com/o/oauth2/auth?client_id=658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com&redirect_uri=http://k8b206.p.ssafy.io/api/login/oauth2/code/google&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile
     @Operation(summary = "구글 oauth2(신경 안써도됨)", description = "구글 로그인 버튼 누르면 email,provider(google),name 줄거임")
     @GetMapping("/oauth2/code/{registrationId}")
-    public ResponseEntity<OauthResDto> googleLogin(@RequestParam String code, @PathVariable String registrationId) {
+    public ResponseEntity<OauthResDto> googleLogin(@RequestParam String code, @PathVariable String registrationId, HttpServletResponse response) throws IOException {
+//        OauthResDto oauthResDto = loginService.socialLogin(code, registrationId);
+        Cookie cookie = new Cookie("test","ang~");
+        cookie.setDomain("https://k8b206.p.ssafy.io");
+        cookie.setPath("/");
+        // 30초간 저장
+        cookie.setMaxAge(60*60*60);
+        cookie.setSecure(true);
+        response.addCookie(cookie);
+        response.sendRedirect("https://k8b206.p.ssafy.io");
         return new ResponseEntity<>(loginService.socialLogin(code, registrationId),HttpStatus.OK);
     }
 

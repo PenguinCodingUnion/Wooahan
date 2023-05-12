@@ -15,6 +15,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -27,6 +29,18 @@ public class LoginService {
     private final RestTemplate restTemplate = new RestTemplate();
     private final MemberRepository memberRepository;
 
+//    public String createCookie(HttpServletResponse response) {
+////        logger.info("쿠키 생성");
+//        Cookie cookie = new Cookie("test","ang~");
+//        cookie.setDomain("https://k8b206.p.ssafy.io");
+//        cookie.setPath("/");
+//        // 30초간 저장
+//        cookie.setMaxAge(60*60*60);
+//        cookie.setSecure(true);
+//        response.addCookie(cookie);
+//
+//        return "redirect:/";
+//    }
     public OauthResDto socialLogin(String code, String registrationId) {
         String accessToken = getAccessToken(code, registrationId);
         JsonNode userResourceNode = getUserResource(accessToken, registrationId);
