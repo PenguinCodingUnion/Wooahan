@@ -288,13 +288,15 @@ const GameSleigh = () => {
                 }}
               >
                 <div className="w-full h-full rounded-[20px] animate-card-bounce border-2 bg-white">
+                
                   <img
                     className="w-full h-full rounded-[16px]"
                     alt="#"
                     src={
-                      random[quizCount] > 0.5
-                        ? quizData[quizCount].words[0].word.imgUrl
-                        : quizData[quizCount].words[1].word.imgUrl
+                      // random[quizCount] > 0.5
+                      //   ? quizData[quizCount].words[0].word.imgUrl
+                      //   : quizData[quizCount].words[1].word.imgUrl
+                      ".../app/frontword/1.jpg"
                     }
                     onLoad={() => {
                       setImageLoadState((state) => {

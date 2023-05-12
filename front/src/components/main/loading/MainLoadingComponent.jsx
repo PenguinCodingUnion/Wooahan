@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
 import snow from "assets/images/loading/snow.png";
+import { connect } from "react-redux";
 
-export const Jump = (props) => {
+export const MainLoadingComponent = (props) => {
   const gif = [
     require("assets/images/penguel_swing.gif"),
     require("assets/images/penguel_hiphop.gif"),
@@ -97,29 +97,29 @@ export const Jump = (props) => {
           />
         </div>
         <div className=" w-full absolute top-[28%]">
-          <p className="font-MaplestoryBold absolute left-[20%] text-7xl">
+          <p className="font-MaplestoryBold absolute left-[17%] text-7xl">
             우리
           </p>
-          <p className="font-MaplestoryBold absolute left-[20%] text-7xl text-red animate-pulse">
+          <p className="font-MaplestoryBold absolute left-[17%] text-7xl text-red animate-pulse">
             우
           </p>
-          <p className="font-MaplestoryBold absolute left-[45%] text-7xl">
+          <p className="font-MaplestoryBold absolute left-[42%] text-7xl">
             아이
           </p>
-          <p className="font-MaplestoryBold absolute left-[45%] text-7xl text-mainYellow-500 animate-pulse">
+          <p className="font-MaplestoryBold absolute left-[42%] text-7xl text-mainBlue-500 animate-pulse">
             아
           </p>
-          <p className="font-MaplestoryBold absolute left-[70%] text-7xl">
+          <p className="font-MaplestoryBold absolute left-[67%] text-7xl">
             한글
           </p>
-          <p className="font-MaplestoryBold absolute left-[70%] text-7xl text-mainGreen-500 animate-pulse">
+          <p className="font-MaplestoryBold absolute left-[67%] text-7xl text-mainGreen-500 animate-pulse">
             한
           </p>
         </div>
-        <div className="absolute left-[23%] top-[20%] h-5 w-5 animate-ballBounce rounded-full  bg-red"></div>
-        <div className="absolute left-[48%] top-[20%] h-5 w-5 animate-ballBounce rounded-full bg-mainYellow-400"></div>
-        <div className="absolute left-[73%] top-[20%] h-5 w-5 animate-ballBounce rounded-full bg-mainGreen-600"></div>
-        <div className="absolute -bottom-3 w-1/2 left-[30%]">
+        <div className="absolute left-[20%] top-[20%] h-5 w-5 animate-ballBounce rounded-full  bg-red"></div>
+        <div className="absolute left-[45%] top-[20%] h-5 w-5 animate-ballBounce rounded-full bg-mainBlue-500"></div>
+        <div className="absolute left-[70%] top-[20%] h-5 w-5 animate-ballBounce rounded-full bg-mainGreen-600"></div>
+        <div className="absolute -bottom-3 w-1/2 left-[25%]">
           <img src={loadingGif} alt="" />
         </div>
       </div>
@@ -127,12 +127,15 @@ export const Jump = (props) => {
   );
 };
 
-Jump.propTypes = {
-  // second: PropTypes.third,
+MainLoadingComponent.propTypes = {
+  //   second: PropTypes.third,
 };
 
 const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Jump);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MainLoadingComponent);

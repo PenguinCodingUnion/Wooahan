@@ -1,8 +1,10 @@
 import axios from "axios";
 
+console.log("now status : ", process.env.NODE_ENV);
+
 const instance = axios.create({
   baseURL:
-    process.env.NODE_ENV === `developement`
+    process.env.NODE_ENV === `development`
       ? `https://k8b206.p.ssafy.io/api/`
       : `https://k8b206.p.ssafy.io/api/`,
 

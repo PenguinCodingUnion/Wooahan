@@ -1,6 +1,6 @@
 import axiosRequest from "util/Axios";
 import {loginActions} from "store/features/login/loginSlice"
-import React, { Suspense, useState, useEffect, useRef } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import MainLoadingComponent from "components/main/loading/MainLoadingComponent"
 import { Navigate } from "react-router";
@@ -10,7 +10,6 @@ const MainLoading = () => {
     const [loginInfo, setLoginInfo] = useState({})
     const [isLoading, setIsLoading] = useState(true)
     const dispatch = useDispatch();
-
 
     // 안드로이드 기기 id 받아오기
     const getAndroidId = () => {
@@ -31,6 +30,7 @@ const MainLoading = () => {
                 // setLoginInfo(res)
                 dispatch(loginActions.getStarCount(res.starCount))
                 dispatch(loginActions.getRewards(res.rewards))
+                dispatch(loginActions.getEmail(res.email))
                 setTimeout(() => {
                     setIsLoading(false)
                 }, 4000)

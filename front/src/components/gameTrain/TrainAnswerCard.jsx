@@ -20,7 +20,7 @@ export const TrainAnswerCard = (props) => {
       props.changeTrainClass();
     } else {
       es_wrong.play();
-      setTimeout(() => props.cleanWord(props.word.word), 1500);
+      // setTimeout(() => props.cleanWord(props.word.word), 1500);
     }
   }, []);
   return (
@@ -33,13 +33,15 @@ export const TrainAnswerCard = (props) => {
           alt="fox"
         />
         <div className="absolute top-1/3 right-0 h-[30rem] w-[30rem] -mt-36 bg-[url('assets/images/woodsign.png')]">
-          <div className="w-64 h-64 mt-8 ml-24 shadow-lg bg-mainOrange-100 shadow-sharkGray rounded-xl">
+          <div className="w-64 h-64 mt-8 ml-24 shadow-lg bg-mainOrange-100 shadow-mainSlate-900 rounded-xl">
             <div className="h-5"></div>
-            <img
-              className="w-40 h-40 mx-auto "
-              src={props.word.imgUrl}
-              alt="사진"
-            ></img>
+            <div className="w-48 h-40 mx-auto bg-white">
+              <img
+                className="w-48 h-40 mx-auto"
+                src={props.word.imgUrl}
+                alt="단어사진"
+              ></img>
+            </div>
             <p className=" h-20 leading-[4.5rem] text-[3.3rem] text-center font-netmarbleB">
               {props.word.name}
             </p>

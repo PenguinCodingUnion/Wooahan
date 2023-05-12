@@ -204,6 +204,10 @@ module.exports = {
           "55%, 60%": { transform: "translateX(2ch)" },
           "95%, 100%": { transform: "translateX(3ch)" },
         },
+        ballBounce: {
+          "0%": { transform: " translateY(-50px)" },
+          "100%": { transform: "translateY(0)" },
+        },
       },
       animation: {
         intro: "intro 4s linear infinite",
@@ -225,8 +229,10 @@ module.exports = {
           "scale-up-center 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both",
         bounce: "myBounce 1.3s infinite",
         "card-bounce": "cardBounce 1.6s infinite",
+
         loadingBall: "loadingBall 3s ease-in-out infinite",
         typing: "typing 1s ease-out .8s infinite",
+        ballBounce: "ballBounce 0.9s infinite linear alternate  ",
       },
       textShadow: {
         sm: "0 1px 2px var(--tw-shadow-color)",
