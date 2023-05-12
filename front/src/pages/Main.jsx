@@ -14,6 +14,8 @@ import image_underwater from "assets/images/background_underwater.jpg";
 import useSound from "util/hooks/useSound";
 import bgm from "assets/sounds/mainbgm.mp3";
 import { useCookies } from 'react-cookie';
+import axiosRequest from "util/Axios";
+
 
 const coverImages = [
   image_iceburg,
@@ -33,12 +35,34 @@ export const Main = () => {
 
   useSound(bgm, 1, 2000);
 
+  // 안드로이드 기기 id 받아오기
+  const getAndroidId = () => {
+    // return window.react_toast.sendDeviceID();
+}
+
+  const googleLoginrequest = async(cookies) => {
+    let data = {
+      "androidId": "1111111111111111111-21212",
+      "email": cookies.test.email,
+      "name": cookies.test.name,
+      "provider": cookies.test.provider,
+    }
+    
+    await axiosRequest
+      .post("/login/register", data)
+      .then((res) => {
+        console.log(res)
+      })
+  }
+
+
   useEffect(() => {
     console.log(cookies)
   }, [])
 
   useEffect(() => {
-    console.log(cookies)
+    console.log(cookies.test)
+    googleLoginrequest(cookies)
   }, [cookies])
   
   return (
@@ -48,7 +72,6 @@ export const Main = () => {
         <img className="absolute z-0 w-screen h-screen opacity-50" src={coverImages[page]} alt="" />
         <Header titleIsVisible={true} topLeftButton={"books"}/>  
         <Carousel />
-        
     </div>
   );
 };
