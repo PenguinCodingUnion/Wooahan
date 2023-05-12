@@ -1,6 +1,6 @@
 import { useAnimations, useGLTF } from "@react-three/drei";
 import React, { useEffect, useRef, useState } from "react";
-import PENGUL from "assets/models/PENGUL_v2.gltf";
+import PENGUL from "assets/models/PENGUL_v3.gltf";
 import FOX from "assets/models/FOX_V1.gltf";
 import { useFrame } from "@react-three/fiber";
 import { useClonedModel } from "util/hooks/useClonedModel";
@@ -8,9 +8,7 @@ import { useClonedModel } from "util/hooks/useClonedModel";
 export const Model = (props) => {
   const model = props.modelRef;
 
-  const isMove = props.isMove;
-
-  const { scene, materials, animations, nodes } = useClonedModel(FOX);
+  const { materials, animations, nodes } = useClonedModel(FOX);
 
   const _animations = useAnimations(animations, model);
 
@@ -41,10 +39,10 @@ export const Model = (props) => {
     }
 
     if (+model.current.isMove === -1) {
-      model.current.position.x -= 0.04 * ratio;
+      model.current.position.x -= 0.025 * ratio;
     }
     if (+model.current.isMove === 1) {
-      model.current.position.x += 0.04 * ratio;
+      model.current.position.x += 0.025 * ratio;
     }
   });
 
@@ -72,6 +70,5 @@ export const Model = (props) => {
     </group>
   );
 };
-useGLTF.preload(FOX);
 
 export default Model;

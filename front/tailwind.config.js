@@ -232,7 +232,7 @@ module.exports = {
 
         loadingBall: "loadingBall 3s ease-in-out infinite",
         typing: "typing 1s ease-out .8s infinite",
-        ballBounce: "ballBounce 0.9s linear alternate  ",
+        ballBounce: "ballBounce 0.9s infinite linear alternate  ",
       },
       textShadow: {
         sm: "0 1px 2px var(--tw-shadow-color)",
