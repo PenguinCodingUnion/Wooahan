@@ -20,7 +20,7 @@ export const TrainAnswerCard = (props) => {
       props.changeTrainClass();
     } else {
       es_wrong.play();
-      // setTimeout(() => props.cleanWord(props.word.word), 1500);
+      setTimeout(() => props.cleanWord(props.word.word), 1500);
     }
   }, []);
   return (

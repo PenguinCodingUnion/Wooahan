@@ -104,6 +104,8 @@ export const GameJump = (props) => {
             {/** 동적 오브젝트 */}
             {gameStatus === GameStatus.GAME_START &&
               problems[level].result.map((el, idx) => {
+                console.log(problems);
+
                 //띄어쓰기 수
                 const problemCnt = problems[level].result.length - 1;
                 //총 글자 수
