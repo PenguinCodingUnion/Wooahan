@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import snow from "assets/images/falling/snowflake.png";
+import snow from "assets/images/loading/snow.png";
 import { connect } from "react-redux";
 
 export const MainLoadingComponent = (props) => {
@@ -16,8 +16,8 @@ export const MainLoadingComponent = (props) => {
   }, []);
 
   return (
-    <div className="h-full w-full bg-mainBlue-200">
-      <div className="relative h-full w-full ">
+    <div className="h-full w-full overflow-hidden">
+      <div className="relative bg-mainYellow-200 h-full w-full ">
         <div>
           <img className="absolute h-10 w-10" src={snow} alt="" />
           <img className="absolute h-10 w-10 left-[20%]" src={snow} alt="" />
@@ -97,29 +97,29 @@ export const MainLoadingComponent = (props) => {
           />
         </div>
         <div className=" w-full absolute top-[28%]">
-          <p className="font-MaplestoryBold absolute left-[20%] text-7xl">
+          <p className="font-MaplestoryBold absolute left-[17%] text-7xl">
             우리
           </p>
-          <p className="font-MaplestoryBold absolute left-[20%] text-7xl text-red animate-pulse">
+          <p className="font-MaplestoryBold absolute left-[17%] text-7xl text-red animate-pulse">
             우
           </p>
-          <p className="font-MaplestoryBold absolute left-[45%] text-7xl">
+          <p className="font-MaplestoryBold absolute left-[42%] text-7xl">
             아이
           </p>
-          <p className="font-MaplestoryBold absolute left-[45%] text-7xl text-mainYellow-500 animate-pulse">
+          <p className="font-MaplestoryBold absolute left-[42%] text-7xl text-mainBlue-500 animate-pulse">
             아
           </p>
-          <p className="font-MaplestoryBold absolute left-[70%] text-7xl">
+          <p className="font-MaplestoryBold absolute left-[67%] text-7xl">
             한글
           </p>
-          <p className="font-MaplestoryBold absolute left-[70%] text-7xl text-mainBlue-500 animate-pulse">
+          <p className="font-MaplestoryBold absolute left-[67%] text-7xl text-mainGreen-500 animate-pulse">
             한
           </p>
         </div>
-        <div className="absolute left-[23%] top-[20%] h-5 w-5 animate-ballBounce rounded-full  bg-red"></div>
-        <div className="absolute left-[48%] top-[20%] h-5 w-5 animate-ballBounce rounded-full bg-mainYellow-400"></div>
-        <div className="absolute left-[73%] top-[20%] h-5 w-5 animate-ballBounce rounded-full bg-mainBlue-600"></div>
-        <div className="absolute -bottom-6 w-1/2 left-1/4">
+        <div className="absolute left-[20%] top-[20%] h-5 w-5 animate-ballBounce rounded-full  bg-red"></div>
+        <div className="absolute left-[45%] top-[20%] h-5 w-5 animate-ballBounce rounded-full bg-mainBlue-500"></div>
+        <div className="absolute left-[70%] top-[20%] h-5 w-5 animate-ballBounce rounded-full bg-mainGreen-600"></div>
+        <div className="absolute -bottom-3 w-1/2 left-[25%]">
           <img src={loadingGif} alt="" />
         </div>
       </div>
