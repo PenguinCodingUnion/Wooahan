@@ -14,12 +14,20 @@ const CardImage = (props) => {
       <div className="absolute w-full h-full">
         {!(props.coverImage === props.id) && (
           <img
-            className="w-full h-full"
+            className="w-full h-full "
             src={coverImages[props.id]}
             alt={"#"}
             loading="lazy"
           />
         )}
+        {/* {(props.coverImage === props.id) && (
+          <img
+            className="w-full h-full bg-transparent"
+            src={coverImages[props.id]}
+            alt={"#"}
+            loading="lazy"
+          />
+        )} */}
       </div>
     );
 }
