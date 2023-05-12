@@ -33,7 +33,7 @@ export const Main = () => {
   const showModal = useSelector((state) => state.modal.modalIsVisible);
   const [cookies, setCookie, removeCookie] = useCookies();
 
-  useSound(bgm, 1, 2000);
+  useSound(bgm, 0.4, 2000);
 
   // 안드로이드 기기 id 받아오기
   const getAndroidId = () => {
