@@ -49,7 +49,7 @@ public class LoginService {
         String email = userResourceNode.get("email").asText();
         String nickname = userResourceNode.get("name").asText();
 
-        return new OauthResDto(email,nickname,registrationId);
+        return new OauthResDto(email,registrationId,nickname);
     }
 
     private String getAccessToken(String authorizationCode, String registrationId) {
