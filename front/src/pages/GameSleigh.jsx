@@ -292,7 +292,7 @@ const GameSleigh = () => {
                       // random[quizCount] > 0.5
                       //   ? quizData[quizCount].words[0].word.imgUrl
                       //   : quizData[quizCount].words[1].word.imgUrl
-                      ".../app/frontword/따봉도치.jpg"
+                      ".../app/frontword/1.jpg"
                     }
                     // onLoad={() => {
                     //   setImageLoadState((state) => {
