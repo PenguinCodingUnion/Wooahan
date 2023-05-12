@@ -1,6 +1,6 @@
 // import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 
 import playground from "assets/images/background_playground.jpg";
 import EndingScene from "components/gameEnding/EndingScene";
@@ -15,7 +15,9 @@ export const GameEnding = (props) => {
   const [isGetStarOpen, setIsGetStarOpen] = useState(false);
   const [isPickCardOpen, setIsPickCardOpen] = useState(false);
 
+  // 테스트 편하게하기위해 이메일 박아놓음
   const email = "lsms3723@gmail.com";
+  // const email = useSelector((state) => state.loginInfo.email);
 
   useEffect(() => {
     const getStarData = async () => {
@@ -63,21 +65,21 @@ export const GameEnding = (props) => {
       )}
       {!isEndingSceneOpen && isGetStarOpen && !isPickCardOpen && (
         <div>
-          <GetStar
-            starCount={reward.starCount}
-            closeGetStar={closeGetStar}
-          />
+          <GetStar starCount={reward.starCount} closeGetStar={closeGetStar} />
         </div>
       )}
-      {reward.card && !isEndingSceneOpen && !isGetStarOpen && isPickCardOpen && (
-        <PickCard
-          cardName={reward.card.name}
-          cardImg={reward.card.imgUrl}
-          closePickCard={closePickCard}
-        />
-      )}
+      {reward.card &&
+        !isEndingSceneOpen &&
+        !isGetStarOpen &&
+        isPickCardOpen && (
+          <PickCard
+            cardName={reward.card.name}
+            cardImg={reward.card.imgUrl}
+            closePickCard={closePickCard}
+          />
+        )}
       {!isEndingSceneOpen && !isGetStarOpen && !isPickCardOpen && (
-        <Navigate to={`/`} />
+        <Navigate to={`/main`} />
       )}
     </div>
   );
