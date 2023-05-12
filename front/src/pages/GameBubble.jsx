@@ -132,7 +132,7 @@ export const GameBubble = (props) => {
     setIsQuizCardOpen(true);
   };
 
-  useSound(bgm, 1, 2000);
+  useSound(bgm, 0.4, 2000);
 
   const [exit, setExit] = useState(false);
   const [warning, setWarning] = useState(<></>);
@@ -148,7 +148,7 @@ export const GameBubble = (props) => {
         <div className="absolute top-1/2 left-1/2 bg-white -mt-[5.5rem] -ml-[9rem] h-44 w-72  rounded-lg">
           <div className="font-MaplestoryBold">
             <p className="mt-8 text-4xl text-center">홈으로 나갈까요?</p>
-            <div className="mt-5 flex col-span-2">
+            <div className="flex col-span-2 mt-5">
               <div
                 onClick={() => {
                   close();
