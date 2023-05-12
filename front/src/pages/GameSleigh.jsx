@@ -19,6 +19,10 @@ import { getQuizData, sleighActions } from "store/features/sliegh/sleighSlice";
 import Intro from "components/gameSleigh/Intro";
 import QuizWord from "components/gameSleigh/QuizWord";
 import LoadingComponent from "components/common/LoadingComponent";
+import bgm1 from "assets/sounds/sleighbgm_1.mp3";
+import bgm2 from "assets/sounds/sleighbgm_2.mp3";
+import bgm3 from "assets/sounds/sleighbgm_3.mp3";
+import { Howl } from "howler";
 
 const GameSleigh = () => {
   const dispatch = useDispatch();
@@ -33,6 +37,7 @@ const GameSleigh = () => {
   const [quizStatus, setQuizStatus] = useState("idle"); // 퀴즈 상태 idle(대기) start(퀴즈내려옴) stop(퀴즈맞추기) check(정답확인)
   const [quizCount, setQuizCount] = useState(0);
   const [quizResult, setQuizResult] = useState("left"); // left right
+  const bgm = useRef();
 
   const [imageLoadState, setImageLoadState] = useState({
     left: false,
@@ -137,6 +142,7 @@ const GameSleigh = () => {
     // 다음 문제
     if (quizStatus === "nextQuiz") {
       setImageLoadState({ left: false, right: false });
+      bgm.current.fade(0.01, 1, 800);
       stopActions();
       if (quizCount < 5) {
         modelRef.current.rotation.y = Math.PI;
@@ -179,6 +185,7 @@ const GameSleigh = () => {
       mixer.timeScale = 1.5;
       actions[names[4]].play();
       actions[names[5]].play();
+      bgm.current.fade(1, 0.01, 300);
     }
 
     // return () => {};
@@ -268,6 +275,24 @@ const GameSleigh = () => {
     };
   }, [isLoading]);
 
+  useEffect(() => {
+    const bgmList = [bgm1, bgm2, bgm3];
+
+    const sound = new Howl({
+      src: bgmList[parseInt(Math.random() * 2.99)],
+      autoplay: true,
+      loop: true,
+      volume: 1,
+      preload: true,
+    });
+
+    bgm.current = sound;
+
+    return () => {
+      sound.unload();
+    };
+  }, []);
+
   return (
     <>
       <div className="h-screen w-screen">
@@ -282,21 +307,19 @@ const GameSleigh = () => {
                   imageLoadState.left && imageLoadState.right
                     ? "animate-scale-up-center"
                     : "hidden"
-                } z-50 absolute w-[19vw] h-[19vw] left-[12.5vw]`}
+                } z-50 absolute w-[19vw] h-[19vw] left-[12.5vw] max-w-[60vh] max-h-[60vh]`}
                 style={{
                   top: `${(30 / (quizScale / 1.25)) * 0.7}vh`,
                 }}
               >
                 <div className="w-full h-full rounded-[20px] animate-card-bounce border-2 bg-white">
-                
                   <img
                     className="w-full h-full rounded-[16px]"
                     alt="#"
                     src={
-                      // random[quizCount] > 0.5
-                      //   ? quizData[quizCount].words[0].word.imgUrl
-                      //   : quizData[quizCount].words[1].word.imgUrl
-                      ".../app/frontword/1.jpg"
+                      random[quizCount] > 0.5
+                        ? quizData[quizCount].words[0].word.imgUrl
+                        : quizData[quizCount].words[1].word.imgUrl
                     }
                     onLoad={() => {
                       setImageLoadState((state) => {
@@ -312,7 +335,7 @@ const GameSleigh = () => {
                   imageLoadState.left && imageLoadState.right
                     ? "animate-scale-up-center"
                     : "hidden"
-                } z-50 absolute w-[19vw] h-[19vw] right-[12.5vw]`}
+                } z-50 absolute w-[19vw] h-[19vw] right-[12.5vw] max-w-[60vh] max-h-[60vh]`}
                 style={{
                   top: `${(30 / (quizScale / 1.25)) * 0.7}vh`,
                 }}
@@ -411,9 +434,9 @@ const GameSleigh = () => {
                   stopMove();
                 }}
                 onMouseUp={stopMove}
-                className="bg-mainBlack opacity-80 rounded-[100%] text-[4vw] text-white w-[8vw] h-[8vw] z-20"
+                className="bg-mainBlack opacity-80 rounded-[100%] text-[min(4vw,10vh)] text-white w-[8vw] h-[8vw] z-20 max-w-[20vh] max-h-[20vh]"
               >
-                <p className="translate-x-[-0.3vw]">◀</p>
+                <p className="translate-x-[-0.2vw]">◀</p>
               </button>
               <button
                 type="button"
@@ -429,9 +452,9 @@ const GameSleigh = () => {
                   stopMove();
                 }}
                 onMouseUp={stopMove}
-                className="bg-mainBlack opacity-80 rounded-[100%] text-[4vw] text-white w-[8vw] h-[8vw] z-20 translate-x-[2%]"
+                className="bg-mainBlack opacity-80 rounded-[100%] text-[min(4vw,10vh)] text-white w-[8vw] h-[8vw] z-20 translate-x-[2%] max-w-[20vh] max-h-[20vh]"
               >
-                <p className="translate-x-[0.3vw]">▶</p>
+                <p className="translate-x-[0.2vw]">▶</p>
               </button>
             </div>
           )}
