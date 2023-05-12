@@ -44,6 +44,8 @@ export const GameJump = (props) => {
 
   let lastIcePosition = -325;
 
+  console.log("problems : ", problems);
+
   useEffect(() => {
     //실제로는 비동기 통신이 이루어지면서 게임 데이터를 로딩한다
     dispatch(jumpDataAction(0));
