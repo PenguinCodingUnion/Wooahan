@@ -20,10 +20,10 @@ export const AnswerCard = (props) => {
   ];
   const text = ["맞았습니다", "틀렸습니다"];
   const boxStyle = [
-    "px-5 py-3 text-2xl bg-mainGreen-600 border-4 border-[#f5f5dc] font-netmarbleB rounded-xl text-mainWhite tracking-wider shadow-lg shadow-mainBlack",
-    "px-5 py-3 text-2xl bg-mainRed-600 border-4 border-[#f5f5dc] font-netmarbleB rounded-xl text-mainWhite tracking-wider shadow-lg shadow-mainBlack"
+    "px-5 py-3 text-2xl bg-mainGreen-600 border-4 border-mainYellow-200 font-netmarbleB rounded-xl text-mainWhite tracking-wider shadow-lg shadow-mainBlack",
+    "px-5 py-3 text-2xl bg-mainRed-600 border-4 border-mainYellow-200 font-netmarbleB rounded-xl text-mainWhite tracking-wider shadow-lg shadow-mainBlack"
   ]
-
+  
   useEffect(() => {
     setTimeout(() => {
       setIsOpened(true);
