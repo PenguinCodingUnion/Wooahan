@@ -21,10 +21,10 @@ const ANIMATIONS = [
 
 const JUMP_FORCE = 80;
 const BASE_MOVEMENT_SPEED = 70;
-const MIN_SPEED_FOR_JUMP_ICE = 150;
+const MIN_SPEED_FOR_JUMP_ICE = 128;
 
 const GROUND_HEIGHT = -80;
-const EDGE = 360;
+const EDGE = window.innerWidth / 2 + 5;
 
 const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
   const raycast = useRaycast(pengulE, 55, new Vector3(1, -1, 0));
@@ -44,6 +44,7 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
   //else
   // const { nodes, materials, animations } = useGLTF(PengulE);
   const { actions } = useAnimations(animations, ref);
+  const actionsRef = useRef(actions);
 
   const gameStatus = useSelector((state) => state.gameStatus.status);
   const dispatch = useDispatch();
@@ -53,8 +54,10 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
     (idx) => {
       if (idx < 0 || activeAnimation.current === idx) return;
 
+      console.log(actions, actionsRef.current, ANIMATIONS, idx);
+
       actions[ANIMATIONS[activeAnimation.current]]?.fadeOut(0.3);
-      actions[ANIMATIONS[idx]].reset().fadeIn(0.3).play();
+      actions[ANIMATIONS[idx]]?.reset().fadeIn(0.3).play();
 
       activeAnimation.current = idx;
     },
