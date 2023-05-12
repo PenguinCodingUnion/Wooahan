@@ -10,17 +10,19 @@ export const AnswerCard = (props) => {
   const [isOpened, setIsOpened] = useState(false);
   const [answerGif, setAnswerGif] = useState("");
   const [answerText, setAnswerText] = useState("");
+  const [answeBboxStyle, setAnswerBoxStyle] = useState("");
 
   const es_correct = effectSound(correct, 1);
   const es_wrong = effectSound(wrong, 1);
   const gif = [
-    require("assets/images/penguel_swing.gif"),
-    require("assets/images/penguel_hiphop.gif"),
+    require("assets/images/penguel_victory.gif"),
+    require("assets/images/penguel_falldown.gif"),
   ];
-  const text = [
-    "맞았습니다",
-    "틀렸습니다",
-  ];
+  const text = ["맞았습니다", "틀렸습니다"];
+  const boxStyle = [
+    "px-5 py-3 text-2xl bg-mainGreen-600 border-4 border-[#f5f5dc] font-netmarbleB rounded-xl text-mainWhite tracking-wider shadow-lg shadow-mainBlack",
+    "px-5 py-3 text-2xl bg-mainRed-600 border-4 border-[#f5f5dc] font-netmarbleB rounded-xl text-mainWhite tracking-wider shadow-lg shadow-mainBlack"
+  ]
 
   useEffect(() => {
     setTimeout(() => {
@@ -30,6 +32,7 @@ export const AnswerCard = (props) => {
       es_correct.play();
       setAnswerGif(gif[0]);
       setAnswerText(text[0]);
+      setAnswerBoxStyle(boxStyle[0]);
       setTimeout(() => {
         props.closeCard();
         props.changeQuiz();
@@ -38,10 +41,12 @@ export const AnswerCard = (props) => {
       es_wrong.play();
       setAnswerGif(gif[1]);
       setAnswerText(text[1]);
+      setAnswerBoxStyle(boxStyle[1]);
       setTimeout(() => {
         props.closeCard();
       }, 3000);
     }
+    
   }, [props]);
 
   return (
@@ -62,13 +67,13 @@ export const AnswerCard = (props) => {
                 src={openedSeashell}
                 alt="img"
               />
-              <div className="absolute z-10 w-1/2 h-full -bottom-10 -left-20">
-                <img
-                className=""
-                  src={answerGif}
-                  alt=""
-                />
-                <div className="text-center whitespace-nowrap"><span className="px-5 py-3 text-2xl bg-[#964b00] border-4 border-[#c68a12] font-netmarbleB rounded-xl text-mainWhite tracking-wider">{answerText}</span></div>
+              <div className="absolute z-10 w-1/2 h-full -left-20">
+                <img className="w-4/5 mx-auto -mb-5" src={answerGif} alt="" />
+                <div className="text-center whitespace-nowrap">
+                  <span className={answeBboxStyle}>
+                    {answerText}
+                  </span>
+                </div>
               </div>
               <div className="absolute grid grid-rows-4 -ml-40 overflow-hidden shadow-lg bg-mainPink-200 justify-items-center h-80 rounded-3xl w-80 shadow-mainBlack left-1/2">
                 <div className="grid self-end row-span-3">
