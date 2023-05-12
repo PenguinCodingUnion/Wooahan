@@ -285,7 +285,7 @@ const GameSleigh = () => {
       src: bgmList[parseInt(Math.random() * 2.99)],
       autoplay: true,
       loop: true,
-      volume: 1,
+      volume: 0.4,
       preload: true,
     });
 
@@ -298,12 +298,12 @@ const GameSleigh = () => {
 
   return (
     <>
-      <div className="h-screen w-screen">
+      <div className="w-screen h-screen">
         {quizStatus !== "idle" &&
           quizStatus !== "start" &&
           quizStatus !== "nextQuiz" &&
           quizCount < 5 && (
-            <div className="absolute h-screen w-screen justify-center items-center flex">
+            <div className="absolute flex items-center justify-center w-screen h-screen">
               <div
                 // className={`animate-scale-up-center z-50 absolute w-[19vw] h-[19vw] left-[12.5vw]`}
                 className={`${
@@ -497,7 +497,7 @@ const GameSleigh = () => {
           <div className="absolute top-1/2 left-1/2 bg-white -mt-[5.5rem] -ml-[9rem] h-44 w-72  rounded-lg">
             <div className="font-MaplestoryBold">
               <p className="mt-8 text-4xl text-center">홈으로 나갈까요?</p>
-              <div className="mt-5 flex col-span-2">
+              <div className="flex col-span-2 mt-5">
                 <div
                   onClick={() => {
                     navigation("/");
