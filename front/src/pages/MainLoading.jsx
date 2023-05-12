@@ -44,7 +44,6 @@ const MainLoading = () => {
     };
 
     useEffect(() => {
-
         // postData.androidId = getAndroidId();
         LoginRequest()
     }, [dispatch])
