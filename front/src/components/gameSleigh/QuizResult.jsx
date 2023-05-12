@@ -5,7 +5,7 @@ const QuizResult = (props) => {
   const ratio = window.innerWidth / window.innerHeight;
 
   const [visible, setVisible] = useState(false);
-  // const [imageLoadState, setImageLoadState] = useState(false);
+  const [imageLoadState, setImageLoadState] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -13,30 +13,34 @@ const QuizResult = (props) => {
     }, 2000);
   }, []);
 
-  useEffect(() => {
-    if (visible) {
-      setTimeout(() => {
-        props.setQuizCount((count) => count + 1);
-        props.setQuizStatus("nextQuiz");
-      }, 2000);
-    }
-  }, [visible]);
-
   // useEffect(() => {
-  //   if (imageLoadState) {
+  //   if (visible) {
   //     setTimeout(() => {
   //       props.setQuizCount((count) => count + 1);
   //       props.setQuizStatus("nextQuiz");
-  //     }, 2500);
-  //     // 음성파일 연결할때 setTimeout 시간부분을 음성파일 길이로 설정
+  //     }, 2000);
   //   }
-  // }, [imageLoadState]);
+  // }, [visible]);
+
+  useEffect(() => {
+    if (imageLoadState) {
+      setTimeout(() => {
+        props.setQuizCount((count) => count + 1);
+        props.setQuizStatus("nextQuiz");
+      }, 2500);
+      // 음성파일 연결할때 setTimeout 시간부분을 음성파일 길이로 설정
+    }
+  }, [imageLoadState]);
 
   return (
     <div className="absolute w-screen h-screen top-0 flex flex-col justify-center items-center z-[60]">
       {visible ? (
         <>
-          <div className="border-[4px] rounded-[16px] animate-scale-up-center bg-white">
+          <div
+            className={`${
+              imageLoadState ? "animate-scale-up-center" : "hidden"
+            } border-[4px] rounded-[16px] bg-white`}
+          >
             <img
               className="rounded-t-[12px]"
               style={{
@@ -45,7 +49,7 @@ const QuizResult = (props) => {
               }}
               src={result.word.imgUrl}
               alt="#"
-              // onLoad={() => setImageLoadState(true)}
+              onLoad={() => setImageLoadState(true)}
             />
             <p
               style={{
