@@ -42,7 +42,7 @@ export const Main = () => {
 
   const googleLoginrequest = async(cookies) => {
     let data = {
-      "androidId": "1111111111111111111-21212",
+      "androidId": "androidId",
       "email": cookies.test.email,
       "name": cookies.test.name,
       "provider": cookies.test.provider,
@@ -55,15 +55,15 @@ export const Main = () => {
       })
   }
 
-
-  useEffect(() => {
-    console.log(cookies)
-  }, [])
-
   useEffect(() => {
     console.log(cookies.test)
     googleLoginrequest(cookies)
-  }, [cookies])
+  }, [])
+
+  // useEffect(() => {
+  //   console.log(cookies.test)
+  //   googleLoginrequest(cookies)
+  // }, [cookies])
   
   return (
     <div className="relative w-screen h-screen overflow-x-scroll">
