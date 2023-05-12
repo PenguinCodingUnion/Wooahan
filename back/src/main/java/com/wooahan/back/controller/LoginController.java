@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 @RestController
@@ -39,7 +41,9 @@ public class LoginController {
     public void googleLogin(@RequestParam String code, @PathVariable String registrationId, HttpServletResponse response) throws IOException {
         OauthResDto oauthResDto = loginService.socialLogin(code, registrationId);
         ObjectMapper om = new ObjectMapper();
-        Cookie cookie = new Cookie("test",om.writeValueAsString(oauthResDto));
+        String cookieValue = om.writeValueAsString(oauthResDto);
+        cookieValue = URLEncoder.encode(cookieValue, StandardCharsets.UTF_8);
+        Cookie cookie = new Cookie("test",cookieValue);
 //        cookie.setDomain("https://k8b206.p.ssafy.io");
         cookie.setPath("/");
         // 30초간 저장
