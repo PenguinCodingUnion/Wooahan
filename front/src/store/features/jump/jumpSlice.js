@@ -15,10 +15,10 @@ export const jumpDataAction = createAsyncThunk(`jump/get`, async (level) => {
     {
       wholeSentence: "엄마랑 공원에 놀러 가요",
       result: [
-        { word: `엄마랑`, url: "1_1_엄마랑.mp3" },
-        { word: `공원에`, url: "1_2_공원에.mp3" },
-        { word: `놀러`, url: "1_3_놀러.mp3" },
-        { word: `가요`, url: "1_4_가요.mp3" },
+        { content: `엄마랑`, url: "1_1_엄마랑.mp3" },
+        { content: `공원에`, url: "1_2_공원에.mp3" },
+        { content: `놀러`, url: "1_3_놀러.mp3" },
+        { content: `가요`, url: "1_4_가요.mp3" },
       ],
     },
   ];
