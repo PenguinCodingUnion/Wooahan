@@ -67,7 +67,7 @@ export const AnswerCard = (props) => {
                 src={openedSeashell}
                 alt="img"
               />
-              <div className="absolute z-10 w-1/2 h-full -left-20">
+              <div className="absolute bottom-0 z-10 w-1/2 -left-20">
                 <img className="w-4/5 mx-auto -mb-5" src={answerGif} alt="" />
                 <div className="text-center whitespace-nowrap">
                   <span className={answeBboxStyle}>
