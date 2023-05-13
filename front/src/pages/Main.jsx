@@ -4,7 +4,7 @@ import Header from "../components/main/Header";
 import Carousel from "../components/main/Carousel";
 import Modal from "../components/main/modal/Modal";
 import FallingAnimate from "../components/main/animate/FallingAnimate";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import image_iceburg from "assets/images/background_iceberg.jpg";
 import image_dessert from "assets/images/background_desert.jpg";
@@ -15,7 +15,6 @@ import useSound from "util/hooks/useSound";
 import bgm from "assets/sounds/mainbgm.mp3";
 import { useCookies } from 'react-cookie';
 import axiosRequest from "util/Axios";
-
 
 const coverImages = [
   image_iceburg,
@@ -66,9 +65,9 @@ export const Main = () => {
   // }, [cookies])
   
   return (
-    <div className="relative w-screen h-screen overflow-x-scroll">
+    <div className="relative w-screen h-screen">
         <FallingAnimate falling={page}/>
-        {showModal && <Modal config={"setting"}/>}
+        {showModal && <Modal config={"setting"} current={"main"}/>}
         <img className="absolute z-0 w-screen h-screen opacity-50" src={coverImages[page]} alt="" />
         <Header titleIsVisible={true} topLeftButton={"books"}/>  
         <Carousel />
