@@ -7,6 +7,7 @@ export const useSound = (src, volume = 1, fadeoutTime = 0) => {
   const soundPlay = (src) => {
     sound = new Howl({ src });
     sound.volume(volume);
+    sound.loop(true);
     sound.play();
   };
 

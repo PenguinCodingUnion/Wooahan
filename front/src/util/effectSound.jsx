@@ -4,6 +4,7 @@ export const effectSound = (src, volume = 1) => {
     let sound;
     const soundInject = (src) => {
         sound = new Howl({ src });
+        sound.loop(false);
         sound.volume(volume);
     }
     soundInject(src);
