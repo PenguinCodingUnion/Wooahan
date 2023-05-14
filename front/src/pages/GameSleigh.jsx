@@ -487,7 +487,7 @@ const GameSleigh = () => {
           onClick={() => {
             setOnMenu(!onMenu);
           }}
-          className="absolute h-10 w-10 right-[3%] top-[3%] rounded-lg bg-white bg-opacity-40 font-MaplestoryLight text-4xl"
+          className="absolute z-50 h-10 w-10 right-[3%] top-[3%] rounded-lg bg-white bg-opacity-40 font-MaplestoryLight text-4xl"
         >
           <p>X</p>
         </div>
