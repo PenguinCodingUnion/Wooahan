@@ -3,8 +3,13 @@ import { useEffect } from "react";
 
 export const useSound = (src, volume = 1, fadeoutTime = 0) => {
   let sound;
-  const soundStop = () => sound.unload();
+  const soundStop = () => {
+    sound.stop();
+    sound.unload();
+  };
   const soundPlay = (src) => {
+    if (sound && sound.playing()) soundStop();
+
     sound = new Howl({ src });
     sound.volume(volume);
     sound.loop(true);
