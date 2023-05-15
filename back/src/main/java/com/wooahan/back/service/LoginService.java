@@ -117,7 +117,7 @@ public class LoginService {
     //guest->google
     public String registerMember(UpdateReqDto updateReqDto) {
         Member member = memberRepository.findByEmailOrProvider(updateReqDto.getEmail(),updateReqDto.getAndroidId()).get();
-        member.update(updateReqDto.getEmail(), updateReqDto.getProvider(),updateReqDto.getName());
+        member.update(updateReqDto.getEmail(), updateReqDto.getAndroidId(),updateReqDto.getName());
         memberRepository.save(member);
         return member.getEmail();
     }
