@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react";
 import snow from "assets/images/loading/snow.png";
 import { connect } from "react-redux";
 
+import pengul_swing from "assets/images/penguel_swing.gif";
+import pengul_hiphop from "assets/images/penguel_hiphop.gif";
+import pengul_chicken from "assets/images/penguel_chicken_dance.gif";
+
 export const MainLoadingComponent = (props) => {
-  const gif = [
-    require("assets/images/penguel_swing.gif"),
-    require("assets/images/penguel_hiphop.gif"),
-    require("assets/images/penguel_chicken_dance.gif"),
-  ];
+  const gif = [pengul_swing, pengul_hiphop, pengul_chicken];
   const [loadingGif, setLoadingGif] = useState("");
   useEffect(() => {
     const gifNum = Math.floor(Math.random() * 3);

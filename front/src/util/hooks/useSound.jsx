@@ -11,6 +11,16 @@ export const useSound = (src, volume = 1, fadeoutTime = 0) => {
     sound.play();
   };
 
+  const handleVisibilityChange = () => {
+    console.log(document);
+
+    if (document.hidden) {
+      soundStop();
+    } else {
+      soundPlay(src);
+    }
+  };
+
   useEffect(() => {
     soundPlay(src);
     sound.on("play", () => {
@@ -20,7 +30,13 @@ export const useSound = (src, volume = 1, fadeoutTime = 0) => {
         (sound.duration() - sound.seek()) * 1000 - fadeouttime
       );
     });
-    return soundStop;
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      soundStop();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, []);
 };
 export default useSound;

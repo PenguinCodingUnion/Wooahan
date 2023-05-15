@@ -44,8 +44,8 @@ export const GameJump = (props) => {
 
   let lastIcePosition = -EDGE + 50;
 
-  console.log("problems : ", problems);
-  console.log(`width : ${window.innerWidth}, height : ${window.innerHeight}`);
+  // console.log("problems : ", problems);
+  // console.log(`width : ${window.innerWidth}, height : ${window.innerHeight}`);
 
   useEffect(() => {
     //비동기 통신이 이루어지면서 게임 데이터를 로딩한다
@@ -104,7 +104,7 @@ export const GameJump = (props) => {
             {/** 동적 오브젝트 */}
             {gameStatus === GameStatus.GAME_START &&
               problems[level].result.map((el, idx) => {
-                console.log(problems);
+                // console.log(problems);
 
                 //띄어쓰기 수
                 const problemCnt = problems[level].result.length - 1;
