@@ -68,7 +68,7 @@ export const GameJump = (props) => {
     dispatch(gameStatusActions.start());
   }, [dispatch]);
 
-  useSound(bgm, 1, 2000);
+  useSound(bgm, 0.4, 2000);
 
   return (
     <>

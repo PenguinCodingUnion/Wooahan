@@ -8,7 +8,7 @@ import { Navigate } from "react-router-dom";
 import CommonOverlay from "components/common/CommonOverlay";
 
 export const GameTrain = (props) => {
-  useSound(bgm, 1, 2000);
+  useSound(bgm, 0.4, 2000);
   const [exit, setExit] = useState(false);
   const [warning, setWarning] = useState(<></>);
   const close = () => {
