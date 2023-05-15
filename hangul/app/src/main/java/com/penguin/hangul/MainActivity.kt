@@ -170,8 +170,7 @@ class MainActivity : AppCompatActivity() {
 
         myWebView?.addJavascriptInterface(AppManager(this), "appManager")
 
-//        myWebView?.loadUrl("https://k8b206.p.ssafy.io")
-        myWebView?.loadUrl("https://1895-39-119-232-18.ngrok-free.app")
+        myWebView?.loadUrl("https://k8b206.p.ssafy.io")
     }
 
 
@@ -239,6 +238,17 @@ class MainActivity : AppCompatActivity() {
         handler.removeCallbacks(reconnectionRunnable)
         alertDialog?.dismiss()
     }
+
+    override fun onPause() {
+        super.onPause()
+        myWebView?.onPause() // 웹뷰 동작 일시 중지
+    }
+
+    override fun onResume() {
+        super.onResume()
+        myWebView?.onResume() // 웹뷰 동작 재개
+    }
+
 }
 
 
