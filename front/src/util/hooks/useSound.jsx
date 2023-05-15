@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 export const useSound = (src, volume = 1, fadeoutTime = 0) => {
   let sound;
-  const soundStop = () => sound.stop();
+  const soundStop = () => sound.unload();
   const soundPlay = (src) => {
     sound = new Howl({ src });
     sound.volume(volume);
@@ -12,7 +12,7 @@ export const useSound = (src, volume = 1, fadeoutTime = 0) => {
   };
 
   const handleVisibilityChange = () => {
-    console.log(document);
+    console.log(document.visibilityState);
 
     if (document.hidden) {
       soundStop();

@@ -36,33 +36,26 @@ export const Main = () => {
 
   // 안드로이드 기기 id 받아오기
   const getAndroidId = () => {
-    // return window.react_toast.sendDeviceID();
-}
+    if (window.react_toast) return window.react_toast.sendDeviceID();
+  };
 
-  const googleLoginrequest = async(cookies) => {
+  const googleLoginrequest = async (cookies) => {
     let data = {
-      "androidId": "androidId",
-      "email": cookies.test.email,
-      "name": cookies.test.name,
-      "provider": cookies.test.provider,
-    }
-    
-    await axiosRequest
-      .post("/login/register", data)
-      .then((res) => {
-        console.log(res)
-      })
-  }
+      androidId: "androidId",
+      email: cookies.test.email,
+      name: cookies.test.name,
+      provider: cookies.test.provider,
+    };
+
+    await axiosRequest.post("/login/register", data).then((res) => {
+      console.log(res);
+    });
+  };
 
   useEffect(() => {
-    console.log(cookies.test)
-    googleLoginrequest(cookies)
-  }, [])
-
-  // useEffect(() => {
-  //   console.log(cookies.test)
-  //   googleLoginrequest(cookies)
-  // }, [cookies])
+    console.log(cookies);
+    if (cookies.test) googleLoginrequest(cookies);
+  }, []);
   
   return (
     <div className="relative w-screen h-screen">
