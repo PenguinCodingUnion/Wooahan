@@ -1,32 +1,77 @@
 package com.penguin.hangul
 
-import android.app.Activity
+import NetworkConnectivityListener
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.pm.ActivityInfo
 import android.hardware.*
+import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
-import android.os.Debug
+import android.os.Handler
 import android.provider.Settings
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.lifecycle.Observer
 import kotlin.math.sqrt
 
 
 class MainActivity : AppCompatActivity() {
-
     private var myWebView: WebView? = null
-
     val deviceInformation = DeviceInformation(this)
+    private lateinit var networkConnectivityListener: NetworkConnectivityListener
+    private var alertDialog: AlertDialog? = null
+    private var isWaitingForReconnection = false
+    private val handler = Handler()
+    private val reconnectionRunnable = Runnable {
+        showConnectionLostAlert()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        networkConnectivityListener = NetworkConnectivityListener(this)
+
+        networkConnectivityListener.isConnected.observe(this, Observer { isConnected ->
+            if (isConnected) {
+                if (isWaitingForReconnection) {
+                    handler.removeCallbacks(reconnectionRunnable)
+                    hideConnectionLostAlert()
+                    isWaitingForReconnection = false
+                    Toast.makeText(this, "인터넷이 연결되었습니다", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                if (!isWaitingForReconnection) {
+                    showConnectionLostAlert()
+                    isWaitingForReconnection = true
+                }
+                Toast.makeText(this, "인터넷 연결이 끊어졌습니다", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        // 맨 처음 앱 켤 때 인터넷 연결 없으면 바로 종료
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        if (networkInfo != null && networkInfo.isConnected) {
+            setContentView(R.layout.activity_main)
+        } else {
+            val builder = AlertDialog.Builder(this)
+            builder.setCancelable(false)
+            builder.setMessage("인터넷 연결이 없습니다")
+            builder.setPositiveButton("종료") { _, _ ->
+                finish()
+            }
+            alertDialog = builder.create()
+            alertDialog?.show()
+        }
 
         /**
          * 디바이스 정보 가져오기
@@ -34,8 +79,10 @@ class MainActivity : AppCompatActivity() {
 
         Log.d("start", "시작")
 
-        Log.d("-----deviceId------",
-            "deviceInformation 확인 :"+deviceInformation.getDeviceId())
+        Log.d(
+            "-----deviceId------",
+            "deviceInformation 확인 :" + deviceInformation.getDeviceId()
+        )
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
@@ -46,6 +93,10 @@ class MainActivity : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
         decorView.systemUiVisibility = uiOptions
 
+        // 화면 상태 유지 (안꺼지게)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
+
         myWebView = findViewById(R.id.myWebView)
 
         myWebView?.apply {
@@ -54,9 +105,8 @@ class MainActivity : AppCompatActivity() {
             settings.domStorageEnabled = true
         }
 
-
         val sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager;
-        val accelermeter = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        val accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         val gravity = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
 
         val sensorEventListner = object : SensorEventListener {
@@ -84,9 +134,9 @@ class MainActivity : AppCompatActivity() {
                 if (event.sensor.type == Sensor.TYPE_GRAVITY) {
                     val y = event.values[1]
 
-                    if (y > 2) {
+                    if (y > 3) {
                         onMoveDetected(1)
-                    } else if (y < -2) {
+                    } else if (y < -3) {
                         onMoveDetected(-1)
                     } else {
                         onMoveDetected(0)
@@ -95,13 +145,19 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        myWebView?.addJavascriptInterface(MySensorManager(sensorManager, sensorEventListner, gravity), "sleigh")
+        myWebView?.addJavascriptInterface(
+            MySensorManager(
+                sensorManager,
+                sensorEventListner,
+                gravity
+            ), "sleigh"
+        )
 
         myWebView?.addJavascriptInterface(
             MySensorManager(
                 sensorManager,
                 sensorEventListner,
-                accelermeter
+                accelerometer
             ), "jump"
         )
 
@@ -109,11 +165,13 @@ class MainActivity : AppCompatActivity() {
             WarningManager(
                 this,
                 deviceInformation.getDeviceId()
-            )
-            ,"react_toast"
+            ), "react_toast"
         )
 
-        myWebView?.loadUrl("https://k8b206.p.ssafy.io")
+        myWebView?.addJavascriptInterface(AppManager(this), "appManager")
+
+//        myWebView?.loadUrl("https://k8b206.p.ssafy.io")
+        myWebView?.loadUrl("https://1895-39-119-232-18.ngrok-free.app")
     }
 
 
@@ -136,13 +194,53 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (myWebView?.canGoBack() == true) {
-//            myWebView?.goBack()
-        } else {
+        myWebView?.evaluateJavascript("javascript:window.backPress()", null)
+    }
+
+    private fun showConnectionLostAlert() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("인터넷 연결 끊김")
+        builder.setMessage("인터넷 연결이 끊어졌습니다")
+        builder.setCancelable(false)
+        builder.setNegativeButton("대기") { _, _ ->
+            // 대기 버튼 클릭 시 5초 후에 재연결 확인 알림을 표시
+            handler.postDelayed(reconnectionRunnable, 5000)
+        }
+
+        builder.setPositiveButton("종료") { _, _ ->
+            // 종료 버튼 클릭 시 앱 종료
             finish()
         }
+
+        alertDialog = builder.create()
+        alertDialog?.show()
+    }
+
+    private fun hideConnectionLostAlert() {
+        alertDialog?.dismiss()
+        alertDialog = null
+    }
+
+    override fun onStart() {
+        super.onStart()
+        // 네트워크 상태 변경 감지 콜백 등록
+        networkConnectivityListener.registerNetworkCallback()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        // 네트워크 상태 변경 감지 콜백 해제
+        networkConnectivityListener.unregisterNetworkCallback()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // 대기 상태에서 액티비티가 종료되면 핸들러의 작업을 취소
+        handler.removeCallbacks(reconnectionRunnable)
+        alertDialog?.dismiss()
     }
 }
+
 
 class DeviceInformation(private val context: Context) {
     fun getDeviceId(): String {
@@ -153,6 +251,23 @@ class DeviceInformation(private val context: Context) {
         return Build.MODEL;
     }
 
+}
+
+class AppManager(private val activity: MainActivity){
+    @JavascriptInterface
+    fun onCloseApp() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
+        builder.setMessage("종료하시겠습니까?")
+        builder.setTitle("알림")
+            .setCancelable(false)
+            .setNegativeButton("네",
+                DialogInterface.OnClickListener { dialog, i -> activity.finish() })
+            .setPositiveButton("아니요",
+                DialogInterface.OnClickListener { dialog, i -> dialog.cancel() })
+        val alert: AlertDialog = builder.create()
+        alert.setTitle("알림")
+        alert.show()
+    }
 }
 
 class MySensorManager(private val sensorManager: SensorManager,private val sensorEventListener: SensorEventListener,private val sensor:Sensor){
@@ -189,3 +304,5 @@ class WarningManager(private val mContext: Context, private val device: String){
     }
 
 }
+
+
