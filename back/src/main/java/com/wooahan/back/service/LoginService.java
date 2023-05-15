@@ -101,7 +101,7 @@ public class LoginService {
     }
     //guest
     public LoginResDto tempLogin(LoginReqDto loginReqDto) {
-        Member member =memberRepository.findByEmailOrProvider(loginReqDto.getAndroidId(),loginReqDto.getEmail())
+        Member member =memberRepository.findByEmailOrProvider(loginReqDto.getEmail(),loginReqDto.getAndroidId())
                 //없으면 넌 guest야
                 .orElseGet(()->createMember(loginReqDto.getAndroidId()));
         return LoginResDto.builder()
@@ -116,7 +116,7 @@ public class LoginService {
 
     //guest->google
     public String registerMember(UpdateReqDto updateReqDto) {
-        Member member = memberRepository.findByEmailOrProvider(updateReqDto.getAndroidId(),updateReqDto.getEmail()).get();
+        Member member = memberRepository.findByEmailOrProvider(updateReqDto.getEmail(),updateReqDto.getAndroidId()).get();
         member.update(updateReqDto.getEmail(), updateReqDto.getProvider(),updateReqDto.getName());
         memberRepository.save(member);
         return member.getEmail();
