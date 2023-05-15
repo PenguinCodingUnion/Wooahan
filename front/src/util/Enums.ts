@@ -14,4 +14,6 @@ export enum PengulAnimation {
   SURPRIZE,
   SWIM,
   WAVING,
+  JUMP_JUMP,
+  VICTORY,
 }

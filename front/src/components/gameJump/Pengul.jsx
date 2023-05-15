@@ -1,7 +1,7 @@
 import React, { forwardRef, useRef } from "react";
 import PropTypes from "prop-types";
 import { useGLTF } from "@react-three/drei";
-import PengulE from "assets/models/PENGUL_v3.gltf";
+import PengulE from "assets/models/peng_v4.gltf";
 
 import { useClonedModel } from "util/hooks/useClonedModel";
 import usePengul from "util/hooks/usePengulJump";
