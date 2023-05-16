@@ -13,7 +13,6 @@ import bgm from "assets/sounds/bubblebgm.mp3";
 
 import instance from "util/Axios";
 import LoadingComponent from "components/common/LoadingComponent";
-import CommonOverlay from "components/common/CommonOverlay";
 import { commonActions } from "store/features/common/commonSlice";
 import WarningComponent from "components/common/WarningComponent";
 
@@ -50,6 +49,7 @@ export const GameBubble = (props) => {
   const [isGameEnd, setIsGameEnd] = useState(false);
   const [quizData, setQuizData] = useState([]);
   const [isQuizCardOpen, setIsQuizCardOpen] = useState(true);
+  const [showXButton, setShowXButton] = useState(false);
 
   useEffect(() => {
     const loadData = async () => {
@@ -75,6 +75,10 @@ export const GameBubble = (props) => {
       setIsIntro(false);
     }
   };
+
+  const closeTutorial = () => {
+    setShowXButton(true);
+  }
 
   const changeQuiz = () => {
     if (round === 4) {
@@ -145,7 +149,7 @@ export const GameBubble = (props) => {
     <>
       {isLoading && <LoadingComponent />}
       {!isLoading && isIntro && !isGameEnd && (
-        <BubbleIntro closeIntro={closeIntro} pos={pos} />
+        <BubbleIntro closeIntro={closeIntro} pos={pos} closeTutorial={closeTutorial} />
       )}
 
       {!isLoading && !isIntro && !isGameEnd && (
@@ -187,18 +191,26 @@ export const GameBubble = (props) => {
           )}
         </div>
       )}
-      <div>
-        <div
-          onClick={() => {
-            warn();
-          }}
-          className="absolute h-10 w-10 right-[3%] top-[3%] rounded-lg bg-white bg-opacity-40 font-MaplestoryLight text-4xl"
-        >
-          <p>X</p>
+      {showXButton && (
+        <div>
+          <div
+            onClick={() => {
+              warn();
+            }}
+            className="absolute h-10 w-10 right-[3%] top-[3%] rounded-lg bg-white bg-opacity-40 font-MaplestoryLight text-4xl"
+          >
+            <p>X</p>
+          </div>
         </div>
-      </div>
+      )}
+
       {warning && <WarningComponent />}
-      {!isLoading && !isIntro && isGameEnd && <Navigate to={`/ending`} state={{game: "bubble", character: "penguin"}}/>}
+      {!isLoading && !isIntro && isGameEnd && (
+        <Navigate
+          to={`/ending`}
+          state={{ game: "bubble", character: "penguin" }}
+        />
+      )}
     </>
   );
 };
