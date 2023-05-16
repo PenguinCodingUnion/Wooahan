@@ -12,7 +12,8 @@ const soundFileContext = require.context(
 );
 
 const getSoundFile = (filename) => {
-  return soundFileContext(`./${filename}`);
+  // return soundFileContext(`./${filename}`);
+  return `https://wooahan.s3.ap-northeast-2.amazonaws.com/sentence/${filename}`;
 };
 
 const TextObject = ({
