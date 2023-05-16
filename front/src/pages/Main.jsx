@@ -4,7 +4,7 @@ import Header from "../components/main/Header";
 import Carousel from "../components/main/Carousel";
 import Modal from "../components/main/modal/Modal";
 import FallingAnimate from "../components/main/animate/FallingAnimate";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import image_iceburg from "assets/images/background_iceberg.jpg";
 import image_dessert from "assets/images/background_desert.jpg";
@@ -17,14 +17,14 @@ import { useCookies } from 'react-cookie';
 import axiosRequest from "util/Axios";
 
 const coverImages = [
-  image_iceburg,
-  image_forest,
-  image_underwater,
-  image_dessert,
-  image_iceburg,
-  image_forest,
-  image_underwater,
-  image_dessert,
+  "bg-gradient-to-b from-[#00fff0]/[0.16] from-0% to-[#347ed6]/[0.63] to-100%",
+  "bg-gradient-to-b from-[#04c900]/[.38] from-0% to-[#fea800]/[.63] to-100%",
+  "bg-gradient-to-b from-[#33ffc2]/[.54] from-0% to-[#90EBFF] to-100%",
+  "bg-gradient-to-b from-[#fcff73]/[.53] from-0% to-[#FF7E7E] to-100%",
+  "bg-gradient-to-b from-[#00fff0]/[0.16] from-0% to-[#347ed6]/[0.63] to-100%",
+  "bg-gradient-to-b from-[#04c900]/[.38] from-0% to-[#fea800]/[.63] to-100%",
+  "bg-gradient-to-b from-[#33ffc2]/[.54] from-0% to-[#90EBFF] to-100%",
+  "bg-gradient-to-b from-[#fcff73]/[.53] from-0% to-[#FF7E7E] to-100%",
 ];
 
 export const Main = () => {
@@ -61,7 +61,7 @@ export const Main = () => {
     <div className="relative w-screen h-screen">
         <FallingAnimate falling={page}/>
         {showModal && <Modal config={"setting"} current={"main"}/>}
-        <img className="absolute z-0 w-screen h-screen opacity-50" src={coverImages[page]} alt="" />
+        <img className={`absolute z-0 w-screen h-screen opacity-50 ${coverImages[page]}`}  alt="" />
         <Header titleIsVisible={true} topLeftButton={"books"}/>  
         <Carousel />
     </div>
