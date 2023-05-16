@@ -8,11 +8,13 @@ import Books from "pages/Books";
 import Tutirial from "pages/Tutirial";
 import GameEnding from "pages/GameEnding";
 import MainLoading from "pages/MainLoading";
+import ErrorPage from "components/common/ErrorPage";
 
 const route = createBrowserRouter([
   {
     path: `/`,
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: `/`,
