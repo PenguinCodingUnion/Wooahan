@@ -3,11 +3,27 @@ import { useEffect } from "react";
 
 export const useSound = (src, volume = 1, fadeoutTime = 0) => {
   let sound;
-  const soundStop = () => sound.stop();
+  const soundStop = () => {
+    sound.stop();
+    sound.unload();
+  };
   const soundPlay = (src) => {
+    if (sound && sound.playing()) soundStop();
+
     sound = new Howl({ src });
     sound.volume(volume);
+    sound.loop(true);
     sound.play();
+  };
+
+  const handleVisibilityChange = () => {
+    console.log(document.visibilityState);
+
+    if (document.hidden) {
+      soundStop();
+    } else {
+      soundPlay(src);
+    }
   };
 
   useEffect(() => {
@@ -19,7 +35,13 @@ export const useSound = (src, volume = 1, fadeoutTime = 0) => {
         (sound.duration() - sound.seek()) * 1000 - fadeouttime
       );
     });
-    return soundStop;
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      soundStop();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, []);
 };
 export default useSound;

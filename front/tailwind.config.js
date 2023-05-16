@@ -21,6 +21,7 @@ module.exports = {
       beige: "#fcf0c7",
       modernOrange: "#f48733",
       mint: "#91ffb7",
+      lightYellow: "#fef08a",
       // 기본 컬러
       mainBlack: colors.black,
       mainWhite: colors.white,

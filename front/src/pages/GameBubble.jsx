@@ -134,7 +134,7 @@ export const GameBubble = (props) => {
     setIsQuizCardOpen(true);
   };
 
-  useSound(bgm, 1, 2000);
+  useSound(bgm, 0.4, 2000);
 
   const warning = useSelector((state) => state.common.warning);
   const dispatch = useDispatch();

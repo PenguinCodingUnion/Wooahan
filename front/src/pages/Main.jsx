@@ -4,7 +4,7 @@ import Header from "../components/main/Header";
 import Carousel from "../components/main/Carousel";
 import Modal from "../components/main/modal/Modal";
 import FallingAnimate from "../components/main/animate/FallingAnimate";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import image_iceburg from "assets/images/background_iceberg.jpg";
 import image_dessert from "assets/images/background_desert.jpg";
@@ -15,7 +15,6 @@ import useSound from "util/hooks/useSound";
 import bgm from "assets/sounds/mainbgm.mp3";
 import { useCookies } from 'react-cookie';
 import axiosRequest from "util/Axios";
-
 
 const coverImages = [
   image_iceburg,
@@ -33,42 +32,35 @@ export const Main = () => {
   const showModal = useSelector((state) => state.modal.modalIsVisible);
   const [cookies, setCookie, removeCookie] = useCookies();
 
-  useSound(bgm, 1, 2000);
+  useSound(bgm, 0.4, 2000);
 
   // 안드로이드 기기 id 받아오기
   const getAndroidId = () => {
-    // return window.react_toast.sendDeviceID();
-}
+    if (window.react_toast) return window.react_toast.sendDeviceID();
+  };
 
-  const googleLoginrequest = async(cookies) => {
+  const googleLoginrequest = async (cookies) => {
     let data = {
-      "androidId": "androidId",
-      "email": cookies.test.email,
-      "name": cookies.test.name,
-      "provider": cookies.test.provider,
-    }
-    
-    await axiosRequest
-      .post("/login/register", data)
-      .then((res) => {
-        console.log(res)
-      })
-  }
+      androidId: "androidId",
+      email: cookies.test.email,
+      name: cookies.test.name,
+      provider: cookies.test.provider,
+    };
+
+    await axiosRequest.post("/login/register", data).then((res) => {
+      console.log(res);
+    });
+  };
 
   useEffect(() => {
-    console.log(cookies.test)
-    googleLoginrequest(cookies)
-  }, [])
-
-  // useEffect(() => {
-  //   console.log(cookies.test)
-  //   googleLoginrequest(cookies)
-  // }, [cookies])
+    console.log(cookies);
+    if (cookies.test) googleLoginrequest(cookies);
+  }, []);
   
   return (
-    <div className="relative w-screen h-screen overflow-x-scroll">
+    <div className="relative w-screen h-screen">
         <FallingAnimate falling={page}/>
-        {showModal && <Modal config={"setting"}/>}
+        {showModal && <Modal config={"setting"} current={"main"}/>}
         <img className="absolute z-0 w-screen h-screen opacity-50" src={coverImages[page]} alt="" />
         <Header titleIsVisible={true} topLeftButton={"books"}/>  
         <Carousel />

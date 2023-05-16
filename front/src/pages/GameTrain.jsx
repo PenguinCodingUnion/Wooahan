@@ -10,10 +10,10 @@ import { commonActions } from "store/features/common/commonSlice";
 import WarningComponent from "components/common/WarningComponent";
 
 export const GameTrain = (props) => {
-  useSound(bgm, 1, 2000);
   const warning = useSelector((state) => state.common.warning);
   const dispatch = useDispatch();
 
+  useSound(bgm, 0.4, 2000);
   const warn = () => {
     dispatch(commonActions.setWarning());
   };

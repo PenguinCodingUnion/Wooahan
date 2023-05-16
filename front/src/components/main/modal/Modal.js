@@ -8,7 +8,7 @@ import Login from "./Login"
 
 
 
-const Overlay = () => {
+const Overlay = (props) => {
 
     const dispatch = useDispatch();
 
@@ -17,7 +17,7 @@ const Overlay = () => {
     }
 
     return (
-        <div onClick={modalCloseHandler} className="absolute w-[200%] h-screen z-40 bg-tranparent">
+        <div onClick={modalCloseHandler} className={`absolute ${(props.currentPage === "main") ? "w-[100%]" : "w-[200%]"} h-screen z-40 bg-tranparent`}>
         </div>
     )
 }
@@ -36,8 +36,8 @@ const Modal = (props) => {
 
     return (
         <Fragment >
-            <Overlay />
-            <ModalOverlay config={props.config}/>
+            <Overlay currentPage={props.current}/>
+            <ModalOverlay config={props.config} />
         </Fragment>
     )
 }

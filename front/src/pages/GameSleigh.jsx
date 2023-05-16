@@ -295,7 +295,7 @@ const GameSleigh = () => {
       src: bgmList[parseInt(Math.random() * 2.99)],
       autoplay: true,
       loop: true,
-      volume: 1,
+      volume: 0.4,
       preload: true,
     });
 
@@ -308,12 +308,12 @@ const GameSleigh = () => {
 
   return (
     <>
-      <div className="h-screen w-screen">
+      <div className="w-screen h-screen">
         {quizStatus !== "idle" &&
           quizStatus !== "start" &&
           quizStatus !== "nextQuiz" &&
           quizCount < 5 && (
-            <div className="absolute h-screen w-screen justify-center items-center flex">
+            <div className="absolute flex items-center justify-center w-screen h-screen">
               <div
                 // className={`animate-scale-up-center z-50 absolute w-[19vw] h-[19vw] left-[12.5vw]`}
                 className={`${
@@ -497,7 +497,7 @@ const GameSleigh = () => {
           onClick={() => {
             dispatch(commonActions.setWarning());
           }}
-          className="absolute h-10 w-10 right-[3%] top-[3%] rounded-lg bg-white bg-opacity-40 font-MaplestoryLight text-4xl"
+          className="absolute z-50 h-10 w-10 right-[3%] top-[3%] rounded-lg bg-white bg-opacity-40 font-MaplestoryLight text-4xl"
         >
           <p>X</p>
         </div>
