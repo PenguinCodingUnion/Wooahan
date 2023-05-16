@@ -197,7 +197,7 @@ const GameSleigh = () => {
   }, [quizStatus]);
 
   useEffect(() => {
-    if (isEnd) navigation("/ending");
+    if (isEnd) navigation("/ending", {state:{game: "sleigh", character: "fox"}});
   }, [isEnd]);
 
   useEffect(() => {
@@ -311,12 +311,12 @@ const GameSleigh = () => {
 
   return (
     <>
-      <div className="h-screen w-screen">
+      <div className="w-screen h-screen">
         {quizStatus !== "idle" &&
           quizStatus !== "start" &&
           quizStatus !== "nextQuiz" &&
           quizCount < 5 && (
-            <div className="absolute h-screen w-screen justify-center items-center flex">
+            <div className="absolute flex items-center justify-center w-screen h-screen">
               <div
                 // className={`animate-scale-up-center z-50 absolute w-[19vw] h-[19vw] left-[12.5vw]`}
                 className={`${

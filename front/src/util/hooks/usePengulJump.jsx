@@ -23,7 +23,7 @@ const ANIMATIONS = [
 
 const JUMP_FORCE = 80;
 
-const MIN_SPEED_FOR_JUMP_ICE = 128;
+const MIN_SPEED_FOR_JUMP_ICE = 130;
 
 const GROUND_HEIGHT = -80;
 const EDGE = window.innerWidth / 2 + 5;
@@ -32,7 +32,7 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
   const raycast = useRaycast(pengulE, 55, new Vector3(1, -1, 0));
 
   //캐릭터 상태관리
-  const BASE_MOVEMENT_SPEED = useRef(140); //150
+  const BASE_MOVEMENT_SPEED = useRef(75); //150
 
   const isJumping = useRef(false);
   const jumpNow = useRef(false);
@@ -49,7 +49,7 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
   // const { nodes, materials, animations } = useGLTF(PengulE);
   const { actions, mixer } = useAnimations(animations, ref);
 
-  const gameStatus = useSelector((state) => state.gameStatus.status);
+  const gameStatus = useSelector((state) => state.jump.status);
   const dispatch = useDispatch();
 
   //애니메이션 변경하기
@@ -89,7 +89,7 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
       setActiveAnimation(PengulAnimation.JUMPING);
       setTimeout(() => {
         setActiveAnimation(PengulAnimation.WALK);
-      }, 1000);
+      }, 1150);
     }
   }, [gameStatus, setActiveAnimation]);
 
@@ -134,7 +134,7 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
 
     //맵 오른쪽 끝 도착
     if (characterPosition.current[0] >= EDGE) {
-      dispatch(gameStatusActions.goNextLevel());
+      dispatch(jumpActions.goNextLevel());
     }
 
     //속력에 맞춰 위치 이동

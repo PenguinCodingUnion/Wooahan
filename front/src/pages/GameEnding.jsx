@@ -2,11 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { connect, useSelector } from "react-redux";
 
-import playground from "assets/images/background_playground.jpg";
 import EndingScene from "components/gameEnding/EndingScene";
 import GetStar from "components/gameEnding/GetStar";
 import PickCard from "components/gameEnding/PickCard";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import instance from "util/Axios";
 
 export const GameEnding = (props) => {
@@ -14,12 +13,32 @@ export const GameEnding = (props) => {
   const [isEndingSceneOpen, setIsEndingSceneOpen] = useState(true);
   const [isGetStarOpen, setIsGetStarOpen] = useState(false);
   const [isPickCardOpen, setIsPickCardOpen] = useState(false);
+  const [background, setBackground] = useState();
+  const { state } = useLocation();
 
   // 테스트 편하게하기위해 이메일 박아놓음
   const email = "lsms3723@gmail.com";
   // const email = useSelector((state) => state.loginInfo.email);
 
   useEffect(() => {
+    // eslint-disable-next-line default-case
+    switch (state.game) {
+      case "jump":
+        setBackground(require("assets/images/background_playground.jpg"));
+        break;
+
+      case "sleigh":
+        setBackground(require("assets/images/background_forestend.jpg"));
+        break;
+
+      case "bubble":
+        setBackground(require("assets/images/background_beach.jpg"));
+        break;
+
+      case "train":
+        setBackground(require("assets/images/background_desertend.jpg"));
+        break;
+    }
     const getStarData = async () => {
       await instance
         .get(`/reward/over/${email}`)
@@ -51,21 +70,28 @@ export const GameEnding = (props) => {
 
   return (
     <div
-      className="grid items-center w-screen h-screen"
+      className="grid items-center w-screen h-screen overflow-hidden"
       style={{
-        background: `url(${playground})`,
+        backgroundImage: `url(${background})`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
       }}
     >
       {isEndingSceneOpen && !isGetStarOpen && !isPickCardOpen && (
         <div>
-          <EndingScene closeEndingScene={closeEndingScene} />
+          <EndingScene
+            closeEndingScene={closeEndingScene}
+            model={state.character}
+          />
         </div>
       )}
       {!isEndingSceneOpen && isGetStarOpen && !isPickCardOpen && (
         <div>
-          <GetStar starCount={reward.starCount} closeGetStar={closeGetStar} />
+          <GetStar
+            starCount={reward.starCount}
+            closeGetStar={closeGetStar}
+            model={state.character}
+          />
         </div>
       )}
       {reward.card &&
