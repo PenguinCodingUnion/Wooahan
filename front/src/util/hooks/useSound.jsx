@@ -47,11 +47,11 @@ export const useSound = (src, volume = 1, fadeoutTime = 0) => {
     //   );
     // });
 
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    // document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
       soundStop();
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      // document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, []);
 };
