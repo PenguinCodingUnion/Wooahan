@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.penguin.hangul.app-mergeDebugResources-27:/values-land/values-land.xml",
+            "outputFile": "com.penguin.hangul.app-mergeDebugResources-28:/values-land/values-land.xml",
             "map": [
                 {
                     "source": "C:\\Users\\SSAFY\\.gradle\\caches\\transforms-3\\9ae6143ba7d88d1cbf68916d08d2afcb\\transformed\\material-1.8.0\\res\\values-land\\values-land.xml",

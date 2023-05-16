@@ -39,8 +39,12 @@
     <string name="character_counter_content_description">Մուտքագրված նիշեր՝ %1$d/%2$d</string>
     <string name="character_counter_overflowed_content_description">Նիշերի առավելագույն քանակը գերազանցվել է (%1$d/%2$d)</string>
     <string name="clear_text_end_icon_content_description">Ջնջել տեքստը</string>
+    <string msgid="3260749812566568062" name="copy_toast_msg">"Հղումը պատճենվեց սեղմատախտակին"</string>
     <string name="error_icon_content_description">Սխալ</string>
     <string name="exposed_dropdown_menu_content_description">Ցույց տալ իջնող ընտրացանկը</string>
+    <string msgid="4566929209979330987" name="fallback_menu_item_copy_link">"Պատճենել հղումը"</string>
+    <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"Բացել դիտարկիչում"</string>
+    <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"Կիսվել հղումով"</string>
     <string name="icon_content_description">Երկխոսության պատուհանի պատկերակ</string>
     <string name="item_view_role_description">Ներդիր</string>
     <string name="material_clock_toggle_content_description">Ընտրել AM կամ PM</string>

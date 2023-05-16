@@ -39,8 +39,12 @@
     <string name="character_counter_content_description">Begépelt karakterszám: %2$d/%1$d</string>
     <string name="character_counter_overflowed_content_description">Maximális karakterszám túllépve: %2$d/%1$d</string>
     <string name="clear_text_end_icon_content_description">Szöveg törlése</string>
+    <string msgid="3260749812566568062" name="copy_toast_msg">"Link vágólapra másolva"</string>
     <string name="error_icon_content_description">Hiba</string>
     <string name="exposed_dropdown_menu_content_description">Legördülő menü megjelenítése</string>
+    <string msgid="4566929209979330987" name="fallback_menu_item_copy_link">"Link másolása"</string>
+    <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"Megnyitás böngészőben"</string>
+    <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"Link megosztása"</string>
     <string name="icon_content_description">Párbeszédpanel ikonja</string>
     <string name="item_view_role_description">Lap</string>
     <string name="material_clock_toggle_content_description">Válassza ki, hogy délelőtt vagy délután</string>

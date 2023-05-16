@@ -39,8 +39,12 @@
     <string name="character_counter_content_description">Carateres introduzidos: %1$d de %2$d</string>
     <string name="character_counter_overflowed_content_description">Limite de carateres excedido: %1$d de %2$d</string>
     <string name="clear_text_end_icon_content_description">Limpar texto</string>
+    <string msgid="3260749812566568062" name="copy_toast_msg">"Link copiado para a área de transferência."</string>
     <string name="error_icon_content_description">Erro</string>
     <string name="exposed_dropdown_menu_content_description">Mostrar menu pendente</string>
+    <string msgid="4566929209979330987" name="fallback_menu_item_copy_link">"Copiar link"</string>
+    <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"Abrir no navegador"</string>
+    <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"Partilhar link"</string>
     <string name="icon_content_description">Ícone de caixa de diálogo</string>
     <string name="item_view_role_description">Separador</string>
     <string name="material_clock_toggle_content_description">Selecionar AM ou PM</string>

@@ -4,17 +4,21 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.hardware.*
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Debug
 import android.provider.Settings
 import android.util.Log
 import android.webkit.JavascriptInterface
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.browser.customtabs.CustomTabsIntent
 import kotlin.math.sqrt
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,6 +26,12 @@ class MainActivity : AppCompatActivity() {
     private var myWebView: WebView? = null
 
     val deviceInformation = DeviceInformation(this)
+
+    // 구글 로그인
+//    val url = "https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id=658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Fk8b206.p.ssafy.io%2Fapi%2Flogin%2Foauth2%2Fcode%2Fgoogle&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&service=lso&o2v=1&flowName=GeneralOAuthFlow"
+//    val intentBuilder = CustomTabsIntent.Builder();
+//    val customTabsIntent = intentBuilder.build();
+//    customTabsIntent.launchUrl(MainActivity.this, Uri.parse(url))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,9 +115,16 @@ class MainActivity : AppCompatActivity() {
             ,"react_toast"
         )
 
-        myWebView?.loadUrl("http://10.0.2.2:3000")
-    }
+        myWebView?.addJavascriptInterface(
+            WarningManager(
+                this,
+                deviceInformation.getDeviceId()
+            )
+            ,"google_login"
+        )
 
+        myWebView?.loadUrl("https://10.0.2.2:3000")
+    }
 
     fun onJumpDetected() {
         runOnUiThread {
@@ -164,6 +181,7 @@ class MySensorManager(private val sensorManager: SensorManager,private val senso
 
 class WarningManager(private val mContext: Context, private val device: String){
 
+
     @JavascriptInterface
     fun showToast(toast: String) {
         Toast.makeText(mContext, toast, Toast.LENGTH_LONG).show();
@@ -171,6 +189,16 @@ class WarningManager(private val mContext: Context, private val device: String){
 
     @JavascriptInterface
     fun sendDeviceID(): String {
+        return device;
+    }
+
+    @JavascriptInterface
+    fun googleLogin(): String {
+        val url = "https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id=658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Fk8b206.p.ssafy.io%2Fapi%2Flogin%2Foauth2%2Fcode%2Fgoogle&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&service=lso&o2v=1&flowName=GeneralOAuthFlow"
+        val intentBuilder = CustomTabsIntent.Builder();
+        val customTabsIntent = intentBuilder.build();
+        customTabsIntent.launchUrl(this.mContext, Uri.parse(url))
+
         return device;
     }
 

@@ -39,8 +39,12 @@
     <string name="character_counter_content_description">Mga character na nailagay %1$d sa %2$d</string>
     <string name="character_counter_overflowed_content_description">Lumampas sa limitasyon sa bilang ng character %1$d sa %2$d</string>
     <string name="clear_text_end_icon_content_description">I-clear ang text</string>
+    <string msgid="3260749812566568062" name="copy_toast_msg">"Nakopya sa clipboard ang link"</string>
     <string name="error_icon_content_description">Error</string>
     <string name="exposed_dropdown_menu_content_description">Ipakita ang dropdown na menu</string>
+    <string msgid="4566929209979330987" name="fallback_menu_item_copy_link">"Kopyahin ang link"</string>
+    <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"Buksan sa browser"</string>
+    <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"Ibahagi ang link"</string>
     <string name="icon_content_description">Icon ng Dialog</string>
     <string name="item_view_role_description">Tab</string>
     <string name="material_clock_toggle_content_description">Piliin ang AM o PM</string>

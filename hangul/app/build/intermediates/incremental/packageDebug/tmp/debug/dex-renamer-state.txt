@@ -1,4 +1,4 @@
-#Wed May 10 11:18:14 KST 2023
+#Tue May 16 19:49:49 KST 2023
 base.2=C\:\\Users\\SSAFY\\Documents\\S08P31B206\\hangul\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\7\\classes.dex
 path.2=7/classes.dex
 base.1=C\:\\Users\\SSAFY\\Documents\\S08P31B206\\hangul\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex

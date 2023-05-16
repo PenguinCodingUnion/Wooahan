@@ -39,8 +39,12 @@
     <string name="character_counter_content_description">%1$d/%2$d merkkiä kirjoitettu</string>
     <string name="character_counter_overflowed_content_description">Merkkiraja ylitetty: %1$d/%2$d</string>
     <string name="clear_text_end_icon_content_description">Tyhjennä teksti</string>
+    <string msgid="3260749812566568062" name="copy_toast_msg">"Linkki kopioitu leikepöydälle"</string>
     <string name="error_icon_content_description">Virhe</string>
     <string name="exposed_dropdown_menu_content_description">Näytä avattava valikko</string>
+    <string msgid="4566929209979330987" name="fallback_menu_item_copy_link">"Kopioi linkki"</string>
+    <string msgid="3413186855122069269" name="fallback_menu_item_open_in_browser">"Avaa selaimessa"</string>
+    <string msgid="7145444925855055364" name="fallback_menu_item_share_link">"Jaa linkki"</string>
     <string name="icon_content_description">Valintaikkunan kuvake</string>
     <string name="item_view_role_description">Välilehti</string>
     <string name="material_clock_toggle_content_description">Valitse AP tai IP</string>
