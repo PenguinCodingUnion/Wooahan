@@ -22,6 +22,7 @@ module.exports = {
       modernOrange: "#f48733",
       mint: "#91ffb7",
       lightYellow: "#fef08a",
+      imageSky: "#58b2f0",
       // 기본 컬러
       mainBlack: colors.black,
       mainWhite: colors.white,
