@@ -20,6 +20,7 @@ import snowflake from "assets/images/falling/snowflake.png";
 //animations
 import penguel_falldown from "assets/images/penguel_falldown.gif";
 import penguel_victory from "assets/images/penguel_victory.gif";
+import penguel_high_jump from "assets/images/penguel_high_jump.gif"
 
 export const images = [
   //배경화면
@@ -41,4 +42,5 @@ export const images = [
   // 애니메이션
   penguel_falldown,
   penguel_victory,
+  penguel_high_jump,
 ];
