@@ -241,14 +241,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        myWebView?.onPause() // 웹뷰 동작 일시 중지
+        myWebView?.evaluateJavascript("javascript:window.soundPause()", null)
+        myWebView?.onPause()
     }
 
     override fun onResume() {
         super.onResume()
-        myWebView?.onResume() // 웹뷰 동작 재개
+        myWebView?.evaluateJavascript("javascript:window.soundResume()", null)
+        myWebView?.onResume()
     }
-
 }
 
 
