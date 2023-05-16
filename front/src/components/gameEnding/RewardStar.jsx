@@ -16,22 +16,22 @@ export const RewardStar = (props) => {
 
   const gifModels = [
     require("assets/images/penguel_high_jump.gif"),
-    require("assets/images/penguel_high_jump.gif")
-  ]
-  
+    require("assets/images/penguel_high_jump.gif"),
+  ];
+
   useEffect(() => {
     if (props.color === props.count && props.color !== 0) {
       es_star.play();
-      if(props.model === 'penguin') {
+      if (props.model === "penguin") {
         setJumpGif(gifModels[0]);
-      }else {
+      } else {
         setJumpGif(gifModels[1]);
       }
       setTimeout(() => {
         setStyleStr({
           transition: `1.6s`,
           transformStyle: `preserve-3d`,
-          transform: `rotateY(360deg)`,
+          transform: `rotateX(-360deg)`,
         });
         // eslint-disable-next-line default-case
         switch (props.color) {
@@ -86,8 +86,12 @@ export const RewardStar = (props) => {
 
   return (
     <div className="grid content-center bg-[#6937A1] rounded-full h-[3.5rem] w-[3.5rem] justify-center">
-      <FaStar size={size} color={color} className="icon" style={styleStr} />
-      <img className="absolute -bottom-[200%] w-[20rem] -ml-[8rem]" src={jumpGif} alt="" />
+      <FaStar size={size} color={color} className="" style={styleStr} />
+      <img
+        className="absolute -bottom-[200%] w-[20rem] -ml-[8rem]"
+        src={jumpGif}
+        alt=""
+      />
     </div>
   );
 };
