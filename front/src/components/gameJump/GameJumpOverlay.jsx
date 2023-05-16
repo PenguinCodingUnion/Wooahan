@@ -75,9 +75,8 @@ const GameReadyContainer = ({ startGame, ...props }) => {
     // <>
     //   <CommonOverlay>
     <>
-    
-    <div className={`absolute flex flex-col justify-between h-full w-full`}>
     {isTutorial && <JumpTutorial closeTutorial={closeTutorial}/>}
+    <div className={`absolute flex flex-col justify-between h-full w-full`}>
       <div
         className={`border-4 border-indigo-600 rounded-2xl w-3/4 p-4 m-8 mx-auto bg-mainWhite z-50`}
       >
