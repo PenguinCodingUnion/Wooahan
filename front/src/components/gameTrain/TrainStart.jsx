@@ -6,6 +6,7 @@ import instance from "util/Axios";
 import pig from "assets/images/tmp/넷째돼지.png";
 import jar from "assets/images/tmp/무공해항아리.avif";
 import LoadingComponent from "components/common/LoadingComponent";
+import TrainTutorial from "./TrainTutorial";
 
 export const TrainStart = (props) => {
   const [data, setdata] = useState([]);
@@ -46,18 +47,23 @@ export const TrainStart = (props) => {
   }, []);
   const [start, setStart] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [isTutorial, setIstutorial] = useState(true);
+  const closeTutorial = () => {
+    setIstutorial(false);
+  };
   const cilckStart = () => {
     setStart(<Train data={data} />);
   };
   return (
     <div>
       {isLoading && <LoadingComponent />}
+      {isTutorial && <TrainTutorial closeTutorial={closeTutorial}/>}
       {!start && !isLoading && (
         <>
           <div className="h-6"></div>
           <div className=" h-[6rem]">
             <p className="font-netmarbleB leading-[6rem] text-4xl">
-              끝 글자가 일치하는 단어를 선택해 주세요!
+              여울이가 기차를 타고 여행을 떠나요!
             </p>
           </div>
           <div
@@ -66,7 +72,7 @@ export const TrainStart = (props) => {
             }}
           >
             <div>
-              <p className=" absolute  w-full animate-pulse font-MaplestoryBold text-7xl text-stroke-2 text-stroke-mainYellow-100">
+              <p className="absolute w-full animate-pulse font-MaplestoryBold text-7xl text-stroke-2 text-stroke-mainYellow-100">
                 시작
               </p>
               <p className="font-MaplestoryBold text-7xl">시작</p>

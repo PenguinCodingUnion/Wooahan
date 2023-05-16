@@ -7,6 +7,7 @@ import { jumpActions } from "store/features/jump/jumpSlice";
 import { Navigate } from "react-router-dom";
 import { commonActions } from "store/features/common/commonSlice";
 import WarningComponent from "components/common/WarningComponent";
+import JumpTutorial from "./JumpTutorial";
 
 const GameJumpOverlay = ({ startGame, ...props }) => {
   const gameStatus = useSelector((state) => state.gameStatus.status);
@@ -66,9 +67,15 @@ const GameStartContainer = () => {
 };
 
 const GameReadyContainer = ({ startGame, ...props }) => {
+  const [isTutorial, setIstutorial] = useState(true);
+  const closeTutorial = () => {
+    setIstutorial(false);
+  };
   return (
     // <>
     //   <CommonOverlay>
+    <>
+    {isTutorial && <JumpTutorial closeTutorial={closeTutorial}/>}
     <div className={`absolute flex flex-col justify-between h-full w-full`}>
       <div
         className={`border-4 border-indigo-600 rounded-2xl w-3/4 p-4 m-8 mx-auto bg-mainWhite z-50`}
@@ -93,6 +100,7 @@ const GameReadyContainer = ({ startGame, ...props }) => {
         </h1>
       </div>
     </div>
+    </>
   );
 };
 

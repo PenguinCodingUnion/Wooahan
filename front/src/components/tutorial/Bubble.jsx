@@ -26,12 +26,12 @@ export const Bubble = (props) => {
     setEnd(true);
   };
   return (
-    <div className="relative h-full w-full overflow-hidden">
+    <div className="relative w-full h-full overflow-hidden">
       <div className={pointcss[idx]}>
         <div className={pointcss[idx + 2]}></div>
       </div>
-      <div className="absolute top-3 -left-14  w-full">
-        <div className=" flex justify-center">
+      <div className="absolute w-full top-3 -left-14">
+        <div className="flex justify-center ">
           <p className="whitespace-nowrap  bg-white rounded-md border px-3  mx-auto font-netmarbleB text-[1.7em] leading-[1.7em]">
             {mention[idx]}
           </p>
@@ -54,8 +54,8 @@ export const Bubble = (props) => {
         <p>X</p>
         {end && <Navigate to={`/main`} />}
       </div>
-      <div className="h-full w-full">
-        <img className="h-full w-full" src={bubble} alt="한글방울" />
+      <div className="w-full h-full">
+        <img className="w-full h-full" src={bubble} alt="한글방울" />
       </div>
     </div>
   );
