@@ -53,7 +53,7 @@ export const Main = () => {
   };
 
   useEffect(() => {
-    console.log(cookies);
+    // console.log(cookies);
     if (cookies.test) googleLoginrequest(cookies);
   }, []);
   
