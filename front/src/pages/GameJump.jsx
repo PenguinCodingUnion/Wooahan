@@ -16,7 +16,6 @@ import BackgroundImage from "components/gameJump/BackgroundImage";
 import bgImage from "assets/images/background/background_iceberg.png";
 import WaterFloor from "components/gameJump/WaterFloor";
 import GameJumpOverlay from "components/gameJump/GameJumpOverlay";
-import { gameStatusActions } from "store/features/gameStatus/gameStatusSlice";
 import TextObject from "components/gameJump/TextObject";
 
 import { GameStatus } from "util/Enums.ts";
@@ -34,9 +33,9 @@ const EDGE = window.innerWidth / 2 + 5;
 export const GameJump = (props) => {
   const character = useRef();
   const dispatch = useDispatch();
-  const gameStatus = useSelector((state) => state.gameStatus.status);
+  const gameStatus = useSelector((state) => state.jump.status);
 
-  const level = useSelector((state) => state.gameStatus.level);
+  const level = useSelector((state) => state.jump.level);
   const [isLoading, setIsLoading] = useState(true);
   const problems = useSelector((state) => state.jump.problems);
 
@@ -44,18 +43,13 @@ export const GameJump = (props) => {
 
   let lastIcePosition = -EDGE + 50;
 
-  // console.log("problems : ", problems);
-  // console.log(`width : ${window.innerWidth}, height : ${window.innerHeight}`);
-
   useEffect(() => {
     //비동기 통신이 이루어지면서 게임 데이터를 로딩한다
     dispatch(jumpDataAction(0));
 
-    dispatch(gameStatusActions.loaded());
-
     //clear
     return () => {
-      dispatch(gameStatusActions.clearLevel());
+      dispatch(jumpActions.clearLevel());
       dispatch(jumpActions.setAction(-1));
     };
   }, [dispatch]);
@@ -65,7 +59,7 @@ export const GameJump = (props) => {
   }, [dispatch, level]);
 
   const startGame = useCallback(() => {
-    dispatch(gameStatusActions.start());
+    dispatch(jumpActions.start());
   }, [dispatch]);
 
   useSound(bgm, 0.4, 2000);
@@ -73,7 +67,10 @@ export const GameJump = (props) => {
   return (
     <>
       {level >= LAST_LEVEL ? (
-        <Navigate to={`/ending`} state={{game: "jump", character: "penguin"}} />
+        <Navigate
+          to={`/ending`}
+          state={{ game: "jump", character: "penguin" }}
+        />
       ) : (
         //750 length
         <Suspense fallback={<LoadingComponent />}>
@@ -104,7 +101,7 @@ export const GameJump = (props) => {
             {/** 동적 오브젝트 */}
             {gameStatus === GameStatus.GAME_START &&
               problems[level].result.map((el, idx) => {
-                console.log(problems);
+                // console.log(problems);
 
                 //띄어쓰기 수
                 const problemCnt = problems[level].result.length - 1;
@@ -141,6 +138,8 @@ export const GameJump = (props) => {
                     <TextObject
                       text={el.content}
                       url={el.url}
+                      time={el.fileLength}
+                      iceLength={realLength}
                       no={idx}
                       edge={EDGE}
                       isFirst={idx === 0}
