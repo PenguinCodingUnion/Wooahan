@@ -24,13 +24,12 @@ export const Books = () => {
   }, [])
 
   return (
-    <div>
+    <div className="relative overflow-x-scroll w-screen h-screen bg-imageSky">
       <Header titleIsVisible={false} topLeftButton={"home"}/>
-      <div className="relative overflow-x-scroll w-screen h-screen bg-deepPink">
-        {showModal && <Modal current={"books"} /> }
-        {showBookModal && <BookModal text={bookText}/>}
-        <BlockSet />
-      </div>
+      {showModal && <Modal current={"books"} /> }
+      {showBookModal && <BookModal text={bookText}/>}
+      <BlockSet />
+      <div className="absolute mt-[30%] w-[200%] h-[40%] bg-[url('assets/images/books/background_book.jpg')] bg-cover" />
     </div>
   )
 }

@@ -5,20 +5,20 @@ const BlockSet =() => {
 
     return(
         <div className="absolute top-[20%] w-[200%] h-[75%] bg-transparent">
-            <Block top={"5%"} left={"5%"} text={"ㄱ"} z={"10"}/>
-            <Block top={"17%"} left={"10%"} text={"ㄴ"} z={"10"}/>
-            <Block top={"30%"} left={"15%"} text={"ㄷ"} z={"10"}/>
-            <Block top={"17%"} left={"20%"} text={"ㄹ"} z={"0"}/>
-            <Block top={"30%"} left={"25%"} text={"ㅁ"} z={"20"}/>
-            <Block top={"17%"} left={"30%"} text={"ㅂ"} z={"10"}/>
-            <Block top={"5%"} left={"35%"} text={"ㅅ"} z={"0"}/>
-            <Block top={"17%"} left={"40%"} text={"ㅇ"} z={"10"}/>
-            <Block top={"5%"} left={"45%"} text={"ㅈ"} z={"0"}/>
-            <Block top={"17%"} left={"50%"} text={"ㅊ"} z={"5"}/>
-            <Block top={"30%"} left={"55%"} text={"ㅋ"} z={"10"}/>
-            <Block top={"42%"} left={"60%"} text={"ㅌ"} z={"20"}/>
-            <Block top={"30%"} left={"65%"} text={"ㅍ"} z={"10"}/>
-            <Block top={"17%"} left={"70%"} text={"ㅎ"} z={"0"}/>
+            <Block top={"5%"} left={"2%"} text={"ㄱ"} z={"10"} num={"1"}/>
+            <Block top={"-5%"} left={"8%"} text={"ㄴ"} z={"10"} num={"2"}/>
+            <Block top={"-20%"} left={"17%"} text={"ㄷ"} z={"10"} num={"1"}/>
+            <Block top={"5%"} left={"25%"} text={"ㄹ"} z={"0"} num={"2"}/>
+            <Block top={"-20%"} left={"32%"} text={"ㅁ"} z={"20"} num={"1"}/>
+            <Block top={"-5%"} left={"38%"} text={"ㅂ"} z={"10"} num={"2"}/>
+            <Block top={"10%"} left={"44%"} text={"ㅅ"} z={"0"} num={"1"}/>
+            <Block top={"-15%"} left={"52%"} text={"ㅇ"} z={"10"} num={"2"}/>
+            <Block top={"-15%"} left={"58%"} text={"ㅈ"} z={"0"} num={"1"}/>
+            <Block top={"10%"} left={"63%"} text={"ㅊ"} z={"5"} num={"2"}/>
+            <Block top={"0%"} left={"72%"} text={"ㅋ"} z={"10"} num={"1"}/>
+            <Block top={"-20%"} left={"78%"} text={"ㅌ"} z={"20"} num={"2"}/>
+            <Block top={"10%"} left={"86%"} text={"ㅍ"} z={"10"} num={"1"}/>
+            <Block top={"0%"} left={"92%"} text={"ㅎ"} z={"0"} num={"2"}/>
         </div>
     )
 }
