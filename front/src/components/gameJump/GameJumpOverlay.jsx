@@ -9,7 +9,7 @@ import { commonActions } from "store/features/common/commonSlice";
 import WarningComponent from "components/common/WarningComponent";
 
 const GameJumpOverlay = ({ startGame, ...props }) => {
-  const gameStatus = useSelector((state) => state.gameStatus.status);
+  const gameStatus = useSelector((state) => state.jump.status);
   const dispatch = useDispatch();
 
   useEffect(() => {
