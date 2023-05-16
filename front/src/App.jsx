@@ -39,11 +39,8 @@ const App = () => {
     return currentSounds;
   };
 
-  console.log(findCurrentSounds());
-
   window.soundPause = () => {
     const currentSounds = findCurrentSounds();
-    console.log(currentSounds.length);
     currentSounds.forEach((sound) => {
       if (sound.playing()) {
         sound.stop();
@@ -55,7 +52,6 @@ const App = () => {
 
   window.soundResume = () => {
     const currentSounds = findCurrentSounds();
-    console.log("123123  " + currentSounds.length);
     currentSounds.forEach((sound) => {
       sound.play();
     });

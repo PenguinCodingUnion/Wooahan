@@ -7,7 +7,7 @@ export const getQuizData = createAsyncThunk(
     try {
       return game.get.run(difficulty);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 );
