@@ -36,7 +36,11 @@ export const Main = () => {
 
   // 안드로이드 기기 id 받아오기
   const getAndroidId = () => {
-    if (window.react_toast) return window.react_toast.sendDeviceID();
+    if (window.react_toast) {
+      const id = window.react_toast.sendDeviceID();
+      console.log(id)
+      return window.react_toast.sendDeviceID();
+    }
   };
 
   const googleLoginrequest = async (cookies) => {
