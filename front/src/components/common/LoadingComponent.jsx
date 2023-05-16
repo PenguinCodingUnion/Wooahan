@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CommonOverlay from "./CommonOverlay";
+import { useSelector } from "react-redux";
+import WarningComponent from "./WarningComponent";
 
 const LoadingComponent = (props) => {
   const text = [
@@ -23,6 +25,8 @@ const LoadingComponent = (props) => {
 
   const [loadingText, setLoadingText] = useState("");
   const [loadingGif, setLoadingGif] = useState("");
+
+  const warning = useSelector((state) => state.common.warning);
 
   useEffect(() => {
     const gifNum = Math.floor(Math.random() * 3);
@@ -57,6 +61,7 @@ const LoadingComponent = (props) => {
           </div>
         </div>
       </div>
+      {warning && <WarningComponent />}
     </CommonOverlay>
   );
 };
