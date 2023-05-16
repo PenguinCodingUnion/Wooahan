@@ -198,7 +198,7 @@ export const GameBubble = (props) => {
         </div>
       </div>
       {warning && <WarningComponent />}
-      {!isLoading && !isIntro && isGameEnd && <Navigate to={`/ending`} />}
+      {!isLoading && !isIntro && isGameEnd && <Navigate to={`/ending`} state={{game: "bubble", character: "penguin"}}/>}
     </>
   );
 };

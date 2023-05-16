@@ -1,5 +1,5 @@
 // import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import clap from "assets/sounds/clap.wav";
@@ -7,8 +7,20 @@ import effectSound from "util/effectSound";
 
 export const EndingScene = (props) => {
   const es_clap = effectSound(clap, 0.4);
+  const [model, setModel] = useState();
 
   useEffect(() => {
+    // eslint-disable-next-line default-case
+    switch (props.model) {
+      case "penguin":
+        setModel(require("assets/images/animal/penguin.png"));
+        break;
+
+      case "fox":
+        setModel(require("assets/images/animal/fox.png"));
+        break;
+    }
+
     es_clap.play();
     setTimeout(() => {
       props.closeEndingScene();
@@ -17,7 +29,13 @@ export const EndingScene = (props) => {
   }, [props]);
   return (
     <>
-      <div className="text-[#6937A1] font-MaplestoryBold text-6xl text-stroke-mainWhite text-stroke-2">
+      <img
+        className="absolute bottom-0 right-0 w-1/2"
+        style={{ transform: "scaleX(-1)" }}
+        src={model}
+        alt=""
+      />
+      <div className="text-[#6937A1] font-MaplestoryBold text-6xl text-stroke-mainWhite text-stroke-2 absolute w-full text-center top-1/2">
         야호!
       </div>
     </>

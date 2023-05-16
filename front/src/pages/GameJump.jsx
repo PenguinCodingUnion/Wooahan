@@ -73,7 +73,7 @@ export const GameJump = (props) => {
   return (
     <>
       {level >= LAST_LEVEL ? (
-        <Navigate to={`/ending`} />
+        <Navigate to={`/ending`} state={{game: "jump", character: "penguin"}} />
       ) : (
         //750 length
         <Suspense fallback={<LoadingComponent />}>
