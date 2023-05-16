@@ -10,7 +10,7 @@ import WarningComponent from "components/common/WarningComponent";
 import JumpTutorial from "./JumpTutorial";
 
 const GameJumpOverlay = ({ startGame, ...props }) => {
-  const gameStatus = useSelector((state) => state.gameStatus.status);
+  const gameStatus = useSelector((state) => state.jump.status);
   const dispatch = useDispatch();
 
   useEffect(() => {

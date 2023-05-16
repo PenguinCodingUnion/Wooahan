@@ -5,21 +5,24 @@ import SentenceSound from "components/gameJump/SentenceSound";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AudioLoader } from "three";
 
-const soundFileContext = require.context(
-  "assets/sounds/jump",
-  true,
-  /\.(mp3|wav|ogg)$/
-);
+// const soundFileContext = require.context(
+//   "assets/sounds/jump",
+//   true,
+//   /\.(mp3|wav|ogg)$/
+// );
 
 const getSoundFile = (filename) => {
   // return soundFileContext(`./${filename}`);
-  return `https://wooahan.s3.ap-northeast-2.amazonaws.com/sentence/${filename}`;
+  const path = `${process.env.REACT_APP_SSS_PATH}${filename}`;
+  return path;
 };
 
 const TextObject = ({
   no,
   text,
   url,
+  time,
+  iceLength,
   isLast,
   isFirst,
   edge,
@@ -50,6 +53,10 @@ const TextObject = ({
       audioRef.current.play();
 
       setAudioLoaded(false);
+
+      const speed = time/iceLength;
+      console.log(speed);
+
     }
   }, [action, no, audioLoaded]);
 
@@ -97,8 +104,10 @@ const TextObject = ({
 TextObject.propTypes = {
   no: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
-  position: PropTypes.array,
+  time: PropTypes.number.isRequired,
+  iceLength: PropTypes.number.isRequired,
   edge: PropTypes.number.isRequired,
+  position: PropTypes.array,
   isFirst: PropTypes.bool,
   isLast: PropTypes.bool,
 };

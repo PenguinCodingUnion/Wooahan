@@ -10,36 +10,13 @@ import { GameStatus } from "util/Enums.ts";
 //   }
 // );
 
-const initialState = {
-  status: GameStatus.GAME_NOT_LOADED,
-  level: 0,
-};
+const initialState = {};
 
 export const gameStatusSlice = createSlice({
   name: "gameStatus",
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
-  reducers: {
-    loaded: (state) => {
-      state.status = GameStatus.GAME_READY;
-    },
-    start: (state) => {
-      state.status = GameStatus.GAME_START;
-    },
-    pause: (state) => {
-      state.status = GameStatus.GAME_PAUSE;
-    },
-    end: (state) => {
-      state.status = GameStatus.GAME_END;
-    },
-    goNextLevel: (state) => {
-      state.level += 1;
-    },
-    clearLevel: (state) => {
-      state.status = GameStatus.GAME_NOT_LOADED;
-      state.level = 0;
-    },
-  },
+  reducers: {},
   // extraReducers: (builder) => {
   //   builder
   //     .addCase(incrementAsync.pending, (state) => {

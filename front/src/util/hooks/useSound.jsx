@@ -15,7 +15,6 @@ export const useSound = (src, volume = 1, fadeoutTime = 0) => {
       src,
       onplay: function () {
         const fadeouttime = fadeoutTime;
-        console.log(this);
         setTimeout(
           () => this.fade(volume, 0, fadeouttime),
           (this.duration() - this.seek()) * 1000 - fadeouttime
@@ -27,31 +26,11 @@ export const useSound = (src, volume = 1, fadeoutTime = 0) => {
     sound.current.play();
   };
 
-  const handleVisibilityChange = () => {
-    console.log(document.visibilityState);
-
-    if (document.hidden) {
-      soundStop();
-    } else {
-      soundPlay(src);
-    }
-  };
-
   useEffect(() => {
     soundPlay(src);
-    // sound.on("play", () => {
-    //   const fadeouttime = fadeoutTime;
-    //   setTimeout(
-    //     () => sound.fade(volume, 0, fadeouttime),
-    //     (sound.duration() - sound.seek()) * 1000 - fadeouttime
-    //   );
-    // });
-
-    // document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
       soundStop();
-      // document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, []);
 };
