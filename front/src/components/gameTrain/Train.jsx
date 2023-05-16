@@ -20,7 +20,7 @@ export const Train = (props) => {
       <div className=" h-[13rem]"></div>
       {!end && <TrainLastWord data={props.data[round].last} />}
       {!end && <TrainWordCard data={props.data[round]} nextGame={nextGame} />}
-      {end && <Navigate to={`/ending`} />}
+      {end && <Navigate to={`/ending`} state={{game: "train", character: "fox"}} />}
     </div>
   );
 };

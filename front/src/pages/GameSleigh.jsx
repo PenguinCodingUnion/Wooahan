@@ -197,7 +197,7 @@ const GameSleigh = () => {
   }, [quizStatus]);
 
   useEffect(() => {
-    if (isEnd) navigation("/ending");
+    if (isEnd) navigation("/ending", {state:{game: "sleigh", character: "fox"}});
   }, [isEnd]);
 
   useEffect(() => {
