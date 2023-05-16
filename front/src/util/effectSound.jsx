@@ -10,7 +10,6 @@ export const effectSound = (src, volume = 1) => {
       sound.unload();
     }, 5000);
   };
-  console.log(soundInject);
   soundInject(src);
   return sound;
 };
