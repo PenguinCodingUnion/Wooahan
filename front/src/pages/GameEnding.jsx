@@ -14,8 +14,8 @@ export const GameEnding = (props) => {
   const [isGetStarOpen, setIsGetStarOpen] = useState(false);
   const [isPickCardOpen, setIsPickCardOpen] = useState(false);
   const [background, setBackground] = useState();
-  const {state} = useLocation();
-  
+  const { state } = useLocation();
+
   // 테스트 편하게하기위해 이메일 박아놓음
   const email = "lsms3723@gmail.com";
   // const email = useSelector((state) => state.loginInfo.email);
@@ -79,12 +79,19 @@ export const GameEnding = (props) => {
     >
       {isEndingSceneOpen && !isGetStarOpen && !isPickCardOpen && (
         <div>
-          <EndingScene closeEndingScene={closeEndingScene} model={state.character}/>
+          <EndingScene
+            closeEndingScene={closeEndingScene}
+            model={state.character}
+          />
         </div>
       )}
       {!isEndingSceneOpen && isGetStarOpen && !isPickCardOpen && (
         <div>
-          <GetStar starCount={reward.starCount} closeGetStar={closeGetStar} />
+          <GetStar
+            starCount={reward.starCount}
+            closeGetStar={closeGetStar}
+            model={state.character}
+          />
         </div>
       )}
       {reward.card &&
