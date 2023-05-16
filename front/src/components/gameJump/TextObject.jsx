@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
 import { Html } from "@react-three/drei";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SentenceSound from "components/gameJump/SentenceSound";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AudioLoader } from "three";
+import { jumpActions } from "store/features/jump/jumpSlice";
 
 // const soundFileContext = require.context(
 //   "assets/sounds/jump",
@@ -35,6 +36,8 @@ const TextObject = ({
 
   const [audioLoaded, setAudioLoaded] = useState(false);
 
+  const dispatch = useDispatch();
+
   const animationStyle = {
     background: "linear-gradient(90deg, red 50%, black 50%)",
     backgroundClip: "text",
@@ -53,11 +56,13 @@ const TextObject = ({
       audioRef.current.play();
 
       setAudioLoaded(false);
-
-      const speed = iceLength / time;
-      console.log(speed);
-
     }
+
+    // if (no === action) {
+    //   const speed = iceLength / time;
+    //   console.log(iceLength, time, speed);
+    //   dispatch(jumpActions.setSpeed(speed * 1000));
+    // }
   }, [action, no, audioLoaded]);
 
   useEffect(() => {

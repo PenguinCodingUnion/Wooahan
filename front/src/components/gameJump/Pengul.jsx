@@ -8,12 +8,17 @@ import usePengul from "util/hooks/usePengulJump";
 import JumpSound from "components/gameJump/JumpSound";
 
 import jumpSoundUrl from "assets/sounds/pengulJump.mp3";
+import { useSelector } from "react-redux";
 
 export const PengulModel = forwardRef(({ bottom, props }, ref) => {
   const pengulE = useRef();
   const { nodes, materials, animations } = useClonedModel(PengulE);
 
-  const jumpSound = useRef();
+  const speed = useSelector((state) => {
+    return state.jump.speed;
+  });
+
+  const jumpSound = useRef(speed);
 
   usePengul({ pengulE, ref, animations, sounds: { jumpSound } });
 
