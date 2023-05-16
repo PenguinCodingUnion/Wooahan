@@ -24,6 +24,8 @@ import bgm2 from "assets/sounds/sleighbgm_2.mp3";
 import bgm3 from "assets/sounds/sleighbgm_3.mp3";
 import { Howl } from "howler";
 import CommonOverlay from "components/common/CommonOverlay";
+import { commonActions } from "store/features/common/commonSlice";
+import WarningComponent from "components/common/WarningComponent";
 
 const GameSleigh = () => {
   const dispatch = useDispatch();
@@ -38,7 +40,7 @@ const GameSleigh = () => {
   const [quizStatus, setQuizStatus] = useState("idle"); // 퀴즈 상태 idle(대기) start(퀴즈내려옴) stop(퀴즈맞추기) check(정답확인)
   const [quizCount, setQuizCount] = useState(0);
   const [quizResult, setQuizResult] = useState("left"); // left right
-  const [onMenu, setOnMenu] = useState(false);
+  const warning = useSelector((state) => state.common.warning);
 
   const bgm = useRef();
 
@@ -209,7 +211,15 @@ const GameSleigh = () => {
       modelRef.current.rotation.y = 0;
       mixer.timeScale = 1.5;
       actions[names[5]].play();
+
+      if (quizStatus === "stop" && quizCount < 5) {
+        addMoveEvent();
+      }
     }
+
+    return () => {
+      removeMoveEvent();
+    };
   }, [imageLoadState]);
 
   const addMoveEvent = () => {
@@ -246,15 +256,15 @@ const GameSleigh = () => {
   }, [isStart]);
 
   // 게임 진행상황에 맞게 함수 추가 삭제
-  useEffect(() => {
-    if (quizStatus === "stop" && quizCount < 5) {
-      addMoveEvent();
-    }
+  // useEffect(() => {
+  //   if (quizStatus === "stop" && quizCount < 5) {
+  //     addMoveEvent();
+  //   }
 
-    return () => {
-      removeMoveEvent();
-    };
-  }, [quizStatus]);
+  //   return () => {
+  //     removeMoveEvent();
+  //   };
+  // }, [quizStatus]);
 
   // 카메라 설정
   const camera = {
@@ -270,7 +280,7 @@ const GameSleigh = () => {
     if (isLoading) {
       loadingTimer = setTimeout(() => {
         navigation("/");
-      }, 20000);
+      }, 30000);
     }
 
     return () => {
@@ -485,40 +495,14 @@ const GameSleigh = () => {
       <div>
         <div
           onClick={() => {
-            setOnMenu(!onMenu);
+            dispatch(commonActions.setWarning());
           }}
           className="absolute h-10 w-10 right-[3%] top-[3%] rounded-lg bg-white bg-opacity-40 font-MaplestoryLight text-4xl"
         >
           <p>X</p>
         </div>
       </div>
-      {onMenu && (
-        <CommonOverlay>
-          <div className="absolute top-1/2 left-1/2 bg-white -mt-[5.5rem] -ml-[9rem] h-44 w-72  rounded-lg">
-            <div className="font-MaplestoryBold">
-              <p className="mt-8 text-4xl text-center">홈으로 나갈까요?</p>
-              <div className="mt-5 flex col-span-2">
-                <div
-                  onClick={() => {
-                    navigation("/");
-                  }}
-                  className="bg-lightGray rounded-xl w-16 text-3xl h-12 leading-[3rem] mx-auto "
-                >
-                  <p className="text-center">네</p>
-                </div>
-                <div
-                  onClick={() => {
-                    setOnMenu(!onMenu);
-                  }}
-                  className="bg-mainYellow-300 rounded-xl w-28 text-3xl h-12 leading-[3rem] mx-auto"
-                >
-                  <p className="text-center">아니요</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </CommonOverlay>
-      )}
+      {warning && <WarningComponent />}
     </>
   );
 };

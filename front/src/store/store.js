@@ -7,8 +7,9 @@ import gameStatusSlice from "./features/gameStatus/gameStatusSlice";
 import bookSlice from "./features/mainCard/bookSlice";
 import sleighReducer from "./features/sliegh/sleighSlice";
 import jumpSlice from "./features/jump/jumpSlice";
-import loginSlice from './features/login/loginSlice';
-import cardSlice from './features/mainCard/cardSlice';
+import loginSlice from "./features/login/loginSlice";
+import cardSlice from "./features/mainCard/cardSlice";
+import commonSlice from "./features/common/commonSlice";
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +22,7 @@ export const store = configureStore({
     sleigh: sleighReducer,
     jump: jumpSlice,
     loginInfo: loginSlice,
+    common: commonSlice,
     prevPage: cardSlice,
   },
 });
