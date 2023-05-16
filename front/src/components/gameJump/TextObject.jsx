@@ -54,7 +54,7 @@ const TextObject = ({
 
       setAudioLoaded(false);
 
-      const speed = time/iceLength;
+      const speed = iceLength / time;
       console.log(speed);
 
     }

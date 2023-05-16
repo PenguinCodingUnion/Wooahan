@@ -60,7 +60,7 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
       // console.log(actions, ANIMATIONS, idx);
 
       if (idx === PengulAnimation.WALK) {
-        mixer.timeScale = 2;
+        mixer.timeScale = 1;
       } else {
         mixer.timeScale = 1;
       }
