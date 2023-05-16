@@ -13,11 +13,12 @@ export const useSound = (src, volume = 1, fadeoutTime = 0) => {
 
     sound.current = new Howl({
       src,
-      onplay: () => {
+      onplay: function () {
         const fadeouttime = fadeoutTime;
+        console.log(this);
         setTimeout(
-          () => sound.current.fade(volume, 0, fadeouttime),
-          (sound.current.duration() - sound.current.seek()) * 1000 - fadeouttime
+          () => this.fade(volume, 0, fadeouttime),
+          (this.duration() - this.seek()) * 1000 - fadeouttime
         );
       },
     });
