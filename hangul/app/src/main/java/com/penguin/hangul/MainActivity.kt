@@ -84,8 +84,6 @@ class MainActivity : AppCompatActivity() {
             "deviceInformation 확인 :" + deviceInformation.getDeviceId()
         )
 
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-
         //액션바 제거
         val decorView = window.decorView
         val uiOptions = (View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
@@ -134,9 +132,9 @@ class MainActivity : AppCompatActivity() {
                 if (event.sensor.type == Sensor.TYPE_GRAVITY) {
                     val y = event.values[1]
 
-                    if (y > 3) {
+                    if (y > 2.5) {
                         onMoveDetected(1)
-                    } else if (y < -3) {
+                    } else if (y < -2.5) {
                         onMoveDetected(-1)
                     } else {
                         onMoveDetected(0)
@@ -192,6 +190,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) {
+            // 네비게이션 바 숨기기 유지
+            window.decorView.systemUiVisibility = (
+                    View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            or View.SYSTEM_UI_FLAG_FULLSCREEN
+                            or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    )
+        }
+    }
+
     override fun onBackPressed() {
         myWebView?.evaluateJavascript("javascript:window.backPress()", null)
     }
@@ -243,12 +253,14 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
         myWebView?.evaluateJavascript("javascript:window.soundPause()", null)
         myWebView?.onPause()
+        myWebView?.pauseTimers()
     }
 
     override fun onResume() {
         super.onResume()
         myWebView?.evaluateJavascript("javascript:window.soundResume()", null)
         myWebView?.onResume()
+        myWebView?.resumeTimers()
     }
 }
 
@@ -264,7 +276,7 @@ class DeviceInformation(private val context: Context) {
 
 }
 
-class AppManager(private val activity: MainActivity){
+class AppManager(private val activity: MainActivity) {
     @JavascriptInterface
     fun onCloseApp() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
@@ -281,22 +293,27 @@ class AppManager(private val activity: MainActivity){
     }
 }
 
-class MySensorManager(private val sensorManager: SensorManager,private val sensorEventListener: SensorEventListener,private val sensor:Sensor){
+class MySensorManager(
+    private val sensorManager: SensorManager,
+    private val sensorEventListener: SensorEventListener,
+    private val sensor: Sensor
+) {
     @JavascriptInterface
-    fun resumeSensor(){
+    fun resumeSensor() {
         sensorManager.registerListener(
             sensorEventListener,
             sensor,
             SensorManager.SENSOR_DELAY_NORMAL
         );
     }
+
     @JavascriptInterface
-    fun pauseSensor(){
-        sensorManager.unregisterListener(sensorEventListener,sensor);
+    fun pauseSensor() {
+        sensorManager.unregisterListener(sensorEventListener, sensor);
     }
 }
 
-class WarningManager(private val mContext: Context, private val device: String){
+class WarningManager(private val mContext: Context, private val device: String) {
 
     @JavascriptInterface
     fun showToast(toast: String) {
