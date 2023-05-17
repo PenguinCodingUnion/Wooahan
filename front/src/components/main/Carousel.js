@@ -71,7 +71,7 @@ const Carousel = () => {
                 loop={true}
                 pagination={false}
                 modules={[EffectCoverflow, Pagination]}
-                className="mySwiper mt-[1.5%]"
+                className="mySwiper"
                 onSlideChange={changeMainCard}
                 initialSlide={mainCard}
             >
