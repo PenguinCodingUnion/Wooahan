@@ -73,89 +73,93 @@ export const GameJump = (props) => {
         />
       ) : (
         //750 length
-        <Suspense fallback={<LoadingComponent />}>
-          {isLoading ? (
+        <>
+          {isLoading || gameStatus === GameStatus.GAME_NOT_LOADED ? (
             <LoadingComponent />
           ) : (
             <GameJumpOverlay startGame={startGame} />
           )}
           <Canvas
             onCreated={() => {
-              setIsLoading(false);
+              setTimeout(() => setIsLoading(false), 2000);
             }}
           >
-            {/** 배경설정 */}
-            {/* <OrbitControls /> */}
-            <ambientLight args={["white", 1.5]} castShadow />
-            <BackgroundImage imagePath={bgImage} />
-            <FallowCamera target={character} />
-            <WaterFloor bottom={BOTTOM_POSITION} />
+            <Suspense fallback={null}>
+              {/** 배경설정 */}
+              {/* <OrbitControls /> */}
+              <ambientLight args={["white", 1.5]} castShadow />
+              <BackgroundImage imagePath={bgImage} />
+              <FallowCamera target={character} />
+              <WaterFloor bottom={BOTTOM_POSITION} />
 
-            {/** 캐릭터 모델 */}
-            <PengulModel ref={character} bottom={BOTTOM_POSITION} />
+              {/** 캐릭터 모델 */}
+              <PengulModel ref={character} bottom={BOTTOM_POSITION} />
 
-            {/** 고정 오브젝트 */}
-            <IceModel icePosition={-EDGE} bottom={BOTTOM_POSITION} />
-            <IceModel icePosition={EDGE} bottom={BOTTOM_POSITION} />
+              {/** 고정 오브젝트 */}
+              <IceModel icePosition={-EDGE} bottom={BOTTOM_POSITION} />
+              <IceModel icePosition={EDGE} bottom={BOTTOM_POSITION} />
 
-            {/** 동적 오브젝트 */}
-            {gameStatus === GameStatus.GAME_START &&
-              problems[level].result.map((el, idx) => {
-                // console.log(problems);
+              {/** 동적 오브젝트 */}
+              {gameStatus === GameStatus.GAME_START &&
+                problems[level].result.map((el, idx) => {
+                  // console.log(problems);
 
-                //띄어쓰기 수
-                const problemCnt = problems[level].result.length - 1;
-                //총 글자 수
-                let countWord = 0;
-                // problems[level].result[0].content.length();
-                problems[level].result.forEach((element, index) => {
-                  if (
-                    index === 0 ||
-                    index === problems[level].result.length - 1
-                  ) {
-                    countWord += element.content.length / 2;
-                  } else {
-                    countWord += element.content.length;
+                  //띄어쓰기 수
+                  const problemCnt = problems[level].result.length - 1;
+                  //총 글자 수
+                  let countWord = 0;
+                  // problems[level].result[0].content.length();
+                  problems[level].result.forEach((element, index) => {
+                    if (
+                      index === 0 ||
+                      index === problems[level].result.length - 1
+                    ) {
+                      countWord += element.content.length / 2;
+                    } else {
+                      countWord += element.content.length;
+                    }
+                  });
+
+                  const length =
+                    ((EDGE - 50) * 2 -
+                      SHORTEST_DISTANCE_FOR_JUMP * problemCnt) /
+                    countWord;
+
+                  const realLength = length * el.content.length;
+
+                  if (idx !== 0) {
+                    lastIcePosition += realLength / 2;
                   }
-                });
 
-                const length =
-                  ((EDGE - 50) * 2 - SHORTEST_DISTANCE_FOR_JUMP * problemCnt) /
-                  countWord;
+                  const nowPosition = lastIcePosition;
 
-                const realLength = length * el.content.length;
+                  lastIcePosition +=
+                    realLength / 2 + SHORTEST_DISTANCE_FOR_JUMP;
 
-                if (idx !== 0) {
-                  lastIcePosition += realLength / 2;
-                }
-
-                const nowPosition = lastIcePosition;
-
-                lastIcePosition += realLength / 2 + SHORTEST_DISTANCE_FOR_JUMP;
-
-                return (
-                  <React.Fragment key={idx}>
-                    <TextObject
-                      text={el.content}
-                      url={el.url}
-                      time={el.fileLength}
-                      iceLength={realLength}
-                      no={idx}
-                      edge={EDGE}
-                      isFirst={idx === 0}
-                      isLast={idx === problemCnt}
-                      position={[nowPosition, 150, 0]}
-                    />
-                    <IceModel
-                      icePosition={nowPosition}
-                      bottom={BOTTOM_POSITION}
-                      length={realLength / 15}
-                    />
-                  </React.Fragment>
-                );
-              })}
+                  return (
+                    <React.Fragment key={idx}>
+                      <TextObject
+                        text={el.content}
+                        url={el.url}
+                        time={el.fileLength}
+                        iceLength={realLength}
+                        no={idx}
+                        edge={EDGE}
+                        isFirst={idx === 0}
+                        isLast={idx === problemCnt}
+                        position={[nowPosition, 150, 0]}
+                      />
+                      <IceModel
+                        icePosition={nowPosition}
+                        bottom={BOTTOM_POSITION}
+                        length={realLength / 15}
+                      />
+                    </React.Fragment>
+                  );
+                })}
+            </Suspense>
           </Canvas>
-        </Suspense>
+        </>
       )}
     </>
   );

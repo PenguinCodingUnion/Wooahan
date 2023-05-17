@@ -14,7 +14,7 @@ export const WarningComponent = () => {
 
   return (
     <CommonOverlay>
-      <div className="absolute top-1/2 left-1/2 bg-white -mt-[5.5rem] -ml-[9rem] h-44 w-72  rounded-lg z-[1000]">
+      <div className="absolute top-1/2 left-1/2 bg-white -mt-[5.5rem] -ml-[9rem] h-44 w-72  rounded-lg z-[999999999]">
         <div className="font-MaplestoryBold">
           <p className="mt-8 text-4xl text-center">홈으로 나갈까요?</p>
           <div className="mt-5 flex col-span-2">
