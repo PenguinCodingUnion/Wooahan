@@ -121,8 +121,8 @@ module.exports = {
           "100%": { transform: "translateX(550px) translateY(350px)" },
         },
         leftFox: {
-          "0%" : {transform: "translateX(-100px)"},
-          "100%" : {transform: "translateX(1500px)"}
+          "0%" : {transform: "translateX(0vw)"},
+          "100%" : {transform: "translateX(200vw)"}
         },
         textSlide: {
           "0%": { backgroundPosition: "100% 50%" },

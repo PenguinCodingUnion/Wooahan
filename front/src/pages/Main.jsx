@@ -65,7 +65,7 @@ export const Main = () => {
     <div className="relative w-screen h-screen">
         <FallingAnimate falling={page}/>
         {showModal && <Modal config={"setting"} current={"main"}/>}
-        <img className={`absolute z-0 w-screen h-screen opacity-50 ${coverImages[page]}`}  alt="" />
+        <img className={`absolute z-0 w-screen h-screen opacity-90 ${coverImages[page]}`}  />
         <Header titleIsVisible={true} topLeftButton={"books"}/>  
         <Carousel />
     </div>
