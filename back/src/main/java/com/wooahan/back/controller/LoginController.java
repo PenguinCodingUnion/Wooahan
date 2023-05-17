@@ -10,6 +10,7 @@ import com.wooahan.back.service.LoginService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
@@ -40,17 +42,17 @@ public class LoginController {
     @GetMapping("/oauth2/code/{registrationId}")
     public void googleLogin(@RequestParam String code, @PathVariable String registrationId, HttpServletResponse response) throws IOException {
         OauthResDto oauthResDto = loginService.socialLogin(code, registrationId);
-        ObjectMapper om = new ObjectMapper();
-        String cookieValue = om.writeValueAsString(oauthResDto);
-        cookieValue = URLEncoder.encode(cookieValue, StandardCharsets.UTF_8);
-        Cookie cookie = new Cookie("test",cookieValue);
-//        cookie.setDomain("https://k8b206.p.ssafy.io");
-        cookie.setPath("/");
-        // 30초간 저장
-        cookie.setMaxAge(60*60*60*24);
-        cookie.setSecure(true);
-        response.addCookie(cookie);
-        response.sendRedirect("https://k8b206.p.ssafy.io/main");
+//        ObjectMapper om = new ObjectMapper();
+//        String cookieValue = om.writeValueAsString(oauthResDto);
+//        cookieValue = URLEncoder.encode(cookieValue, StandardCharsets.UTF_8);
+//        Cookie cookie = new Cookie("test",cookieValue);
+////        cookie.setDomain("https://k8b206.p.ssafy.io");
+//        cookie.setPath("/");
+//        // 30초간 저장
+//        cookie.setMaxAge(60*60*60*24);
+//        cookie.setSecure(true);
+//        response.addCookie(cookie);
+        response.sendRedirect("https://k8b206.p.ssafy.io/main?email="+oauthResDto.getEmail()+"&provider="+oauthResDto.getProvider()+"&name="+oauthResDto.getName());
     }
 
     @Operation(summary = "게스트를 구글계정으로 바꿔주는 거", description = "구글 oauth2누르고 나서 바로 chaining으로 보내줘야 할 것")
@@ -58,5 +60,12 @@ public class LoginController {
     public ResponseEntity<String> registerEmail(@Parameter(name="updateReqDto",description ="email,provider,name,androidId")@RequestBody UpdateReqDto updateReqDto) {
         return new ResponseEntity<>(loginService.registerMember(updateReqDto), HttpStatus.OK);
     }
+
+//    @GetMapping("/test")
+//    public ResponseEntity<?> test(){
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setLocation(URI.create("/https://accounts.google.com/o/oauth2/auth?client_id=658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com&redirect_uri=http://k8b206.p.ssafy.io/api/login/oauth2/code/google&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"));
+//        return new ResponseEntity<>(headers,HttpStatus.OK);
+//    }
 
 }
