@@ -52,7 +52,7 @@ public class LoginController {
 //        cookie.setMaxAge(60*60*60*24);
 //        cookie.setSecure(true);
 //        response.addCookie(cookie);
-        response.sendRedirect("https://k8b206.p.ssafy.io/jumo?email="+oauthResDto.getEmail()+"&provider="+oauthResDto.getProvider()+"&name="+oauthResDto.getName());
+        response.sendRedirect("https://k8b206.p.ssafy.io/jump?email="+oauthResDto.getEmail()+"&provider="+oauthResDto.getProvider()+"&name="+oauthResDto.getName());
     }
 
     @Operation(summary = "게스트를 구글계정으로 바꿔주는 거", description = "구글 oauth2누르고 나서 바로 chaining으로 보내줘야 할 것")
