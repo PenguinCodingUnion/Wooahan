@@ -7,11 +7,6 @@ import FallingAnimate from "../components/main/animate/FallingAnimate";
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-import image_iceburg from "assets/images/background_iceberg.jpg";
-import image_dessert from "assets/images/background_desert.jpg";
-import image_forest from "assets/images/background_forest.jpg";
-import image_underwater from "assets/images/background_underwater.jpg";
-
 import useSound from "util/hooks/useSound";
 import bgm from "assets/sounds/mainbgm.mp3";
 import { useCookies } from 'react-cookie';
