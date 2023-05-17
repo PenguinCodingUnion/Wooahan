@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import correct from "assets/sounds/correct.wav";
 import wrong from "assets/sounds/wrong.wav";
 import effectSound from "util/effectSound";
+import BackgroundImageOnLoad from "background-image-on-load";
 
 export const AnswerCard = (props) => {
   const [isOpened, setIsOpened] = useState(false);
@@ -12,9 +13,13 @@ export const AnswerCard = (props) => {
   const [closedBoxSytle, setClosedBoxSytle] = useState("");
   const [closedBox, setClosedBox] = useState("");
   const [openedBox, setOpenedBox] = useState("");
+  const [imageLoadState, setImageLoadState] = useState(false);
 
-  const es_word = effectSound(require(`assets/sounds/word/${props.name}.mp3`), 1);
-  
+  const es_word = effectSound(
+    require(`assets/sounds/word/${props.name}.mp3`),
+    1
+  );
+
   const es_correct = effectSound(correct, 1);
   const es_wrong = effectSound(wrong, 1);
   const gif = [
@@ -24,31 +29,31 @@ export const AnswerCard = (props) => {
   const text = ["맞았습니다", "틀렸습니다"];
   const boxStyle = [
     "px-5 py-3 text-2xl bg-mainGreen-600 border-4 border-mainYellow-200 font-netmarbleB rounded-xl text-mainWhite tracking-wider shadow-lg shadow-mainBlack",
-    "px-5 py-3 text-2xl bg-mainRed-600 border-4 border-mainYellow-200 font-netmarbleB rounded-xl text-mainWhite tracking-wider shadow-lg shadow-mainBlack"
-  ]
+    "px-5 py-3 text-2xl bg-mainRed-600 border-4 border-mainYellow-200 font-netmarbleB rounded-xl text-mainWhite tracking-wider shadow-lg shadow-mainBlack",
+  ];
   const closedBoxStyleOption = [
     "absolute w-[36rem] left-1/2 -ml-[18rem] top-1/4",
-    "absolute w-[26rem] left-1/2 -ml-[13rem] top-[35%]"
-  ]
+    "absolute w-[26rem] left-1/2 -ml-[13rem] top-[35%]",
+  ];
 
   const closedBoxOption = [
     require("assets/images/bubble/closed_seashell.png"),
     require("assets/images/bubble/closed_seabox.png"),
-  ]
+  ];
 
   const openedOption = [
     require("assets/images/bubble/opened_seashell.png"),
     require("assets/images/bubble/opened_seabox.png"),
-  ]
-  
+  ];
+
   useEffect(() => {
-    if(props.name === props.answer) {
-      setClosedBox(closedBoxOption[0])
-      setOpenedBox(openedOption[0])
+    if (props.name === props.answer) {
+      setClosedBox(closedBoxOption[0]);
+      setOpenedBox(openedOption[0]);
       setClosedBoxSytle(closedBoxStyleOption[0]);
-    }else {
-      setClosedBox(closedBoxOption[1])
-      setOpenedBox(openedOption[1])
+    } else {
+      setClosedBox(closedBoxOption[1]);
+      setOpenedBox(openedOption[1]);
       setClosedBoxSytle(closedBoxStyleOption[1]);
     }
     setTimeout(() => {
@@ -75,7 +80,6 @@ export const AnswerCard = (props) => {
         setAnswerGif("");
       }, 3000);
     }
-    
   }, [props]);
 
   return (
@@ -83,11 +87,7 @@ export const AnswerCard = (props) => {
       <div className="absolute top-0 grid w-screen h-screen">
         <div className="relative grid items-center self-center h-3/4">
           {!isOpened && (
-            <img
-              className={closedBoxSytle}
-              src={closedBox}
-              alt="img"
-            />
+            <img className={closedBoxSytle} src={closedBox} alt="img" />
           )}
           {isOpened && (
             <>
@@ -99,12 +99,14 @@ export const AnswerCard = (props) => {
               <div className="absolute bottom-0 z-10 w-1/2 -left-20">
                 <img className="w-4/5 mx-auto -mb-5" src={answerGif} alt="" />
                 <div className="text-center whitespace-nowrap">
-                  <span className={answeBoxStyle}>
-                    {answerText}
-                  </span>
+                  <span className={answeBoxStyle}>{answerText}</span>
                 </div>
               </div>
-              <div className="absolute grid grid-rows-4 -ml-40 overflow-hidden shadow-lg bg-mainPink-200 justify-items-center h-80 rounded-3xl w-80 shadow-mainBlack left-1/2">
+              <div
+                className={`${
+                  imageLoadState ? "animate-scale-up-center" : "hidden"
+                } absolute grid grid-rows-4 -ml-40 overflow-hidden shadow-lg bg-mainPink-200 justify-items-center h-80 rounded-3xl w-80 shadow-mainBlack left-1/2`}
+              >
                 <div className="grid self-end row-span-3">
                   <div
                     className="overflow-hidden border h-52 w-60 bg-mainWhite border-mainWhite"
@@ -113,7 +115,12 @@ export const AnswerCard = (props) => {
                       backgroundSize: "15rem 13rem",
                       backgroundRepeat: "no-repeat",
                     }}
-                  ></div>
+                  >
+                    <BackgroundImageOnLoad
+                      src={`${props.image}`}
+                      onLoadBg={() => setImageLoadState(true)}
+                    />
+                  </div>
                 </div>
                 <div className="grid self-center row-span-1 text-5xl font-bold font-netmarbleB">
                   <div className="">{props.name}</div>
