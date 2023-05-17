@@ -61,25 +61,25 @@ const Carousel = () => {
                 grabCursor={true}
                 centeredSlides={true}
                 slidesPerView={3}
-                loop={true}
                 coverflowEffect={{
                     rotate: 0,
-                    stretch: 0,
-                    depth: 200,
-                    modifier: 1,
-                    slideShadows: true,
+                    stretch: -150,
+                    depth: 500,
+                    modifier: 3,
+                    slideShadows: false,
                 }}
+                loop={true}
                 pagination={false}
                 modules={[EffectCoverflow, Pagination]}
-                className="mySwiper mt-[4%]"
+                className="mySwiper mt-[1.5%]"
                 onSlideChange={changeMainCard}
                 initialSlide={mainCard}
             >
                 {games.map((game, idx) => (
-                    <SwiperSlide onClick={() => {movePageHandler(game, idx)}} key={game.id} id={idx} className="relative rounded-xl">
+                    <SwiperSlide onClick={() => {movePageHandler(game, idx)}} key={game.id} id={idx} className="relative rounded-2xl">
                         <CardImage coverImage={mainCard} id={idx} title={game.title}/>
                         <img src={games[idx].animal} 
-                                className="ml-[2%] mt-[2%] mb-[2%] w-28 h-36" />
+                                className="ml-[2%] mb-[10%] w-[500%] h-[200%]" />
                     </SwiperSlide>
                 ))}
             </Swiper>
