@@ -6,7 +6,6 @@ import penguin from "assets/images/animal/penguin.png"
 import fox from "assets/images/animal/fox.png"
 import PropTypes from "prop-types"
 import GameCard from "./GameCard"
-// import jump_penguin from "assets/images/penguel_high_jump.gif"
 
 const coverImages = [
   ice_burg, forest, underwater, desert, ice_burg, forest, underwater, desert
