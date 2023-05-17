@@ -201,7 +201,12 @@ const GameSleigh = () => {
   }, [isEnd]);
 
   useEffect(() => {
-    if (imageLoadState.left && imageLoadState.right) {
+    if (
+      imageLoadState.left &&
+      imageLoadState.right &&
+      quizStatus === "stop" &&
+      quizCount < 5
+    ) {
       const { actions, mixer, names } = modelAnimations;
 
       names.forEach((element) => {
@@ -212,9 +217,7 @@ const GameSleigh = () => {
       mixer.timeScale = 1.5;
       actions[names[5]].play();
 
-      if (quizStatus === "stop" && quizCount < 5) {
-        addMoveEvent();
-      }
+      addMoveEvent();
     }
 
     return () => {
@@ -497,7 +500,7 @@ const GameSleigh = () => {
           onClick={() => {
             dispatch(commonActions.setWarning());
           }}
-          className="absolute z-40 h-10 w-10 right-[3%] top-[3%] rounded-lg bg-white bg-opacity-40 font-MaplestoryLight text-4xl"
+          className="absolute h-10 w-10 right-[3%] top-[3%] rounded-lg bg-white bg-opacity-40 font-MaplestoryLight text-4xl z-[500]"
         >
           <p>X</p>
         </div>

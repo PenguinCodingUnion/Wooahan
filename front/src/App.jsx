@@ -17,11 +17,13 @@ const App = () => {
       location.pathname === "/sleigh" ||
       location.pathname === "/jump" ||
       location.pathname === "/bubble" ||
-      location.pathname === "/train"
+      location.pathname === "/train" ||
+      location.pathname === "/tutorial" ||
+      location.pathname === "/ending"
     ) {
       dispatch(commonActions.setWarning());
     } else {
-      naviagation(-1);
+      naviagation("/main");
     }
   };
 
@@ -31,9 +33,7 @@ const App = () => {
 
     for (const howlId in _howls) {
       const howl = _howls[howlId];
-      if (howl && howl.playing()) {
-        currentSounds.push(howl);
-      }
+      currentSounds.push(howl);
     }
 
     return currentSounds;
@@ -41,12 +41,20 @@ const App = () => {
 
   window.soundPause = () => {
     const currentSounds = findCurrentSounds();
-    currentSounds.forEach((sound) => sound.stop());
+    currentSounds.forEach((sound) => {
+      if (sound.playing()) {
+        sound.stop();
+      } else {
+        sound.unload();
+      }
+    });
   };
 
   window.soundResume = () => {
     const currentSounds = findCurrentSounds();
-    currentSounds.forEach((sound) => sound.play());
+    currentSounds.forEach((sound) => {
+      sound.play();
+    });
   };
 
   return (
