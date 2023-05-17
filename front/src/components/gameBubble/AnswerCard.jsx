@@ -2,16 +2,19 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import correct from "assets/sounds/correct.wav";
 import wrong from "assets/sounds/wrong.wav";
-import openedSeashell from "assets/images/bubble/opened_seashell.png";
-import closedSeashell from "assets/images/bubble/closed_seashell.png";
 import effectSound from "util/effectSound";
 
 export const AnswerCard = (props) => {
   const [isOpened, setIsOpened] = useState(false);
   const [answerGif, setAnswerGif] = useState("");
   const [answerText, setAnswerText] = useState("");
-  const [answeBboxStyle, setAnswerBoxStyle] = useState("");
+  const [answeBoxStyle, setAnswerBoxStyle] = useState("");
+  const [closedBoxSytle, setClosedBoxSytle] = useState("");
+  const [closedBox, setClosedBox] = useState("");
+  const [openedBox, setOpenedBox] = useState("");
 
+  const es_word = effectSound(require(`assets/sounds/word/${props.name}.mp3`), 1);
+  
   const es_correct = effectSound(correct, 1);
   const es_wrong = effectSound(wrong, 1);
   const gif = [
@@ -23,11 +26,35 @@ export const AnswerCard = (props) => {
     "px-5 py-3 text-2xl bg-mainGreen-600 border-4 border-mainYellow-200 font-netmarbleB rounded-xl text-mainWhite tracking-wider shadow-lg shadow-mainBlack",
     "px-5 py-3 text-2xl bg-mainRed-600 border-4 border-mainYellow-200 font-netmarbleB rounded-xl text-mainWhite tracking-wider shadow-lg shadow-mainBlack"
   ]
+  const closedBoxStyleOption = [
+    "absolute w-[36rem] left-1/2 -ml-[18rem] top-1/4",
+    "absolute w-[26rem] left-1/2 -ml-[13rem] top-[35%]"
+  ]
+
+  const closedBoxOption = [
+    require("assets/images/bubble/closed_seashell.png"),
+    require("assets/images/bubble/closed_seabox.png"),
+  ]
+
+  const openedOption = [
+    require("assets/images/bubble/opened_seashell.png"),
+    require("assets/images/bubble/opened_seabox.png"),
+  ]
   
   useEffect(() => {
+    if(props.name === props.answer) {
+      setClosedBox(closedBoxOption[0])
+      setOpenedBox(openedOption[0])
+      setClosedBoxSytle(closedBoxStyleOption[0]);
+    }else {
+      setClosedBox(closedBoxOption[1])
+      setOpenedBox(openedOption[1])
+      setClosedBoxSytle(closedBoxStyleOption[1]);
+    }
     setTimeout(() => {
+      es_word.play();
       setIsOpened(true);
-    }, 500);
+    }, 700);
     if (props.name === props.answer) {
       es_correct.play();
       setAnswerGif(gif[0]);
@@ -36,6 +63,7 @@ export const AnswerCard = (props) => {
       setTimeout(() => {
         props.closeCard();
         props.changeQuiz();
+        setAnswerGif("");
       }, 3000);
     } else if (props.name !== props.answer) {
       es_wrong.play();
@@ -44,6 +72,7 @@ export const AnswerCard = (props) => {
       setAnswerBoxStyle(boxStyle[1]);
       setTimeout(() => {
         props.closeCard();
+        setAnswerGif("");
       }, 3000);
     }
     
@@ -55,8 +84,8 @@ export const AnswerCard = (props) => {
         <div className="relative grid items-center self-center h-3/4">
           {!isOpened && (
             <img
-              className="absolute w-[36rem] left-1/2 -ml-[18rem] top-1/4"
-              src={closedSeashell}
+              className={closedBoxSytle}
+              src={closedBox}
               alt="img"
             />
           )}
@@ -64,13 +93,13 @@ export const AnswerCard = (props) => {
             <>
               <img
                 className="absolute w-[42rem] left-1/2 -ml-[21rem] mt-2"
-                src={openedSeashell}
+                src={openedBox}
                 alt="img"
               />
               <div className="absolute bottom-0 z-10 w-1/2 -left-20">
                 <img className="w-4/5 mx-auto -mb-5" src={answerGif} alt="" />
                 <div className="text-center whitespace-nowrap">
-                  <span className={answeBboxStyle}>
+                  <span className={answeBoxStyle}>
                     {answerText}
                   </span>
                 </div>

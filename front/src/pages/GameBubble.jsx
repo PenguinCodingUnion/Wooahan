@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import bgImage from "assets/images/background_underwater.jpg";
 import QuizCard from "components/gameBubble/QuizCard";
 import WordBubble from "components/gameBubble/WordBubble";
@@ -13,7 +13,8 @@ import bgm from "assets/sounds/bubblebgm.mp3";
 
 import instance from "util/Axios";
 import LoadingComponent from "components/common/LoadingComponent";
-import CommonOverlay from "components/common/CommonOverlay";
+import { commonActions } from "store/features/common/commonSlice";
+import WarningComponent from "components/common/WarningComponent";
 
 export const GameBubble = (props) => {
   const pos = [
@@ -48,6 +49,7 @@ export const GameBubble = (props) => {
   const [isGameEnd, setIsGameEnd] = useState(false);
   const [quizData, setQuizData] = useState([]);
   const [isQuizCardOpen, setIsQuizCardOpen] = useState(true);
+  const [showXButton, setShowXButton] = useState(false);
 
   useEffect(() => {
     const loadData = async () => {
@@ -73,6 +75,10 @@ export const GameBubble = (props) => {
       setIsIntro(false);
     }
   };
+
+  const closeTutorial = () => {
+    setShowXButton(true);
+  }
 
   const changeQuiz = () => {
     if (round === 4) {
@@ -132,50 +138,18 @@ export const GameBubble = (props) => {
     setIsQuizCardOpen(true);
   };
 
-  useSound(bgm, 1, 2000);
+  useSound(bgm, 0.4, 2000);
 
-  const [exit, setExit] = useState(false);
-  const [warning, setWarning] = useState(<></>);
-  const close = () => {
-    setExit(true);
-  };
-  const back = () => {
-    setWarning(<></>);
-  };
+  const warning = useSelector((state) => state.common.warning);
+  const dispatch = useDispatch();
   const warn = () => {
-    setWarning(
-      <CommonOverlay>
-        <div className="absolute top-1/2 left-1/2 bg-white -mt-[5.5rem] -ml-[9rem] h-44 w-72  rounded-lg">
-          <div className="font-MaplestoryBold">
-            <p className="mt-8 text-4xl text-center">홈으로 나갈까요?</p>
-            <div className="mt-5 flex col-span-2">
-              <div
-                onClick={() => {
-                  close();
-                }}
-                className="bg-lightGray rounded-xl w-16 text-3xl h-12 leading-[3rem] mx-auto "
-              >
-                <p className="text-center">네</p>
-              </div>
-              <div
-                onClick={() => {
-                  back();
-                }}
-                className="bg-mainYellow-300 rounded-xl w-28 text-3xl h-12 leading-[3rem] mx-auto"
-              >
-                <p className="text-center">아니요</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </CommonOverlay>
-    );
+    dispatch(commonActions.setWarning());
   };
   return (
     <>
       {isLoading && <LoadingComponent />}
       {!isLoading && isIntro && !isGameEnd && (
-        <BubbleIntro closeIntro={closeIntro} pos={pos} />
+        <BubbleIntro closeIntro={closeIntro} pos={pos} closeTutorial={closeTutorial} />
       )}
 
       {!isLoading && !isIntro && !isGameEnd && (
@@ -217,19 +191,26 @@ export const GameBubble = (props) => {
           )}
         </div>
       )}
-      <div>
-        <div
-          onClick={() => {
-            warn();
-          }}
-          className="absolute h-10 w-10 right-[3%] top-[3%] rounded-lg bg-white bg-opacity-40 font-MaplestoryLight text-4xl"
-        >
-          <p>X</p>
+      {showXButton && (
+        <div>
+          <div
+            onClick={() => {
+              warn();
+            }}
+            className="absolute h-10 w-10 right-[3%] top-[3%] rounded-lg bg-white bg-opacity-40 font-MaplestoryLight text-4xl"
+          >
+            <p>X</p>
+          </div>
         </div>
-      </div>
-      {warning}
-      {exit && <Navigate to={`/main`} />}
-      {!isLoading && !isIntro && isGameEnd && <Navigate to={`/ending`} />}
+      )}
+
+      {warning && <WarningComponent />}
+      {!isLoading && !isIntro && isGameEnd && (
+        <Navigate
+          to={`/ending`}
+          state={{ game: "bubble", character: "penguin" }}
+        />
+      )}
     </>
   );
 };

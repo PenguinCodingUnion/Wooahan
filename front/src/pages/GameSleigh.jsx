@@ -19,7 +19,13 @@ import { getQuizData, sleighActions } from "store/features/sliegh/sleighSlice";
 import Intro from "components/gameSleigh/Intro";
 import QuizWord from "components/gameSleigh/QuizWord";
 import LoadingComponent from "components/common/LoadingComponent";
+import bgm1 from "assets/sounds/sleighbgm_1.mp3";
+import bgm2 from "assets/sounds/sleighbgm_2.mp3";
+import bgm3 from "assets/sounds/sleighbgm_3.mp3";
+import { Howl } from "howler";
 import CommonOverlay from "components/common/CommonOverlay";
+import { commonActions } from "store/features/common/commonSlice";
+import WarningComponent from "components/common/WarningComponent";
 
 const GameSleigh = () => {
   const dispatch = useDispatch();
@@ -34,6 +40,9 @@ const GameSleigh = () => {
   const [quizStatus, setQuizStatus] = useState("idle"); // 퀴즈 상태 idle(대기) start(퀴즈내려옴) stop(퀴즈맞추기) check(정답확인)
   const [quizCount, setQuizCount] = useState(0);
   const [quizResult, setQuizResult] = useState("left"); // left right
+  const warning = useSelector((state) => state.common.warning);
+
+  const bgm = useRef();
 
   const [imageLoadState, setImageLoadState] = useState({
     left: false,
@@ -138,6 +147,7 @@ const GameSleigh = () => {
     // 다음 문제
     if (quizStatus === "nextQuiz") {
       setImageLoadState({ left: false, right: false });
+      bgm.current.fade(0.01, 1, 800);
       stopActions();
       if (quizCount < 5) {
         modelRef.current.rotation.y = Math.PI;
@@ -180,17 +190,23 @@ const GameSleigh = () => {
       mixer.timeScale = 1.5;
       actions[names[4]].play();
       actions[names[5]].play();
+      bgm.current.fade(1, 0.01, 300);
     }
 
     // return () => {};
   }, [quizStatus]);
 
   useEffect(() => {
-    if (isEnd) navigation("/ending");
+    if (isEnd) navigation("/ending", {state:{game: "sleigh", character: "fox"}});
   }, [isEnd]);
 
   useEffect(() => {
-    if (imageLoadState.left && imageLoadState.right) {
+    if (
+      imageLoadState.left &&
+      imageLoadState.right &&
+      quizStatus === "stop" &&
+      quizCount < 5
+    ) {
       const { actions, mixer, names } = modelAnimations;
 
       names.forEach((element) => {
@@ -200,8 +216,14 @@ const GameSleigh = () => {
       modelRef.current.rotation.y = 0;
       mixer.timeScale = 1.5;
       actions[names[5]].play();
+
+      addMoveEvent();
     }
-  }, [imageLoadState]);
+
+    return () => {
+      removeMoveEvent();
+    };
+  }, [imageLoadState, quizStatus]);
 
   const addMoveEvent = () => {
     window.doMove = (value) => {
@@ -237,15 +259,15 @@ const GameSleigh = () => {
   }, [isStart]);
 
   // 게임 진행상황에 맞게 함수 추가 삭제
-  useEffect(() => {
-    if (quizStatus === "stop" && quizCount < 5) {
-      addMoveEvent();
-    }
+  // useEffect(() => {
+  //   if (quizStatus === "stop" && quizCount < 5) {
+  //     addMoveEvent();
+  //   }
 
-    return () => {
-      removeMoveEvent();
-    };
-  }, [quizStatus]);
+  //   return () => {
+  //     removeMoveEvent();
+  //   };
+  // }, [quizStatus]);
 
   // 카메라 설정
   const camera = {
@@ -261,7 +283,7 @@ const GameSleigh = () => {
     if (isLoading) {
       loadingTimer = setTimeout(() => {
         navigation("/");
-      }, 20000);
+      }, 30000);
     }
 
     return () => {
@@ -269,58 +291,39 @@ const GameSleigh = () => {
     };
   }, [isLoading]);
 
-  const [exit, setExit] = useState(false);
-  const [warning, setWarning] = useState(<></>);
-  const close = () => {
-    setExit(true);
-  };
-  const back = () => {
-    setWarning(<></>);
-  };
-  const warn = () => {
-    setWarning(
-      <CommonOverlay>
-        <div className="absolute top-1/2 left-1/2 bg-white -mt-[5.5rem] -ml-[9rem] h-44 w-72  rounded-lg">
-          <div className="font-MaplestoryBold">
-            <p className="mt-8 text-4xl text-center">홈으로 나갈까요?</p>
-            <div className="mt-5 flex col-span-2">
-              <div
-                onClick={() => {
-                  close();
-                }}
-                className="bg-lightGray rounded-xl w-16 text-3xl h-12 leading-[3rem] mx-auto "
-              >
-                <p className="text-center">네</p>
-              </div>
-              <div
-                onClick={() => {
-                  back();
-                }}
-                className="bg-mainYellow-300 rounded-xl w-28 text-3xl h-12 leading-[3rem] mx-auto"
-              >
-                <p className="text-center">아니요</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </CommonOverlay>
-    );
-  };
+  useEffect(() => {
+    const bgmList = [bgm1, bgm2, bgm3];
+
+    const sound = new Howl({
+      src: bgmList[parseInt(Math.random() * 2.99)],
+      autoplay: true,
+      loop: true,
+      volume: 1,
+      preload: true,
+    });
+
+    bgm.current = sound;
+
+    return () => {
+      sound.unload();
+    };
+  }, []);
+
   return (
     <>
-      <div className="h-screen w-screen">
+      <div className="w-screen h-screen">
         {quizStatus !== "idle" &&
           quizStatus !== "start" &&
           quizStatus !== "nextQuiz" &&
           quizCount < 5 && (
-            <div className="absolute h-screen w-screen justify-center items-center flex">
+            <div className="absolute flex items-center justify-center w-screen h-screen">
               <div
                 // className={`animate-scale-up-center z-50 absolute w-[19vw] h-[19vw] left-[12.5vw]`}
                 className={`${
                   imageLoadState.left && imageLoadState.right
                     ? "animate-scale-up-center"
                     : "hidden"
-                } z-50 absolute w-[19vw] h-[19vw] left-[12.5vw]`}
+                } z-50 absolute w-[19vw] h-[19vw] left-[12.5vw] max-w-[60vh] max-h-[60vh]`}
                 style={{
                   top: `${(30 / (quizScale / 1.25)) * 0.7}vh`,
                 }}
@@ -348,7 +351,7 @@ const GameSleigh = () => {
                   imageLoadState.left && imageLoadState.right
                     ? "animate-scale-up-center"
                     : "hidden"
-                } z-50 absolute w-[19vw] h-[19vw] right-[12.5vw]`}
+                } z-50 absolute w-[19vw] h-[19vw] right-[12.5vw] max-w-[60vh] max-h-[60vh]`}
                 style={{
                   top: `${(30 / (quizScale / 1.25)) * 0.7}vh`,
                 }}
@@ -447,9 +450,9 @@ const GameSleigh = () => {
                   stopMove();
                 }}
                 onMouseUp={stopMove}
-                className="bg-mainBlack opacity-80 rounded-[100%] text-[4vw] text-white w-[8vw] h-[8vw] z-20"
+                className="bg-mainBlack opacity-80 rounded-[100%] text-[min(4vw,10vh)] text-white w-[8vw] h-[8vw] z-20 max-w-[20vh] max-h-[20vh]"
               >
-                <p className="translate-x-[-0.3vw]">◀</p>
+                <p className="translate-x-[-0.2vw]">◀</p>
               </button>
               <button
                 type="button"
@@ -465,9 +468,9 @@ const GameSleigh = () => {
                   stopMove();
                 }}
                 onMouseUp={stopMove}
-                className="bg-mainBlack opacity-80 rounded-[100%] text-[4vw] text-white w-[8vw] h-[8vw] z-20 translate-x-[2%]"
+                className="bg-mainBlack opacity-80 rounded-[100%] text-[min(4vw,10vh)] text-white w-[8vw] h-[8vw] z-20 translate-x-[2%] max-w-[20vh] max-h-[20vh]"
               >
-                <p className="translate-x-[0.3vw]">▶</p>
+                <p className="translate-x-[0.2vw]">▶</p>
               </button>
             </div>
           )}
@@ -495,15 +498,14 @@ const GameSleigh = () => {
       <div>
         <div
           onClick={() => {
-            warn();
+            dispatch(commonActions.setWarning());
           }}
-          className="absolute h-10 w-10 right-[3%] top-[3%] rounded-lg bg-white bg-opacity-40 font-MaplestoryLight text-4xl"
+          className="absolute h-10 w-10 right-[3%] top-[3%] rounded-lg bg-white bg-opacity-40 font-MaplestoryLight text-4xl z-[500]"
         >
           <p>X</p>
         </div>
       </div>
-      {warning}
-      {exit && <Navigate to={`/main`} />}
+      {warning && <WarningComponent />}
     </>
   );
 };

@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import Header from '../components/main/Header' 
 import Modal from '../components/main/modal/Modal'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import BlockSet from "../components/main/books/BlockSet"
 import BookModal from '../components/main/books_modal/BookModal';
 
@@ -16,6 +16,7 @@ export const Books = () => {
   const rewards = useSelector(state => state.loginInfo.rewards)
   const email = useSelector(state => state.loginInfo.email)
 
+
   useEffect(() => {
     // console.log("별가루 : " + starCount)
     // console.log("보상 카드 : " + rewards)
@@ -23,13 +24,12 @@ export const Books = () => {
   }, [])
 
   return (
-    <div>
+    <div className="relative overflow-x-scroll w-screen h-screen bg-imageSky">
       <Header titleIsVisible={false} topLeftButton={"home"}/>
-      <div className="relative overflow-x-scroll w-screen h-screen bg-deepPink">
-        {showModal && <Modal />}
-        {showBookModal && <BookModal text={bookText}/>}
-        <BlockSet />
-      </div>
+      {showModal && <Modal current={"books"} /> }
+      {showBookModal && <BookModal text={bookText}/>}
+      <BlockSet />
+      <div className="absolute mt-[30%] w-[200%] h-[40%] bg-[url('assets/images/books/background_book.jpg')] bg-cover" />
     </div>
   )
 }

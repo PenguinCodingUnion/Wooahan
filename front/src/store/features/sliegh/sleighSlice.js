@@ -3,7 +3,13 @@ import { game } from "api/game";
 
 export const getQuizData = createAsyncThunk(
   "sleigh/getQuizData",
-  (difficulty) => game.get.run(difficulty)
+  (difficulty) => {
+    try {
+      return game.get.run(difficulty);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 );
 
 const initialState = {

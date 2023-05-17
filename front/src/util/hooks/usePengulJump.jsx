@@ -4,7 +4,7 @@ import { useFrame } from "@react-three/fiber";
 import useRaycast from "util/hooks/useRaycast.ts";
 import { Vector3 } from "three";
 import { useDispatch, useSelector } from "react-redux";
-import { GameStatus } from "util/Enums.ts";
+import { GameStatus, PengulAnimation } from "util/Enums.ts";
 import { gameStatusActions } from "store/features/gameStatus/gameStatusSlice";
 import { jumpActions } from "store/features/jump/jumpSlice";
 
@@ -17,11 +17,13 @@ const ANIMATIONS = [
   "surprize",
   "swim",
   "waving",
+  "jump_jump",
+  "victory",
 ];
 
 const JUMP_FORCE = 80;
-const BASE_MOVEMENT_SPEED = 70;
-const MIN_SPEED_FOR_JUMP_ICE = 128;
+
+const MIN_SPEED_FOR_JUMP_ICE = 130;
 
 const GROUND_HEIGHT = -80;
 const EDGE = window.innerWidth / 2 + 5;
@@ -30,6 +32,8 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
   const raycast = useRaycast(pengulE, 55, new Vector3(1, -1, 0));
 
   //캐릭터 상태관리
+  const BASE_MOVEMENT_SPEED = useRef(75); //150
+
   const isJumping = useRef(false);
   const jumpNow = useRef(false);
   const justJump = useRef(false);
@@ -39,14 +43,13 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
   const characterVelocity = useRef([0, 0, 0]);
 
   //애니메이션 정보
-  const activeAnimation = useRef(0);
+  const activeAnimation = useRef(PengulAnimation.T_POSE);
 
   //else
   // const { nodes, materials, animations } = useGLTF(PengulE);
-  const { actions } = useAnimations(animations, ref);
-  const actionsRef = useRef(actions);
+  const { actions, mixer } = useAnimations(animations, ref);
 
-  const gameStatus = useSelector((state) => state.gameStatus.status);
+  const gameStatus = useSelector((state) => state.jump.status);
   const dispatch = useDispatch();
 
   //애니메이션 변경하기
@@ -54,7 +57,13 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
     (idx) => {
       if (idx < 0 || activeAnimation.current === idx) return;
 
-      console.log(actions, actionsRef.current, ANIMATIONS, idx);
+      // console.log(actions, ANIMATIONS, idx);
+
+      if (idx === PengulAnimation.WALK) {
+        mixer.timeScale = 2;
+      } else {
+        mixer.timeScale = 1;
+      }
 
       actions[ANIMATIONS[activeAnimation.current]]?.fadeOut(0.3);
       actions[ANIMATIONS[idx]]?.reset().fadeIn(0.3).play();
@@ -77,10 +86,10 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
       }
 
       //점프 애니메이션 재생
-      setActiveAnimation(2);
+      setActiveAnimation(PengulAnimation.JUMPING);
       setTimeout(() => {
-        setActiveAnimation(3);
-      }, 1000);
+        setActiveAnimation(PengulAnimation.WALK);
+      }, 1150);
     }
   }, [gameStatus, setActiveAnimation]);
 
@@ -97,7 +106,7 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
     window.doJump = doJump;
     if (window.jump) window.jump.resumeSensor();
 
-    setActiveAnimation(1);
+    setActiveAnimation(PengulAnimation.IDLE);
 
     return () => {
       activeAnimation.current = 0;
@@ -125,7 +134,7 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
 
     //맵 오른쪽 끝 도착
     if (characterPosition.current[0] >= EDGE) {
-      dispatch(gameStatusActions.goNextLevel());
+      dispatch(jumpActions.goNextLevel());
     }
 
     //속력에 맞춰 위치 이동
@@ -165,7 +174,7 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
         newVelocity[1] += GRAVITY * delta;
       } else {
         //calc xVelocity
-        newVelocity[0] = BASE_MOVEMENT_SPEED;
+        newVelocity[0] = BASE_MOVEMENT_SPEED.current;
         newVelocity[1] = 0;
 
         if (jumpNow.current) {
@@ -194,10 +203,10 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
         } else if (raycast().length < 3) {
           //now edge
           newVelocity[0] = 0;
-          setActiveAnimation(1);
+          setActiveAnimation(PengulAnimation.IDLE);
         } else {
           //just walk
-          setActiveAnimation(3);
+          setActiveAnimation(PengulAnimation.WALK);
         }
       }
 

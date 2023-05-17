@@ -1,25 +1,37 @@
 import { Howl } from "howler";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export const useSound = (src, volume = 1, fadeoutTime = 0) => {
-  let sound;
-  const soundStop = () => sound.stop();
+  const sound = useRef(null);
+  const soundStop = () => {
+    sound.current.stop();
+    sound.current.unload();
+    sound.current = null;
+  };
   const soundPlay = (src) => {
-    sound = new Howl({ src });
-    sound.volume(volume);
-    sound.play();
+    if (sound.current && sound.current.playing()) soundStop();
+
+    sound.current = new Howl({
+      src,
+      onplay: function () {
+        const fadeouttime = fadeoutTime;
+        setTimeout(
+          () => this.fade(volume, 0, fadeouttime),
+          (this.duration() - this.seek()) * 1000 - fadeouttime
+        );
+      },
+    });
+    sound.current.volume(volume);
+    sound.current.loop(true);
+    sound.current.play();
   };
 
   useEffect(() => {
     soundPlay(src);
-    sound.on("play", () => {
-      const fadeouttime = fadeoutTime;
-      setTimeout(
-        () => sound.fade(volume, 0, fadeouttime),
-        (sound.duration() - sound.seek()) * 1000 - fadeouttime
-      );
-    });
-    return soundStop;
+
+    return () => {
+      soundStop();
+    };
   }, []);
 };
 export default useSound;
