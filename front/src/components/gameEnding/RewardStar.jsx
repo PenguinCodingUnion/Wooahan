@@ -16,7 +16,7 @@ export const RewardStar = (props) => {
 
   const gifModels = [
     require("assets/images/penguel_high_jump.gif"),
-    require("assets/images/penguel_high_jump.gif"),
+    require("assets/images/fox_walk.gif"),
   ];
 
   useEffect(() => {

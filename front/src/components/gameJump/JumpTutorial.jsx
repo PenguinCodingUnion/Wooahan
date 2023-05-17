@@ -77,9 +77,9 @@ export const Jump = (props) => {
         >
           <p>넘어가기</p>
         </div>
-      </div>
       <div className="w-full h-full">
         <img className="w-full h-full" src={filename[idx]} alt="뛰어쓰기설명" />
+      </div>
       </div>
     </div>
   );

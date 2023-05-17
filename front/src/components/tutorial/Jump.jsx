@@ -49,7 +49,7 @@ export const Jump = (props) => {
     setEnd(true);
   };
   return (
-    <div className="relative h-full w-full overflow-hidden">
+    <div className="relative w-full h-full overflow-hidden">
       <div>
         <div className={pointcss[idx]}></div>
         <div className={mentioncss[idx]}>
@@ -79,8 +79,8 @@ export const Jump = (props) => {
           {end && <Navigate to={`/main`} />}
         </div>
       </div>
-      <div className="h-full w-full">
-        <img className="h-full w-full" src={filename[idx]} alt="뛰어쓰기설명" />
+      <div className="w-full h-full">
+        <img className="w-full h-full" src={filename[idx]} alt="뛰어쓰기설명" />
       </div>
     </div>
   );

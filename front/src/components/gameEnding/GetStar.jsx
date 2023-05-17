@@ -12,7 +12,7 @@ export const GetStar = (props) => {
     } else {
       setStarCount(props.starCount);
     }
-    setTimeout(() => props.closeGetStar(), 2500);
+    // setTimeout(() => props.closeGetStar(), 2500);
   }, [props]);
 
   useEffect(() => {
