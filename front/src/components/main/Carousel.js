@@ -10,23 +10,24 @@ import "./styles.css";
 import { EffectCoverflow, Pagination } from "swiper";
 import GameCard from './GameCard'
 import CardImage from './CardImage'
-
+import penguin_jump from "assets/images/animal/penguin_jump.png"
 import penguin from "assets/images/animal/penguin.png"
 import fox from "assets/images/animal/fox.png"
+import fox_train from "assets/images/animal/fox_train.png"
 import {useNavigate} from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux"
 import { backActions } from 'store/features/mainCard/backSlice' 
 import { cardActions } from 'store/features/mainCard/cardSlice'
 
 const games =[
-    {id: 1, title: '뛰어쓰기', animal: penguin, url: '/jump'},
+    {id: 1, title: '뛰어쓰기', animal: penguin_jump, url: '/jump'},
     {id: 2, title: '팽글썰매', animal: fox, url: '/sleigh'},
     {id: 3, title: '한글방울', animal: penguin, url: '/bubble'},
-    {id: 4, title: '끝말기차', animal: fox, url: '/train'},
-    {id: 5, title: '뛰어쓰기', animal: penguin, url: '/jump'},
+    {id: 4, title: '끝말기차', animal: fox_train, url: '/train'},
+    {id: 5, title: '뛰어쓰기', animal: penguin_jump, url: '/jump'},
     {id: 6, title: '팽글썰매', animal: fox, url: '/sleigh'},
     {id: 7, title: '한글방울', animal: penguin, url: '/bubble'},
-    {id: 8, title: '끝말기차', animal: fox, url: '/train'},
+    {id: 8, title: '끝말기차', animal: fox_train, url: '/train'},
 ]
 
 const Carousel = () => {
