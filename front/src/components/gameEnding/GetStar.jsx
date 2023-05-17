@@ -5,14 +5,26 @@ import { connect } from "react-redux";
 export const GetStar = (props) => {
   const [starCount, setStarCount] = useState(0);
   const [starLoop, setStarLoop] = useState([]);
+  const [starBoxStyle, setStarBoxStyle] = useState("");
+
+  const boxStyles = [
+    "bg-[#8977AD] w-[24rem] h-[4.5rem] absolute top-1/3 left-1/2 -translate-x-[12rem] rounded-3xl grid grid-cols-5 items-center justify-items-center",
+    "bg-[#8977AD] w-[24rem] h-[4.5rem] absolute top-2/3 left-1/2 -translate-x-[12rem] rounded-3xl grid grid-cols-5 items-center justify-items-center"
+  ]
 
   useEffect(() => {
+    if(props.model === "penguin") {
+      setStarBoxStyle(boxStyles[0])
+    }else {
+      setStarBoxStyle(boxStyles[1])
+    }
+    
     if (props.starCount === 0) {
       setStarCount(5);
     } else {
       setStarCount(props.starCount);
     }
-    // setTimeout(() => props.closeGetStar(), 2500);
+    setTimeout(() => props.closeGetStar(), 2500);
   }, [props]);
 
   useEffect(() => {
@@ -30,7 +42,7 @@ export const GetStar = (props) => {
   return (
     <>
       <div className="relative w-screen h-screen bg-opacity-40 bg-mainGray-300"></div>
-      <div className="bg-[#8977AD] w-[24rem] h-[4.5rem] absolute top-1/3 left-1/2 -translate-x-[12rem] rounded-3xl grid grid-cols-5 items-center justify-items-center">
+      <div className={starBoxStyle}>
         {starLoop}
       </div>
     </>
