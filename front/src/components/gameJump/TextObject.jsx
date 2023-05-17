@@ -18,6 +18,15 @@ const getSoundFile = (filename) => {
   return path;
 };
 
+// const getAnimationTimeClass = (time) => {
+//   const second = time / 1000;
+//   // `animate-[textSlide_1s_linear_1_forwards]`
+//   const clazz = "animate-[textSlide_" + second + "s_linear_1_forwards]";
+//   console.log(clazz);
+
+//   return clazz;
+// };
+
 const TextObject = ({
   no,
   text,
@@ -36,7 +45,10 @@ const TextObject = ({
 
   const [audioLoaded, setAudioLoaded] = useState(false);
 
-  const dispatch = useDispatch();
+  // const clazz = useMemo(() => getAnimationTimeClass(time), [time]);
+  // console.log(clazz);
+
+  // const dispatch = useDispatch();
 
   const animationStyle = {
     background: "linear-gradient(90deg, red 50%, black 50%)",
@@ -44,6 +56,7 @@ const TextObject = ({
     WebkitBackgroundClip: "text",
     color: no === action ? "transparent" : action > no ? "red" : "black",
     backgroundSize: "200% 100%",
+    animation: no === action && `textSlide ${time / 1000}s linear 1 forwards`,
   };
 
   const fileName = useMemo(() => {
@@ -60,7 +73,7 @@ const TextObject = ({
 
     // if (no === action) {
     //   const speed = iceLength / time;
-    //   console.log(iceLength, time, speed);
+    //   console.log(iceLength, time, speed, position[0], edge);
     //   dispatch(jumpActions.setSpeed(speed * 1000));
     // }
   }, [action, no, audioLoaded]);
@@ -82,20 +95,17 @@ const TextObject = ({
 
     return position[0];
   };
-
+  
   return (
     <mesh position={[calcPosition(), position[1], position[2]]}>
       <Html>
         <div
           className={`whitespace-nowrap 
           bg-clip-text mt-8 p-8 text-5xl font-MaplestoryBold 
-          ${!(isFirst || isLast) && `-translate-x-1/2`} 
-          ${isLast && `-translate-x-full`}
-          ${
-            no === action
-              ? `animate-[textSlide_1s_linear_1_forwards]`
-              : `bg-[0%]`
-          }`}
+          ${!(isFirst || isLast) ? `-translate-x-1/2` : ``} 
+          ${isLast ? `-translate-x-full` : ``} 
+          `}
+
           style={animationStyle}
         >
           {text}
