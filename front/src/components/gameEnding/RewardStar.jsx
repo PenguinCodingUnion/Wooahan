@@ -6,6 +6,9 @@ import { FaStar } from "react-icons/fa";
 import star from "assets/sounds/star.wav";
 import effectSound from "util/effectSound";
 
+import penguel_high_jump from "assets/images/penguel_high_jump.gif"
+import fox_walk_right from "assets/images/fox_walk_right.gif"
+
 export const RewardStar = (props) => {
   const [size, setSize] = useState("2rem");
   const [color, setColor] = useState("#FFFFFF");
@@ -16,8 +19,8 @@ export const RewardStar = (props) => {
   const es_star = effectSound(star, 1);
 
   const gifModels = [
-    require("assets/images/penguel_high_jump.gif"),
-    require("assets/images/fox_walk_right.gif"),
+    penguel_high_jump,
+    fox_walk_right
   ];
 
   const gifStyles = [
