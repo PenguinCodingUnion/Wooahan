@@ -7,36 +7,28 @@ import star from "assets/sounds/star.wav";
 import effectSound from "util/effectSound";
 
 import penguel_high_jump from "assets/images/penguel_high_jump.gif"
-import fox_walk_right from "assets/images/fox_walk_right.gif"
+import fox_jump from "assets/images/fox_jump.gif"
 
 export const RewardStar = (props) => {
   const [size, setSize] = useState("2rem");
   const [color, setColor] = useState("#FFFFFF");
   const [styleStr, setStyleStr] = useState({});
   const [jumpGif, setJumpGif] = useState("");
-  const [styleGif, setStyleGif] = useState("");
 
   const es_star = effectSound(star, 1);
 
   const gifModels = [
     penguel_high_jump,
-    fox_walk_right
+    fox_jump
   ];
-
-  const gifStyles = [
-    "absolute -bottom-[200%] w-[20rem] -ml-[8rem]",
-    "absolute -top-[200%] w-[20rem] -ml-[8rem]"
-  ]
 
   useEffect(() => {
     if (props.color === props.count && props.color !== 0) {
       es_star.play();
       if (props.model === "penguin") {
         setJumpGif(gifModels[0]);
-        setStyleGif(gifStyles[0]);
       } else {
         setJumpGif(gifModels[1]);
-        setStyleGif(gifStyles[1]);
       }
       setTimeout(() => {
         setStyleStr({
@@ -99,7 +91,8 @@ export const RewardStar = (props) => {
     <div className="grid content-center bg-[#6937A1] rounded-full h-[3.5rem] w-[3.5rem] justify-center">
       <FaStar size={size} color={color} className="" style={styleStr} />
       <img
-        className={styleGif}
+        className=
+        "absolute -bottom-[200%] w-[20rem] -ml-[8rem]"
         src={jumpGif}
         alt=""
       />
