@@ -77,7 +77,7 @@ const Carousel = () => {
             >
                 {games.map((game, idx) => (
                     <SwiperSlide onClick={() => {movePageHandler(game, idx)}} key={game.id} id={idx} className="relative rounded-2xl">
-                        <CardImage coverImage={mainCard} id={idx} title={game.title}/>
+                        <CardImage coverImage={mainCard} id={idx} title={game.title} main={mainCard}/>
                         <img src={games[idx].animal} 
                                 className="ml-[2%] mb-[10%] w-[500%] h-[200%]" />
                     </SwiperSlide>
