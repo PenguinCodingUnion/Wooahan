@@ -31,8 +31,10 @@ const EDGE = window.innerWidth / 2 + 5;
 const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
   const raycast = useRaycast(pengulE, 55, new Vector3(1, -1, 0));
 
+  // const speed = useSelector((state) => state.jump.speed);
+
   //캐릭터 상태관리
-  const BASE_MOVEMENT_SPEED = useRef(75); //150
+  const BASE_MOVEMENT_SPEED = useRef(100); //150
 
   const isJumping = useRef(false);
   const jumpNow = useRef(false);
@@ -60,7 +62,8 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
       // console.log(actions, ANIMATIONS, idx);
 
       if (idx === PengulAnimation.WALK) {
-        mixer.timeScale = 2;
+        mixer.timeScale = 1.33;
+        // mixer.timeScale = speed / 75;
       } else {
         mixer.timeScale = 1;
       }
@@ -174,6 +177,7 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
         newVelocity[1] += GRAVITY * delta;
       } else {
         //calc xVelocity
+        // newVelocity[0] = speed;
         newVelocity[0] = BASE_MOVEMENT_SPEED.current;
         newVelocity[1] = 0;
 

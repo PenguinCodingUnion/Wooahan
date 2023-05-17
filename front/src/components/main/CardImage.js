@@ -1,17 +1,15 @@
+import ice_burg from "assets/images/background_iceberg.jpg";
+import forest from "assets/images/background_forest.jpg";
+import underwater from "assets/images/background_underwater.jpg";
+import desert from "assets/images/background_desert.jpg";
 import penguin from "assets/images/animal/penguin.png"
 import fox from "assets/images/animal/fox.png"
 import PropTypes from "prop-types"
 import GameCard from "./GameCard"
+// import jump_penguin from "assets/images/penguel_high_jump.gif"
 
 const coverImages = [
-  "bg-[url('assets/images/background_iceberg.jpg')]",
-  "bg-[url('assets/images/background_desert.jpg')]",
-  "bg-[url('assets/images/background_forest.jpg')]",
-  "bg-[url('assets/images/background_underwater.jpg')]",
-  "bg-[url('assets/images/background_iceberg.jpg')]",
-  "bg-[url('assets/images/background_desert.jpg')]",
-  "bg-[url('assets/images/background_forest.jpg')]",
-  "bg-[url('assets/images/background_underwater.jpg')]",
+  ice_burg, forest, underwater, desert, ice_burg, forest, underwater, desert
 ]
 
 const games =[
@@ -28,8 +26,9 @@ const games =[
 const CardImage = (props) => {
     return (
       <div>
-        <div className={`absolute w-full h-full bg-cover ${coverImages[props.id]} `} />
-        <img src={games[props.id].animal} className="absolute top-[-30%] w-full h-[80%]" />
+        {/* <div className={`absolute w-[150%] h-[120%] right-[-25%] rounded-2xl bg-cover ${coverImages[props.id]} `} /> */}
+        <img className={`absolute w-[150%] h-[120%] max-w-xl right-[-23%] rounded-2xl bg-cover`} src={coverImages[props.id]} />
+        <img src={games[props.id].animal} className="absolute max-w-xl right-[-15%] top-[-50%] w-[130%] h-[110%]" />
         <GameCard title={props.title}/>
       </div>
     );

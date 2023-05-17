@@ -49,13 +49,12 @@ const GameStartContainer = () => {
   return (
     <CommonOverlay type="parent">
       <div className={`absolute flex flex-col justify-between h-full w-full`}>
-        {" "}
         <div>
           <div
             onClick={() => {
               warn();
             }}
-            className="absolute h-10 w-10 right-[3%] top-[3%] rounded-lg bg-white bg-opacity-40 font-MaplestoryLight text-4xl"
+            className="absolute h-10 w-10 right-[3%] top-[3%] rounded-lg bg-white bg-opacity-40 font-MaplestoryLight text-4xl text-center"
           >
             <p>X</p>
           </div>
