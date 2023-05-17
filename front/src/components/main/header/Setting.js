@@ -17,9 +17,9 @@ const Setting = () => {
     <div className="pr-4 w-[50%] h-full flex justify-end items-center">
       <button
         onClick={modalOpenHandler}
-        className="bg-transparent rounded-xl w-full h-4/5 flex items-center justify-center"
+        className="flex items-center justify-center w-full bg-transparent rounded-xl h-4/5"
       >
-        <FontAwesomeIcon icon={faGear} spin size="2xl" />
+        <FontAwesomeIcon icon={faGear} size="2xl" />
       </button>
     </div>
   );
