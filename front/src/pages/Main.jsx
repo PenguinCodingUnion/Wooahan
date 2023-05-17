@@ -5,6 +5,7 @@ import Carousel from "../components/main/Carousel";
 import Modal from "../components/main/modal/Modal";
 import FallingAnimate from "../components/main/animate/FallingAnimate";
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import image_iceburg from "assets/images/background_iceberg.jpg";
 import image_dessert from "assets/images/background_desert.jpg";
@@ -31,6 +32,7 @@ export const Main = () => {
   const page = useSelector((state) => state.backGround.page);
   const showModal = useSelector((state) => state.modal.modalIsVisible);
   const [cookies, setCookie, removeCookie] = useCookies();
+  const location = useLocation();
 
   useSound(bgm, 0.4, 2000);
 
@@ -57,10 +59,13 @@ export const Main = () => {
   };
 
   useEffect(() => {
-    // console.log(cookies);
     if (cookies.test) googleLoginrequest(cookies);
   }, []);
   
+  useEffect(() => {
+    console.log(location);
+  }, [ location ])
+
   return (
     <div className="relative w-screen h-screen">
         <FallingAnimate falling={page}/>
