@@ -21,6 +21,7 @@ import snowflake from "assets/images/falling/snowflake.png";
 import penguel_falldown from "assets/images/penguel_falldown.gif";
 import penguel_victory from "assets/images/penguel_victory.gif";
 import penguel_high_jump from "assets/images/penguel_high_jump.gif"
+import fox_walk_right from "assets/images/fox_walk_right.gif"
 
 export const images = [
   //배경화면
@@ -43,4 +44,5 @@ export const images = [
   penguel_falldown,
   penguel_victory,
   penguel_high_jump,
+  fox_walk_right,
 ];
