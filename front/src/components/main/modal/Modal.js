@@ -37,7 +37,7 @@ const ModalOverlay = (props) => {
     <div
       className={`flex flex-col justify-start ${
         props.config === "setting" ? `absolute` : `sticky`
-      } top-[13%] left-[15%] z-40 bg-lightGray w-[70%] h-[80%] px-4 rounded-xl overflow-auto`}
+      } top-[10%] left-[15%] z-40 bg-lightGray w-[70%] h-[85%] px-4 rounded-xl`}
     >
       <ModalHeader title={title} />
       {!OSLOpen && (
@@ -45,7 +45,7 @@ const ModalOverlay = (props) => {
           <Level />
           <Login />{" "}
           <div
-            className="mb-1 text-sm font-MaplestoryLight text-mainSlate-700"
+            className="mb-1 text-[3vh] font-MaplestoryLight text-mainSlate-700"
             onClick={openOSLHandler}
           >
             Open Source Licenses
