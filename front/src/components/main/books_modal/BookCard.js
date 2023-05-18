@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import effectSound from 'util/effectSound';
 
 const BookCard = (props) => {
 
@@ -6,8 +7,14 @@ const BookCard = (props) => {
         transition: `.4s`,
         transformStyle: `preserve-3d`,
       });
+      
+      const es_word = effectSound(
+        require(`assets/sounds/word/${props.word}.mp3`),
+        1
+      );
 
       const rotateCardToBack = () => {
+        es_word.play();
         setStyleStr({
           transition: `.4s`,
           transformStyle: `preserve-3d`,

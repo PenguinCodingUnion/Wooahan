@@ -1,10 +1,10 @@
 import { Fragment, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { modalActions } from "store/features/mainCard/modalSlice";
-
 import ModalHeader from "./ModalHeader";
 import Level from "./Level";
 import Login from "./Login";
+import Logout from './Logout';
 import OpenSourceLicenses from "./OpenSourceLicenses";
 
 const Overlay = (props) => {
@@ -27,6 +27,7 @@ const Overlay = (props) => {
 const ModalOverlay = (props) => {
   const [title, setTitle] = useState("설정");
   const [OSLOpen, setOSLOpen] = useState(false);
+  const socialLogin = useSelector(state => state.loginInfo.socialLogin)
 
   const openOSLHandler = () => {
     setTitle("Open Source Licences");
@@ -37,15 +38,15 @@ const ModalOverlay = (props) => {
     <div
       className={`flex flex-col justify-start ${
         props.config === "setting" ? `absolute` : `sticky`
-      } top-[13%] left-[15%] z-40 bg-lightGray w-[70%] h-[80%] px-4 rounded-xl overflow-auto`}
+      } top-[10%] left-[15%] z-40 bg-lightGray w-[70%] h-[85%] px-4 rounded-xl`}
     >
       <ModalHeader title={title} />
       {!OSLOpen && (
         <>
           <Level />
-          <Login />{" "}
+          {socialLogin ? <Logout /> : <Login />}
           <div
-            className="mb-1 text-sm font-MaplestoryLight text-mainSlate-700"
+            className="mb-1 text-[3vh] font-MaplestoryLight text-mainSlate-700"
             onClick={openOSLHandler}
           >
             Open Source Licenses

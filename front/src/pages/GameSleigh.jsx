@@ -53,8 +53,10 @@ const GameSleigh = () => {
   // const { isStart, isEnd, quizStatus, quizCount, quizResult, quizData } =
   //   useSelector((state) => state.sleigh);
 
+  const quizlevel = useSelector((state) => state.level.level);
+
   useEffect(() => {
-    dispatch(getQuizData(0));
+    dispatch(getQuizData(quizlevel));
   }, []);
 
   const [random, setRandom] = useState([

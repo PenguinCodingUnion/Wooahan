@@ -3,10 +3,10 @@ import Title from './header/Title';
 import Setting from './header/Setting';
 import {Link} from 'react-router-dom'
 import Home from '../main/books/Home'
-import Tutorial from '../main/header/Tutorial'
 
 const Header = (props) => {
 
+    
     
     return(
         <div className="z-20 fixed px-[4%] mt-[1%]  w-screen h-[15%] bg-transparent flex justify-between items-center">
