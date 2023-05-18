@@ -19,9 +19,18 @@ export const GetStar = (props) => {
     const newArr = [];
     for (let i = 0; i < 5; i++) {
       if (i < starCount) {
-        newArr.push(<RewardStar key={i} color={i + 1} count={starCount} model={props.model} />);
+        newArr.push(
+          <RewardStar
+            key={i}
+            color={i + 1}
+            count={starCount}
+            model={props.model}
+          />
+        );
       } else {
-        newArr.push(<RewardStar key={i} color={0} count={starCount} model={props.model} />);
+        newArr.push(
+          <RewardStar key={i} color={0} count={starCount} model={props.model} />
+        );
       }
     }
     setStarLoop(newArr);

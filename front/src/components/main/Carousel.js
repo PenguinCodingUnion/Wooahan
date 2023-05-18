@@ -10,23 +10,24 @@ import "./styles.css";
 import { EffectCoverflow, Pagination } from "swiper";
 import GameCard from './GameCard'
 import CardImage from './CardImage'
-
+import penguin_jump from "assets/images/animal/penguin_jump.png"
 import penguin from "assets/images/animal/penguin.png"
 import fox from "assets/images/animal/fox.png"
+import fox_train from "assets/images/animal/fox_train.png"
 import {useNavigate} from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux"
 import { backActions } from 'store/features/mainCard/backSlice' 
 import { cardActions } from 'store/features/mainCard/cardSlice'
 
 const games =[
-    {id: 1, title: '뛰어쓰기', animal: penguin, url: '/jump'},
+    {id: 1, title: '뛰어쓰기', animal: penguin_jump, url: '/jump'},
     {id: 2, title: '팽글썰매', animal: fox, url: '/sleigh'},
     {id: 3, title: '한글방울', animal: penguin, url: '/bubble'},
-    {id: 4, title: '끝말기차', animal: fox, url: '/train'},
-    {id: 5, title: '뛰어쓰기', animal: penguin, url: '/jump'},
+    {id: 4, title: '끝말기차', animal: fox_train, url: '/train'},
+    {id: 5, title: '뛰어쓰기', animal: penguin_jump, url: '/jump'},
     {id: 6, title: '팽글썰매', animal: fox, url: '/sleigh'},
     {id: 7, title: '한글방울', animal: penguin, url: '/bubble'},
-    {id: 8, title: '끝말기차', animal: fox, url: '/train'},
+    {id: 8, title: '끝말기차', animal: fox_train, url: '/train'},
 ]
 
 const Carousel = () => {
@@ -61,25 +62,25 @@ const Carousel = () => {
                 grabCursor={true}
                 centeredSlides={true}
                 slidesPerView={3}
-                loop={true}
                 coverflowEffect={{
                     rotate: 0,
-                    stretch: 0,
-                    depth: 200,
-                    modifier: 1,
-                    slideShadows: true,
+                    stretch: -150,
+                    depth: 500,
+                    modifier: 3,
+                    slideShadows: false,
                 }}
+                loop={true}
                 pagination={false}
                 modules={[EffectCoverflow, Pagination]}
-                className="mySwiper mt-[4%]"
+                className="mySwiper"
                 onSlideChange={changeMainCard}
                 initialSlide={mainCard}
             >
                 {games.map((game, idx) => (
-                    <SwiperSlide onClick={() => {movePageHandler(game, idx)}} key={game.id} id={idx} className="relative rounded-xl">
-                        <CardImage coverImage={mainCard} id={idx} title={game.title}/>
+                    <SwiperSlide onClick={() => {movePageHandler(game, idx)}} key={game.id} id={idx} className="relative rounded-2xl">
+                        <CardImage coverImage={mainCard} id={idx} title={game.title} main={mainCard}/>
                         <img src={games[idx].animal} 
-                                className="ml-[2%] mt-[2%] mb-[2%] w-28 h-36" />
+                                className="ml-[2%] mb-[10%] w-[500%] h-[200%]" />
                     </SwiperSlide>
                 ))}
             </Swiper>

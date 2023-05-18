@@ -6,6 +6,8 @@ import Modal from '../components/main/modal/Modal'
 import { useSelector, useDispatch } from 'react-redux'
 import BlockSet from "../components/main/books/BlockSet"
 import BookModal from '../components/main/books_modal/BookModal';
+import fox_left from "assets/images/books_fox_gif/fox_walk_left.gif";
+import fox_right from "assets/images/books_fox_gif/fox_walk_right.gif";
 
 export const Books = () => {
 
@@ -29,7 +31,8 @@ export const Books = () => {
       {showModal && <Modal current={"books"} /> }
       {showBookModal && <BookModal text={bookText}/>}
       <BlockSet />
-      <div className="absolute mt-[30%] w-[200%] h-[40%] bg-[url('assets/images/books/background_book.jpg')] bg-cover" />
+      <img src={fox_right} className="absolute z-20 w-[30%] h-[30%] bottom-[-0%] animate-leftFox"/>
+      <div className="absolute z-10 bottom-[0%] w-[200%] h-[40%] bg-[url('assets/images/books/background_book.jpg')] bg-cover" />
     </div>
   )
 }

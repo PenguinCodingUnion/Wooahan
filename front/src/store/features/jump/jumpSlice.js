@@ -35,7 +35,7 @@ const initialState = {
   status: GameStatus.GAME_NOT_LOADED,
   level: 0,
   actionWord: -1,
-  time: 99999,
+  speed: 75,
   problems: [
     {
       wholeSentence: "엄마랑 공원에 놀러 가요",
@@ -59,8 +59,8 @@ export const jumpSlice = createSlice({
     setAction: (state, { payload }) => {
       state.actionWord = payload;
     },
-    setTime: (state, { payload }) => {
-      state.time = payload;
+    setSpeed: (state, { payload }) => {
+      state.speed = payload;
     },
     loaded: (state) => {
       state.status = GameStatus.GAME_READY;

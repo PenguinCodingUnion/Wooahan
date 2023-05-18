@@ -56,8 +56,8 @@ export const Tutirial = (props) => {
   };
   return (
     <div>
-      <div className="bg-mainYellow-200 grid grid-cols-5 overflow-hidden">
-        <div className=" grid grid-rows-4 items-center content-between w-48 h-screen left-0 ">
+      <div className="grid grid-cols-5 overflow-hidden bg-mainYellow-200">
+        <div className="left-0 grid items-center content-between w-48 h-screen grid-rows-4 ">
           <div
             className={css1}
             onClick={() => {
@@ -99,7 +99,7 @@ export const Tutirial = (props) => {
             </p>
           </div>
         </div>
-        <div className="bg-mainPurple-300 col-span-4 rounded-xl">{page}</div>
+        <div className="col-span-4 bg-mainRed-300">{page}</div>
       </div>
     </div>
   );

@@ -120,6 +120,10 @@ module.exports = {
           "0%": { transform: "translateX(300px) translateY(-50px)" },
           "100%": { transform: "translateX(550px) translateY(350px)" },
         },
+        leftFox: {
+          "0%" : {transform: "translateX(0vw)"},
+          "100%" : {transform: "translateX(200vw)"}
+        },
         textSlide: {
           "0%": { backgroundPosition: "100% 50%" },
           "100%": { backgroundPosition: "0% 50%" },
@@ -227,6 +231,7 @@ module.exports = {
         snow10: "snow10 17s linear infinite",
         snow11: "snow11 22s linear infinite",
         snow12: "snow12 19s linear infinite",
+        leftFox: "leftFox 15s linear infinite",
         "scale-up-center":
           "scale-up-center 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both",
         bounce: "myBounce 1.3s infinite",
