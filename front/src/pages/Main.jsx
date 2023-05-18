@@ -65,6 +65,7 @@ export const Main = () => {
           console.log(res);
           dispatch(loginActions.getEmail(res.email))
           dispatch(loginActions.getStarCount(res.starCount))
+          dispatch(loginActions.getName(res.name))
           dispatch(loginActions.successSocialLogin())
 
         } catch (e) {

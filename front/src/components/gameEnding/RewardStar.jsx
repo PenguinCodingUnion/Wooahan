@@ -15,12 +15,13 @@ export const RewardStar = ({ model, ...props }) => {
   const [styleStr, setStyleStr] = useState({});
   // const [jumpGif, setJumpGif] = useState("");
 
-  const es_star = effectSound(star, 1);
+  // const es_star = effectSound(star, 1);
 
   // const gifModels = [penguel_high_jump, fox_jump];
-
+  
   useEffect(() => {
     if (props.color === props.count && props.color !== 0) {
+      const es_star = effectSound(star, 1);
       es_star.play();
       // if (props.model === "penguin") {
       //   setJumpGif(gifModels[0]);
@@ -82,7 +83,7 @@ export const RewardStar = ({ model, ...props }) => {
         default:
       }
     }
-  }, [props]);
+  }, [props.color, props.count]);
 
   return (
     <div className="grid content-center bg-[#6937A1] rounded-full h-[3.5rem] w-[3.5rem] justify-center">
