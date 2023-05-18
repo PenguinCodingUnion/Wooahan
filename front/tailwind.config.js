@@ -128,8 +128,78 @@ module.exports = {
           "0%": { transform: "translateX(300px) translateY(-50px)" },
           "100%": { transform: "translateX(550px) translateY(350px)" },
         },
+        cloud0: {
+          "0%" : {transform: "translateX(-10%)"},
+          "50%": {transform: "translateX(15%)"},
+          "100%": { transform: "translateX(-10%)" },
+        },
+        cloud1: {
+          "0%" : {transform: "translateX(2%)"},
+          "50%": {transform: "translateX(15%)"},
+          "100%": { transform: "translateX(2%)" },
+        },
+        cloud2: {
+          "0%" : {transform: "translateX(12%)"},
+          "50%": {transform: "translateX(2%)"},
+          "100%": { transform: "translateX(12%)" },
+        },
+        cloud3: {
+          "0%" : {transform: "translateX(-30%)"},
+          "50%": {transform: "translateX(25%)"},
+          "100%": { transform: "translateX(-30%)" },
+        },
+        cloud4: {
+          "0%" : {transform: "translateX(20%)"},
+          "50%": {transform: "translateX(0%)"},
+          "100%": { transform: "translateX(20%)" },
+        },
+        cloud5: {
+          "0%" : {transform: "translateX(25%)"},
+          "50%": {transform: "translateX(2%)"},
+          "100%": { transform: "translateX(25%)" },
+        },
+        cloud6: {
+          "0%" : {transform: "translateX(32%)"},
+          "50%": {transform: "translateX(2%)"},
+          "100%": { transform: "translateX(32%)" },
+        },
+        cloud7: {
+          "0%" : {transform: "translateX(18%)"},
+          "50%": {transform: "translateX(38%)"},
+          "100%": { transform: "translateX(18%)" },
+        },
+        cloud8: {
+          "0%" : {transform: "translateX(20%)"},
+          "50%": {transform: "translateX(33%)"},
+          "100%": { transform: "translateX(20%)" },
+        },
+        cloud9: {
+          "0%" : {transform: "translateX(6%)"},
+          "50%": {transform: "translateX(70%)"},
+          "100%": { transform: "translateX(6%)" },
+        },
+        cloud10: {
+          "0%" : {transform: "translateX(50%)"},
+          "50%": {transform: "translateX(22%)"},
+          "100%": { transform: "translateX(50%)" },
+        },
+        cloud11: {
+          "0%" : {transform: "translateX(50%)"},
+          "50%": {transform: "translateX(2%)"},
+          "100%": { transform: "translateX(50%)" },
+        },
+        cloud12: {
+          "0%" : {transform: "translateX(0%)"},
+          "50%": {transform: "translateX(-20%)"},
+          "100%": { transform: "translateX(0%)" },
+        },
+        cloud13: {
+          "0%" : {transform: "translateX(5%)"},
+          "50%": {transform: "translateX(0%)"},
+          "100%": { transform: "translateX(5%)" },
+        },
         leftFox: {
-          "0%" : {transform: "translateX(0vw)"},
+          "0%" : {transform: "translateX(-50vw)"},
           "100%" : {transform: "translateX(200vw)"}
         },
         textSlide: {
@@ -239,6 +309,20 @@ module.exports = {
         snow10: "snow10 17s linear infinite",
         snow11: "snow11 22s linear infinite",
         snow12: "snow12 19s linear infinite",
+        cloud0: "cloud0 5s linear infinite",
+        cloud1: "cloud1 5s linear infinite",
+        cloud2: "cloud2 5s linear infinite",
+        cloud3: "cloud3 10s linear infinite",
+        cloud4: "cloud4 5s linear infinite",
+        cloud5: "cloud5 5s linear infinite",
+        cloud6: "cloud6 5s linear infinite",
+        cloud7: "cloud7 5s linear infinite",
+        cloud8: "cloud8 5s linear infinite",
+        cloud9: "cloud9 8s linear infinite",
+        cloud10: "cloud10 5s linear infinite",
+        cloud11: "cloud11 10s linear infinite",
+        cloud12: "cloud12 5s linear infinite",
+        cloud13: "cloud13 5s linear infinite",
         leftFox: "leftFox 15s linear infinite",
         "scale-up-center":
           "scale-up-center 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both",
