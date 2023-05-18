@@ -13,4 +13,6 @@ import java.util.List;
 public class LoginResDto {
     private String email;
     private int starCount;
+
+    private String name;
 }

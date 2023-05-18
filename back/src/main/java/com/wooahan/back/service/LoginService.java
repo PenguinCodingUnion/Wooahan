@@ -40,7 +40,7 @@ public class LoginService{
         member.update(oauthId,devideId,name);
 
         memberRepository.save(member);
-        return new LoginResDto(member.getEmail(), member.getStarCount());
+        return new LoginResDto(member.getEmail(), member.getStarCount(),member.getName());
     }
 
     public void socialLogin(String code, String state, String registrationId) {
