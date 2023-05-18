@@ -1,8 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom/dist";
 
 const GoogleLoginSuccess = () => {
-  const navigation = useNavigate();
+  const location = useLocation();
+
+  console.log(location);
   return (
     <div className="w-screen h-screen absolute top-0 text-center justify-center items-center">
       <div className="font-MaplestoryBold text-[4vw]">
