@@ -31,7 +31,7 @@ public class LoginController {
         return new ResponseEntity<>(loginService.tempLogin(loginReqDto), HttpStatus.OK);
     }
 
-    //https://accounts.google.com/o/oauth2/auth?client_id=658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com&redirect_uri=http://k8b206.p.ssafy.io/api/login/oauth2/code/google&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile
+    //https://accounts.google.com/o/oauth2/auth?client_id=658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com&redirect_uri=https://k8b206.p.ssafy.io/api/login/oauth2/code/google&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile
     @Operation(summary = "구글 oauth2(신경 안써도됨)", description = "구글 로그인 버튼 누르면 email,provider(google),name 줄거임")
     @GetMapping("/oauth2/code/{registrationId}")
     public String googleLogin(@RequestParam String code, @PathVariable String registrationId, RedirectAttributes redirectAttributes, HttpServletResponse response) throws IOException {
