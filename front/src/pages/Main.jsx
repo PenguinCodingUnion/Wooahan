@@ -66,13 +66,12 @@ export const Main = () => {
     
     if(code != null){
       try{
-        console.log("gggggggggggggggggggggggggggggg");
         const res = await axiosRequest
           .post("/login/kakao/code", data);
 
         console.log(res);
 
-      }catch(e){
+      } catch(e){
         console.log(e);
       }
     }
