@@ -65,18 +65,19 @@ export const Main = () => {
     };
 
     if (code != null) {
-      (async () => {
+      (async() => {
         try {
-          console.log("gggggggggggggggggggggggggggggg");
-          const res = await axiosRequest.post("/login/kakao/code", data);
+          const res = await axiosRequest.post("/login/oauth2/kakao", data);
 
           console.log(res);
         } catch (e) {
           console.log(e);
         }
+
       })();
     }
-  }, []);
+  }
+  )
 
   useEffect(() => {
     if (cookies.test) googleLoginrequest(cookies);
