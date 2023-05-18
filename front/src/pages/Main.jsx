@@ -61,7 +61,6 @@ export const Main = () => {
   useEffect(() => {
     console.log(location.search);
     getAndroidId();
-    // console.log(location.key);
     console.log(location.pathname);
     console.log(location.state);
   }, [location]);
@@ -70,9 +69,7 @@ export const Main = () => {
     <div className="relative w-screen h-screen">
       <FallingAnimate falling={page} />
       {showModal && <Modal config={"setting"} current={"main"} />}
-      <img
-        className={`absolute z-0 w-screen h-screen opacity-90 ${coverImages[page]}`}
-      />
+      <img className={`absolute z-0 w-screen h-screen opacity-90 ${coverImages[page]}`} />
       <Header titleIsVisible={true} topLeftButton={"books"} />
       <Carousel />
     </div>
