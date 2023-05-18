@@ -1,53 +1,40 @@
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
 
 import clap from "assets/sounds/clap.wav";
 import effectSound from "util/effectSound";
+import penguin from "assets/images/animal/penguin.png";
+import fox from "assets/images/animal/fox.png";
 
-export const EndingScene = (props) => {
+export const EndingScene = ({ model, mention, closeEndingScene, ...props }) => {
   const es_clap = effectSound(clap, 0.4);
-  const [model, setModel] = useState();
-  const [ment, setMent] = useState();
   useEffect(() => {
-    // eslint-disable-next-line default-case
-    switch (props.model) {
-      case "penguin":
-        setModel(require("assets/images/animal/penguin.png"));
-        break;
-
-      case "fox":
-        setModel(require("assets/images/animal/fox.png"));
-        break;
-    }
-    setMent(props.mention);
     es_clap.play();
     setTimeout(() => {
-      props.closeEndingScene();
-      es_clap.pause();
+      closeEndingScene();
+      es_clap.stop();
+      es_clap.unload();
     }, 2000);
-  }, [props]);
+  }, [closeEndingScene, es_clap]);
   return (
     <>
       <img
         className="absolute bottom-0 right-0 w-1/2"
         style={{ transform: "scaleX(-1)" }}
-        src={model}
+        src={model === "fox" ? fox : penguin}
         alt=""
       />
       <div className="text-[#6937A1] font-MaplestoryBold text-6xl text-stroke-mainWhite text-stroke-2 absolute w-full text-center top-1/3">
-        {ment}
+        {mention}
       </div>
     </>
   );
 };
 
 EndingScene.propTypes = {
-  //   second: PropTypes.third,
+  model: PropTypes.string.isRequired,
+  mention: PropTypes.string.isRequired,
+  closeEndingScene: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(EndingScene);
+export default EndingScene;

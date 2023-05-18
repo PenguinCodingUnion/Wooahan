@@ -1,15 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import pengul_falldown from "assets/images/penguel_falldown.webp";
 
 const ErrorPage = () => {
   const navigation = useNavigate();
   return (
     <div className="absolute top-0 items-center justify-center w-screen h-screen text-center bg-mainRose-200">
-      <img
-        className="absolute w-1/3 left-1/3"
-        src={require("assets/images/penguel_falldown.gif")}
-        alt=""
-      />
+      <img className="absolute w-1/3 left-1/3" src={pengul_falldown} alt="" />
       <div className="font-MaplestoryBold text-[4vw] mt-[25%]">
         펭글이가 아파요
         <div className="relative inline-block">
