@@ -12,7 +12,7 @@ export const TrainAnswerCard = (props) => {
     require(`assets/sounds/word/${props.word.name}.mp3`),
     1
   );
-
+  
   const es_correct = effectSound(correct, 1);
   const es_wrong = effectSound(wrong, 1);
   const [ans, setAns] = useState(true);

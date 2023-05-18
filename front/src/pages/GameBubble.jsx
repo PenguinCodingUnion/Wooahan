@@ -51,10 +51,12 @@ export const GameBubble = (props) => {
   const [isQuizCardOpen, setIsQuizCardOpen] = useState(true);
   const [showXButton, setShowXButton] = useState(false);
 
+  const difficulty = useSelector((state) => state.level.level);
+
   useEffect(() => {
     const loadData = async () => {
       await instance
-        .get("/game/bubble/0")
+        .get(`/game/bubble/${difficulty}`)
         .then((response) => {
           setTimeout(() => {
             setIsLoading(false);
