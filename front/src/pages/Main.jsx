@@ -11,6 +11,7 @@ import useSound from "util/hooks/useSound";
 import bgm from "assets/sounds/mainbgm.mp3";
 import { useCookies } from 'react-cookie';
 import axiosRequest from "util/Axios";
+import {loginActions} from 'store/features/login/loginSlice';
 
 const coverImages = [
   "bg-gradient-to-b from-[#00fff0]/[0.16] from-0% to-[#347ed6]/[0.63] to-100%",
@@ -67,7 +68,8 @@ export const Main = () => {
           const res = await axiosRequest.post("/login/oauth2/kakao", data);
 
           console.log(res);
-          
+          dispatch(loginActions.getEmail(res.email))
+          dispatch(loginActions.getStarCount(res.starCount))
 
         } catch (e) {
           console.log(e);
