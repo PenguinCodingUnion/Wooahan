@@ -17,6 +17,7 @@ const FallingAnimate = (props) => {
               key={idx}
               src={fallingThings[props.falling]}
               className={`absolute z-10 w-[3%] h-[4%] animate-snow${idx + 1}`}
+              alt=""
             />
           );
         })
