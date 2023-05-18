@@ -1,12 +1,12 @@
 //backgrounds
-import background_underwater from "assets/images/background_underwater.jpg";
-import background_desert from "assets/images/background_desert.jpg";
-import background_forest from "assets/images/background_forest.jpg";
-import background_playground from "assets/images/background_playground.jpg";
-import background_iceberg from "assets/images/background_iceberg.jpg";
-import background_forestend from "assets/images/background_forestend.jpg";
-import background_beach from "assets/images/background_beach.jpg";
-import background_desertend from "assets/images/background_desertend.jpg";
+import background_underwater from "assets/images/background_underwater.webp";
+import background_desert from "assets/images/background_desert.webp";
+import background_forest from "assets/images/background_forest.webp";
+import background_playground from "assets/images/background_playground.webp";
+import background_iceberg from "assets/images/background_iceberg.webp";
+import background_forestend from "assets/images/background_forestend.webp";
+import background_beach from "assets/images/background_beach.webp";
+import background_desertend from "assets/images/background_desertend.webp";
 import background_book from "assets/images/books/background_book.jpg";
 
 //dances for loading
