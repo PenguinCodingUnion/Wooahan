@@ -3,7 +3,7 @@ import Header from "../components/main/Header";
 import Carousel from "../components/main/Carousel";
 import Modal from "../components/main/modal/Modal";
 import FallingAnimate from "../components/main/animate/FallingAnimate";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 import useSound from "util/hooks/useSound";
@@ -27,7 +27,7 @@ export const Main = () => {
   const showModal = useSelector((state) => state.modal.modalIsVisible);
   const [cookies, setCookie, removeCookie] = useCookies();
   const location = useLocation();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   // useSound(bgm, 0.4, 2000);
 
@@ -61,21 +61,17 @@ export const Main = () => {
     };
 
     if (code != null) {
-      (async() => {
+      (async () => {
         try {
           const res = await axiosRequest.post("/login/oauth2/kakao", data);
 
           console.log(res);
-
-
         } catch (e) {
           console.log(e);
         }
-
       })();
     }
-  }
-  )
+  });
 
   useEffect(() => {
     if (cookies.test) googleLoginrequest(cookies);
@@ -84,8 +80,8 @@ export const Main = () => {
   useEffect(() => {
     console.log(location.search);
     getAndroidId();
-    console.log(location.pathname);
-    console.log(location.state);
+    // console.log(location.pathname);
+    // console.log(location.state);
   }, [location]);
 
   return (
