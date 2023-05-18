@@ -55,8 +55,6 @@ export const RewardStar = ({ model, ...props }) => {
             setSize("3rem");
             break;
           default:
-            console.log("뭐야 이거");
-            break;
         }
       }, 500);
     } else {
@@ -82,7 +80,6 @@ export const RewardStar = ({ model, ...props }) => {
           setSize("3rem");
           break;
         default:
-          console.log("무슨 색이여 지금");
       }
     }
   }, [props]);
