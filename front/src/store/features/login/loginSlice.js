@@ -5,12 +5,16 @@ const initialState = {
     socialLogin: false,
     starCount: 0,
     rewards: null,
+    name: "",
 }
 
 export const loginSlice = createSlice({
     name: "loginInfo",
     initialState,
     reducers: {
+        getName: (state, action) => {
+            state.name = action.payload;
+        },  
         successSocialLogin: (state) => {
             state.socialLogin = true;
         },
