@@ -1,15 +1,14 @@
-import { useEffect} from "react"
-import { connect } from "react-redux";
+import { useEffect } from "react";
 import Header from "../components/main/Header";
 import Carousel from "../components/main/Carousel";
 import Modal from "../components/main/modal/Modal";
 import FallingAnimate from "../components/main/animate/FallingAnimate";
-import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 import useSound from "util/hooks/useSound";
 import bgm from "assets/sounds/mainbgm.mp3";
-import { useCookies } from 'react-cookie';
+import { useCookies } from "react-cookie";
 import axiosRequest from "util/Axios";
 
 const coverImages = [
@@ -67,7 +66,6 @@ export const Main = () => {
     if (code != null) {
       (async () => {
         try {
-          console.log("gggggggggggggggggggggggggggggg");
           const res = await axiosRequest.post("/login/kakao/code", data);
 
           console.log(res);
@@ -93,7 +91,10 @@ export const Main = () => {
     <div className="relative w-screen h-screen">
       <FallingAnimate falling={page} />
       {showModal && <Modal config={"setting"} current={"main"} />}
-      <img className={`absolute z-0 w-screen h-screen opacity-90 ${coverImages[page]}`} />
+      <img
+        className={`absolute z-0 w-screen h-screen opacity-90 ${coverImages[page]}`}
+        alt=""
+      />
       <Header titleIsVisible={true} topLeftButton={"books"} page={page} />
       <Carousel />
     </div>
@@ -104,8 +105,4 @@ Main.propTypes = {
   // second: PropTypes.third
 };
 
-const mapStateToProps = (state) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;

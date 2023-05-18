@@ -39,20 +39,23 @@ export const GameJump = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const problems = useSelector((state) => state.jump.problems);
 
+  //난이도
+  const difficulty = useSelector((state) => state.level.level);
+
   const LAST_LEVEL = problems.length;
 
   let lastIcePosition = -EDGE + 50;
 
   useEffect(() => {
     //비동기 통신이 이루어지면서 게임 데이터를 로딩한다
-    dispatch(jumpDataAction(0));
+    dispatch(jumpDataAction(difficulty));
 
     //clear
     return () => {
       dispatch(jumpActions.clearLevel());
       dispatch(jumpActions.setAction(-1));
     };
-  }, [dispatch]);
+  }, [dispatch, difficulty]);
 
   useEffect(() => {
     dispatch(jumpActions.setAction(0));
