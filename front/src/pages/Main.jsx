@@ -1,5 +1,5 @@
 import { useEffect} from "react"
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import Header from "../components/main/Header";
 import Carousel from "../components/main/Carousel";
 import Modal from "../components/main/modal/Modal";
@@ -11,6 +11,7 @@ import useSound from "util/hooks/useSound";
 import bgm from "assets/sounds/mainbgm.mp3";
 import { useCookies } from 'react-cookie';
 import axiosRequest from "util/Axios";
+import {loginActions} from 'store/features/login/loginSlice';
 
 const coverImages = [
   "bg-gradient-to-b from-[#00fff0]/[0.16] from-0% to-[#347ed6]/[0.63] to-100%",
@@ -28,6 +29,7 @@ export const Main = () => {
   const showModal = useSelector((state) => state.modal.modalIsVisible);
   const [cookies, setCookie, removeCookie] = useCookies();
   const location = useLocation();
+  const dispatch = useDispatch();
 
   // useSound(bgm, 0.4, 2000);
 
@@ -48,36 +50,35 @@ export const Main = () => {
       name: cookies.test.name,
       provider: cookies.test.provider,
     };
-
-    await axiosRequest.post("/login/register", data).then((res) => {
-      console.log(res);
-    });
   };
 
   const code = new URL(window.location.href).searchParams.get("code");
 
-  useEffect( async() => {
-    console.log(code)
+  useEffect(() => {
+    console.log(code);
 
     let data = {
       code,
-      "deviceId" : "deviceID"
+      deviceId: "android_test_id_man",
+    };
+
+    if (code != null) {
+      (async() => {
+        try {
+          const res = await axiosRequest.post("/login/oauth2/kakao", data);
+
+          console.log(res);
+          dispatch(loginActions.getEmail(res.email))
+          dispatch(loginActions.getStarCount(res.starCount))
+
+        } catch (e) {
+          console.log(e);
+        }
+
+      })();
     }
-    
-    if(code != null){
-      try{
-        console.log("gggggggggggggggggggggggggggggg");
-        const res = await axiosRequest
-          .post("/login/kakao/code", data);
-
-        console.log(res);
-
-      }catch(e){
-        console.log(e);
-      }
-    }
-
-  }, [])
+  }
+  )
 
   useEffect(() => {
     if (cookies.test) googleLoginrequest(cookies);

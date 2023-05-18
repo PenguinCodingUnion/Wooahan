@@ -3,6 +3,10 @@ import CommonOverlay from "./CommonOverlay";
 import { useSelector } from "react-redux";
 import WarningComponent from "./WarningComponent";
 
+import pengul_swing from "assets/images/penguel_swing.webp";
+import pengul_hiphop from "assets/images/penguel_hiphop.webp";
+import pengul_chicken from "assets/images/penguel_chicken_dance.webp";
+
 const LoadingComponent = (props) => {
   const text = [
     "펭글이 간식먹는 중",
@@ -17,11 +21,7 @@ const LoadingComponent = (props) => {
     "펭글이 양치하는 중",
   ];
 
-  const gif = [
-    require("assets/images/penguel_swing.gif"),
-    require("assets/images/penguel_hiphop.gif"),
-    require("assets/images/penguel_chicken_dance.gif"),
-  ];
+  const gif = [pengul_swing, pengul_hiphop, pengul_chicken];
 
   const [loadingText, setLoadingText] = useState("");
   const [loadingGif, setLoadingGif] = useState("");
