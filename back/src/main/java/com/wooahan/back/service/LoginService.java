@@ -2,7 +2,6 @@ package com.wooahan.back.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.wooahan.back.dto.*;
-import com.wooahan.back.dto.game.SimpleWordInfo;
 import com.wooahan.back.entity.Member;
 import com.wooahan.back.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,37 +23,43 @@ public class LoginService{
     private final MemberRepository memberRepository;
 
     //TODO Oauth 통합필요
-    public LoginResDto kakaoLogin(KakaoCode kakaoCode){
-        String devideId= kakaoCode.getDeviceId();
+    public LoginResDto socialLogin(OauthReqCode oauthReqCode, String registrationId){
+        String deviceId= oauthReqCode.getDeviceId();
 
-        String Token = getAccessToken(kakaoCode.getCode(),"kakao");
-        JsonNode userResourceNode = getUserResource(Token, "kakao");
+        String Token = getAccessToken(oauthReqCode.getCode(),registrationId);
+        JsonNode userResourceNode = getUserResource(Token, registrationId);
 
-        String oauthId = userResourceNode.get("id").asText();
-        String name = userResourceNode.get("properties").get("nickname").asText();
-
+        String oauthId = null;
+        String name = null;
+        if(registrationId.equals("kakao")) {
+            oauthId = userResourceNode.get("id").asText();
+            name = userResourceNode.get("properties").get("nickname").asText();
+        }else if(registrationId.equals("google")){
+            oauthId = userResourceNode.get("email").asText();
+            name = userResourceNode.get("name").asText();
+        }
         Member member = memberRepository.findByEmail(oauthId)
-                .orElseGet(()-> memberRepository.findByProvider(kakaoCode.getDeviceId()).get());
+                .orElseGet(()-> memberRepository.findByProvider(oauthReqCode.getDeviceId()).get());
         //TODO 추후 수정
-        member.update(oauthId,devideId,name);
+        member.update(oauthId,deviceId,name);
 
         memberRepository.save(member);
         return new LoginResDto(member.getEmail(), member.getStarCount(),member.getName());
     }
 
-    public void socialLogin(String code, String state, String registrationId) {
-        String accessToken = getAccessToken(code, registrationId);
-        JsonNode userResourceNode = getUserResource(accessToken, registrationId);
-
-        String email = userResourceNode.get("email").asText();
-        String nickname = userResourceNode.get("name").asText();
-
-        Member member = memberRepository.findByEmail(email)
-                .orElseGet(()-> memberRepository.findByProvider(state).get());
-
-        member.update(email,state,nickname);
-        memberRepository.save(member);
-    }
+//    public void socialLogin(String code, String state, String registrationId) {
+//        String accessToken = getAccessToken(code, registrationId);
+//        JsonNode userResourceNode = getUserResource(accessToken, registrationId);
+//
+//        String email = userResourceNode.get("email").asText();
+//        String nickname = userResourceNode.get("name").asText();
+//
+//        Member member = memberRepository.findByEmail(email)
+//                .orElseGet(()-> memberRepository.findByProvider(state).get());
+//
+//        member.update(email,state,nickname);
+//        memberRepository.save(member);
+//    }
 
     private String getAccessToken(String authorizationCode, String registrationId) {
         String clientId = env.getProperty("oauth2." + registrationId + ".client-id");
