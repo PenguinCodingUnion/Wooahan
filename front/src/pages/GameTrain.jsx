@@ -18,7 +18,7 @@ export const GameTrain = (props) => {
     dispatch(commonActions.setWarning());
   };
   return (
-    <div className="fixed bg-[url('assets/images/tmp/background-desert.jpg')] bg-cover bg-no-repeat h-screen w-screen">
+    <div className="fixed bg-[url('assets/images/train/background-desert.jpg')] bg-cover bg-no-repeat h-screen w-screen">
       <div>
         <div
           onClick={() => {

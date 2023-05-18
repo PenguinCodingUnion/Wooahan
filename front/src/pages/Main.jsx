@@ -29,13 +29,13 @@ export const Main = () => {
   const [cookies, setCookie, removeCookie] = useCookies();
   const location = useLocation();
 
-  useSound(bgm, 0.4, 2000);
+  // useSound(bgm, 0.4, 2000);
 
   // 안드로이드 기기 id 받아오기
   const getAndroidId = () => {
     if (window.react_toast) {
       const id = window.react_toast.sendDeviceID();
-      console.log(id)
+      console.log(id);
       return window.react_toast.axiosCheck("asd");
       // return window.react_toast.sendDeviceID();
     }
@@ -57,22 +57,24 @@ export const Main = () => {
   useEffect(() => {
     if (cookies.test) googleLoginrequest(cookies);
   }, []);
-  
+
   useEffect(() => {
     console.log(location.search);
     getAndroidId();
     // console.log(location.key);
     console.log(location.pathname);
     console.log(location.state);
-  }, [ location ])
+  }, [location]);
 
   return (
     <div className="relative w-screen h-screen">
-        <FallingAnimate falling={page}/>
-        {showModal && <Modal config={"setting"} current={"main"}/>}
-        <img className={`absolute z-0 w-screen h-screen opacity-90 ${coverImages[page]}`}  />
-        <Header titleIsVisible={true} topLeftButton={"books"}/>  
-        <Carousel />
+      <FallingAnimate falling={page} />
+      {showModal && <Modal config={"setting"} current={"main"} />}
+      <img
+        className={`absolute z-0 w-screen h-screen opacity-90 ${coverImages[page]}`}
+      />
+      <Header titleIsVisible={true} topLeftButton={"books"} />
+      <Carousel />
     </div>
   );
 };
