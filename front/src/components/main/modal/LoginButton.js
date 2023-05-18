@@ -1,11 +1,12 @@
 import googleIcon from "assets/images/logo/googleIcon.png";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useEffect, useRef, useState } from "react";
+import { redirect } from "react-router-dom";
 
 const LoginButton = () => {
   const loginBtn = useRef();
 
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState(null);
 
   const url =
     process.env.NODE_ENV === "production"
@@ -20,7 +21,8 @@ const LoginButton = () => {
     onNonOAuthError: (error) => console.log("?? Error :", error),
     hosted_domain: url,
 
-    ux_mode: "popup",
+    flow: "auth-code",
+    ux_mode: "redirect",
     redirect_uri: url,
   });
 

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from "react";
 import { useAnimations } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import useRaycast from "util/hooks/useRaycast.ts";
-import { Vector3 } from "three";
+import { BufferGeometry, Raycaster, Vector3 } from "three";
 import { useDispatch, useSelector } from "react-redux";
 import { GameStatus, PengulAnimation } from "util/Enums.ts";
 import { gameStatusActions } from "store/features/gameStatus/gameStatusSlice";
@@ -120,6 +120,8 @@ const usePengul = ({ pengulE, ref, animations, sounds, ...props }) => {
       if (window.jump) window.jump.pauseSensor();
     };
   }, [doJump, setActiveAnimation]);
+
+  // const raycastRed = new Raycaster();
 
   //update
   useFrame((_, delta) => {
