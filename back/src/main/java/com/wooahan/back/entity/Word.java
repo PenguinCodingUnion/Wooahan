@@ -18,7 +18,6 @@ public class Word {
     @Column(nullable = false, length = 1000)
     private String imgUrl;
 
-//    @Enumerated(EnumType.ORDINAL)
     private int difficulty;
 
 
