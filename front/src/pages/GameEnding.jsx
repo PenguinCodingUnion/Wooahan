@@ -16,9 +16,8 @@ export const GameEnding = (props) => {
   const [background, setBackground] = useState();
   const { state } = useLocation();
 
-  // 테스트 편하게하기위해 이메일 박아놓음
-  const email = "lsms3723@gmail.com";
-  // const email = useSelector((state) => state.loginInfo.email);
+  const email = useSelector((state) => state.loginInfo.email);
+  const dummy = { starCount: 3, card: null };
 
   useEffect(() => {
     // eslint-disable-next-line default-case
@@ -47,6 +46,7 @@ export const GameEnding = (props) => {
         })
         .catch((error) => {
           console.log(error);
+          setReward(dummy);
         });
     };
     getStarData();
@@ -82,6 +82,7 @@ export const GameEnding = (props) => {
           <EndingScene
             closeEndingScene={closeEndingScene}
             model={state.character}
+            mention={state.mention}
           />
         </div>
       )}

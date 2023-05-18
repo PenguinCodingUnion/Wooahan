@@ -15,6 +15,9 @@ const CommonOverlay = ({ children, type = `overlay`, ...props }) => {
       case "parent":
         return "bg-parent";
 
+      case "blue_overlay":
+        return "bg-mainBlue-200 bg-opacity-50";
+
       default:
         break;
     }
