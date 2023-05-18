@@ -12,7 +12,7 @@ export const WordBubble = (props) => {
     backgroundSize: `cover`,
   });
   const classStr = classNames(
-    "absolute grid whitespace-nowrap items-center text-3xl font-extrabold justify-items-center font-MaplestoryBold",
+    "absolute grid whitespace-nowrap items-center text-4xl font-extrabold justify-items-center font-MaplestoryBold",
     props.positionX,
     props.positionY,
     props.size,
