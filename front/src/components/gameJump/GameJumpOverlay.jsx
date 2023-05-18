@@ -58,7 +58,7 @@ const GameStartContainer = () => {
               window.innerWidth / window.innerHeight > 1
                 ? "h-[7vh] w-[7vh] right-[3vh] top-[3vh] text-[5vh]"
                 : "h-[7vw] w-[7vw] right-[3vw] top-[3vw] text-[5vw]"
-            } rounded-lg bg-white bg-opacity-40 font-MaplestoryLight`}
+            } rounded-lg bg-white bg-opacity-40 font-MaplestoryLight flex justify-center`}
           >
             <p>X</p>
           </div>
