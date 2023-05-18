@@ -54,6 +54,30 @@ export const Main = () => {
     });
   };
 
+  const code = new URL(window.location.href).searchParams.get("code");
+
+  useEffect( async() => {
+    console.log(code)
+
+    let data = {
+      code,
+      "deviceId" : "deviceID"
+    }
+    
+    if(code != null){
+      try{
+        console.log("gggggggggggggggggggggggggggggg");
+        const res = await axiosRequest
+          .post("/login/kakao/code", data);
+
+        console.log(res);
+
+      }catch(e){
+        console.log(e);
+      }
+    }
+
+  }, [])
 
   useEffect(() => {
     if (cookies.test) googleLoginrequest(cookies);
