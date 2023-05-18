@@ -22,7 +22,7 @@ const Setting = (props) => {
         onClick={modalOpenHandler}
         className={`flex items-center justify-center w-full rounded-xl h-4/5 ${pushButton[props.page]} ${props.page === "books" ? `bg-white` : buttonBackGround[props.page]}`}
       >
-        <FontAwesomeIcon icon={faGear} size="2xl" />
+        <FontAwesomeIcon icon={faGear} size="2xl" color="#33333A" />
       </button>
     </div>
   );
