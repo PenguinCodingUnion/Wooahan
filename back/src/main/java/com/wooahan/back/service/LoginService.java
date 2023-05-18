@@ -34,26 +34,27 @@ public class LoginService{
         String oauthId = userResourceNode.get("id").asText();
         String name = userResourceNode.get("properties").get("nickname").asText();
 
-        //일단 이메일이 있는
         Member member = memberRepository.findByEmail(oauthId)
                 .orElseGet(()-> memberRepository.findByProvider(kakaoCode.getDeviceId()).get());
-
+        //TODO 추후 수정
         member.update(oauthId,devideId,name);
+
         memberRepository.save(member);
         return new LoginResDto(member.getEmail(), member.getStarCount());
     }
 
-    //TODO
     public void socialLogin(String code, String state, String registrationId) {
         String accessToken = getAccessToken(code, registrationId);
         JsonNode userResourceNode = getUserResource(accessToken, registrationId);
 
         String email = userResourceNode.get("email").asText();
         String nickname = userResourceNode.get("name").asText();
-        Member member = memberRepository.findByProvider(state).get();
+
+        Member member = memberRepository.findByEmail(email)
+                .orElseGet(()-> memberRepository.findByProvider(state).get());
+
         member.update(email,state,nickname);
         memberRepository.save(member);
-
     }
 
     private String getAccessToken(String authorizationCode, String registrationId) {
@@ -100,22 +101,13 @@ public class LoginService{
     }
     //guest
     public LoginResDto tempLogin(LoginReqDto loginReqDto) {
-        Member member =memberRepository.findByEmailOrProvider(loginReqDto.getEmail(),loginReqDto.getAndroidId())
-                .orElseGet(()->createMember(loginReqDto.getAndroidId()));
+        Member member = memberRepository.findByEmail(loginReqDto.getEmail())
+                .orElseGet(()->memberRepository.findByProvider(loginReqDto.getAndroidId())
+                        .orElseGet(()->createMember(loginReqDto.getAndroidId())));
+
         return LoginResDto.builder()
-//                .rewards(member.getRewards()
-//                        .stream()
-//                        .map(reward -> new SimpleWordInfo(reward.getWord().getName(), reward.getWord().getImgUrl()))
-//                        .collect(Collectors.toList()))
                 .starCount(member.getStarCount())
                 .email(member.getEmail())
                 .build();
     }
-    //guest->google
-//    public String registerMember(UpdateReqDto updateReqDto) {
-//        Member member = memberRepository.findByEmailOrProvider(updateReqDto.getEmail(),updateReqDto.getAndroidId()).get();
-//        member.update(updateReqDto.getEmail(), updateReqDto.getAndroidId(),updateReqDto.getName());
-//        memberRepository.save(member);
-//        return member.getEmail();
-//    }
 }
