@@ -23,6 +23,10 @@ module.exports = {
       mint: "#91ffb7",
       lightYellow: "#fef08a",
       imageSky: "#58b2f0",
+      buttonPurple: "#7daee2",
+      buttonGreen: "#407a3b",
+      buttonBlue: "#54e1f7",
+      buttonRed: "#fdae8b",
       // 기본 컬러
       mainBlack: colors.black,
       mainWhite: colors.white,
