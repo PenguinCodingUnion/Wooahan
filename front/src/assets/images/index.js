@@ -10,18 +10,18 @@ import background_desertend from "assets/images/background_desertend.jpg";
 import background_book from "assets/images/books/background_book.jpg";
 
 //dances for loading
-import penguel_chicken_dance from "assets/images/penguel_chicken_dance.gif";
-import penguel_hiphop from "assets/images/penguel_hiphop.gif";
-import penguel_swing from "assets/images/penguel_swing.gif";
+import penguel_chicken_dance from "assets/images/penguel_chicken_dance.webp";
+import penguel_hiphop from "assets/images/penguel_hiphop.webp";
+import penguel_swing from "assets/images/penguel_swing.webp";
 
 //particle for main page
 import leaf from "assets/images/falling/leaf.png";
 import snowflake from "assets/images/falling/snowflake.png";
 
 //animations
-import penguel_falldown from "assets/images/penguel_falldown.gif";
-import penguel_victory from "assets/images/penguel_victory.gif";
-import penguel_high_jump from "assets/images/penguel_high_jump.gif";
+import penguel_falldown from "assets/images/penguel_falldown.webp";
+import penguel_victory from "assets/images/penguel_victory.webp";
+import penguel_high_jump from "assets/images/penguel_high_jump.webp";
 import fox_jump from "assets/images/fox_jump.gif";
 
 import penguin from "assets/images/animal/penguin.png";
