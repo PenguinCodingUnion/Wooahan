@@ -31,9 +31,6 @@ const MainLoading = () => {
         dispatch(loginActions.getStarCount(res.starCount));
         dispatch(loginActions.getRewards(res.rewards));
         dispatch(loginActions.getEmail(res.email));
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 4000);
       } catch (error) {
         console.log(error);
       } finally {
