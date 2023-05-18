@@ -28,7 +28,7 @@ const ModalHeader = (props) => {
             <div className="flex justify-end w-1/5">
                 <button 
                     onClick={modalCloseHandler}
-                    className=" rounded-lg w-[20%] font-['MaplestoryOTFBold'] text-2xl">
+                    className=" rounded-lg w-[20%] font-['MaplestoryOTFBold'] text-3xl">
                     X
                 </button>
             </div>
