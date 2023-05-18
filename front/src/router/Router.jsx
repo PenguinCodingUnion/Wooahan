@@ -9,6 +9,7 @@ import Tutirial from "pages/Tutirial";
 import GameEnding from "pages/GameEnding";
 import MainLoading from "pages/MainLoading";
 import ErrorPage from "components/common/ErrorPage";
+import GoogleLoginSuccess from "components/common/GoogleLoginSuccess";
 
 const route = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ const route = createBrowserRouter([
       {
         path: `ending`,
         element: <GameEnding />,
+      },
+      {
+        path: `login/success`,
+        element: <GoogleLoginSuccess />,
       },
     ],
   },

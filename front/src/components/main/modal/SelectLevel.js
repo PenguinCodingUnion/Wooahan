@@ -29,7 +29,7 @@ const SelectLevel = () => {
               +selectedLevel === +level.level ? `bg-[#F2F08A] shadow-2xl ` : ``
             } rounded-lg`}
           >
-            <div className="font-['MaplestoryOTFBold'] text-2xl">
+            <div className="font-['MaplestoryOTFBold'] text-[5vh]">
               {level.name}
             </div>
           </div>

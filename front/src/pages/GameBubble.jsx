@@ -201,7 +201,11 @@ export const GameBubble = (props) => {
             onClick={() => {
               warn();
             }}
-            className="absolute h-10 w-10 right-[3%] top-[3%] rounded-lg bg-white bg-opacity-40 font-MaplestoryLight text-4xl"
+            className={`absolute ${
+              window.innerWidth / window.innerHeight > 1
+                ? "h-[7vh] w-[7vh] right-[3vh] top-[3vh] text-[5vh]"
+                : "h-[7vw] w-[7vw] right-[3vw] top-[3vw] text-[5vw]"
+            } rounded-lg bg-white bg-opacity-40 font-MaplestoryLight`}
           >
             <p>X</p>
           </div>
