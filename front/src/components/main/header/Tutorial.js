@@ -15,8 +15,8 @@ const Tutorial = () => {
       }}
       className="pr-4 w-[50%] h-full flex justify-end items-center"
     >
-      <button className="bg-transparent rounded-xl w-full h-4/5 flex items-center justify-center">
-        <FontAwesomeIcon icon={faQuestion} size="2xl" />
+      <button className="flex items-center justify-center w-full bg-transparent rounded-xl h-4/5">
+        <FontAwesomeIcon icon={faQuestion} size="2xl" color="#33333A" />
       </button>
     </div>
   );

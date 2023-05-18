@@ -13,10 +13,10 @@ const Home = () => {
       onClick={() => {
         nav(`/main`);
       }}
-      className="pl-4 w-1/6 h-full flex justify-start items-center"
+      className="flex items-center justify-start w-1/6 h-full pl-4"
     >
-      <button className="bg-white rounded-xl w-1/2 h-4/5 flex items-center justify-center">
-        <FontAwesomeIcon icon={faHouseChimney} size="2xl" />
+      <button className="flex items-center justify-center w-1/2 bg-white rounded-xl h-4/5">
+        <FontAwesomeIcon icon={faHouseChimney} size="2xl" color="#33333A" />
       </button>
     </div>
   );
