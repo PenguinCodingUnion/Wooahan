@@ -7,7 +7,7 @@ import star from "assets/sounds/star.wav";
 import effectSound from "util/effectSound";
 
 import penguel_high_jump from "assets/images/penguel_high_jump.webp";
-import fox_jump from "assets/images/fox_jump.gif";
+import fox_jump from "assets/images/fox_jump.webp";
 
 export const RewardStar = ({ model, ...props }) => {
   const [size, setSize] = useState("2rem");
