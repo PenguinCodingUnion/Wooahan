@@ -36,10 +36,8 @@ export const Main = () => {
   // 안드로이드 기기 id 받아오기
   const getAndroidId = () => {
     if (window.react_toast) {
-      const id = window.react_toast.sendDeviceID();
-      console.log(id);
-      return window.react_toast.axiosCheck("asd");
-      // return window.react_toast.sendDeviceID();
+      // const id = window.react_toast.sendDeviceID();
+      return window.react_toast.sendDeviceID();
     }
   };
 
@@ -53,7 +51,7 @@ export const Main = () => {
 
     let data = {
       code,
-      deviceId: "android_test_id_man",
+      deviceId: getAndroidId(),
     };
 
     if (code != null) {
