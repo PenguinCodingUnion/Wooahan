@@ -27,7 +27,7 @@ export const Books = () => {
 
   return (
     <div className="relative overflow-x-scroll overflow-y-hidden w-screen h-screen bg-imageSky">
-      <Header titleIsVisible={false} topLeftButton={"home"} />
+      <Header titleIsVisible={false} topLeftButton={"home"} page={"books"}/>
       {showModal && <Modal current={"books"} />}
       {showBookModal && <BookModal text={bookText} />}
       <BlockSet />
