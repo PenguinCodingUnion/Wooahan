@@ -13,7 +13,7 @@ import FallowCamera from "components/gameJump/FollowCamera";
 import { IceModel } from "components/gameJump/IcePannel";
 import BackgroundImage from "components/gameJump/BackgroundImage";
 
-import bgImage from "assets/images/background_iceberg.png";
+import bgImage from "assets/images/background_game_iceberg.webp";
 import WaterFloor from "components/gameJump/WaterFloor";
 import GameJumpOverlay from "components/gameJump/GameJumpOverlay";
 import TextObject from "components/gameJump/TextObject";
