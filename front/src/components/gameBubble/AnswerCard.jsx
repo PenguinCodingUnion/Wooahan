@@ -56,9 +56,14 @@ export const AnswerCard = (props) => {
       setOpenedBox(openedOption[1]);
       setClosedBoxSytle(closedBoxStyleOption[1]);
     }
+    setIsOpened(true);
+
+    if (!imageLoadState) {
+      return;
+    }
+
     setTimeout(() => {
       es_word.play();
-      setIsOpened(true);
     }, 700);
     if (props.name === props.answer) {
       es_correct.play();
@@ -80,7 +85,7 @@ export const AnswerCard = (props) => {
         setAnswerGif("");
       }, 3000);
     }
-  }, [props]);
+  }, [imageLoadState]);
 
   return (
     <>
