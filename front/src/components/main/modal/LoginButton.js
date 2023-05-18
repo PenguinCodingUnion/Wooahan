@@ -1,6 +1,10 @@
 import googleIcon from "assets/images/logo/googleIcon.png";
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import { useEffect, useRef } from "react";
+import {
+  GoogleLogin,
+  GoogleOAuthProvider,
+  useGoogleLogin,
+} from "@react-oauth/google";
+import { useEffect, useRef, useState } from "react";
 const google = window.google;
 
 const handleCredentialResponse = (response) => {
@@ -10,6 +14,8 @@ const handleCredentialResponse = (response) => {
 
 const LoginButton = () => {
   const loginBtn = useRef();
+
+  const [user, setUser] = useState([]);
 
   // useEffect(() => {
   //   // Load the Google Sign-In library
@@ -37,13 +43,18 @@ const LoginButton = () => {
   //   };
   // }, []);
 
-  const login = async () => {
-    if (window.google_login) {
-      const goo = window.google_login.googleLogin();
-      console.log(goo);
-      return goo;
-    }
-  };
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => setUser(codeResponse),
+    onError: (error) => console.log("Login Failed:", error),
+  });
+
+  // const login = async () => {
+  //   if (window.google_login) {
+  //     const goo = window.google_login.googleLogin();
+  //     console.log(goo);
+  //     return goo;
+  //   }
+  // };
 
   /**  authorizationUrl="https://accounts.google.com/o/oauth2/v2/auth"
           responseType="code"
@@ -52,29 +63,31 @@ const LoginButton = () => {
           clientSecret="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"
           scope="https://www.googleapis.com/auth/userinfo.profile" */
 
+  console.log(user);
+
   return (
-    <GoogleOAuthProvider clientId="475117437057-ebv70ou2abgeuvi2vlif3d7bfgfcnf5q.apps.googleusercontent.com">
-      <div className="flex justify-center h-[60%] mt-[1%] pb-4">
-        {/* <div className="flex h-[70%] w-[60%] bg-white border border-black rounded-3xl"> */}
-        {/* <div className="flex justify-center items-center w-[20%]">
+    <div onClick={login} className="flex justify-center h-[60%] mt-[1%] pb-4">
+      <div className="flex h-[70%] w-[60%] bg-white border border-black rounded-3xl">
+        <div className="flex justify-center items-center w-[20%]">
           <img src={googleIcon} className="h-[70%] rounded-3xl" />
-        </div> */}
+        </div>
         <div className="flex justify-center items-center w-[80%]">
-          {/* <div className="font-['MaplestoryOTFBold'] text-xl">
+          <div className="font-['MaplestoryOTFBold'] text-xl">
             구글 계정으로 계속하기
-          </div> */}
-          <GoogleLogin
+          </div>
+          {/* <GoogleLogin
             id="google"
             type="standard"
+            locale="ko"
             useOneTap="true"
+            login_uri="https://k8b206.p.ssafy.io/"
             onSuccess={handleCredentialResponse}
             onError={handleCredentialResponse}
-          />
+          /> */}
         </div>
-        {/* <div className="w-[10%]"></div> */}
-        {/* </div> */}
+        <div className="w-[10%]"></div>
       </div>
-    </GoogleOAuthProvider>
+    </div>
   );
 };
 
