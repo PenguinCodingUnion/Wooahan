@@ -31,7 +31,8 @@ public class JumpService {
     private final SegementRepository segementRepository;
 
     public List<JumpResDto> jumpStart(int difficulty) {
-        List<Sentence> contents = sentenceRepository.findByRandom(difficulty, 5)
+        //TODO 시연때 3판만
+        List<Sentence> contents = sentenceRepository.findByRandom(difficulty, 3)
                 .orElseThrow(() -> new NoSuchElementException("db 다 날라간거임 이 에러"));
 
         List<JumpResDto> jumpResDtoList = new ArrayList<>();
