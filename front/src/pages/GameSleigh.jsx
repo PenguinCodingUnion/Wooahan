@@ -10,7 +10,7 @@ import React, {
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as THREE from "three";
-import forestMap from "assets/images/background_forest.png";
+import forestMap from "assets/images/background_game_forest.webp";
 import QuizCard from "components/gameSleigh/QuizCard";
 import LoadingProgress from "components/gameSleigh/LoadingProgress";
 import QuizResult from "components/gameSleigh/QuizResult";

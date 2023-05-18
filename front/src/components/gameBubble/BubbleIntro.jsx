@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import bgImage from "assets/images/background_underwater.jpg";
+import bgImage from "assets/images/background_underwater.webp";
 import WordBubble from "./WordBubble";
 import BubbleTutorial from "./BubbleTutorial";
 

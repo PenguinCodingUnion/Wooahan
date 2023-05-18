@@ -44,7 +44,7 @@ const ModalOverlay = (props) => {
       {!OSLOpen && (
         <>
           <Level />
-          {socialLogin ? <Logout /> : <Login />}
+          {!socialLogin ? <Logout /> : <Login />}
           <div
             className="mb-1 text-[3vh] font-MaplestoryLight text-mainSlate-700"
             onClick={openOSLHandler}
