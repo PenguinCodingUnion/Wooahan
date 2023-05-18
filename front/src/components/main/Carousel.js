@@ -21,11 +21,11 @@ import { cardActions } from 'store/features/mainCard/cardSlice'
 
 const games =[
     {id: 1, title: '뛰어쓰기', animal: penguin_jump, url: '/jump'},
-    {id: 2, title: '팽글썰매', animal: fox, url: '/sleigh'},
+    {id: 2, title: '그림찾기', animal: fox, url: '/sleigh'},
     {id: 3, title: '한글방울', animal: penguin, url: '/bubble'},
     {id: 4, title: '끝말기차', animal: fox_train, url: '/train'},
     {id: 5, title: '뛰어쓰기', animal: penguin_jump, url: '/jump'},
-    {id: 6, title: '팽글썰매', animal: fox, url: '/sleigh'},
+    {id: 6, title: '그림찾기', animal: fox, url: '/sleigh'},
     {id: 7, title: '한글방울', animal: penguin, url: '/bubble'},
     {id: 8, title: '끝말기차', animal: fox_train, url: '/train'},
 ]
@@ -80,7 +80,7 @@ const Carousel = () => {
                     <SwiperSlide onClick={() => {movePageHandler(game, idx)}} key={game.id} id={idx} className="relative rounded-2xl">
                         <CardImage coverImage={mainCard} id={idx} title={game.title} main={mainCard}/>
                         <img src={games[idx].animal} 
-                                className="ml-[2%] mb-[10%] w-[500%] h-[200%]" />
+                                className="ml-[2%] mb-[10%] w-[500%] h-[200%] bg-transparent" />
                     </SwiperSlide>
                 ))}
             </Swiper>
