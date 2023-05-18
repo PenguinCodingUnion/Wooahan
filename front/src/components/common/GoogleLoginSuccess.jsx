@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom/dist";
+import axiosInstance from "util/Axios";
 
 const GoogleLoginSuccess = () => {
-  const navigation = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    axiosInstance.get("login" + location.search);
+  }, [location]);
+
+  console.log(location);
   return (
     <div className="w-screen h-screen absolute top-0 text-center justify-center items-center">
       <div className="font-MaplestoryBold text-[4vw]">
