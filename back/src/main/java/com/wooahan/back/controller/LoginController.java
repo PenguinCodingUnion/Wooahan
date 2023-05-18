@@ -1,9 +1,6 @@
 package com.wooahan.back.controller;
 
-import com.wooahan.back.dto.LoginReqDto;
-import com.wooahan.back.dto.LoginResDto;
-import com.wooahan.back.dto.OauthResDto;
-import com.wooahan.back.dto.UpdateReqDto;
+import com.wooahan.back.dto.*;
 import com.wooahan.back.service.LoginService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -33,10 +30,14 @@ public class LoginController {
         return new ResponseEntity<>(loginService.tempLogin(loginReqDto), HttpStatus.OK);
     }
 
-    @GetMapping("/test/{id}")
-    public void testlogin(@PathVariable String id, HttpServletRequest request){
-        HttpSession session = request.getSession();
-
+//    @GetMapping("/test/{id}")
+//    public void testlogin(@PathVariable String id, HttpServletRequest request){
+//        HttpSession session = request.getSession();
+//
+//    }
+    @PostMapping("/kakao/code")
+    public ResponseEntity<String> getKakaoToken(@RequestBody KakaoCode kakaoCode){
+        return new ResponseEntity<>(loginService.getToken(kakaoCode),HttpStatus.OK);
     }
 
     //https://accounts.google.com/o/oauth2/auth?client_id=658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com&redirect_uri=https://k8b206.p.ssafy.io/api/login/oauth2/code/state/google&response_type=code&state=&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile

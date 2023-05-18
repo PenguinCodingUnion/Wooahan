@@ -20,16 +20,16 @@ spring:
       hibernate:
         format_sql: true
     generate-ddl: true
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: 658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com
-            client-secret: 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
-            scope:
-              - profile
-              - email
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          google:
+#            client-id: 658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com
+#            client-secret: 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
+#            scope:
+#              - profile
+#              - email
 #          kakao:
 #            client-id: 	1e97e6076ee6e76cefd39481410cdab5
 #            client-secret: 7R0KJXIi8UoqYIhDSE7fpBNJzyUW7iat
@@ -44,12 +44,17 @@ spring:
 #            user_name_attribute: id
 oauth2:
   google:
-      client-id: 658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com
-      client-secret: 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
-      redirect-uri: https://k8b206.p.ssafy.io/api/login/oauth2/code/state/google
-      token-uri: https://oauth2.googleapis.com/token
-      resource-uri: https://www.googleapis.com/oauth2/v2/userinfo
-
+    client-id: 658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com
+    client-secret: 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
+    redirect-uri: https://k8b206.p.ssafy.io/api/login/oauth2/code/state/google
+    token-uri: https://oauth2.googleapis.com/token
+    resource-uri: https://www.googleapis.com/oauth2/v2/userinfo
+  kakao:
+    client-id : d313cf6ba97344781a1976206aed6112
+    client-secret : BvVyVp7pv7eJptN5ptIC2GApJ2RxpfOO
+    redirect-uri : https://k8b206.p.ssafy.io/main
+    token-uri : https://kauth.kakao.com/oauth/token
+    resource-uri : https://kapi.kakao.com/v2/user/me
 logging:
   level:
     org.hibernate.SQL: debug

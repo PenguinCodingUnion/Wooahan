@@ -116,4 +116,36 @@ public class LoginService {
         memberRepository.save(member);
         return member.getEmail();
     }
+
+
+    public String getToken(KakaoCode kakaoCode) {
+        String registrationId= "kakao";
+        String clientId = env.getProperty("oauth2." + registrationId + ".client-id");
+        String clientSecret = env.getProperty("oauth2." + registrationId + ".client-secret");
+        String redirectUri = env.getProperty("oauth2." + registrationId + ".redirect-uri");
+        String tokenUri = env.getProperty("oauth2." + registrationId + ".token-uri");
+
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("code", kakaoCode.getCode());
+        params.add("client_id", clientId);
+        params.add("client_secret", clientSecret);
+        params.add("redirect_uri", redirectUri);
+        params.add("grant_type", "authorization_code");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        HttpEntity entity = new HttpEntity(params, headers);
+
+        ResponseEntity<JsonNode> responseNode = restTemplate.exchange(tokenUri, HttpMethod.POST, entity, JsonNode.class);
+        JsonNode accessTokenNode = responseNode.getBody();
+        String token = accessTokenNode.get("access_token").asText();
+        ///
+        String resourceUri = env.getProperty("oauth2."+registrationId+".resource-uri");
+        headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + token);
+        entity = new HttpEntity(headers);
+        JsonNode jsonNode = restTemplate.exchange(resourceUri, HttpMethod.GET, entity, JsonNode.class).getBody();
+        return jsonNode.get("nickname").asText();
+    }
 }
