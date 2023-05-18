@@ -147,6 +147,6 @@ public class LoginService {
         entity = new HttpEntity(headers);
         JsonNode jsonNode = restTemplate.exchange(resourceUri, HttpMethod.GET, entity, JsonNode.class).getBody();
         System.out.println(jsonNode);
-        return jsonNode.get("kakao_acount").get("profile").get("nickname").asText();
+        return jsonNode.get("id").asText();
     }
 }
