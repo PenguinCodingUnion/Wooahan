@@ -72,7 +72,7 @@ const QuizResult = (props) => {
 
   return (
     soundload && (
-      <div className="absolute w-screen h-screen top-0 flex flex-col justify-center items-center z-[60]">
+      <div className="absolute w-screen h-screen top-0 flex flex-col justify-center items-center z-[55]">
         {visible ? (
           <>
             <div
