@@ -24,6 +24,9 @@ import penguel_victory from "assets/images/penguel_victory.gif";
 import penguel_high_jump from "assets/images/penguel_high_jump.gif";
 import fox_jump from "assets/images/fox_jump.gif";
 
+import penguin from "assets/images/animal/penguin.png";
+import fox from "assets/images/animal/fox.png";
+
 export const images = [
   //배경화면
   background_desert,
@@ -47,4 +50,7 @@ export const images = [
   penguel_victory,
   penguel_high_jump,
   fox_jump,
+  //기타 이미지
+  penguin,
+  fox,
 ];
