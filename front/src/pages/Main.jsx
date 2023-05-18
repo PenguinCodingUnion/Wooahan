@@ -36,7 +36,8 @@ export const Main = () => {
     if (window.react_toast) {
       const id = window.react_toast.sendDeviceID();
       console.log(id)
-      return window.react_toast.sendDeviceID();
+      return window.react_toast.axiosCheck("asd");
+      // return window.react_toast.sendDeviceID();
     }
   };
 
@@ -58,7 +59,11 @@ export const Main = () => {
   }, []);
   
   useEffect(() => {
-    console.log(location);
+    console.log(location.search);
+    getAndroidId();
+    // console.log(location.key);
+    console.log(location.pathname);
+    console.log(location.state);
   }, [ location ])
 
   return (
