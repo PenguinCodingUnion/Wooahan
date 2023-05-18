@@ -1,7 +1,5 @@
-import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Navigate } from "react-router-dom";
 import jump1 from "assets/images/tutorials/jump3.png";
 import jump2 from "assets/images/tutorials/jump42.png";
 import jump3 from "assets/images/tutorials/jump57.png";
@@ -10,7 +8,6 @@ import jump5 from "assets/images/tutorials/jump104.png";
 import jump6 from "assets/images/tutorials/jump137.png";
 
 export const Jump = (props) => {
-  const [end, setEnd] = useState(false);
   const mention = [
     "소리에 맞추어 문장을 읽어봐요",
     "띄어쓰기를 할 부분에서 폴짝 뛰어봐요",
@@ -73,7 +70,7 @@ export const Jump = (props) => {
           onClick={() => {
             close();
           }}
-          className=" bg-white bg-opacity-40 shadow-xl rounded-lg top-5 right-0 w-24 h-12 mr-6 font-MaplestoryBold text-2xl absolute leading-[3rem] text-center"
+          className=" bg-white bg-opacity-90 shadow-xl rounded-lg top-5 right-0 w-24 h-12 mr-6 font-MaplestoryBold text-2xl absolute leading-[3rem] text-center"
         >
           <p>넘어가기</p>
         </div>

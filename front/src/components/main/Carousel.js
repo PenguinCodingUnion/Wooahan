@@ -45,11 +45,6 @@ const Carousel = () => {
         dispatch(cardActions.savePrevCard(mainCard))
     }, [mainCard])
 
-    
-    useEffect(() => {
-        dispatch(backActions.changeBackGround(0))
-    }, [])
-
     // 게임선택시, 페이지 이동.
     const movePageHandler = (game, idx) => {
         if(mainCard === idx) nav(game.url)

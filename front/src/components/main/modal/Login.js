@@ -1,5 +1,6 @@
 import LoginButton from "./LoginButton"
 import GoogleLoginButton from "./GoogleLoginButton";
+import KakaoLogin from "./KakaoLogin";
 
 const Login = () => {
 
@@ -8,7 +9,8 @@ const Login = () => {
             <div className="font-['MaplestoryOTFBold'] text-2xl mt-[4%] mb-[1%]">
                 구글 아이디로 로그인 해주세요
             </div>
-            <LoginButton />
+            <KakaoLogin />
+            {/* <LoginButton /> */}
             {/* <GoogleLoginButton /> */}
         </div>
     )

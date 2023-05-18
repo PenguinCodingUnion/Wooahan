@@ -34,11 +34,11 @@ const Block = (props) => {
 
     
     return (
-        <div onClick={() => {modalHandler(props.text)}} 
+        <div  
              style={{left: props.left, top: props.top, right: props.right, bottom: props.bottom }} 
-             className={`absolute z-${props.z} flex justify-center w-[8%] h-[8%] bg-trans`}>
-            <div className="absolute z-10 text-[550%] text-stroke-2 text-stroke-white font-MaplestoryBold">{props.text}</div>
-            <img src={`${(props.num === "1") ? cloud1 : cloud2}`} className="absolute pt-[32%] " />
+             className={`absolute z-${props.z} ${props.cloud} flex justify-center w-[8%] h-[8%] bg-trans`}>
+            <div onClick={() => {modalHandler(props.text)}} className="absolute z-10 text-[550%] text-stroke-2 text-stroke-white font-MaplestoryBold">{props.text}</div>
+            <img src={`${(props.num === "1") ? cloud1 : cloud2}`} className="absolute top-[170%]" />
         </div>
     )
 
