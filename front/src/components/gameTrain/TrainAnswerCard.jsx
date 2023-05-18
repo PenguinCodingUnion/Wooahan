@@ -9,7 +9,7 @@ export const TrainAnswerCard = (props) => {
   const [imageLoadState, setImageLoadState] = useState(false);
 
   const es_word = effectSound(
-    require(`assets/sounds/word/${props.word.name}.mp3`),
+    `${process.env.REACT_APP_WORD_PATH}${props.word.name}.mp3`,
     1
   );
   
