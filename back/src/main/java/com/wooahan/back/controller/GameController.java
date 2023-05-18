@@ -6,6 +6,7 @@ import io.swagger.annotations.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +16,15 @@ import java.util.List;
 @RestController
 @CrossOrigin("*")
 @RequiredArgsConstructor
+@Slf4j
 @RequestMapping(value = "/api/game")
 public class GameController {
     private final BubbleService bubbleService;
     private final TrainService trainService;
-    private final RewardService rewardService;
     private final JumpService jumpService;
     private final RunService runService;
+
+
 
     @Operation(summary = "한글방울 게임", description = "난이도를 받아서 단어 가져옵니다.")
     @GetMapping("/bubble/{difficulty}")

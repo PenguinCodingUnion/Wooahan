@@ -42,6 +42,9 @@ logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
+  config:
+    classpath:
+      log4j2.yml
 
 server:
   port: 9090

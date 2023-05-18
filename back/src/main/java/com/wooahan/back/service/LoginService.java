@@ -53,14 +53,10 @@ public class LoginService {
     }
 
     private String getAccessToken(String authorizationCode, String registrationId) {
-        System.out.println(registrationId);
         String clientId = env.getProperty("oauth2." + registrationId + ".client-id");
         String clientSecret = env.getProperty("oauth2." + registrationId + ".client-secret");
         String redirectUri = env.getProperty("oauth2." + registrationId + ".redirect-uri");
         String tokenUri = env.getProperty("oauth2." + registrationId + ".token-uri");
-
-        System.out.println(clientId);
-        System.out.println(tokenUri);
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("code", authorizationCode);

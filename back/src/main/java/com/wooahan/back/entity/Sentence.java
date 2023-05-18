@@ -13,7 +13,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Sentence {
-    //TODO 추후 난이도 조절 필요
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="sentence_id")
