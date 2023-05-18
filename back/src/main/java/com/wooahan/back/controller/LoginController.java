@@ -39,11 +39,11 @@ public class LoginController {
 
     }
 
-    //https://accounts.google.com/o/oauth2/auth?client_id=658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com&redirect_uri=https://k8b206.p.ssafy.io/api/login/oauth2/code/state/google&response_type=code&state=scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile
+    //https://accounts.google.com/o/oauth2/auth?client_id=658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com&redirect_uri=https://k8b206.p.ssafy.io/api/login/oauth2/code/state/google&response_type=code&state=&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile
     @Operation(summary = "구글 oauth2(신경 안써도됨)", description = "구글 로그인 버튼 누르면 email,provider(google),name 줄거임")
     @GetMapping("/oauth2/code/state/{registrationId}")
-    public String googleLogin(@RequestParam String code, @RequestParam String state, @PathVariable String registrationId, RedirectAttributes redirectAttributes, HttpServletResponse response) throws IOException {
-        OauthResDto oauthResDto = loginService.socialLogin(code, registrationId);
+    public void googleLogin(@RequestParam String code, @RequestParam String state, @PathVariable String registrationId, HttpServletResponse response) throws IOException {
+        OauthResDto oauthResDto = loginService.socialLogin(code,state, registrationId);
         System.out.println(state);
 //        ObjectMapper om = new ObjectMapper();
 //        String cookieValue = om.writeValueAsString(oauthResDto);
@@ -58,10 +58,10 @@ public class LoginController {
 //        response.addCookie(cookie);
 //        response.add
 //        response.sendRedirect("https://k8b206.p.ssafy.io/jump?email="+oauthResDto.getEmail()+"&provider="+oauthResDto.getProvider()+"&name="+oauthResDto.getName());
-        redirectAttributes.addAttribute("email",oauthResDto.getEmail());
-        redirectAttributes.addAttribute("provider",oauthResDto.getProvider());
-        redirectAttributes.addAttribute("name",oauthResDto.getName());
-        return state;
+//        redirectAttributes.addAttribute("email",oauthResDto.getEmail());
+//        redirectAttributes.addAttribute("provider",oauthResDto.getProvider());
+//        redirectAttributes.addAttribute("name",oauthResDto.getName());
+//        return state;
     }
 
     @Operation(summary = "게스트를 구글계정으로 바꿔주는 거", description = "구글 oauth2누르고 나서 바로 chaining으로 보내줘야 할 것")

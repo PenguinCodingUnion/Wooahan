@@ -41,14 +41,15 @@ public class LoginService {
 //
 //        return "redirect:/";
 //    }
-    public OauthResDto socialLogin(String code, String registrationId) {
+    public OauthResDto socialLogin(String code, String state, String registrationId) {
         String accessToken = getAccessToken(code, registrationId);
         JsonNode userResourceNode = getUserResource(accessToken, registrationId);
 
-//        String id = userResourceNode.get("id").asText();
         String email = userResourceNode.get("email").asText();
         String nickname = userResourceNode.get("name").asText();
-
+        Member member = memberRepository.findByProvider(state).get();
+        member.update(email,state,nickname);
+        memberRepository.save(member);
         return new OauthResDto(email,registrationId,nickname);
     }
 
