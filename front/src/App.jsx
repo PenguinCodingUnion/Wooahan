@@ -59,7 +59,7 @@ const App = () => {
 
   return (
     <React.Suspense fallback={<LoadingComponent />}>
-      <div className="mx-auto h-screen w-screen flex text-center">
+      <div className="mx-auto h-screen w-screen flex text-center overflow-y-hidden">
         <Outlet />
       </div>
     </React.Suspense>
