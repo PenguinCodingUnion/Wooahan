@@ -72,7 +72,7 @@ export const Main = () => {
         }
       })();
     }
-  });
+  }, []);
 
   return (
     <div className="relative w-screen h-screen">
