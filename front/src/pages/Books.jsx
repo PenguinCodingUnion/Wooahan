@@ -26,15 +26,18 @@ export const Books = () => {
   }, [])
 
   return (
-    <div className="relative overflow-x-scroll w-screen h-screen bg-imageSky">
-      <Header titleIsVisible={false} topLeftButton={"home"}/>
-      {showModal && <Modal current={"books"} /> }
-      {showBookModal && <BookModal text={bookText}/>}
+    <div className="relative overflow-x-scroll overflow-y-hidden w-screen h-screen bg-imageSky">
+      <Header titleIsVisible={false} topLeftButton={"home"} />
+      {showModal && <Modal current={"books"} />}
+      {showBookModal && <BookModal text={bookText} />}
       <BlockSet />
-      <img src={fox_right} className="absolute z-20 w-[30%] h-[30%] bottom-[-5%] animate-leftFox"/>
+      <img
+        src={fox_right}
+        className="absolute z-20 w-[30%] h-[30%] bottom-[-5%] animate-leftFox"
+      />
       <div className="absolute z-10 bottom-[-2%] w-[200%] h-[40%] bg-[url('assets/images/books/background_book.jpg')] bg-cover" />
     </div>
-  )
+  );
 }
 
 Books.propTypes = {
