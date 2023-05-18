@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom/dist";
+import axiosInstance from "util/Axios";
 
 const GoogleLoginSuccess = () => {
   const location = useLocation();
+
+  useEffect(() => {
+    axiosInstance.get("login" + location.search);
+  }, [location]);
 
   console.log(location);
   return (
