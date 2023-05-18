@@ -32,7 +32,7 @@ const QuizResult = (props) => {
     if (!imageLoadState) return;
 
     const wordSound = new Howl({
-      src: require(`assets/sounds/word/${result.word.name}.mp3`),
+      src: `${process.env.REACT_APP_WORD_PATH}${result.word.name}.mp3`,
       autoplay: true,
       loop: false,
       volume: 1,
