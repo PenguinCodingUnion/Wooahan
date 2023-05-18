@@ -1,4 +1,3 @@
-import axiosRequest from "util/Axios";
 import kakaoButton from "assets/images/loginButton/kakaoLogin.png";
 
 const KakaoLogin = () => {
