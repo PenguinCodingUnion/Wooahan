@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
-import bgImage from "assets/images/background_underwater.jpg";
+import bgImage from "assets/images/background_underwater.webp";
 import QuizCard from "components/gameBubble/QuizCard";
 import WordBubble from "components/gameBubble/WordBubble";
 import AnswerCard from "components/gameBubble/AnswerCard";

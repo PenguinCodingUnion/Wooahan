@@ -8,6 +8,11 @@ import PickCard from "components/gameEnding/PickCard";
 import { Navigate, useLocation } from "react-router-dom";
 import instance from "util/Axios";
 
+import playground from "assets/images/background_playground.webp";
+import forestend from "assets/images/background_forestend.webp";
+import beach from "assets/images/background_beach.webp";
+import desertend from "assets/images/background_desertend.webp";
+
 export const GameEnding = (props) => {
   const [reward, setReward] = useState([]);
   const [isEndingSceneOpen, setIsEndingSceneOpen] = useState(true);
@@ -23,19 +28,19 @@ export const GameEnding = (props) => {
     // eslint-disable-next-line default-case
     switch (state.game) {
       case "jump":
-        setBackground(require("assets/images/background_playground.jpg"));
+        setBackground(playground);
         break;
 
       case "sleigh":
-        setBackground(require("assets/images/background_forestend.jpg"));
+        setBackground(forestend);
         break;
 
       case "bubble":
-        setBackground(require("assets/images/background_beach.jpg"));
+        setBackground(beach);
         break;
 
       case "train":
-        setBackground(require("assets/images/background_desertend.jpg"));
+        setBackground(desertend);
         break;
     }
     const getStarData = async () => {
