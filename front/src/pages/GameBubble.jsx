@@ -78,7 +78,7 @@ export const GameBubble = (props) => {
 
   const closeTutorial = () => {
     setShowXButton(true);
-  }
+  };
 
   const changeQuiz = () => {
     if (round === 4) {
@@ -149,7 +149,11 @@ export const GameBubble = (props) => {
     <>
       {isLoading && <LoadingComponent />}
       {!isLoading && isIntro && !isGameEnd && (
-        <BubbleIntro closeIntro={closeIntro} pos={pos} closeTutorial={closeTutorial} />
+        <BubbleIntro
+          closeIntro={closeIntro}
+          pos={pos}
+          closeTutorial={closeTutorial}
+        />
       )}
 
       {!isLoading && !isIntro && !isGameEnd && (
@@ -208,7 +212,11 @@ export const GameBubble = (props) => {
       {!isLoading && !isIntro && isGameEnd && (
         <Navigate
           to={`/ending`}
-          state={{ game: "bubble", character: "penguin" }}
+          state={{
+            game: "bubble",
+            character: "penguin",
+            mention: "조개를 모두 주웠어요!",
+          }}
         />
       )}
     </>
