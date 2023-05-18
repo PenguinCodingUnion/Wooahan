@@ -41,7 +41,7 @@ public class LoginService {
 //
 //        return "redirect:/";
 //    }
-    public OauthResDto socialLogin(String code, String state, String registrationId) {
+    public void socialLogin(String code, String state, String registrationId) {
         String accessToken = getAccessToken(code, registrationId);
         JsonNode userResourceNode = getUserResource(accessToken, registrationId);
 
@@ -50,7 +50,7 @@ public class LoginService {
         Member member = memberRepository.findByProvider(state).get();
         member.update(email,state,nickname);
         memberRepository.save(member);
-        return new OauthResDto(email,registrationId,nickname);
+//        return new OauthResDto(email,registrationId,nickname);
     }
 
     private String getAccessToken(String authorizationCode, String registrationId) {
@@ -76,7 +76,6 @@ public class LoginService {
         return accessTokenNode.get("access_token").asText();
     }
 
-    //TODO userresourcenode 이용
     private JsonNode getUserResource(String accessToken, String registrationId) {
         String resourceUri = env.getProperty("oauth2."+registrationId+".resource-uri");
 
@@ -99,7 +98,6 @@ public class LoginService {
     //guest
     public LoginResDto tempLogin(LoginReqDto loginReqDto) {
         Member member =memberRepository.findByEmailOrProvider(loginReqDto.getEmail(),loginReqDto.getAndroidId())
-                //없으면 넌 guest야
                 .orElseGet(()->createMember(loginReqDto.getAndroidId()));
         return LoginResDto.builder()
                 .rewards(member.getRewards()

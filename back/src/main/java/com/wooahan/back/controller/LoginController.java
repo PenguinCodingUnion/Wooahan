@@ -43,7 +43,7 @@ public class LoginController {
     @Operation(summary = "구글 oauth2(신경 안써도됨)", description = "구글 로그인 버튼 누르면 email,provider(google),name 줄거임")
     @GetMapping("/oauth2/code/state/{registrationId}")
     public void googleLogin(@RequestParam String code, @RequestParam String state, @PathVariable String registrationId, HttpServletResponse response) throws IOException {
-        OauthResDto oauthResDto = loginService.socialLogin(code,state, registrationId);
+        loginService.socialLogin(code,state, registrationId);
         System.out.println(state);
 //        ObjectMapper om = new ObjectMapper();
 //        String cookieValue = om.writeValueAsString(oauthResDto);
