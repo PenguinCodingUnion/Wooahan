@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom";
 
 library.add(faBookOpenReader);
 
-const Reward = () => {
+const Reward = (props) => {
   const nav = useNavigate();
+  const buttonBackGround = ["bg-buttonPurple", "bg-buttonGreen", "bg-buttonBlue", "bg-buttonRed", "bg-buttonPurple", "bg-buttonGreen", "bg-buttonBlue", "bg-buttonRed"]
 
   return (
     <div
@@ -15,7 +16,7 @@ const Reward = () => {
       }}
       className="pl-4 w-1/6 h-full flex justify-start items-center"
     >
-      <button className="bg-transparent rounded-xl w-1/2 h-4/5 flex items-center justify-center">
+      <button className={`${buttonBackGround[props.page]} rounded-xl w-1/2 h-4/5 flex items-center justify-center`}>
         <FontAwesomeIcon icon={faBookOpenReader} size="2xl" />
       </button>
     </div>

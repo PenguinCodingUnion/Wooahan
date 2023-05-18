@@ -15,7 +15,7 @@ const Home = () => {
       }}
       className="pl-4 w-1/6 h-full flex justify-start items-center"
     >
-      <button className="bg-transparent rounded-xl w-1/2 h-4/5 flex items-center justify-center">
+      <button className="bg-white rounded-xl w-1/2 h-4/5 flex items-center justify-center">
         <FontAwesomeIcon icon={faHouseChimney} size="2xl" />
       </button>
     </div>
