@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 const Logout = () =>{
 
     const userName = useSelector(state => state.loginInfo.name)
+    const eamil = useSelector(state => state.loginInfo.eamil)
+
 
     return(
         <div className="h-[40%] w-full flex flex-col items-center ">
