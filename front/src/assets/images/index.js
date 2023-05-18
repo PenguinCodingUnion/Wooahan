@@ -22,7 +22,7 @@ import snowflake from "assets/images/falling/snowflake.png";
 import penguel_falldown from "assets/images/penguel_falldown.webp";
 import penguel_victory from "assets/images/penguel_victory.webp";
 import penguel_high_jump from "assets/images/penguel_high_jump.webp";
-import fox_jump from "assets/images/fox_jump.gif";
+import fox_jump from "assets/images/fox_jump.webp";
 
 import penguin from "assets/images/animal/penguin.png";
 import fox from "assets/images/animal/fox.png";
