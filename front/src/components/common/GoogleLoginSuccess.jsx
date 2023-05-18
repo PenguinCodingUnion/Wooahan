@@ -6,8 +6,15 @@ import axiosInstance from "util/Axios";
 const GoogleLoginSuccess = () => {
   const location = useLocation();
 
+  const query = new URLSearchParams(location.search);
+
+  const code = query.get("code");
+  const deviceId = query.get("state");
   useEffect(() => {
-    axiosInstance.get("login" + location.search);
+    axiosInstance.post("api/login/oauth2/google", {
+      code,
+      deviceId,
+    });
   }, [location]);
 
   console.log(location);
