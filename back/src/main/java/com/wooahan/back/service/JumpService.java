@@ -1,6 +1,6 @@
 package com.wooahan.back.service;
 
-import com.wooahan.back.dto.JumpResDto;
+import com.wooahan.back.dto.game.JumpResDto;
 import com.wooahan.back.entity.Segment;
 import com.wooahan.back.entity.Sentence;
 import com.wooahan.back.repository.SegementRepository;

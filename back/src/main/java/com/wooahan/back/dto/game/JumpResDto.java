@@ -1,4 +1,4 @@
-package com.wooahan.back.dto;
+package com.wooahan.back.dto.game;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.wooahan.back.service.JumpService;

@@ -2,12 +2,10 @@ package com.wooahan.back.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.wooahan.back.dto.*;
+import com.wooahan.back.dto.game.SimpleWordInfo;
 import com.wooahan.back.entity.Member;
 import com.wooahan.back.repository.MemberRepository;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.core.env.Environment;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -15,32 +13,34 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class LoginService {
+public class LoginService{
 
     private final Environment env;
     private final RestTemplate restTemplate = new RestTemplate();
     private final MemberRepository memberRepository;
 
-//    public String createCookie(HttpServletResponse response) {
-////        logger.info("쿠키 생성");
-//        Cookie cookie = new Cookie("test","ang~");
-//        cookie.setDomain("https://k8b206.p.ssafy.io");
-//        cookie.setPath("/");
-//        // 30초간 저장
-//        cookie.setMaxAge(60*60*60);
-//        cookie.setSecure(true);
-//        response.addCookie(cookie);
-//
-//        return "redirect:/";
-//    }
+    //TODO Oauth 통합필요
+    public LoginResDto kakaoLogin(KakaoCode kakaoCode){
+        String devideId= kakaoCode.getDeviceId();
+
+        String Token = getAccessToken(kakaoCode.getCode(),"kakao");
+        JsonNode userResourceNode = getUserResource(Token, "kakao");
+
+        String oauthId = userResourceNode.get("id").asText();
+        String name = userResourceNode.get("properties").get("nickname").asText();
+
+
+        Member member = memberRepository.findByProvider(kakaoCode.getDeviceId()).get();
+        member.update(oauthId,devideId,name);
+        return new LoginResDto(member.getEmail(), member.getStarCount());
+    }
+
+    //TODO
     public void socialLogin(String code, String state, String registrationId) {
         String accessToken = getAccessToken(code, registrationId);
         JsonNode userResourceNode = getUserResource(accessToken, registrationId);
@@ -100,53 +100,19 @@ public class LoginService {
         Member member =memberRepository.findByEmailOrProvider(loginReqDto.getEmail(),loginReqDto.getAndroidId())
                 .orElseGet(()->createMember(loginReqDto.getAndroidId()));
         return LoginResDto.builder()
-                .rewards(member.getRewards()
-                        .stream()
-                        .map(reward -> new SimpleWordInfo(reward.getWord().getName(), reward.getWord().getImgUrl()))
-                        .collect(Collectors.toList()))
+//                .rewards(member.getRewards()
+//                        .stream()
+//                        .map(reward -> new SimpleWordInfo(reward.getWord().getName(), reward.getWord().getImgUrl()))
+//                        .collect(Collectors.toList()))
                 .starCount(member.getStarCount())
                 .email(member.getEmail())
                 .build();
     }
-
     //guest->google
-    public String registerMember(UpdateReqDto updateReqDto) {
-        Member member = memberRepository.findByEmailOrProvider(updateReqDto.getEmail(),updateReqDto.getAndroidId()).get();
-        member.update(updateReqDto.getEmail(), updateReqDto.getAndroidId(),updateReqDto.getName());
-        memberRepository.save(member);
-        return member.getEmail();
-    }
-
-
-    public String getToken(KakaoCode kakaoCode) {
-        String registrationId= "kakao";
-        String clientId = env.getProperty("oauth2." + registrationId + ".client-id");
-        String clientSecret = env.getProperty("oauth2." + registrationId + ".client-secret");
-        String redirectUri = env.getProperty("oauth2." + registrationId + ".redirect-uri");
-        String tokenUri = env.getProperty("oauth2." + registrationId + ".token-uri");
-
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("code", kakaoCode.getCode());
-        params.add("client_id", clientId);
-        params.add("client_secret", clientSecret);
-        params.add("redirect_uri", redirectUri);
-        params.add("grant_type", "authorization_code");
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
-        HttpEntity entity = new HttpEntity(params, headers);
-
-        ResponseEntity<JsonNode> responseNode = restTemplate.exchange(tokenUri, HttpMethod.POST, entity, JsonNode.class);
-        JsonNode accessTokenNode = responseNode.getBody();
-        String token = accessTokenNode.get("access_token").asText();
-        ///
-        String resourceUri = env.getProperty("oauth2."+registrationId+".resource-uri");
-        headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + token);
-        entity = new HttpEntity(headers);
-        JsonNode jsonNode = restTemplate.exchange(resourceUri, HttpMethod.GET, entity, JsonNode.class).getBody();
-        System.out.println(jsonNode);
-        return jsonNode.get("id").asText();
-    }
+//    public String registerMember(UpdateReqDto updateReqDto) {
+//        Member member = memberRepository.findByEmailOrProvider(updateReqDto.getEmail(),updateReqDto.getAndroidId()).get();
+//        member.update(updateReqDto.getEmail(), updateReqDto.getAndroidId(),updateReqDto.getName());
+//        memberRepository.save(member);
+//        return member.getEmail();
+//    }
 }

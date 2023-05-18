@@ -1,8 +1,10 @@
 package com.wooahan.back.controller;
 
-import com.wooahan.back.dto.*;
+import com.wooahan.back.dto.game.BubbleResDto;
+import com.wooahan.back.dto.game.JumpResDto;
+import com.wooahan.back.dto.game.RunResDto;
+import com.wooahan.back.dto.game.TrainResDto;
 import com.wooahan.back.service.*;
-import io.swagger.annotations.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;

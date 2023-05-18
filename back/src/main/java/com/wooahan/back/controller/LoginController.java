@@ -30,14 +30,10 @@ public class LoginController {
         return new ResponseEntity<>(loginService.tempLogin(loginReqDto), HttpStatus.OK);
     }
 
-//    @GetMapping("/test/{id}")
-//    public void testlogin(@PathVariable String id, HttpServletRequest request){
-//        HttpSession session = request.getSession();
-//
-//    }
-    @PostMapping("/kakao/code")
-    public ResponseEntity<String> getKakaoToken(@RequestBody KakaoCode kakaoCode){
-        return new ResponseEntity<>(loginService.getToken(kakaoCode),HttpStatus.OK);
+    //kakao로그인 인가코드나 받자고
+    @PostMapping("/oauth2/kakao")
+    public ResponseEntity<LoginResDto> getKakaoToken(@RequestBody KakaoCode kakaoCode){
+        return new ResponseEntity<>(loginService.kakaoLogin(kakaoCode),HttpStatus.OK);
     }
 
     //https://accounts.google.com/o/oauth2/auth?client_id=658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com&redirect_uri=https://k8b206.p.ssafy.io/api/login/oauth2/code/state/google&response_type=code&state=&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile
@@ -45,32 +41,15 @@ public class LoginController {
     @GetMapping("/oauth2/code/state/{registrationId}")
     public void googleLogin(@RequestParam String code, @RequestParam String state, @PathVariable String registrationId, HttpServletResponse response) throws IOException {
         loginService.socialLogin(code,state, registrationId);
-        System.out.println(state);
-//        ObjectMapper om = new ObjectMapper();
-//        String cookieValue = om.writeValueAsString(oauthResDto);
-//        cookieValue = URLEncoder.encode(cookieValue, StandardCharsets.UTF_8);
-//        Cookie cookie = new Cookie("test",cookieValue);
-
-////        cookie.setDomain("https://k8b206.p.ssafy.io");
-//        cookie.setPath("/");
-//        // 30초간 저장
-//        cookie.setMaxAge(60*60*60*24);
-//        cookie.setSecure(true);
-//        response.addCookie(cookie);
-//        response.add
-//        response.sendRedirect("https://k8b206.p.ssafy.io/jump?email="+oauthResDto.getEmail()+"&provider="+oauthResDto.getProvider()+"&name="+oauthResDto.getName());
-//        redirectAttributes.addAttribute("email",oauthResDto.getEmail());
-//        redirectAttributes.addAttribute("provider",oauthResDto.getProvider());
-//        redirectAttributes.addAttribute("name",oauthResDto.getName());
-//        return state;
+        response.sendRedirect("https://k8b206.p.ssafy.io/login/success");
     }
 
-    @Operation(summary = "게스트를 구글계정으로 바꿔주는 거", description = "구글 oauth2누르고 나서 바로 chaining으로 보내줘야 할 것")
-    @ResponseBody
-    @PostMapping("/register")
-    public ResponseEntity<String> registerEmail(@Parameter(name="updateReqDto",description ="email,provider,name,androidId")@RequestBody UpdateReqDto updateReqDto) {
-        return new ResponseEntity<>(loginService.registerMember(updateReqDto), HttpStatus.OK);
-    }
+//    @Operation(summary = "게스트를 구글계정으로 바꿔주는 거", description = "구글 oauth2누르고 나서 바로 chaining으로 보내줘야 할 것")
+//    @ResponseBody
+//    @PostMapping("/register")
+//    public ResponseEntity<String> registerEmail(@Parameter(name="updateReqDto",description ="email,provider,name,androidId")@RequestBody UpdateReqDto updateReqDto) {
+//        return new ResponseEntity<>(loginService.registerMember(updateReqDto), HttpStatus.OK);
+//    }
 
 
 }

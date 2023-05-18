@@ -1,7 +1,7 @@
 package com.wooahan.back.service;
 
-import com.wooahan.back.dto.SimpleWordInfo;
-import com.wooahan.back.dto.TrainResDto;
+import com.wooahan.back.dto.game.SimpleWordInfo;
+import com.wooahan.back.dto.game.TrainResDto;
 import com.wooahan.back.entity.Word;
 import com.wooahan.back.repository.WordRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class TrainService {
             //중복 정답이 되면 안되니까
             while(name.substring(name.length() - 1)
                     .equals(wordInfo.getName().substring(wordInfo.getName().length() - 1))){
-                Word tmp = wordRepository.findByRandom(difficulty,1).get().get(0);
+                Word tmp = wordRepository.findRandomByDifficulty(difficulty,1).get().get(0);
                 wordInfo = new SimpleWordInfo(tmp.getName(),tmp.getImgUrl());
             }
 

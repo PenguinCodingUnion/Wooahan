@@ -1,8 +1,7 @@
 package com.wooahan.back.service;
 
-import com.wooahan.back.dto.SimpleWordInfo;
-import com.wooahan.back.dto.BubbleResDto;
-import com.wooahan.back.entity.Word;
+import com.wooahan.back.dto.game.SimpleWordInfo;
+import com.wooahan.back.dto.game.BubbleResDto;
 import com.wooahan.back.repository.WordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ public class BubbleService {
 
     //TODO 살찐 코드
     public List<BubbleResDto> bubbleStart(int difficulty){
-        List<SimpleWordInfo> simpleWordInfoList = wordRepository.findByRandom(difficulty,20)
+        List<SimpleWordInfo> simpleWordInfoList = wordRepository.findRandomByDifficulty(difficulty,20)
                 .orElseThrow(()->new NoSuchElementException("bubbleStart에서 일어난 일"))
                 .stream()
                 .map(word -> new SimpleWordInfo(word.getName(),word.getImgUrl()))

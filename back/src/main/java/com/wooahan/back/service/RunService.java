@@ -1,7 +1,7 @@
 package com.wooahan.back.service;
 
-import com.wooahan.back.dto.RunResDto;
-import com.wooahan.back.dto.SimpleWordInfo;
+import com.wooahan.back.dto.game.RunResDto;
+import com.wooahan.back.dto.game.SimpleWordInfo;
 import com.wooahan.back.repository.WordRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,7 +34,7 @@ public class RunService {
     public List<RunResDto> runStart(int difficulty){
         List<Integer>wordIdList = new ArrayList<>();
         //TODO difficulty에 따라서 cnt도 달라져볼까?
-        List<RunWord> runWords = wordRepository.findByRandom(difficulty,10)
+        List<RunWord> runWords = wordRepository.findRandomByDifficulty(difficulty,10)
                 .orElseThrow(()->new NoSuchElementException("jumpStart에서 일어난 일"))
                 .stream()
                 .map(word -> new SimpleWordInfo(word.getName(),word.getImgUrl()))

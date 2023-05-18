@@ -1,7 +1,5 @@
 package com.wooahan.back.repository;
 
-import com.wooahan.back.dto.OverResDto;
-import com.wooahan.back.dto.SimpleWordInfo;
 import com.wooahan.back.entity.Member;
 import com.wooahan.back.entity.Reward;
 import com.wooahan.back.entity.Word;

@@ -1,7 +1,7 @@
 package com.wooahan.back.controller;
 
-import com.wooahan.back.dto.CardReqDto;
-import com.wooahan.back.dto.CardResDto;
+import com.wooahan.back.dto.reward.CardReqDto;
+import com.wooahan.back.dto.reward.CardResDto;
 import com.wooahan.back.dto.OverResDto;
 import com.wooahan.back.service.RewardService;
 import io.swagger.v3.oas.annotations.Operation;

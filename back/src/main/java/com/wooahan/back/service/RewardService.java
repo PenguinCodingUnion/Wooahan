@@ -1,6 +1,9 @@
 package com.wooahan.back.service;
 
 import com.wooahan.back.dto.*;
+import com.wooahan.back.dto.game.SimpleWordInfo;
+import com.wooahan.back.dto.reward.CardReqDto;
+import com.wooahan.back.dto.reward.CardResDto;
 import com.wooahan.back.entity.Member;
 import com.wooahan.back.entity.Reward;
 import com.wooahan.back.entity.Word;
@@ -45,7 +48,7 @@ public class RewardService {
 //            List<Reward> rewards = rewardRepository.findAllByMember(member);
             //member가 가지고 있는
             Word word = rewardRepository.findWordNotMine(member.getId())
-                    .orElseGet(()->wordRepository.findByRandom(0,1).get().get(0));
+                    .orElseGet(()->wordRepository.findByRandom(1).get().get(0));
 //                    .orElseThrow(()->new NoSuchElementException("만렙이 존재함"));
             rewardRepository.save(new Reward(member,word));
             simpleWordInfo = new SimpleWordInfo(word.getName(),word.getImgUrl());

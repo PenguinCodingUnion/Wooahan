@@ -1,6 +1,5 @@
-package com.wooahan.back.dto;
+package com.wooahan.back.dto.game;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.Builder;
 import lombok.Getter;
 

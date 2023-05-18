@@ -1,4 +1,4 @@
-package com.wooahan.back.dto;
+package com.wooahan.back.dto.reward;
 
 import lombok.Getter;
 
