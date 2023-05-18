@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import trainlong from "assets/images/train/structure_train_long.png";
 import Train from "./Train";
 import instance from "util/Axios";
@@ -10,9 +10,12 @@ import TrainTutorial from "./TrainTutorial";
 
 export const TrainStart = (props) => {
   const [data, setdata] = useState([]);
+
+  const difficulty = useSelector((state) => state.level.level);
+
   useEffect(() => {
     instance
-      .get("/game/train/0")
+      .get(`/game/train/${difficulty}`)
       .then((response) => {
         setTimeout(() => {
           setIsLoading(false);

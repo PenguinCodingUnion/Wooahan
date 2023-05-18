@@ -1,19 +1,16 @@
-import LoginButton from "./LoginButton"
+import GoogleLogin from "./GoogleLogin";
 import GoogleLoginButton from "./GoogleLoginButton";
 import KakaoLogin from "./KakaoLogin";
 
 const Login = () => {
-
-    return (
-        <div className="h-[40%]">
-            <div className="font-['MaplestoryOTFBold'] text-2xl mt-[4%] mb-[1%]">
-                카카오 아이디로 로그인 해주세요
-            </div>
-            <KakaoLogin />
-            {/* <LoginButton /> */}
-            {/* <GoogleLoginButton /> */}
-        </div>
-    )
-}
+  return (
+    <div className="h-[40%] mt-[3%]">
+      <div className="font-['MaplestoryOTFBold'] text-[5vh] ">소셜 로그인</div>
+      <KakaoLogin />
+      <GoogleLogin />
+      {/* <GoogleLoginButton /> */}
+    </div>
+  );
+};
 
 export default Login;
