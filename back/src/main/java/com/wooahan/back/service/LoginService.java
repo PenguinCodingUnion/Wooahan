@@ -146,6 +146,7 @@ public class LoginService {
         headers.set("Authorization", "Bearer " + token);
         entity = new HttpEntity(headers);
         JsonNode jsonNode = restTemplate.exchange(resourceUri, HttpMethod.GET, entity, JsonNode.class).getBody();
-        return jsonNode.get("nickname").asText();
+        System.out.println(jsonNode);
+        return jsonNode.get("kakao_acount").get("profile").get("nickname").asText();
     }
 }
