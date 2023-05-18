@@ -9,6 +9,7 @@ import route from "./router/Router";
 import ImagePreloadProvider from "util/context/ImagePreloadProvider";
 import { images } from "assets/images";
 import { CookiesProvider } from 'react-cookie';
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -20,7 +21,9 @@ root.render(
   <Provider store={store}>
     <CookiesProvider>
       <ImagePreloadProvider imageUrls={images}>
-        <RouterProvider router={route} />
+        <GoogleOAuthProvider clientId="475117437057-ebv70ou2abgeuvi2vlif3d7bfgfcnf5q.apps.googleusercontent.com">
+          <RouterProvider router={route} />
+        </GoogleOAuthProvider>
       </ImagePreloadProvider>
     </CookiesProvider>
   </Provider>
