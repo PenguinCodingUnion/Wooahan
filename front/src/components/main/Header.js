@@ -11,7 +11,7 @@ const Header = (props) => {
     return(
         <div className="z-20 fixed px-[4%] mt-[1%]  w-screen h-[15%] bg-transparent flex justify-between items-center">
             {(props.topLeftButton === "books") ? <Rewards page={props.page}><Link to="/books"></Link></Rewards> : <Home />}
-            {props.titleIsVisible && <Title />}
+            {/* {props.titleIsVisible && <Title />} */}
             <div className="w-[20%] h-full flex justify-end">
                 {/* <Tutorial /> */}
                 <Setting page={props.page}/>

@@ -5,6 +5,9 @@ import wrong from "assets/sounds/wrong.wav";
 import effectSound from "util/effectSound";
 import BackgroundImageOnLoad from "background-image-on-load";
 
+import pengul_falldown from "assets/images/penguel_falldown.webp";
+import pengul_victory from "assets/images/penguel_victory.webp";
+
 export const AnswerCard = (props) => {
   const [isOpened, setIsOpened] = useState(false);
   const [answerGif, setAnswerGif] = useState("");
@@ -22,10 +25,7 @@ export const AnswerCard = (props) => {
 
   const es_correct = effectSound(correct, 1);
   const es_wrong = effectSound(wrong, 1);
-  const gif = [
-    require("assets/images/penguel_victory.gif"),
-    require("assets/images/penguel_falldown.gif"),
-  ];
+  const gif = [pengul_victory, pengul_falldown];
   const text = ["맞았습니다", "틀렸습니다"];
   const boxStyle = [
     "px-5 py-3 text-2xl bg-mainGreen-600 border-4 border-mainYellow-200 font-netmarbleB rounded-xl text-mainWhite tracking-wider shadow-lg shadow-mainBlack",

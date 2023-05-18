@@ -37,7 +37,7 @@ const ModalOverlay = (props) => {
     <div
       className={`flex flex-col justify-start ${
         props.config === "setting" ? `absolute` : `sticky`
-      } top-[15%] left-[15%] z-40 bg-lightGray w-[70%] h-[78%] px-4 rounded-xl`}
+      } top-[13%] left-[15%] z-40 bg-lightGray w-[70%] h-[80%] px-4 rounded-xl overflow-auto`}
     >
       <ModalHeader title={title} />
       {!OSLOpen && (
