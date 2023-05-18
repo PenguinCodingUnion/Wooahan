@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "MaplestoryOTFBold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "netmarbleB";
+  src: url("./assets/fonts/netmarbleB.ttf") format("woff");
+}
+
+@font-face {
+  font-family: "netmarbleL";
+  src: url("./assets/fonts/netmarbleL.ttf") format("woff");
+}
+
+@font-face {
+  font-family: "netmarbleM";
+  src: url("./assets/fonts/netmarbleM.ttf") format("woff");
+}
+
+@font-face {
+  font-family: "MaplestoryBold";
+  src: url("./assets/fonts/MaplestoryBold.ttf") format("woff");
+}
+
+@font-face {
+  font-family: "MaplestoryLight";
+  src: url("./assets/fonts/MaplestoryLight.ttf") format("woff");
+}
+
+* {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
