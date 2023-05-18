@@ -321,6 +321,7 @@ const GameSleigh = () => {
       <div className="w-screen h-screen">
         {quizStatus !== "idle" &&
           quizStatus !== "start" &&
+          quizStatus !== "check" &&
           quizStatus !== "nextQuiz" &&
           quizCount < 5 && (
             <div className="absolute flex items-center justify-center w-screen h-screen">
@@ -330,9 +331,9 @@ const GameSleigh = () => {
                   imageLoadState.left && imageLoadState.right
                     ? "animate-scale-up-center"
                     : "hidden"
-                } z-50 absolute w-[19vw] h-[19vw] left-[12.5vw] max-w-[60vh] max-h-[60vh]`}
+                } z-50 absolute w-[25vw] h-[25vw] left-[6.5vw] max-w-[60vh] max-h-[60vh]`}
                 style={{
-                  top: `${(30 / (quizScale / 1.25)) * 0.7}vh`,
+                  top: `${30 / (quizScale / 1.25)}vh`,
                 }}
               >
                 <div className="w-full h-full rounded-[20px] animate-card-bounce border-2 bg-white">
@@ -358,9 +359,9 @@ const GameSleigh = () => {
                   imageLoadState.left && imageLoadState.right
                     ? "animate-scale-up-center"
                     : "hidden"
-                } z-50 absolute w-[19vw] h-[19vw] right-[12.5vw] max-w-[60vh] max-h-[60vh]`}
+                } z-50 absolute w-[25vw] h-[25vw] right-[6.5vw] max-w-[60vh] max-h-[60vh]`}
                 style={{
-                  top: `${(30 / (quizScale / 1.25)) * 0.7}vh`,
+                  top: `${30 / (quizScale / 1.25)}vh`,
                 }}
               >
                 <div className="w-full h-full rounded-[20px] animate-card-bounce border-2 bg-white">
@@ -442,7 +443,7 @@ const GameSleigh = () => {
           imageLoadState.left &&
           imageLoadState.right && (
             // {quizStatus === "stop" && quizCount < 5 && (
-            <div className="absolute bottom-[5vh] w-screen flex justify-between px-[10vw]">
+            <div className="absolute bottom-[7vh] w-screen flex justify-between px-[10vw]">
               <button
                 type="button"
                 onTouchStart={(e) => {
@@ -507,7 +508,11 @@ const GameSleigh = () => {
           onClick={() => {
             dispatch(commonActions.setWarning());
           }}
-          className="absolute h-10 w-10 right-[3%] top-[3%] rounded-lg bg-white bg-opacity-40 font-MaplestoryLight text-4xl z-[500]"
+          className={`absolute ${
+            quizScale / 1.25 > 1
+              ? "h-[7vh] w-[7vh] right-[3vh] top-[3vh] text-[5vh]"
+              : "h-[7vw] w-[7vw] right-[3vw] top-[3vw] text-[5vw]"
+          } rounded-lg bg-white bg-opacity-40 font-MaplestoryLight z-[56]`}
         >
           <p>X</p>
         </div>
