@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
-import cloud from "assets/images/tmp/cloud1.png";
+import cloud from "assets/images/train/cloud1.png";
 
 export const TrainLastWord = (props) => {
   return (
@@ -15,7 +15,6 @@ export const TrainLastWord = (props) => {
 };
 
 TrainLastWord.propTypes = {
-  // eslint-disable-next-line react/no-typos
   // second: PropTypes.third,
 };
 
