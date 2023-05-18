@@ -7,6 +7,7 @@ import background_iceberg from "assets/images/background_iceberg.jpg";
 import background_forestend from "assets/images/background_forestend.jpg";
 import background_beach from "assets/images/background_beach.jpg";
 import background_desertend from "assets/images/background_desertend.jpg";
+import background_book from "assets/images/books/background_book.jpg";
 
 //dances for loading
 import penguel_chicken_dance from "assets/images/penguel_chicken_dance.gif";
@@ -20,7 +21,8 @@ import snowflake from "assets/images/falling/snowflake.png";
 //animations
 import penguel_falldown from "assets/images/penguel_falldown.gif";
 import penguel_victory from "assets/images/penguel_victory.gif";
-import penguel_high_jump from "assets/images/penguel_high_jump.gif"
+import penguel_high_jump from "assets/images/penguel_high_jump.gif";
+import fox_jump from "assets/images/fox_jump.gif";
 
 export const images = [
   //배경화면
@@ -32,6 +34,7 @@ export const images = [
   background_forestend,
   background_beach,
   background_desertend,
+  background_book,
   //로딩용 춤
   penguel_chicken_dance,
   penguel_hiphop,
@@ -43,4 +46,5 @@ export const images = [
   penguel_falldown,
   penguel_victory,
   penguel_high_jump,
+  fox_jump,
 ];
