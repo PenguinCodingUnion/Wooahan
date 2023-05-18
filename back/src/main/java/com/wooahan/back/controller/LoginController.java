@@ -27,6 +27,7 @@ public class LoginController {
         return new ResponseEntity<>(loginService.tempLogin(loginReqDto), HttpStatus.OK);
     }
 
+    @Operation(summary = "oauth 로그인 요청")
     @PostMapping("/oauth2/{registrationId}")
     public ResponseEntity<LoginResDto> getSocialToken(@RequestBody OauthReqCode oauthReqCode, @PathVariable String registrationId,HttpServletResponse response) throws IOException {
         LoginResDto loginResDto = loginService.socialLogin(oauthReqCode, registrationId);
