@@ -17,6 +17,10 @@ export const TrainAnswerCard = (props) => {
   const es_wrong = effectSound(wrong, 1);
   const [ans, setAns] = useState(true);
   useEffect(() => {
+    if(!imageLoadState) {
+      return;
+    }
+    
     setTimeout(() => {
       es_word.play();
     }, 700);
@@ -34,14 +38,14 @@ export const TrainAnswerCard = (props) => {
       es_wrong.play();
       setTimeout(() => props.cleanWord(props.word.word), 1500);
     }
-  }, []);
+  }, [imageLoadState]);
   return (
     <div>
       <div className="absolute top-0 w-screen h-screen bg-opacity-40 bg-mainGray-300"></div>
       <div>
         {ans && (
           <img
-            className="absolute w-[35rem] h-80 left-3 top-1/4"
+            className="absolute w-[35rem] h-80 -left-20 top-1/4 "
             src={fox}
             alt="fox"
           />

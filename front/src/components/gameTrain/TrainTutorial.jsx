@@ -55,7 +55,7 @@ export const Train = (props) => {
             onClick={() => {
               close();
             }}
-            className=" bg-white bg-opacity-40 shadow-xl rounded-lg top-5 right-0 w-24 h-12 mr-6 font-MaplestoryBold text-2xl absolute leading-[3rem]"
+            className=" bg-white bg-opacity-90 shadow-xl rounded-lg top-5 right-0 w-24 h-12 mr-6 font-MaplestoryBold text-2xl absolute leading-[3rem]"
           >
             <p>넘어가기</p>
           </div>
