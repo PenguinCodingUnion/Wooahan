@@ -9,7 +9,7 @@ const BookCard = (props) => {
       });
       
       const es_word = effectSound(
-        require(`assets/sounds/word/${props.word}.mp3`),
+        `${process.env.REACT_APP_WORD_PATH}${props.word}.mp3`,
         1
       );
 

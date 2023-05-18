@@ -19,7 +19,7 @@ export const AnswerCard = (props) => {
   const [imageLoadState, setImageLoadState] = useState(false);
 
   const es_word = effectSound(
-    require(`assets/sounds/word/${props.name}.mp3`),
+    `${process.env.REACT_APP_WORD_PATH}${props.name}.mp3`,
     1
   );
 
