@@ -19,7 +19,7 @@ const MainLoading = () => {
 
     // 로딩시, 첫 로그인 시도할 데이터
     const postData = {
-      androidId: "google",
+      androidId: getAndroidId(),
       email: "",
     };
 
@@ -27,7 +27,6 @@ const MainLoading = () => {
       try {
         const res = await axiosRequest.post("/login/guest", postData);
         console.log(res);
-        // setLoginInfo(res)
         dispatch(loginActions.getStarCount(res.starCount));
         dispatch(loginActions.getRewards(res.rewards));
         dispatch(loginActions.getEmail(res.email));
