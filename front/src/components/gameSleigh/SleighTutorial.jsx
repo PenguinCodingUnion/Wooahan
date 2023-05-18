@@ -22,7 +22,6 @@ export const Sleigh = (props) => {
 
   const [idx, setIdx] = useState(0);
   const next = () => {
-    console.log(idx);
     if (idx === 1) {
       setIdx(0);
     } else {
@@ -33,7 +32,7 @@ export const Sleigh = (props) => {
     props.closeTutorial();
   };
   return (
-    <div className="absolute top-0 z-[100] w-screen h-screen bg-[#f0fde3]">
+    <div className="absolute top-0 z-[100] w-screen h-screen bg-mainBlue-200">
       <div className="absolute z-[100] w-5/6 flex justify-center overflow-hidden rounded-xl h-5/6 top-[8.333333%] left-[8.333333%] shadow-2xl">
         <div className={pointcss[idx]} />
         <div className={mentioncss[idx]}>
