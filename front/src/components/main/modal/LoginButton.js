@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 
 const handleCredentialResponse = (response) => {
   console.log(response);
-  // console.log("Encoded JWT ID token: " + response.credential);
+  console.log("Encoded JWT ID token: " + response.credential);
 };
 
 const url =
