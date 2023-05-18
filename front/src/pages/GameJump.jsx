@@ -69,7 +69,11 @@ export const GameJump = (props) => {
       {level >= LAST_LEVEL ? (
         <Navigate
           to={`/ending`}
-          state={{ game: "jump", character: "penguin" }}
+          state={{
+            game: "jump",
+            character: "penguin",
+            mention: "유치원에 도착했어요!",
+          }}
         />
       ) : (
         //750 length

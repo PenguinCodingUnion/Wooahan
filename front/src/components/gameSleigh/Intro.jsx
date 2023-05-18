@@ -19,11 +19,11 @@ const Intro = (props) => {
         <h1 className="mb-[2vh]">단어에 맞는 그림으로 이동시켜주세요!</h1>
         <li>기기를 기울이거나, 버튼을 눌러 이동시킬 수 있어요!</li>
       </ul> */}
-        <ul className="mt-[5vh] mx-[15vw] tracking-[0.3vw] text-[4vw] font-MaplestoryBold rounded-[16px] py-[1.5vw] ">
+        <ul className="mt-[5vh] mx-[15vw] tracking-[0.3vw] text-[min(5vw,10vh)] font-MaplestoryBold rounded-[16px] py-[1.5vw] text-mainYellow-300 text-shadow-loading shadow-mainBlack">
           <h1 className="mb-[2vh]">여울이가 무사히 심부름을</h1>
           <li>다녀올 수 있도록 도와주세요!</li>
         </ul>
-        <div className="mb-[40vh] animate-bounce text-mainAmber-700 font-MaplestoryBold text-[10vw] text-shadow-loading shadow-white ">
+        <div className="mb-[40vh] animate-bounce text-mainAmber-700 font-MaplestoryBold text-[min(10vw,20vh)] text-shadow-loading shadow-white ">
           시 작!
         </div>
       </div>

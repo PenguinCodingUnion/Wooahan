@@ -8,7 +8,7 @@ import effectSound from "util/effectSound";
 export const EndingScene = (props) => {
   const es_clap = effectSound(clap, 0.4);
   const [model, setModel] = useState();
-
+  const [ment, setMent] = useState();
   useEffect(() => {
     // eslint-disable-next-line default-case
     switch (props.model) {
@@ -20,7 +20,7 @@ export const EndingScene = (props) => {
         setModel(require("assets/images/animal/fox.png"));
         break;
     }
-
+    setMent(props.mention);
     es_clap.play();
     setTimeout(() => {
       props.closeEndingScene();
@@ -35,8 +35,8 @@ export const EndingScene = (props) => {
         src={model}
         alt=""
       />
-      <div className="text-[#6937A1] font-MaplestoryBold text-6xl text-stroke-mainWhite text-stroke-2 absolute w-full text-center top-1/2">
-        야호!
+      <div className="text-[#6937A1] font-MaplestoryBold text-6xl text-stroke-mainWhite text-stroke-2 absolute w-full text-center top-1/3">
+        {ment}
       </div>
     </>
   );
