@@ -34,9 +34,12 @@ public class LoginService{
         String oauthId = userResourceNode.get("id").asText();
         String name = userResourceNode.get("properties").get("nickname").asText();
 
+        //일단 이메일이 있는
+        Member member = memberRepository.findByEmail(oauthId)
+                .orElseGet(()-> memberRepository.findByProvider(kakaoCode.getDeviceId()).get());
 
-        Member member = memberRepository.findByProvider(kakaoCode.getDeviceId()).get();
         member.update(oauthId,devideId,name);
+        memberRepository.save(member);
         return new LoginResDto(member.getEmail(), member.getStarCount());
     }
 
@@ -50,7 +53,7 @@ public class LoginService{
         Member member = memberRepository.findByProvider(state).get();
         member.update(email,state,nickname);
         memberRepository.save(member);
-//        return new OauthResDto(email,registrationId,nickname);
+
     }
 
     private String getAccessToken(String authorizationCode, String registrationId) {
