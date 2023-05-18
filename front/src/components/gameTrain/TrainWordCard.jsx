@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import TrainAnswerCard from "./TrainAnswerCard";
-import train from "assets/images/tmp/structure_train.png";
+import train from "assets/images/train/structure_train.png";
 
 export const TrainWordCard = (props) => {
   const [word, setWord] = useState();

@@ -197,7 +197,14 @@ const GameSleigh = () => {
   }, [quizStatus]);
 
   useEffect(() => {
-    if (isEnd) navigation("/ending", {state:{game: "sleigh", character: "fox"}});
+    if (isEnd)
+      navigation("/ending", {
+        state: {
+          game: "sleigh",
+          character: "fox",
+          mention: "심부름 다녀왔습니다!",
+        },
+      });
   }, [isEnd]);
 
   useEffect(() => {

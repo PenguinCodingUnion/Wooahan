@@ -82,6 +82,7 @@ export const GameEnding = (props) => {
           <EndingScene
             closeEndingScene={closeEndingScene}
             model={state.character}
+            mention={state.mention}
           />
         </div>
       )}
