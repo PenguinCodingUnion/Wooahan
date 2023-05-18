@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import trainlong from "assets/images/tmp/structure_train_long.png";
+import trainlong from "assets/images/train/structure_train_long.png";
 import Train from "./Train";
 import instance from "util/Axios";
-import pig from "assets/images/tmp/넷째돼지.png";
-import jar from "assets/images/tmp/무공해항아리.avif";
+import pig from "assets/images/train/넷째돼지.png";
+import jar from "assets/images/train/무공해항아리.avif";
 import LoadingComponent from "components/common/LoadingComponent";
 import TrainTutorial from "./TrainTutorial";
 
@@ -57,7 +57,7 @@ export const TrainStart = (props) => {
   return (
     <div>
       {isLoading && <LoadingComponent />}
-      {isTutorial && <TrainTutorial closeTutorial={closeTutorial}/>}
+      {isTutorial && <TrainTutorial closeTutorial={closeTutorial} />}
       {!start && !isLoading && (
         <>
           <div className="h-6"></div>
