@@ -14,8 +14,6 @@ const Block = (props) => {
         dispatch(bookModalActions.openModal(text))
     }
 
-    // const starCount = useSelector(state => state.loginInfo.starCount)
-    // const rewards = useSelector(state => state.loginInfo.rewards)
     const email = useSelector(state => state.loginInfo.email)
 
     const cardRequest = async(text) => {

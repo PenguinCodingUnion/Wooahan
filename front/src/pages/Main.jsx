@@ -30,6 +30,7 @@ export const Main = () => {
   const [cookies, setCookie, removeCookie] = useCookies();
   const location = useLocation();
   const dispatch = useDispatch();
+  const socialLogin = useSelector(state => state.loginInfo.socialLogin)
 
   // useSound(bgm, 0.4, 2000);
 
@@ -43,17 +44,11 @@ export const Main = () => {
     }
   };
 
-  const googleLoginrequest = async (cookies) => {
-    let data = {
-      androidId: "androidId",
-      email: cookies.test.email,
-      name: cookies.test.name,
-      provider: cookies.test.provider,
-    };
-  };
 
+  // 카카오 로그인 -> 인가코드
   const code = new URL(window.location.href).searchParams.get("code");
 
+  // 카카오 로그인 요청
   useEffect(() => {
     console.log(code);
 
@@ -70,6 +65,7 @@ export const Main = () => {
           console.log(res);
           dispatch(loginActions.getEmail(res.email))
           dispatch(loginActions.getStarCount(res.starCount))
+          dispatch(loginActions.successSocialLogin())
 
         } catch (e) {
           console.log(e);
@@ -79,17 +75,6 @@ export const Main = () => {
     }
   }
   )
-
-  useEffect(() => {
-    if (cookies.test) googleLoginrequest(cookies);
-  }, []);
-
-  useEffect(() => {
-    console.log(location.search);
-    getAndroidId();
-    console.log(location.pathname);
-    console.log(location.state);
-  }, [location]);
 
   return (
     <div className="relative w-screen h-screen">
