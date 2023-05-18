@@ -1,4 +1,4 @@
-import {useEffect} from "react"
+import { useEffect} from "react"
 import { connect } from "react-redux";
 import Header from "../components/main/Header";
 import Carousel from "../components/main/Carousel";
@@ -53,6 +53,7 @@ export const Main = () => {
       console.log(res);
     });
   };
+
 
   useEffect(() => {
     if (cookies.test) googleLoginrequest(cookies);
