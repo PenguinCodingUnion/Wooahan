@@ -92,7 +92,7 @@ export const RewardStar = ({ model, ...props }) => {
       <FaStar size={size} color={color} className="" style={styleStr} />
       <img
         className="absolute -bottom-[200%] w-[20rem] -ml-[8rem]"
-        src={model === "penguin" ? penguel_high_jump : fox_jump}
+        src={props.color !== props.count ? "" : model === "penguin" ? penguel_high_jump : fox_jump}
         alt=""
       />
     </div>
