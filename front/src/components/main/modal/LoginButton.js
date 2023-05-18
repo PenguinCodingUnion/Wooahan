@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import googleIcon from "assets/images/logo/googleIcon.png";
 import { useEffect, useRef } from "react";
 
@@ -14,6 +13,7 @@ const LoginButton = () => {
   const loginBtn = useRef();
 
   useEffect(() => {
+    const google = window.google;
     (() => {
       google.accounts.id.initialize({
         client_id:
