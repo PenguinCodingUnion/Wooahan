@@ -1,5 +1,5 @@
 import { useEffect} from "react"
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import Header from "../components/main/Header";
 import Carousel from "../components/main/Carousel";
 import Modal from "../components/main/modal/Modal";
@@ -28,6 +28,7 @@ export const Main = () => {
   const showModal = useSelector((state) => state.modal.modalIsVisible);
   const [cookies, setCookie, removeCookie] = useCookies();
   const location = useLocation();
+  const dispatch = useDispatch();
 
   // useSound(bgm, 0.4, 2000);
 
@@ -48,10 +49,6 @@ export const Main = () => {
       name: cookies.test.name,
       provider: cookies.test.provider,
     };
-
-    await axiosRequest.post("/login/register", data).then((res) => {
-      console.log(res);
-    });
   };
 
   const code = new URL(window.location.href).searchParams.get("code");
@@ -61,7 +58,7 @@ export const Main = () => {
 
     let data = {
       code,
-      deviceId: "deviceID",
+      deviceId: "android_test_id_man",
     };
 
     if (code != null) {
@@ -70,6 +67,8 @@ export const Main = () => {
           const res = await axiosRequest.post("/login/oauth2/kakao", data);
 
           console.log(res);
+          
+
         } catch (e) {
           console.log(e);
         }
