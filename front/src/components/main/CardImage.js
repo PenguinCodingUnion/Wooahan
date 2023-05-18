@@ -27,7 +27,7 @@ const games =[
 const CardImage = (props) => {
     return (
       <div>
-        <img className={`absolute w-[150%] h-[120%] max-w-xl right-[-23%] rounded-2xl bg-cover`} src={coverImages[props.id]} />
+        <img className={`absolute w-[150%] h-[120%] max-w-xl right-[-23%] rounded-2xl bg-cover shadow-2xl shadow-white`} src={coverImages[props.id]} />
         {(props.main === props.id) && <img src={games[props.id].animal} className="absolute max-w-xl right-[-15%] top-[-50%] w-[130%] h-[110%]" />}
         <GameCard title={props.title}/>
       </div>
