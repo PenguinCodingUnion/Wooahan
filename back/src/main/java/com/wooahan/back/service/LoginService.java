@@ -39,6 +39,7 @@ public class LoginService{
             oauthId = userResourceNode.get("email").asText();
             name = userResourceNode.get("name").asText();
         }
+        //id로 찾아서 있으면, 그냥 주고, 없으면  deviceid로 찾아서 수정시키게 해줌.
         Member member = memberRepository.findByEmail(oauthId)
                 .orElseGet(()-> memberRepository.findByProvider(oauthReqCode.getDeviceId()).get());
         //TODO 추후 수정
@@ -106,8 +107,8 @@ public class LoginService{
     }
     //guest
     public LoginResDto tempLogin(LoginReqDto loginReqDto) {
-        Member member = memberRepository.findByEmail(loginReqDto.getEmail())
-                .orElseGet(()->memberRepository.findByProvider(loginReqDto.getAndroidId())
+        Member member = memberRepository.findByProvider(loginReqDto.getAndroidId())
+                .orElseGet(()->memberRepository.findByEmail(loginReqDto.getEmail())
                         .orElseGet(()->createMember(loginReqDto.getAndroidId())));
 
         return LoginResDto.builder()
