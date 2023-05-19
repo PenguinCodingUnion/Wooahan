@@ -15,7 +15,7 @@ export const EndingScene = ({ model, mention, closeEndingScene, ...props }) => {
       es_clap.stop();
       es_clap.unload();
     }, 2000);
-  }, [closeEndingScene, es_clap]);
+  }, []);
   return (
     <>
       <img

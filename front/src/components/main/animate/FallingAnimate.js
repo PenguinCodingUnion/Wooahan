@@ -9,7 +9,6 @@ const tmpArray = ["animate-snow1", "animate-snow2", "animate-snow3", "animate-sn
 
 const FallingAnimate = (props) => {
   return (
-    // 왜 map으로하면 안될까?
     <div>
       {
         tmpArray.map((idx) => {
