@@ -11,10 +11,6 @@ const GoogleLoginSuccess = () => {
   const code = query.get("code");
   const deviceId = query.get("state");
 
-  console.log(query);
-  console.log(code);
-  console.log(deviceId);
-
   useEffect(() => {
     axiosInstance.post("login/oauth2/google", {
       code,
@@ -22,7 +18,6 @@ const GoogleLoginSuccess = () => {
     });
   }, [location]);
 
-  console.log(location);
   return (
     <div className="w-screen h-screen absolute top-0 text-center flex justify-center items-center flex-col bg-gradient-to-b from-[#33ffc2]/[.54] from-0% to-[#90EBFF] to-100%">
       <img src={Fox} alt="#" className="w-[50%]" />

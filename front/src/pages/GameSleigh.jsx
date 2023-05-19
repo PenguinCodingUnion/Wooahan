@@ -50,8 +50,6 @@ const GameSleigh = () => {
   });
 
   const quizData = useSelector((state) => state.sleigh.quizData);
-  // const { isStart, isEnd, quizStatus, quizCount, quizResult, quizData } =
-  //   useSelector((state) => state.sleigh);
 
   const quizlevel = useSelector((state) => state.level.level);
 
@@ -81,7 +79,6 @@ const GameSleigh = () => {
     (value) => {
       const { actions, mixer, names } = modelAnimations;
 
-      // setIsMove(+value);
       modelRef.current.isMove = value;
       actions[names[5]].fadeOut(0.2).stop();
       mixer.timeScale = 5;
@@ -95,7 +92,6 @@ const GameSleigh = () => {
   const stopMove = useCallback(() => {
     const { actions, mixer, names } = modelAnimations;
 
-    // setIsMove(0);
     modelRef.current.isMove = 0;
     actions[names[7]].fadeOut(0.5).stop();
     modelRef.current.rotation.y = 0;
@@ -124,7 +120,6 @@ const GameSleigh = () => {
     actions[names[7]].play();
     mixer.timeScale = 4;
     setTimeout(() => {
-      // setQuizStatus("start");
       setQuizStatus("stop");
     }, 2000);
 
@@ -159,7 +154,6 @@ const GameSleigh = () => {
 
         setTimeout(() => {
           setQuizStatus("stop");
-          // }, 2000);  캔버스이미지일시
         }, 2000); // onload라 시간줄임
       } else {
         // 퀴즈 전부 종료
@@ -175,14 +169,6 @@ const GameSleigh = () => {
         }, 3000);
       }
     }
-
-    // 문제 시작(캔버스일 시 사용)
-    // if (quizStatus === "stop") {
-    //   stopActions();
-    //   modelRef.current.rotation.y = 0;
-    //   mixer.timeScale = 1.5;
-    //   actions[names[5]].play();
-    // }
 
     // 정답 확인
     if (quizStatus === "check") {
@@ -267,17 +253,6 @@ const GameSleigh = () => {
     };
   }, [isStart]);
 
-  // 게임 진행상황에 맞게 함수 추가 삭제
-  // useEffect(() => {
-  //   if (quizStatus === "stop" && quizCount < 5) {
-  //     addMoveEvent();
-  //   }
-
-  //   return () => {
-  //     removeMoveEvent();
-  //   };
-  // }, [quizStatus]);
-
   // 카메라 설정
   const camera = {
     fov: 80,
@@ -328,7 +303,6 @@ const GameSleigh = () => {
           quizCount < 5 && (
             <div className="absolute flex items-center justify-center w-screen h-screen">
               <div
-                // className={`animate-scale-up-center z-50 absolute w-[19vw] h-[19vw] left-[12.5vw]`}
                 className={`${
                   imageLoadState.left && imageLoadState.right
                     ? "animate-scale-up-center"
@@ -356,7 +330,6 @@ const GameSleigh = () => {
                 </div>
               </div>
               <div
-                // className={`animate-scale-up-center z-50 absolute w-[19vw] h-[19vw] right-[12.5vw]`}
                 className={`${
                   imageLoadState.left && imageLoadState.right
                     ? "animate-scale-up-center"
@@ -409,33 +382,6 @@ const GameSleigh = () => {
               {isLoading && <LoadingProgress setIsLoading={setIsLoading} />}
             </>
           )}
-          {/* <>
-            {quizStatus !== "idle" &&
-              quizStatus !== "nextQuiz" &&
-              quizCount < 5 && (
-                <>
-                  <QuizCard
-                    side="left"
-                    setQuizStatus={setQuizStatus}
-                    quizScale={quizScale}
-                    quiz={
-                      random[quizCount] > 0.5
-                        ? quizData[quizCount].words[0]
-                        : quizData[quizCount].words[1]
-                    }
-                  />
-                  <QuizCard
-                    side="right"
-                    quizScale={quizScale}
-                    quiz={
-                      random[quizCount] > 0.5
-                        ? quizData[quizCount].words[1]
-                        : quizData[quizCount].words[0]
-                    }
-                  />
-                </>
-              )}
-          </> */}
         </Canvas>
         {!isCanvasLoading && !isLoading && !isStart && (
           <Intro setIsStart={setIsStart} />
@@ -444,7 +390,6 @@ const GameSleigh = () => {
           quizCount < 5 &&
           imageLoadState.left &&
           imageLoadState.right && (
-            // {quizStatus === "stop" && quizCount < 5 && (
             <div className="absolute bottom-[7vh] w-screen flex justify-between px-[10vw]">
               <button
                 type="button"
@@ -487,10 +432,7 @@ const GameSleigh = () => {
         {quizStatus === "stop" &&
           quizCount < 5 &&
           imageLoadState.left &&
-          imageLoadState.right && (
-            // {quizStatus === "stop" && quizCount < 5 && (
-            <QuizWord word={quizData[quizCount].quiz} />
-          )}
+          imageLoadState.right && <QuizWord word={quizData[quizCount].quiz} />}
         {(isCanvasLoading || isLoading) && <LoadingComponent />}
         {quizStatus === "check" && (
           <QuizResult
