@@ -114,6 +114,7 @@ public class LoginService{
         return LoginResDto.builder()
                 .starCount(member.getStarCount())
                 .email(member.getEmail())
+                .name(member.getName())
                 .build();
     }
 }
