@@ -4,7 +4,6 @@ const GoogleLogin = () => {
   const login = () => {
     if (window.google_login) {
       const goo = window.google_login.googleLogin();
-      console.log(goo);
       return goo;
     }
   };
