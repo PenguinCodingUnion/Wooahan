@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
+    deviceId: "",
     email: "",
     socialLogin: false,
     starCount: 0,

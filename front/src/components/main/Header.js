@@ -13,7 +13,6 @@ const Header = (props) => {
             {(props.topLeftButton === "books") ? <Rewards page={props.page}><Link to="/books"></Link></Rewards> : <Home />}
             {/* {props.titleIsVisible && <Title />} */}
             <div className="w-[20%] h-full flex justify-end">
-                {/* <Tutorial /> */}
                 <Setting page={props.page}/>
             </div>
         </div>

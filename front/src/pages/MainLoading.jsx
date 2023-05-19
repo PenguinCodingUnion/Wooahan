@@ -26,11 +26,9 @@ const MainLoading = () => {
     const LoginRequest = async () => {
       try {
         const res = await axiosRequest.post("/login/guest", postData);
-        console.log(res);
         dispatch(loginActions.getStarCount(res.starCount));
         dispatch(loginActions.getName(res.name))
         dispatch(loginActions.getEmail(res.email));
-        dispatch(loginActions.successSocialLogin())
 
       } catch (error) {
         console.log(error);
