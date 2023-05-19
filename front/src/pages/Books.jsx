@@ -33,12 +33,13 @@ export const Books = () => {
       {showModal && <Modal current={"books"} />}
       {showBookModal && <BookModal text={bookText} />}
       <BlockSet />
-      <img
-        src={fox_right}
-        className="absolute z-20 w-[30%] h-[30%] bottom-[-5%] animate-leftFox"
-        alt=""
-      />
-      <div className="absolute z-10 bottom-[-2%] w-[200%] h-[40%] bg-[url('assets/images/books/background_book.jpg')] bg-cover" />
+      <div className="absolute z-10 overflow-x-hidden bottom-[-2%] w-[200%] h-[40%] bg-[url('assets/images/books/background_book.jpg')] bg-cover">
+        <img
+          src={fox_right}
+          className="absolute z-20 w-[15%] h-[75%] bottom-[-5%] animate-leftFox"
+          alt=""
+        />
+      </ div>
     </div>
   );
 };

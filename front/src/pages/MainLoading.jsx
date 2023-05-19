@@ -7,7 +7,6 @@ import { Navigate } from "react-router";
 
 const MainLoading = () => {
 
-    const [loginInfo, setLoginInfo] = useState({})
     const [isLoading, setIsLoading] = useState(true)
     const dispatch = useDispatch();
 
@@ -28,7 +27,7 @@ const MainLoading = () => {
         const res = await axiosRequest.post("/login/guest", postData);
         dispatch(loginActions.getStarCount(res.starCount));
         dispatch(loginActions.getName(res.name))
-        dispatch(loginActions.getEmail(res.email));
+        dispatch(loginActions.getDeviceId(res.email));
 
       } catch (error) {
         console.log(error);

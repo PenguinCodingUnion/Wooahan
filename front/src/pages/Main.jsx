@@ -26,8 +26,6 @@ const coverImages = [
 export const Main = () => {
   const page = useSelector((state) => state.backGround.page);
   const showModal = useSelector((state) => state.modal.modalIsVisible);
-  const [cookies, setCookie, removeCookie] = useCookies();
-  const location = useLocation();
   const dispatch = useDispatch();
   const socialLogin = useSelector(state => state.loginInfo.socialLogin)
 
@@ -52,7 +50,7 @@ export const Main = () => {
       deviceId: getAndroidId(),
     };
 
-    if (code != null) {
+    if (code != null && !socialLogin) {
       (async () => {
         try {
           const res = await axiosRequest.post("/login/oauth2/kakao", data);
