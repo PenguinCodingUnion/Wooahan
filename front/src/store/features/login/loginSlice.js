@@ -13,6 +13,9 @@ export const loginSlice = createSlice({
     name: "loginInfo",
     initialState,
     reducers: {
+        getDeviceId: (state, action) => {
+            state.deviceId = action.payload;
+        },
         getName: (state, action) => {
             state.name = action.payload;
         },  
