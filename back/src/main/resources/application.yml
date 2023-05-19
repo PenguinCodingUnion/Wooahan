@@ -1,0 +1,43 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://k8b206.p.ssafy.io:3306/wooahan?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+    username: wooahan
+    password: penguin
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+      use-new-id-generator-mappings: false
+    properties:
+      hibernate:
+        format_sql: true
+    generate-ddl: true
+oauth2:
+  google:
+    client-id: 658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com
+    client-secret: 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
+    redirect-uri: https://k8b206.p.ssafy.io/login/success
+    token-uri: https://oauth2.googleapis.com/token
+    resource-uri: https://www.googleapis.com/oauth2/v2/userinfo
+  kakao:
+    client-id : d313cf6ba97344781a1976206aed6112
+    client-secret : BvVyVp7pv7eJptN5ptIC2GApJ2RxpfOO
+    redirect-uri : https://k8b206.p.ssafy.io/main
+    token-uri : https://kauth.kakao.com/oauth/token
+    resource-uri : https://kapi.kakao.com/v2/user/me
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+  config:
+    classpath:
+      log4j2.yml
+
+server:
+  port: 9090
