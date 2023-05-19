@@ -1,13 +1,18 @@
 package com.penguin.hangul
 
 import NetworkConnectivityListener
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.ComponentName
 import android.content.Context
 import android.content.DialogInterface
-import android.content.pm.ActivityInfo
-import android.hardware.*
-import android.net.Uri
+import android.content.Intent
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -16,16 +21,18 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.webkit.JavascriptInterface
-import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.browser.customtabs.CustomTabsIntent
+import androidx.browser.customtabs.*
 import androidx.lifecycle.Observer
 import kotlin.math.sqrt
 
-
+var customTabOpened: Boolean = false;
+val baseUrl:String = "https://k8b206.p.ssafy.io"
 
 class MainActivity : AppCompatActivity() {
     private var myWebView: WebView? = null
@@ -37,12 +44,6 @@ class MainActivity : AppCompatActivity() {
     private val reconnectionRunnable = Runnable {
         showConnectionLostAlert()
     }
-
-    // 구글 로그인
-//    val url = "https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id=658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Fk8b206.p.ssafy.io%2Fapi%2Flogin%2Foauth2%2Fcode%2Fgoogle&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&service=lso&o2v=1&flowName=GeneralOAuthFlow"
-//    val intentBuilder = CustomTabsIntent.Builder();
-//    val customTabsIntent = intentBuilder.build();
-//    customTabsIntent.launchUrl(MainActivity.this, Uri.parse(url))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +66,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        // 맨 처음 앱 켤 때 인터넷 연결 없으면 바로 종료
+        // 처음 앱 접속 시 인터넷 연결 확인
         val connectivityManager =
             getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
@@ -82,17 +83,6 @@ class MainActivity : AppCompatActivity() {
             alertDialog?.show()
         }
 
-        /**
-         * 디바이스 정보 가져오기
-         */
-
-        Log.d("start", "시작")
-
-        Log.d(
-            "-----deviceId------",
-            "deviceInformation 확인 :" + deviceInformation.getDeviceId()
-        )
-
         //액션바 제거
         val decorView = window.decorView
         val uiOptions = (View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
@@ -100,7 +90,7 @@ class MainActivity : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
         decorView.systemUiVisibility = uiOptions
 
-        // 화면 상태 유지 (안꺼지게)
+        // 화면 상태 유지
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
 
@@ -132,7 +122,6 @@ class MainActivity : AppCompatActivity() {
                     val delta: Float = currentAccel - lastAccel
                     accel = accel * 0.9f + delta;
 
-//                    Log.i("Android", "this is ACCELEROMETER")
                     if (accel > 21) {
                         onJumpDetected()
                     }
@@ -171,20 +160,21 @@ class MainActivity : AppCompatActivity() {
         myWebView?.addJavascriptInterface(
             WarningManager(
                 this,
-                deviceInformation.getDeviceId()
+                deviceInformation.getDeviceId(),
+                customTabsActivityResultLauncher
             ), "react_toast"
         )
 
         myWebView?.addJavascriptInterface(
             WarningManager(
                 this,
-                deviceInformation.getDeviceId()
-            )
-            ,"google_login"
+                deviceInformation.getDeviceId(),
+                customTabsActivityResultLauncher
+            ), "google_login"
         )
         myWebView?.addJavascriptInterface(AppManager(this), "appManager")
 
-        myWebView?.loadUrl("https://k8b206.p.ssafy.io")
+        myWebView?.loadUrl(baseUrl)
     }
 
     fun onJumpDetected() {
@@ -218,7 +208,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        myWebView?.evaluateJavascript("javascript:window.backPress()", null)
+        if (customTabOpened) {
+            val customTabsIntent = CustomTabsIntent.Builder().build()
+            customTabsIntent.intent.action = Intent.ACTION_VIEW
+            customTabsIntent.intent.data = Uri.parse("about:blank")
+            customTabsIntent.intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            this.startActivity(customTabsIntent.intent)
+            customTabOpened = false
+        } else {
+            myWebView?.evaluateJavascript("javascript:window.backPress()", null)
+        }
     }
 
     private fun showConnectionLostAlert() {
@@ -227,8 +226,8 @@ class MainActivity : AppCompatActivity() {
         builder.setMessage("인터넷 연결이 끊어졌습니다")
         builder.setCancelable(false)
         builder.setNegativeButton("대기") { _, _ ->
-            // 대기 버튼 클릭 시 5초 후에 재연결 확인 알림을 표시
-            handler.postDelayed(reconnectionRunnable, 5000)
+            // 대기 버튼 클릭 시 재연결 확인 알림을 표시
+            handler.postDelayed(reconnectionRunnable, 10000)
         }
 
         builder.setPositiveButton("종료") { _, _ ->
@@ -277,6 +276,14 @@ class MainActivity : AppCompatActivity() {
         myWebView?.onResume()
         myWebView?.resumeTimers()
     }
+
+
+    private val customTabsActivityResultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_CANCELED) {
+                myWebView?.loadUrl(baseUrl)
+            }
+        }
 }
 
 
@@ -328,8 +335,11 @@ class MySensorManager(
     }
 }
 
-class WarningManager(private val mContext: Context, private val device: String) {
-
+class WarningManager(
+    private val mContext: Context,
+    private val device: String,
+    private var customTabsActivityResultLauncher: ActivityResultLauncher<Intent>
+) {
 
     @JavascriptInterface
     fun showToast(toast: String) {
@@ -342,18 +352,19 @@ class WarningManager(private val mContext: Context, private val device: String) 
     }
 
     @JavascriptInterface
-    fun googleLogin(): String {
-        val url = "https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id=658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Fk8b206.p.ssafy.io%2Fapi%2Flogin%2Foauth2%2Fcode%2Fgoogle&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&service=lso&o2v=1&flowName=GeneralOAuthFlow"
+    fun googleLogin() {
+        val url =
+            "https://accounts.google.com/o/oauth2/auth?client_id=658207955186-n84qpvfhtdi82n6mfvbmh6v99aevulv7.apps.googleusercontent.com&redirect_uri=${baseUrl}/login/success&response_type=code&state=${device}&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
         val intentBuilder = CustomTabsIntent.Builder();
         val customTabsIntent = intentBuilder.build();
-        customTabsIntent.launchUrl(this.mContext, Uri.parse(url))
+        customTabsIntent.intent.data = Uri.parse(url)
 
-        return device;
+        customTabsActivityResultLauncher.launch(customTabsIntent.intent)
+        customTabOpened = true;
     }
 
     @JavascriptInterface
     fun axiosCheck(res: String): String {
-        Log.d("gg", res)
         return res;
     }
 
