@@ -8,7 +8,6 @@ import "swiper/css/pagination";
 import "./styles.css";
 
 import { EffectCoverflow, Pagination } from "swiper";
-import GameCard from './GameCard'
 import CardImage from './CardImage'
 import penguin_jump from "assets/images/animal/penguin_jump.png"
 import penguin from "assets/images/animal/penguin.png"
