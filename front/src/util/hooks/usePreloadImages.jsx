@@ -18,7 +18,6 @@ const usePreloadImages = (imageUrls) => {
 
       try {
         await Promise.all(promises);
-        console.log("end guys");
         setImagesLoaded(true);
       } catch (error) {
         console.error("Error preloading images:", error);
