@@ -32,7 +32,6 @@ export const Sleigh = (props) => {
   ];
   const [idx, setIdx] = useState(0);
   const next = () => {
-    console.log(idx);
     if (idx === 5) {
       setIdx(0);
     } else {
