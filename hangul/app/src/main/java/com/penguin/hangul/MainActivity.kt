@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity() {
                     val delta: Float = currentAccel - lastAccel
                     accel = accel * 0.9f + delta;
 
-                    if (accel > 21) {
+                    if (accel > 12) {
                         onJumpDetected()
                     }
                 }
