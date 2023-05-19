@@ -1,0 +1,92 @@
+pipeline {
+    agent any
+    tools {
+        gradle 'gradle 7.6.1'
+    }
+
+    environment{
+        imagename= "sangemini/wooahan_back"
+        registryCredential='docker_hub'
+        dockerImage=''
+        containerName='spring'
+        noneFile= '"dangling=true"'
+        //noneFile?
+    }
+    stages {
+        stage('Git Clone') {
+            steps {
+                git branch: 'feat-be-member',
+                url: 'https://lab.ssafy.com/s08-final/S08P31B206.git'
+            }
+        }
+
+        stage('BE-Build') {
+            steps {
+                echo 'be-build에유'
+                dir("./back") {
+                    sh "./gradlew clean build"
+                }
+                sh '''
+                REQUETE="curl -i \
+                        -X POST \
+                        -H 'Content-Type: application/json' \
+                        -d '{ \
+                                \"channel\": \"$CHANNEL\", \
+                                \"icon_url\": \"https://www.mattermost.org/wp-content/uploads/2016/04/icon.png\", \
+                                \"attachments\": [{ \
+                                        \"fallback\": \"Nouvelle construction Jenkins\", \
+                                        \"color\": \"#FF8000\", \
+                                        \"text\": \"Informations sur la construction :\", \
+                                        \"author_name\": \"Jenkins\", \
+                                        \"author_icon\": \"https://myjenkins .com/url/vers/photo/jenkins.png\", \
+                                        \"author_link\": \"https://myjenkins.com/\", \
+                                        \"title\": \"Nouvelle version déployée\", \
+                                        \"title_link\": \"$BUILD_URL\", \
+                                        \"fields\": [{ \
+                                                  \"short\":true, \
+                                                  \"title\":\"Branche\", \
+                                                  \"value\":\"$_BRANCH_NAME\" \
+                                        }, \
+                                        { \
+                                                  \"short\":true, \
+                                                  \"title\":\"Version\", \
+                                                  \"value\":\"$_PROJECT_VERSION\" \
+                                        }, \
+                                        { \
+                                                \"short\":false, \
+                                                \"title\":\"Détails\", \
+                                                \"value\":\"$BUILD_URL\" \
+                                        }] \
+                        }] \
+                        }'\
+                        https://meeting.ssafy.com/hooks/arzxrektniyrm8tj7fyf5m5kma"
+                        '''
+            }
+        }
+
+//         stage('Bulid Docker') {
+//             steps {
+//                 echo 'Bulid Docker에유'
+//                 script {
+//                     dockerImage = docker.build imagename
+//                 }
+//             }
+//         }
+
+        stage('Deploy') {
+            steps {
+                sshagent(credentials: ['aws_key']) {
+                    sh '''
+                    "ssh -o StrictHostKeyChecking=no ubuntu@172.26.0.116 'cd /home/jenkins/workspace/wooahan_back'"
+                    "ssh -o StrictHostKeyChecking=no ubuntu@172.26.0.116 'docker build -t \$(imagename) ."
+                    '''
+                     sh "ssh -o StrictHostKeyChecking=no ubuntu@172.26.0.116 'docker ps -q --filter name=${containerName} | grep -q . && docker rm -f \$(docker ps -aq --filter name=${containerName})'"
+                     sh "ssh -o StrictHostKeyChecking=no ubuntu@172.26.0.116 'docker run -d --name ${containerName} -p 8080:8080 ${imagename}'"
+                     sh "ssh -o StrictHostKeyChecking=no ubuntu@172.26.0.116 'docker rmi -f \$(docker images --filter ${noneFile} -q)'"
+
+                }
+            }
+        }
+
+    }
+}
