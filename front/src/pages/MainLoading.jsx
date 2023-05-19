@@ -26,7 +26,7 @@ const MainLoading = () => {
       const res = await axiosRequest.post("/login/guest", postData);
       dispatch(loginActions.getStarCount(res.starCount));
       dispatch(loginActions.getName(res.name));
-      dispatch(loginActions.getDeviceId(res.email));
+      dispatch(loginActions.getEmail(res.email));
 
       const check = /^[0-9]+$/;
 
