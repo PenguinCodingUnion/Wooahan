@@ -29,7 +29,7 @@ export const Main = () => {
   const dispatch = useDispatch();
   const socialLogin = useSelector((state) => state.loginInfo.socialLogin);
 
-  // useSound(bgm, 0.4, 2000);
+  useSound(bgm, 0.4, 2000);
 
   // 안드로이드 기기 id 받아오기
   const getAndroidId = () => {
