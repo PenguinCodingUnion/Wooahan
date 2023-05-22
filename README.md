@@ -51,9 +51,7 @@
 - 게임을 완료하면 보상으로 별을 얻고, 별 5개를 모으면 보상카드를 얻을 수 있다.
 - 보상카드를 얻은 후 도감 페이지에 들어가 지금까지 얻은 카드를 모아볼 수 있다.
 
-![보상카드 획득](https://drive.google.com/file/d/1rBZN424RartycUz1CX-TLGVm68i4CeeC/view?usp=sharing)
-
-<img src="https://drive.google.com/file/d/1rBZN424RartycUz1CX-TLGVm68i4CeeC/view?usp=share_link" width="450px" height="300px" title="보상카드 획득" alt="card"></img><br/>
+<img src="https://drive.google.com/uc?export=view&id=1rBZN424RartycUz1CX-TLGVm68i4CeeC" width="100%" height="300px" title="보상카드 획득" alt="card"></img><br/>
 
 ### 🤎 로그인
 
