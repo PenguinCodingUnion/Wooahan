@@ -46,25 +46,25 @@
   - TTS를 이용해 한글 문장을 읽어주고 띄어쓰기가 적용되어야 할 부분에서 뛰는 행동을 하면 가속도센서를 이용해 움직임을 감지하여 게임이 진행된다.
   - 한글을 배우기 시작하는 주 연령층인 5세~7세는 단어와 형태소를 구분적으로 인식하지 못하고 문장 전체를 받아들인다. 따라서 화면에 문장을 보여주고 소리로 단어의 구분을 알려주어 한글의 구성을 공부할 수 있도록 한다.
 
-<img src="https://drive.google.com/uc?export=view&id=1Tm_OYrnEubEQNc0j8TABiy8MzM8dAPeM" width="600px" height="300px" title="뛰어쓰기" alt="train"></img><br/>
+<img src="docs/gifs/pengul_jump_gif.gif" width="600px" height="300px" title="뛰어쓰기" alt="jump"></img><br/>
 
 ### 🧡 그림찾기
 
 - 하나의 단어와 두 개의 사진이 주어지면 핸드폰을 기울여 일치하는 사진으로 캐릭터가 이동하도록 중력센서를 통해 조작하는 게임.
 
-<img src="https://drive.google.com/uc?export=view&id=1a4N2im_27jYHGUiVrUJA5D2AjWCRPa6C" width="600px" height="300px" title="그림찾기" alt="train"></img><br/>
+<img src="docs/gifs/그림찾기.gif" width="600px" height="300px" title="그림찾기" alt="sleigh"></img><br/>
 
 ### 💛 한글방울
 
 - 가운데 사진 하나가 주어지고 단어 4개 중 일치하는 단어를 선택하는 게임.
 
-<img src="https://drive.google.com/uc?export=view&id=1kVmBJhc8BsQKxWEv3wjifeQQJtGlvQCi" width="600px" height="300px" title="한글방울" alt="train"></img><br/>
+<img src="docs/gifs/한글방울.gif" width="600px" height="300px" title="한글방울" alt="bubble"></img><br/>
 
 ### 💚 끝말기차
 
 - 주어진 글자와 일치하는 끝 글자를 가진 단어를 선택하는 게임.
 
-<img src="https://drive.google.com/uc?export=view&id=1OGT5IlP2MF5IEbh1T9H-MLueFYAyk_ix" width="600px" height="300px" title="끝말기차" alt="train"></img><br/>
+<img src="docs/gifs/기차_게임.gif" width="600px" height="300px" title="끝말기차" alt="train"></img><br/>
 
 ### 모든 게임은 동작에 따라 단어를 읽어주고, 단어의 이해를 돕기 위한 사진을 보여준다.
 
@@ -72,7 +72,7 @@
 
 - 무한캐러셀을 이용해 화면을 스와이프 하여 게임을 선택할 수 있다.
 
-<img src="https://drive.google.com/uc?export=view&id=1KQNP-YOq8VrqD7LJQAf-3RXhEPPjZnzf" width="600px" height="300px" title="캐러셀" alt="card"></img><br/>
+<img src="docs/gifs/메인페이지+설정페이지.gif" width="600px" height="300px" title="캐러셀" alt="card"></img><br/>
 
 ### 💜 보상카드
 
